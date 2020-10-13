@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const productsRoutes = require('./routes/product');
+const clientRoutes = require('./routes/client');
+const addressClientRoutes = require('./routes/addressClient');
 const app = express();
 
 
@@ -23,6 +25,9 @@ app
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET, OPTIONS');
     next();
   })
-  .use('/products', productsRoutes);
+  .use('/products', productsRoutes)
+  .use('/client', clientRoutes)
+  .use('/address', addressClientRoutes);
+
 
 module.exports = app;
