@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const productsRoutes = require('./routes/product');
 const app = express();
+
 
 // change the db
 mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTteam?retryWrites=true&w=majority')
@@ -20,6 +22,7 @@ app
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET, OPTIONS');
     next();
-  });
+  })
+  .use('/products', productsRoutes);
 
 module.exports = app;
