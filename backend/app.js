@@ -5,6 +5,7 @@ const productsRoutes = require('./routes/product');
 const clientRoutes = require('./routes/client');
 const addressClientRoutes = require('./routes/addressClient');
 const app = express();
+const users = require('./routes/users');
 
 
 // change the db
@@ -28,6 +29,11 @@ app
   .use('/products', productsRoutes)
   .use('/client', clientRoutes)
   .use('/address', addressClientRoutes);
+
+
+
+app.use("/users", users);
+
 
 
 module.exports = app;
