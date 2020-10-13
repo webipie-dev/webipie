@@ -13,7 +13,14 @@ router.get('/:_id', ClientService.getOneClient)
 // addClient
 router.post('', ClientService.addClient)
 
-// deleteCLient
-router.delete('/:_id', ClientService.deleteClient)
+
+// deleteManyCLients
+router.delete('', ClientService.deleteManyClients)
+
+//deleteAllClients
+router.delete('/delete', ClientService.deleteAllClients)
+
+
+router.patch('/update', ClientService.editClient)
 
 module.exports = router;

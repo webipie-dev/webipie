@@ -9,7 +9,7 @@ const ExSchema = new Schema({
   city: {type: String},
   state: {type: String},
   zipCode: {type: String},
-  client : {type:  Schema.Types.ObjectID, ref: "Client"}
+  // client : {type:  Schema.Types.ObjectID, ref: "Client"}
 });
 
 module.exports = mongoose.model('addressClient', ExSchema);

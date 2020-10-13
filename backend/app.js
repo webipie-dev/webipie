@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const productsRoutes = require('./routes/product');
 const clientRoutes = require('./routes/client');
 const addressClientRoutes = require('./routes/addressClient');
+const orderRoutes = require('./routes/order');
 const app = express();
 
 
@@ -27,7 +28,8 @@ app
   })
   .use('/products', productsRoutes)
   .use('/client', clientRoutes)
-  .use('/address', addressClientRoutes);
+  .use('/address', addressClientRoutes)
+  .use('/order', orderRoutes)
 
 
 module.exports = app;
