@@ -16,7 +16,8 @@ const ExSchema = new Schema({
   phoneNumber: {type: String},
   email: {type: String},
   gender: {type: String},
-  fullAddress: address
+  fullAddress: address,
+  orders: [{ type: Schema.Types.ObjectID, ref: "Order", default: [] }]
 
 });
 
