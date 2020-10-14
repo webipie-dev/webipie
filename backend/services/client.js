@@ -1,6 +1,7 @@
 const Client = require('../models/client')
 const mongoose = require('mongoose')
 
+// getAndFilter
 exports.getClients = (req, res) => {
   Client.find(req.query)
     .then((documents) => {
@@ -33,7 +34,8 @@ exports.addClient = (req, res) => {
     lastname: req.body.lastname,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
-    gender: req.body.gender
+    gender: req.body.gender,
+    fullAddress: req.body.fullAddress
   });
   client
     .save()
@@ -47,20 +49,60 @@ exports.addClient = (req, res) => {
   });
 }
 
-exports.deleteClient = (req, res) => {
-  var array = req.params._id;
-  // console.log(array);
-  Client.deleteMany({
-    _id: {
-      $in: array
-    }
-  }).then(result => {
-    console.log(result);
-    res.status(200).json({
-      message: 'clients deleted'
+exports.deleteManyClients = (req, res, next) => {
+  // console.log(req.body)
+  const ids = req.body.ids;
+  // console.log(ids)
+  Client.deleteMany({_id: {$in: ids}})
+    .exec()
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err});
     });
-  }).catch(err => {
-    res.status(500).json({error: err});
-  });
-}
+};
+
+exports.deleteAllClients = (req, res, next) => {
+  Client.deleteMany({})
+    .exec()
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err});
+    });
+};
+
+exports.editClient = (req, res, next) => {
+  // separating the ids
+  const ids = req.body.ids;
+
+  // separating the updates
+  const edits = {};
+  for(var key in req.body) {
+    if(req.body.hasOwnProperty(key)) {
+      if(key !== 'ids'){
+        edits[key] = req.body[key];
+      }
+    }
+  }
+
+  Client.updateMany({_id: {$in :ids}}, { $set: edits })
+    .exec()
+    .then(result => {
+      console.log(result);
+      res.status(200).json({
+        edits: edits,
+        result: result
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({error: err});
+    });
+};
+
 

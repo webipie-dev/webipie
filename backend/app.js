@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const productsRoutes = require('./routes/product');
 const clientRoutes = require('./routes/client');
 const addressClientRoutes = require('./routes/addressClient');
+const orderRoutes = require('./routes/order');
 const app = express();
 const users = require('./routes/users');
 
@@ -29,8 +30,17 @@ app
   .use("/users", users)
   .use('/products', productsRoutes)
   .use('/client', clientRoutes)
+<<<<<<< HEAD
   .use('/address', addressClientRoutes);
   
+=======
+  .use('/address', addressClientRoutes)
+  .use('/order', orderRoutes)
+
+
+
+app.use("/users", users);
+>>>>>>> b9a4c5cf7e4d1a5fbdf57937995df81329a303ed
 
 
 

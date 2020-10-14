@@ -57,18 +57,30 @@ exports.addAddress = (req, res) => {
   });
 }
 
-exports.deleteAddress = (req, res) => {
-  var array = req.params._id;
-  Address.deleteMany({
-    _id: {
-      $in: array
-    }
-  }).then(result => {
-    console.log(result);
-    res.status(200).json({
-      message: 'Addresses deleted'
+
+
+exports.deleteManyAddresses = (req, res, next) => {
+  const ids = req.body.ids;
+  console.log(ids)
+  Address.deleteMany({_id: {$in: ids}})
+    .exec()
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err});
     });
-  }).catch(err => {
-    res.status(500).json({error: err});
-  });
-}
+};
+
+exports.deleteAllAddresses = (req, res, next) => {
+  Address.deleteMany({})
+    .exec()
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: err});
+    });
+};

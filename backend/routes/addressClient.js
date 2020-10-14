@@ -12,6 +12,9 @@ router.get('/:_id', AddressService.getOneAddress)
 router.post('', AddressService.addAddress)
 
 // deleteAddress
-router.delete('/:_id', AddressService.deleteAddress)
+router.delete('', AddressService.deleteManyAddresses)
+
+// delete all addresses
+router.delete('/delete', AddressService.deleteAllAddresses)
 
 module.exports = router;

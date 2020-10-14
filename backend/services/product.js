@@ -2,8 +2,10 @@ const Product = require('../models/product');
 const mongoose = require('mongoose');
 
 exports.getAllProducts = (req, res, next) => {
+  const query = filterProducts(req);
+  console.log(query);
   Product
-    .find(req.query)
+    .find(query)
     .exec()
     .then(docs => {
       res.status(200).json({
@@ -108,7 +110,7 @@ exports.editProducts = (req, res, next) => {
 
 exports.deleteManyProducts = (req, res, next) => {
   const ids = req.body.ids;
-  Product.remove({_id: {$in: ids}})
+  Product.deleteMany({_id: {$in: ids}})
     .exec()
     .then(result => {
       res.status(200).json(result);
@@ -120,7 +122,7 @@ exports.deleteManyProducts = (req, res, next) => {
 };
 
 exports.deleteAllProducts = (req, res, next) => {
-  Product.remove({})
+  Product.deleteMany({})
     .exec()
     .then(result => {
       res.status(200).json(result);
@@ -130,5 +132,42 @@ exports.deleteAllProducts = (req, res, next) => {
       res.status(500).json({ error: err});
     });
 };
+
+filterProducts = (req => {
+  var query = {};
+  for (var propName in req.query) {
+    if (req.query.hasOwnProperty(propName)) {
+      if (['name', 'description', 'price', 'quantity'].includes(propName)) {
+        query[propName] = req.query[propName];
+      } else {
+        if (propName === 'minPrice') {
+          if(query['price'] === undefined) {
+            query['price'] = {}
+          }
+          query.price['$gt'] = req.query[propName];
+        }
+        else if (propName === 'maxPrice') {
+          if(query['price'] === undefined) {
+            query['price'] = {}
+          }
+          query.price['$lt'] = req.query[propName];
+        }
+        else if (propName === 'minQuantity') {
+          if(query['quantity'] === undefined) {
+            query['quantity'] = {}
+          }
+          query['quantity']['$gt'] = req.query[propName]
+        }
+        else if (propName === 'maxQuantity') {
+          if(query['quantity'] === undefined) {
+            query['quantity'] = {}
+          }
+          query['quantity']['$lt'] = req.query[propName]
+        }
+      }
+    }
+  }
+  return query;
+});
 
 
