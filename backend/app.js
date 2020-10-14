@@ -27,14 +27,20 @@ app
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET, OPTIONS');
     next();
   })
+  .use("/users", users)
   .use('/products', productsRoutes)
   .use('/client', clientRoutes)
+<<<<<<< HEAD
+  .use('/address', addressClientRoutes);
+  
+=======
   .use('/address', addressClientRoutes)
   .use('/order', orderRoutes)
 
 
 
 app.use("/users", users);
+>>>>>>> b9a4c5cf7e4d1a5fbdf57937995df81329a303ed
 
 
 
