@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 exports.getAllProducts = (req, res, next) => {
   const query = filterProducts(req);
-  console.log(query);
+  // console.log(query);
   Product
     .find(query)
     .exec()
@@ -12,11 +12,7 @@ exports.getAllProducts = (req, res, next) => {
         message: 'success',
         count: docs.length,
         products: docs.map(doc => {
-          return {
-            _id: doc._id,
-            name: doc.name,
-            price: doc.price
-          }
+          return doc
         })
       })
     })

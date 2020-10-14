@@ -1,4 +1,8 @@
 const Order = require('../models/order')
+const Product = require('../models/product')
+const Client = require('../models/client')
+
+
 const mongoose = require('mongoose')
 
 // getAndFilterOrder
@@ -34,15 +38,48 @@ exports.addOrder = (req, res) => {
     orderStatus: req.body.orderStatus,
     totalPrice: req.body.totalPrice,
     paymentMethod: req.body.paymentMethod,
+    products: req.body.products,
+    client: req.body.client,
 
   });
+  // order
+  //   .save()
+  //   .then(doc => {
+  //     res.status(201).json({
+  //       message: 'added with success',
+  //       order: doc
+  //     });
+  //   }).catch(err => {
+  //   res.status(500).json({error: err});
+  // });
   order
     .save()
-    .then(doc => {
-      res.status(201).json({
-        message: 'added with success',
-        order: doc
+    .then(doc =>{
+      Client
+        .updateOne({ _id : doc.client }, {$push: {orders: doc._id}})
+        .exec()
+        .then(result => {
+          // console.log(doc)
+          res.status(201).json({
+            message: 'added with success',
+            order: doc,
+            client: result
+          });
+        }).catch(err => {
+        res.status(500).json({error: err})
       });
+      Product
+        .updateMany({ _id : { $in : doc.products } }, {$set: {order: doc._id}})
+        .exec()
+        .then(result => {
+          res.status(201).json({
+            message: 'added with success',
+            order: doc,
+            product: result
+          });
+        }).catch(err => {
+        res.status(500).json({error: err})
+      })
     }).catch(err => {
     res.status(500).json({error: err});
   });

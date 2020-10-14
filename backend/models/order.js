@@ -8,6 +8,8 @@ const ExSchema = new Schema({
   orderStatus: {type: String},
   totalPrice: {type: Number},
   paymentMethod: {type: String},
+  products: [{type:  Schema.Types.ObjectID, ref: "Product" }],
+  client: {type: Schema.Types.ObjectID, ref: "Client", }
 });
 
 module.exports = mongoose.model('Order', ExSchema);
