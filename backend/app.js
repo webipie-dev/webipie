@@ -5,6 +5,7 @@ const productsRoutes = require('./routes/product');
 const clientRoutes = require('./routes/client');
 const addressClientRoutes = require('./routes/addressClient');
 const orderRoutes = require('./routes/order');
+const storeRoutes = require('./routes/store')
 const app = express();
 const storeOwnerRoutes = require('./routes/storeOwner');
 
@@ -35,9 +36,6 @@ app
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
 
-
-
-app.listen(3000);
 
 
 module.exports = app;

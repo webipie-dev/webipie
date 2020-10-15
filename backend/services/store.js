@@ -14,6 +14,7 @@ exports.getStores = (req, res) => {
   });
 }
 
+
 exports.getOneStore = (req, res) => {
   const id = req.params._id;
   Store.findById(id)
