@@ -6,7 +6,7 @@ const clientRoutes = require('./routes/client');
 const addressClientRoutes = require('./routes/addressClient');
 const orderRoutes = require('./routes/order');
 const app = express();
-const users = require('./routes/users');
+const storeOwnerRoutes = require('./routes/storeOwner');
 
 
 // change the db
@@ -27,7 +27,7 @@ app
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET, OPTIONS');
     next();
   })
-  .use("/users", users)
+  .use("/storeOwner", storeOwnerRoutes)
   .use('/products', productsRoutes)
   .use('/client', clientRoutes)
 
@@ -36,6 +36,6 @@ app
 
 
 
+app.listen(3000);
 
-
-module.exports = app;
+// module.exports = app;

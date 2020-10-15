@@ -8,7 +8,11 @@ const ExSchema = new Schema({
   orderStatus: {type: String},
   totalPrice: {type: Number},
   paymentMethod: {type: String},
-  products: [{type:  Schema.Types.ObjectID, ref: "Product" }],
+  products: [
+    {
+      id : {type:  Schema.Types.ObjectID, ref: "Product" },
+      quantity: {type: Number}
+    }],
   client: {type: Schema.Types.ObjectID, ref: "Client", }
 });
 

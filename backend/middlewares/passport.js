@@ -6,7 +6,7 @@ const GooglePlusTokenStrategy = require('passport-google-plus-token');
 const FacebookTokenStrategy = require('passport-facebook-token');
 
 const config = require('../configuration');
-const {User} = require('../models/user');
+const {StoreOwner} = require('../models/storeOwner');
 
 
 // JSON WEB TOKENS STRATEGY
@@ -16,17 +16,17 @@ passport.use(new JwtStrategy({
     passReqToCallback: true
   }, async (req, payload, done) => {
     try {
-      // Find the user specified in token
-      const user = await User.findById(payload.sub);
+      // Find the storeOwner specified in token
+      const storeOwner = await StoreOwner.findById(payload.sub);
 
-      // If user doesn't exists, handle it
-      if (!user) {
+      // If storeOwner doesn't exists, handle it
+      if (!storeOwner) {
         return done(null, false);
       }
   
-      // Otherwise, return the user
-      req.user = user;
-      done(null, user);
+      // Otherwise, return the storeOwner
+      req.storeOwner = storeOwner;
+      done(null, storeOwner);
     } catch(error) {
       done(error, false);
     }
@@ -42,15 +42,15 @@ passport.use('googleToken' , new GooglePlusTokenStrategy({
     console.log('refreshToken ', refreshToken);
     console.log('profile ', profile);
 
-    const existingUser = await User.findOne({"google.id" : profile.id});
-    if (existingUser){
-      console.log('user already exists in BD');
-      return done(null, existingUser);
+    const existingStoreOwner = await StoreOwner.find({"google.id" : profile.id}).limit(1);
+    if (existingStoreOwner){
+      console.log('storeOwner already exists in BD');
+      return done(null, existingStoreOwner);
     }
 
-    console.log('User dosen\'t exist we create new one');
+    console.log('StoreOwner dosen\'t exist we create new one');
 
-    const newUser = new User({
+    const newStoreOwner = new StoreOwner({
       method: ['google'],
       google: {
         id: profile.id,
@@ -58,8 +58,8 @@ passport.use('googleToken' , new GooglePlusTokenStrategy({
       }
     });
 
-    await newUser.save();
-    done(null, newUser);
+    await newStoreOwner.save();
+    done(null, newStoreOwner);
   } catch (error) {
     done(error, false, error.message);
   }
@@ -76,15 +76,15 @@ passport.use('facebookToken' , new FacebookTokenStrategy({
     console.log('refreshToken ', refreshToken);
     console.log('profile ', profile);
 
-    const existingUser = await User.findOne({"facebook.id" : profile.id});
-    if (existingUser){
-      console.log('user already exists in BD');
-      return done(null, existingUser);
+    const existingStoreOwner = await StoreOwner.find({"facebook.id" : profile.id}).limit(1);
+    if (existingStoreOwner){
+      console.log('storeOwner already exists in BD');
+      return done(null, existingStoreOwner);
     }
 
-    console.log('User dosen\'t exist we create new one');
+    console.log('StoreOwner dosen\'t exist we create new one');
 
-    const newUser = new User({
+    const newStoreOwner = new StoreOwner({
       methods: ['facebook'],
       facebook: {
         id: profile.id,
@@ -92,8 +92,8 @@ passport.use('facebookToken' , new FacebookTokenStrategy({
       }
     });
 
-    await newUser.save();
-    done(null, newUser);
+    await newStoreOwner.save();
+    done(null, newStoreOwner);
   } catch (error) {
     done(error, false, error.message);
   }
@@ -105,25 +105,27 @@ passport.use(new LocalStrategy({
   usernameField: 'email'
 }, async (email, password, done) => {
   try {
-    // Find the user given the email
-    const user = await User.findOne({ "local.email": email });
-    
+    // Find the storeOwner given the email
+    let storeOwner = await StoreOwner.find({ "local.email": email }).limit(1);
+    storeOwner = storeOwner[0]
+
     // If not, handle it
-    if (!user) {
+    if (!storeOwner) {
       return done(null, false);
     }
 
+    // console.log(storeOwner)
     // Check if the password is correct
-    const isMatch = await user.isValidPassword(password);
+    const isMatch = await storeOwner.isValidPassword(password);
   
-    console.log(isMatch)
+    // console.log(isMatch)
     // If not, handle it
     if (!isMatch) {
       return done(null, false);
     }
   
-    // Otherwise, return the user
-    done(null, user);
+    // Otherwise, return the storeOwner
+    done(null, storeOwner);
   } catch(error) {
     done(error, false);
   }

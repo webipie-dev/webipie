@@ -32,7 +32,7 @@ exports.getOneOrder = (req, res) => {
     });
 }
 
-exports.addOrder = (req, res) => {
+exports.addOrder = async (req, res) => {
   const order = new Order({
     orderDate: req.body.orderDate,
     orderStatus: req.body.orderStatus,
@@ -52,37 +52,59 @@ exports.addOrder = (req, res) => {
   //   }).catch(err => {
   //   res.status(500).json({error: err});
   // });
-  order
-    .save()
-    .then(doc =>{
-      Client
-        .updateOne({ _id : doc.client }, {$push: {orders: doc._id}})
-        .exec()
-        .then(result => {
-          // console.log(doc)
-          res.status(201).json({
-            message: 'added with success',
-            order: doc,
-            client: result
-          });
-        }).catch(err => {
-        res.status(500).json({error: err})
-      });
-      Product
-        .updateMany({ _id : { $in : doc.products } }, {$set: {order: doc._id}})
-        .exec()
-        .then(result => {
-          res.status(201).json({
-            message: 'added with success',
-            order: doc,
-            product: result
-          });
-        }).catch(err => {
-        res.status(500).json({error: err})
-      })
-    }).catch(err => {
-    res.status(500).json({error: err});
+
+
+  // order
+  //   .save()
+  //   .then(doc =>{
+  //     Client
+  //       .updateOne({ _id : doc.client }, {$push: {orders: doc._id}})
+  //       .exec();
+
+  //     Product
+  //       .updateMany({ _id : { $in : doc.products } }, {$set: {order: doc._id}})
+  //       .exec();
+
+  //     res.status(201).json({
+  //       message: 'added with success',
+  //       order: doc,
+  //     });
+
+  //   }).catch(err => {
+  //   res.status(500).json({error: err});
+  // });
+
+  const doc = await order.save();
+  console.log(doc);
+  const client = await Client.updateOne({ _id : doc.client }, {$push: {orders: doc._id}});
+
+  // let prods =  doc.products.map(prod => prod._id);
+
+  // doc.products.map( prod => {
+  //   Product
+  //     .updateOne({_id: prod._id} , {$inc : {quantity: -prod.quantity } })
+  //     .exec()
+  //     .then()
+  //     .catch();
+
+  // });
+
+  let bulkQueries = [];
+  doc.products.map(product => {
+    bulkQueries.push({
+      updateOne: {
+        "filter": { _id: product.id},
+        "update":{$inc: {quantity: -product.quantity}}
+      }
+    })
   });
+  console.log(bulkQueries);
+  Product
+    .bulkWrite(bulkQueries, {ordered: false})
+    .then()
+    .catch();
+    
+  res.status(200).send('cool')
 }
 
 

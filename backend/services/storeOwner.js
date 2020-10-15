@@ -1,5 +1,5 @@
 const JWT = require('jsonwebtoken');
-const {validateUser , User} = require('../models/user');
+const {validatestoreOwner , StoreOwner} = require('../models/storeOwner');
 const { JWT_SECRET } = require('../configuration');
 
 signToken = user => {
@@ -14,30 +14,32 @@ signToken = user => {
 
 module.exports = {
     signUp : async (req,res) => {
-        const { error } = validateUser(req.body); 
+        const { error } = validatestoreOwner(req.body); 
         if (error) return res.status(400).send(error.details[0].message);
     
         const { email,password } = req.body;
 
-        let findUser = await User.findOne({ "local.email": email });
-        if (findUser) return res.status(403).send({ error: 'Email is already in use'});
+        let findstoreOwner = await StoreOwner.find({ "local.email": email }).limit(1);
+        findstoreOwner = findstoreOwner[0];
+        if (findstoreOwner) return res.status(403).send({ error: 'Email is already in use'});
         
-        findUser = await User.findOne({ 
+        findstoreOwner = await StoreOwner.find({ 
             $or: [
               { "google.email": email },
               { "facebook.email": email },
             ] 
-          });
-          if (findUser) {
+          }).limit(1);
+          findstoreOwner = findstoreOwner[0];
+          if (findstoreOwner) {
             // Let's merge them?
-            findUser.methods.push('local')
-            findUser.local = {
+            findstoreOwner.methods.push('local')
+            findstoreOwner.local = {
               email: email, 
               password: password
             }
-            await findUser.save()
+            await findstoreOwner.save()
             // Generate the token
-            const token = signToken(findUser);
+            const token = signToken(findstoreOwner);
             // Respond with token
             res.cookie('access_token', token, {
               httpOnly: true
@@ -46,16 +48,16 @@ module.exports = {
         }
       
 
-        const newUser = new User({ 
+        const newstoreOwner = new StoreOwner({ 
             methods: ['local'],
             local: {
                 email: email, 
                 password: password
             }
         });
-        await newUser.save();
+        await newstoreOwner.save();
     
-        const token = signToken(newUser);
+        const token = signToken(newstoreOwner);
         res.cookie('access_token', token, {
             httpOnly: true
         });
@@ -64,6 +66,7 @@ module.exports = {
 
     signIn: async (req, res, next) => {
         // Generate token
+        console.log(req)
         const token = signToken(req.user);
         res.cookie('access_token', token, {
             httpOnly: true
@@ -72,6 +75,7 @@ module.exports = {
     },
 
     googleOAuth: async (req, res, next) => {
+        
         const token = signToken(req.user);
         res.cookie('access_token', token, {
             httpOnly: true
@@ -80,6 +84,10 @@ module.exports = {
     },
 
     facebookOAuth: async (req, res, next) => {
+        const token = signToken(req.user);
+        res.cookie('access_token', token, {
+            httpOnly: true
+        });
         res.status(200).json({success: true});
     }
 
