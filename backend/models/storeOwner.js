@@ -2,7 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema({
+const storeOwnerSchema = new mongoose.Schema({
   methods: {
     type: [String],
     required: true
@@ -36,17 +36,17 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save' , async function(next){
+storeOwnerSchema.pre('save' , async function(next){
     try {
       console.log('entered');
       if (!this.methods.includes('local')) {
         next();
       }
 
-      //the user schema is instantiated
-      const user = this;
-      //check if the user has been modified to know if the password has already been hashed
-      if (!user.isModified('local.password')) {
+      //the storeOwner schema is instantiated
+      const storeOwner = this;
+      //check if the storeOwner has been modified to know if the password has already been hashed
+      if (!storeOwner.isModified('local.password')) {
         next();
       }
 
@@ -60,7 +60,7 @@ userSchema.pre('save' , async function(next){
     }
 });
 
-userSchema.methods.isValidPassword = async function (newPassword) {
+storeOwnerSchema.methods.isValidPassword = async function (newPassword) {
   try {
     return await bcrypt.compare(newPassword, this.local.password);
   } catch (error) {
@@ -68,10 +68,10 @@ userSchema.methods.isValidPassword = async function (newPassword) {
   }
 }
 
-const User = mongoose.model('user' , userSchema);
+const StoreOwner = mongoose.model('storeOwner' , storeOwnerSchema);
 
 
-function validateUser(user) {
+function validatestoreOwner(storeOwner) {
 
     schemas = {
         authSchema: Joi.object().keys({
@@ -81,11 +81,11 @@ function validateUser(user) {
     }
 
   
-    return schemas['authSchema'].validate(user);
+    return schemas['authSchema'].validate(storeOwner);
 }
   
 
-module.exports.validateUser = validateUser;
-module.exports.User = User;
+module.exports.validatestoreOwner = validatestoreOwner;
+module.exports.StoreOwner = StoreOwner;
 
 
