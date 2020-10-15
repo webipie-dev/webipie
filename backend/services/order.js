@@ -32,7 +32,7 @@ exports.getOneOrder = (req, res) => {
     });
 }
 
-exports.addOrder = (req, res) => {
+exports.addOrder = async (req, res) => {
   const order = new Order({
     orderDate: req.body.orderDate,
     orderStatus: req.body.orderStatus,
@@ -52,37 +52,36 @@ exports.addOrder = (req, res) => {
   //   }).catch(err => {
   //   res.status(500).json({error: err});
   // });
+
   order
     .save()
     .then(doc =>{
       Client
         .updateOne({ _id : doc.client }, {$push: {orders: doc._id}})
-        .exec()
-        .then(result => {
-          // console.log(doc)
-          res.status(201).json({
-            message: 'added with success',
-            order: doc,
-            client: result
-          });
-        }).catch(err => {
-        res.status(500).json({error: err})
+        .exec();
+
+      let bulkQueries = [];
+      doc.products.map(product => {
+        bulkQueries.push({
+          updateOne: {
+            "filter": { _id: product._id},
+            "update":{$inc: {quantity: -product.quantity}}
+          }
+        })
       });
       Product
-        .updateMany({ _id : { $in : doc.products } }, {$set: {order: doc._id}})
-        .exec()
-        .then(result => {
-          res.status(201).json({
-            message: 'added with success',
-            order: doc,
-            product: result
-          });
-        }).catch(err => {
-        res.status(500).json({error: err})
-      })
+        .bulkWrite(bulkQueries, {ordered: false})
+
+      res.status(201).json({
+        message: 'added with success',
+        order: doc,
+        // product: product
+      });
     }).catch(err => {
     res.status(500).json({error: err});
   });
+
+
 }
 
 

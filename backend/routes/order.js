@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const OrderService = require('../services/order')
+const OrderService = require('../services/order');
+// const router = require('express-promise-router')();
 
 // getOrders
 router.get('', OrderService.getOrders)

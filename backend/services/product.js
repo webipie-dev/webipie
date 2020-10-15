@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 const mongoose = require('mongoose');
 
-exports.getAllProducts = (req, res, next) => {
+exports.getProducts = (req, res, next) => {
   const query = filterProducts(req);
   // console.log(query);
   Product
@@ -11,9 +11,7 @@ exports.getAllProducts = (req, res, next) => {
       res.status(200).json({
         message: 'success',
         count: docs.length,
-        products: docs.map(doc => {
-          return doc
-        })
+        products: docs
       })
     })
     .catch(err =>{
@@ -28,7 +26,7 @@ exports.getOneProduct = (req, res, next) => {
     .findById(productId)
     .exec()
     .then(product => {
-      console.log(product);
+      // console.log(product);
       if(product) {
         res.status(200).json(product);
       } else {
@@ -43,9 +41,13 @@ exports.getOneProduct = (req, res, next) => {
 exports.addProduct = (req, res, next) => {
   const url = req.protocol + '://' +req.get('host');
   var images = [];
-  req.files.map(fileimg => {
-    images.push(url + '/images/' + fileimg.filename)
-  });
+  if (req.files)
+  {
+    req.files.map(fileimg => {
+      images.push(url + '/images/' + fileimg.filename)
+    });
+  }
+
 
   const product = new Product({
     name: req.body.name,

@@ -4,12 +4,11 @@ const Schema = mongoose.Schema;
 
 
 const productSchema = mongoose.Schema({
-  name: {type: String, required: true},
+  name: {type: String, required: false},
   description: {type: String, required: false},
-  imgs: {type: [String], required: true},
-  price: {type: Number, required: true},
+  imgs: {type: [String], required: false},
+  price: {type: Number, required: false},
   quantity: {type: Number, required: false},
-  order: {type:  Schema.Types.ObjectID, ref: "Order" }
 
 });
 
