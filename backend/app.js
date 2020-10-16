@@ -29,13 +29,11 @@ app
     next();
   })
   .use("/storeOwner", storeOwnerRoutes)
-  .use('/products', productsRoutes)
+  .use('/product', productsRoutes)
   .use('/client', clientRoutes)
-
   .use('/address', addressClientRoutes)
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
-
 
 
 module.exports = app;

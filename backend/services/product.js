@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Store = require('../models/store')
 const mongoose = require('mongoose');
 
 exports.getProducts = (req, res, next) => {
@@ -54,12 +55,15 @@ exports.addProduct = (req, res, next) => {
     description: req.body.description,
     imgs: images,
     price: req.body.price,
-    quantity: req.body.quantity
+    quantity: req.body.quantity,
+    store: req.body.store
   });
 
   product
     .save()
     .then(result => {
+      Store.updateOne({ _id : result.store }, {$push: {products: result._id}})
+        .exec();
       res.status(201).json({
         message: 'this is a new product',
         newProduct: result

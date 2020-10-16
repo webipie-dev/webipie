@@ -18,6 +18,8 @@ const ExSchema = new Schema({
   storeType: {type: String},
   creationDate: {type: Date, default: Date.now()},
   contact: contact,
+  products: [{type:  Schema.Types.ObjectID, ref: "Product", default: []}]
+
 
 });
 
