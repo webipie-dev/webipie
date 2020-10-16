@@ -9,6 +9,7 @@ const productSchema = mongoose.Schema({
   imgs: {type: [String], required: false},
   price: {type: Number, required: false},
   quantity: {type: Number, required: false},
+  store: {type: Schema.Types.ObjectID, ref: "Store"}
 
 });
 

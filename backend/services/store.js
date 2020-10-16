@@ -37,6 +37,7 @@ exports.addStore = (req, res) => {
     location: req.body.location,
     storeType: req.body.storeType,
     contact: req.body.contact,
+    products: req.body.products
 
   });
   store

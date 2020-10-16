@@ -12,9 +12,10 @@ const ExSchema = new Schema({
     {
     _id: {type:  Schema.Types.ObjectID, ref: "Product"},
     quantity: {type: Number, default: 1}
-  }
-    ],
-  client: {type: Schema.Types.ObjectID, ref: "Client", }
+    }
+  ],
+  client: {type: Schema.Types.ObjectID, ref: "Client" },
+  store: {type: Schema.Types.ObjectID, ref: "Store" }
 });
 
 module.exports = mongoose.model('Order', ExSchema);

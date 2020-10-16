@@ -1,7 +1,7 @@
 const Order = require('../models/order')
 const Product = require('../models/product')
 const Client = require('../models/client')
-
+const Store = require('../models/store')
 
 const mongoose = require('mongoose')
 
@@ -40,6 +40,7 @@ exports.addOrder = async (req, res) => {
     paymentMethod: req.body.paymentMethod,
     products: req.body.products,
     client: req.body.client,
+    store: req.body.store,
 
   });
   // order
@@ -71,6 +72,11 @@ exports.addOrder = async (req, res) => {
       });
       Product
         .bulkWrite(bulkQueries, {ordered: false})
+
+
+      Store
+        .updateOne({_id : doc.store }, {$addToSet: {clients: doc._id}})
+        .exec()
 
       res.status(201).json({
         message: 'added with success',
