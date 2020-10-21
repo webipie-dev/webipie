@@ -12,6 +12,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SideNavComponent } from './dashboard/side-nav/side-nav.component';
 import { SalesComponent } from './dashboard/sales/sales.component';
 import { SocialMediaComponent } from './dashboard/social-media/social-media.component';
+import { OrdersComponent } from './dashboard/sales/orders/orders.component';
+import {Ng2SmartTableModule} from 'ng2-smart-table';
 
 
 @NgModule({
@@ -25,11 +27,13 @@ import { SocialMediaComponent } from './dashboard/social-media/social-media.comp
     DashboardComponent,
     SideNavComponent,
     SalesComponent,
-    SocialMediaComponent
+    SocialMediaComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng2SmartTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
