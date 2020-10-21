@@ -1,0 +1,61 @@
+/*********** Add / Edit Product *************/
+.upload-images {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+}
+.img-product {
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+.upload-icon {
+    color: var(--blue-color);
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/*.upload-icon {
+    color: var(--blue-color);
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+}*/
+
+.icon {
+    display: block !important;
+    margin-bottom: 10px;
+}
+
+.product-input {
+    border: solid 1px rgba(45, 52, 56, 0.35);
+    width: 90%;
+    height: 90%;
+    padding: 5px 15px;
+    border-radius: 7px;
+    transition: .4s transform ease-in-out;
+    font-size: var(--text-desktop);
+}
+
+.product-input:focus {
+    border: solid 2px var(--blue-color);
+    transition: .4s transform ease-in-out;
+    box-shadow: 0 0 7px rgba(34, 101, 178, 0.5);
+}
+
+.description-area {
+    border: solid 1px rgba(45, 52, 56, 0.35);
+    width: 90%;
+    padding: 5px 15px;
+    border-radius: 12px;
+    transition: .4s transform ease-in-out;
+    font-size: var(--text-desktop);
+}
+
+.form-button {
+    margin: 10px 0 0 0;
+    font-weight: lighter !important;
+}

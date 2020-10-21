@@ -1,0 +1,20 @@
+/* ***************** SideNav ****************** */
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+.sidenav-next {
+    transition: all 0.3s;
+    margin-left: 250px;
+    z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .sidenav-next {
+        transition: all 0.3s ease-in-out;
+        width: 70%;
+        margin: auto;
+    }
+}

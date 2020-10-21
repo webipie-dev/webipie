@@ -1,1 +1,405 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  outline: none !important;
+}
+
+/*Root font size */
+:root {
+  font-size: 10px;
+}
+
+/* ***************** Global Variables ****************** */
+body {
+  --huge-titles-desktop: 3.5rem;
+  --huge-titles-tablet: 2.7rem;
+  --huge-titles-mobile: 1.7rem;
+
+  --big-titles-desktop: 2.4rem;
+  --small-titles-desktop: 2rem;
+  --text-desktop: 1.7rem;
+
+  --big-titles-tablet: 1.9rem;
+  --small-titles-tablet: 1.7rem;
+  --text-tablet: 1.4rem;
+
+  --big-titles-mobile: 1.7rem;
+  --small-titles-mobile: 1.5rem;
+  --text-mobile: 1.2rem;
+
+  --blue-color: #2265B2;
+  --dark-blue-color: #0D2168;
+  --white-color: #F8F8F8;
+  --black-color: #2C2C2C;
+  --light-black-color: #2D3438;
+
+  /* ***************** General Font ****************** */
+
+  font-family: 'Work Sans', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+
+  transition: all 200ms linear;
+
+
+}
+
+/* ***************** Font size on desktop screen ****************** */
+
+.huge-titles {
+  font-size: var(--huge-titles-desktop) !important;
+  color: white;
+}
+
+.big-titles {
+  font-size: var(--big-titles-desktop) !important;
+  font-weight: 700;
+}
+
+.small-titles {
+  font-size: var(--small-titles-desktop) !important;
+  font-weight: 600;
+}
+
+.text-size {
+  font-size: var(--text-desktop) !important;
+}
+
+/* ***************** Font size on tablet screen ****************** */
+@media screen and (max-width: 1024px) {
+  .huge-titles {
+    font-size: var(--huge-titles-tablet) !important;
+  }
+
+  .big-titles {
+    font-size: var(--big-titles-tablet) !important;
+  }
+
+  .small-titles {
+    font-size: var(--small-titles-tablet) !important;
+  }
+
+  .text-size {
+    font-size: var(--text-tablet) !important;
+  }
+}
+
+/* ***************** Font size on mobile screen ****************** */
+@media screen and (max-width: 768px) {
+  .huge-titles {
+    font-size: var(--huge-titles-mobile) !important;
+  }
+
+  .big-titles {
+    font-size: var(--big-titles-mobile) !important;
+  }
+
+  .small-titles {
+    font-size: var(--small-titles-mobile) !important;
+  }
+
+  .text-size {
+    font-size: var(--text-mobile) !important;
+  }
+}
+
+.color-dark-blue {
+  color: var(--dark-blue-color);
+}
+
+.color-blue {
+  color: var(--blue-color);
+}
+
+.color-light-black {
+  color: var(--light-black-color);
+}
+
+.circle-icon {
+  background: var(--blue-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  vertical-align: middle;
+  padding: 10px;
+}
+.circle-icon-footer {
+  background: var(--white-color);
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  vertical-align: middle;
+  padding: 10px;
+}
+.footer-social-media .fab {
+  color: var(--blue-color) ;
+}
+
+.fa, .fas, .fab {
+  color: white;
+}
+@media screen and (max-width: 768px){
+  .fa-2x {
+    font-size: 1.2em !important;
+  }
+  .fa-3x {
+    font-size: 1.6em !important;
+  }
+  .circle-icon-footer {
+    width: 28px;
+    height: 28px;
+  }
+  .circle-icon {
+    width: 33px;
+    height: 33px;
+  }
+}
+
+.fixed-page {
+  height: 100vh;
+}
+
+.white-colored {
+  color: var(--white-color);
+}
+.vertical-image {
+  top: 0;
+  right: 20px;
+  left: 20px;
+  bottom: 0;
+  position: absolute;
+}
+
+.line-login {
+  height: 3px;
+  width: 30%;
+  background-color: dimgrey;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 768px) {
+  .line-login {
+    display: none !important;
+  }
+}
+
+
+.sign-in-icon {
+  width: 50px;
+  height: auto;
+  display: block;
+}
+/*****************************************/
+
+
+
+
+/* ***************** Buttons ****************** */
+
+.button-generic {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.button-generic:hover {
+  text-decoration: none;
+}
+
+.button-white {
+  background-color: var(--white-color);
+  color: var(--dark-blue-color) !important;
+  font-weight: 600;
+}
+
+.button-white:hover {
+  background-color: var(--dark-blue-color);
+  color: var(--white-color) !important;
+}
+
+.button-blue {
+  background-color: var(--blue-color);
+  color: var(--white-color) !important;
+  font-weight: 600;
+  margin: 25px 0 25px 0;
+}
+
+.button-blue:hover {
+  background-color: var(--dark-blue-color);
+  color: var(--white-color) !important;
+}
+
+.button-white-border-blue {
+  box-shadow: none !important;
+  background-color: var(--white-color);
+  color: var(--blue-color) !important;
+  border: solid 2px var(--blue-color) !important;
+}
+
+.button-white-border-blue:hover {
+  background-color: var(--blue-color);
+  color: var(--white-color) !important;
+}
+
+.button-dark-blue {
+  background-color: var(--dark-blue-color);
+  color: var(--white-color) !important;
+}
+
+.button-dark-blue:hover {
+  background-color: var(--white-color);
+  color: var(--dark-blue-color) !important;
+}
+
+.button-black {
+  background-color: var(--light-black-color);
+  border: solid 2px var(--white-color) !important;
+  color: var(--white-color) !important;
+  box-shadow: none !important;
+  font-weight: 500;
+}
+
+.button-black:hover {
+  color: var(--light-black-color) !important;
+  background-color: var(--white-color);
+}
+
+/* end Buttons */
+
+
+.line-behind-text {
+  background-color: rgba(34, 101, 178, 0.4);
+  border-radius: 6px;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  height: 1rem;
+  width: 110%;
+  margin-top: -2px;
+  padding: 0 10px 10px 10px;
+  z-index: -1;
+}
+
+
+.text-front {
+  position: relative;
+  display: inline;
+  z-index: 99;
+}
+
+
+/* ****************** Footer ******************** */
+.blue-footer {
+  width: 100%;
+  color: var(--white-color);
+  padding-top: 20px;
+  margin-top: 20px;
+  background: linear-gradient(180deg, var(--blue-color) 0%, var(--dark-blue-color) 70%);
+}
+
+.blue-footer-templates-page {
+  background: var(--blue-color) !important;
+}
+
+.upper-footer {
+  padding-top: 15px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.upper-footer-text {
+  margin-top: 30px;
+  padding-bottom: 20px;
+  border-bottom: solid 2px var(--white-color);
+}
+
+.footer-social-media {
+  display: inline-block;
+  right: 0;
+  float: right;
+  margin-top: -20px;
+}
+
+.footer-copyright {
+  display: inline-block;
+  left: 0;
+}
+
+/*--------------- Input ---------------*/
+input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer;
+  border: 2px solid;
+}
+
+.input {
+  width: 100%;
+  color: var(--black-color);
+  background-color: transparent;
+  display: block;
+  border: 3px solid var(--blue-color);
+  padding: 5px 15px;
+  border-radius: 12px;
+  transition: .4s transform ease-in-out;
+  font-size: var(--text-desktop);
+}
+@media screen and (max-width: 990px){
+  .input {
+    font-size: var(--text-tablet);
+  }
+}
+@media screen and (max-width: 768px){
+  .input {
+    font-size: var(--small-titles-mobile);
+  }
+}
+
+.input:focus-within {
+  background-color: var(--blue-color);
+  transition: all 0.2s ease-out;
+  color: white;
+}
+
+.input::-webkit-input-placeholder {
+  color: dimgrey;
+}
+
+.input:focus::-webkit-input-placeholder {
+  color: white;
+}
+
+/* Firefox < 19 */
+.input:-moz-placeholder {
+  color: transparent;
+}
+
+input:focus:-moz-placeholder {
+  color: white;
+}
+
+/* Firefox > 19 */
+input::-moz-placeholder {
+  color: transparent;
+}
+
+input:focus::-moz-placeholder {
+  color: white;
+}
+
+/* Internet Explorer 10 */
+input:-ms-input-placeholder {
+  color: transparent;
+}
+
+input:focus:-ms-input-placeholder {
+  color: white;
+}
+
+.input-wrapper {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
