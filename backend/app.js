@@ -6,6 +6,7 @@ const clientRoutes = require('./routes/client');
 const addressClientRoutes = require('./routes/addressClient');
 const orderRoutes = require('./routes/order');
 const storeRoutes = require('./routes/store')
+const templateRoutes = require('./routes/template')
 const app = express();
 const storeOwnerRoutes = require('./routes/storeOwner');
 
@@ -29,15 +30,12 @@ app
     next();
   })
   .use("/storeOwner", storeOwnerRoutes)
-  .use('/products', productsRoutes)
+  .use('/product', productsRoutes)
   .use('/client', clientRoutes)
-
   .use('/address', addressClientRoutes)
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
+  .use('/template',templateRoutes)
 
 
-
-// module.exports = app;
-
-app.listen(3000)
+module.exports = app;

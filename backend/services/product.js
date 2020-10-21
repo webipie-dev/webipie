@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const Store = require('../models/store'); 
+const Store = require('../models/store');
 const mongoose = require('mongoose');
 
 exports.getProducts = (req, res, next) => {
