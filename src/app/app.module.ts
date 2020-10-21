@@ -12,6 +12,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SideNavComponent } from './dashboard/side-nav/side-nav.component';
 import { SalesComponent } from './dashboard/sales/sales.component';
 import { SocialMediaComponent } from './dashboard/social-media/social-media.component';
+import { MobileAppPageComponent } from './dashboard/mobile-app-page/mobile-app-page.component';
+import { EditProductComponent } from './dashboard/edit-product/edit-product.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { SocialMediaComponent } from './dashboard/social-media/social-media.comp
     DashboardComponent,
     SideNavComponent,
     SalesComponent,
-    SocialMediaComponent
+    SocialMediaComponent,
+    MobileAppPageComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
