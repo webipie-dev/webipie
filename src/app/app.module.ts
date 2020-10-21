@@ -7,7 +7,8 @@ import { IndexComponent } from './index/index.component';
 import { PricingComponent } from './index/pricing/pricing.component';
 import { HeaderComponent } from './index/header/header.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
-import { StartBusinessComponent } from './index/start-business/start-business.component';
+import { AfterSigninComponent } from './index/after-signin/after-signin.component';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { StartBusinessComponent } from './index/start-business/start-business.co
     PricingComponent,
     HeaderComponent,
     SignInComponent,
-    StartBusinessComponent
+    AfterSigninComponent
   ],
   imports: [
     BrowserModule,
