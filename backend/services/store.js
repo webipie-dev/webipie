@@ -30,9 +30,16 @@ exports.getOneStore = (req, res) => {
 }
 
 exports.addStore = (req, res) => {
+
+  if(req.file){
+    logo = req.protocol + "://" + req.get("host")  + "/images/logos" + req.file.filename
+  }else {
+    logo = ''
+  }
+
   const store = new Store({
     name: req.body.name,
-    logo: req.body.logo,
+    logo: logo,
     description: req.body.description,
     location: req.body.location,
     storeType: req.body.storeType,
@@ -82,21 +89,27 @@ exports.deleteAllStores = (req, res, next) => {
 exports.editStore = (req, res, next) => {
   // separating the ids
   const ids = req.body.ids;
+  console.log(ids)
+
+  if(req.file){
+    logo = req.protocol + "://" + req.get("host")  + "/images/logos" + req.file.filename
+  }else {
+    logo = ''
+  }
 
   // separating the updates
   const edits = {};
+  edits['logo'] = logo
   for(var key in req.body) {
-    if(req.body.hasOwnProperty(key)) {
       if(key !== 'ids'){
         edits[key] = req.body[key];
-      }
+
     }
   }
 
   Store.updateMany({_id: {$in :ids}}, { $set: edits })
     .exec()
     .then(result => {
-      console.log(result);
       res.status(200).json({
         edits: edits,
         result: result

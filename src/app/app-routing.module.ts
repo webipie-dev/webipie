@@ -11,7 +11,7 @@ import {OrdersComponent} from './dashboard/sales/orders/orders.component';
 
 const routes: Routes = [
   {
-    path: 'index',
+    path: '',
     component: IndexComponent,
   },
   {

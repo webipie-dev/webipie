@@ -81,11 +81,9 @@ exports.editProducts = (req, res, next) => {
   // separating the updates
   const edits = {};
   for(var key in req.body) {
-    if(req.body.hasOwnProperty(key)) {
       if(key !== 'ids'){
         edits[key] = req.body[key];
       }
-    }
   }
 
   // adding the images
@@ -99,7 +97,6 @@ exports.editProducts = (req, res, next) => {
   Product.updateMany({_id: {$in :ids}}, { $set: edits })
     .exec()
     .then(result => {
-      console.log(result);
       res.status(200).json({
         edits: edits,
         result: result

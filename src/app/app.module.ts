@@ -14,7 +14,8 @@ import { SalesComponent } from './dashboard/sales/sales.component';
 import { SocialMediaComponent } from './dashboard/social-media/social-media.component';
 import { OrdersComponent } from './dashboard/sales/orders/orders.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
-
+import { MobileAppPageComponent } from './dashboard/mobile-app-page/mobile-app-page.component';
+import { EditProductComponent } from './dashboard/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import {Ng2SmartTableModule} from 'ng2-smart-table';
     SideNavComponent,
     SalesComponent,
     SocialMediaComponent,
-    OrdersComponent
+    OrdersComponent,
+    MobileAppPageComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,
