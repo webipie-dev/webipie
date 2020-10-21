@@ -8,6 +8,10 @@ import { PricingComponent } from './index/pricing/pricing.component';
 import { HeaderComponent } from './index/header/header.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SideNavComponent } from './dashboard/side-nav/side-nav.component';
+import { SalesComponent } from './dashboard/sales/sales.component';
+import { SocialMediaComponent } from './dashboard/social-media/social-media.component';
 
 
 @NgModule({
@@ -17,7 +21,11 @@ import { AfterSigninComponent } from './index/after-signin/after-signin.componen
     PricingComponent,
     HeaderComponent,
     SignInComponent,
-    AfterSigninComponent
+    AfterSigninComponent,
+    DashboardComponent,
+    SideNavComponent,
+    SalesComponent,
+    SocialMediaComponent
   ],
   imports: [
     BrowserModule,

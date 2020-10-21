@@ -1,5 +1,8 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SalesComponent } from './dashboard/sales/sales.component';
+import { SocialMediaComponent } from './dashboard/social-media/social-media.component';
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { IndexComponent } from './index/index.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
@@ -17,6 +20,20 @@ const routes: Routes = [
   {
     path: 'after-signIn',
     component: AfterSigninComponent
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    children:[
+      {
+        path: 'sales',
+        component: SalesComponent
+      },
+      {
+        path: 'social-media',
+        component: SocialMediaComponent
+      }
+    ]
   }
 ];
 
