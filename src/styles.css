@@ -33,7 +33,7 @@ body {
 
   /* ***************** General Font ****************** */
 
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Work Sans', sans-serif !important;
   font-weight: normal;
   font-style: normal;
 
