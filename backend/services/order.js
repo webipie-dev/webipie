@@ -23,7 +23,6 @@ exports.getOneOrder = (req, res) => {
   Order.findById(id)
     .exec()
     .then(doc => {
-      // console.log(doc);
       res.status(200).json(doc);
     })
     .catch(err => {
@@ -43,16 +42,6 @@ exports.addOrder = async (req, res) => {
     store: req.body.store,
 
   });
-  // order
-  //   .save()
-  //   .then(doc => {
-  //     res.status(201).json({
-  //       message: 'added with success',
-  //       order: doc
-  //     });
-  //   }).catch(err => {
-  //   res.status(500).json({error: err});
-  // });
 
   order
     .save()
@@ -126,11 +115,9 @@ exports.editOrder = (req, res, next) => {
   // separating the updates
   const edits = {};
   for(var key in req.body) {
-    if(req.body.hasOwnProperty(key)) {
       if(key !== 'ids'){
         edits[key] = req.body[key];
       }
-    }
   }
 
   Order.updateMany({_id: {$in :ids}}, { $set: edits })
@@ -147,6 +134,33 @@ exports.editOrder = (req, res, next) => {
       res.status(500).json({error: err});
     });
 };
+
+
+exports.detailOrder = (req, res) => {
+  const id = req.params._id;
+  let prodId = []
+  let prods = {}
+  Order.findById(id)
+    .exec()
+    .then(doc => {
+      doc.products.map(elem => {
+        prodId.push(elem._id)
+      })
+      prods["_id"] = prodId
+      Product.find(prods)
+        .then((documents) => {
+          res.status(200).json({
+            message: 'Products fetched successfully',
+            order: doc,
+            products: documents
+          })
+        })
+    })
+    .catch(err => {
+      // console.log(err);
+      res.status(500).json({error: err})
+    });
+}
 
 
 

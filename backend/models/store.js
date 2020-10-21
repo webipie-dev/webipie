@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const contact = new Schema({
   phoneNumber: {type: String},
+  email: {type: String},
   facebookPage: {type: String},
   instagramPage: {type: String},
 

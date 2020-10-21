@@ -6,7 +6,16 @@ const Schema = mongoose.Schema;
 const ExSchema = new Schema({
   name: {type: String},
   colorChart: {type: [String]},
-  font: {type: String},
+  font: {
+    name: String,
+    size: Number,
+    weight: String,
+    alignment: String,
+    bold: Boolean,
+    italic: Boolean,
+    uppercase: Boolean,
+  },
+
   // client: {type: Schema.Types.ObjectID, ref: "Client" }
   store: {type: Schema.Types.ObjectID, ref: "Store" }
 });
