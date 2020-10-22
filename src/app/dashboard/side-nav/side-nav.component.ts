@@ -12,4 +12,10 @@ export class SideNavComponent implements OnInit {
   ngOnInit(): void {
   }
 
+   toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("sidebar-non-active").classList.toggle("active");
+    document.getElementById("sidebar-next").classList.toggle("sidenav-next");
+  }
+
 }
