@@ -33,11 +33,13 @@ body {
 
   /* ***************** General Font ****************** */
 
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Work Sans', sans-serif !important;
   font-weight: normal;
   font-style: normal;
 
   transition: all 200ms linear;
+
+  background: var(--white-color) !important;
 
 
 }
@@ -134,12 +136,9 @@ body {
   padding: 10px;
 }
 .footer-social-media .fab {
-  color: var(--blue-color) ;
+  color: var(--blue-color) !important; ;
 }
 
-.fa, .fas, .fab {
-  color: white;
-}
 @media screen and (max-width: 768px){
   .fa-2x {
     font-size: 1.2em !important;
@@ -201,7 +200,7 @@ body {
 .button-generic {
   border: none;
   border-radius: 6px;
-  padding: 10px 15px;
+  padding: 2px 15px;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   display: inline-block;
@@ -402,4 +401,51 @@ input:focus:-ms-input-placeholder {
 .input-wrapper {
   padding-right: 0 !important;
   padding-left: 0 !important;
+}
+
+.upload-icon {
+  color: var(--blue-color) !important;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 13px;
+}
+.border-none {
+  border: none !important;
+}
+/*.upload-icon {
+    color: var(--blue-color);
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+}*/
+
+.icon {
+  display: block !important;
+  margin-bottom: 10px;
+}
+
+.card-wrapper {
+  height: 80vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  position: relative;
+}
+.card-background {
+  border-radius: 30px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  vertical-align: middle;
+  padding: 15px;
+  background: var(--white-color );
+}
+.card-background-image {
+  height: 100%;
+  background: linear-gradient(180deg, var(--blue-color) 0%, var(--black-color) 80%);
+  border-radius: 30px;
+  padding: 10px;
+}
+@media screen and (max-width: 768px){
+  .card-background-image {
+    height: 30%;
+  }
 }
