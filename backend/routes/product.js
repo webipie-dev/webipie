@@ -31,7 +31,7 @@ router
   .post('/', multer({storage: storage}).array("productImgs", 5), productService.addProduct)
   .patch('/', multer({storage: storage}).array("productImgs", 5), productService.editProducts)
   .delete('/', productService.deleteManyProducts)
-  .delete('/deleteall', productService.deleteAllProducts);
+  .delete('/delete', productService.deleteAllProducts);
 
 module.exports = router;
 
