@@ -1,13 +1,9 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SalesComponent } from './dashboard/sales/sales.component';
-import { SocialMediaComponent } from './dashboard/social-media/social-media.component';
+
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { IndexComponent } from './index/index.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
-import {OrdersComponent} from './dashboard/sales/orders/orders.component';
-import {EditProductComponent} from './dashboard/edit-product/edit-product.component';
 
 
 const routes: Routes = [
@@ -25,25 +21,8 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
-    children: [
-      {
-        path: 'sales',
-        component: SalesComponent
-      },
-      {
-        path: 'sales/orders',
-        component: OrdersComponent
-      },
-      {
-        path: 'social-media',
-        component: SocialMediaComponent
-      },
-      {
-        path: 'product-edit',
-        component: EditProductComponent
-      }
-    ]
+    loadChildren: () => import('./dashboard/dashboard.module')
+      .then(m => m.DashboardModule),
   }
 ];
 

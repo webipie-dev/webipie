@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Utils} from "../../shared/services/utils";
+import {Utils} from "../../_shared/utils";
 
 @Component({
   selector: 'app-side-nav',

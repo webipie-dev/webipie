@@ -19,6 +19,8 @@ import { EditProductComponent } from './dashboard/edit-product/edit-product.comp
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import {DashboardModule} from "./dashboard/dashboard.module";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,20 +29,13 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     SignInComponent,
     AfterSigninComponent,
-    DashboardComponent,
-    SideNavComponent,
-    SalesComponent,
-    SocialMediaComponent,
-    OrdersComponent,
-    MobileAppPageComponent,
-    EditProductComponent,
     // FormsModule
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    Ng2SmartTableModule,
     FormsModule,
+    DashboardModule,
     HttpClientModule
   ],
   providers: [],
