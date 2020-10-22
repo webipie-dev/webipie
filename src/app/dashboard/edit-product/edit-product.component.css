@@ -11,25 +11,6 @@
     height: 100px;
 }
 
-.upload-icon {
-    color: var(--blue-color);
-    background-color: white;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-/*.upload-icon {
-    color: var(--blue-color);
-    border: solid 1px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-
-}*/
-
-.icon {
-    display: block !important;
-    margin-bottom: 10px;
-}
-
 .product-input {
     border: solid 1px rgba(45, 52, 56, 0.35);
     width: 90%;

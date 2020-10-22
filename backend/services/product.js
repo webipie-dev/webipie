@@ -22,14 +22,16 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getOneProduct = (req, res, next) => {
-  const productId = req.params.productId;
+  const productId = req.params.id;
   Product
     .findById(productId)
     .exec()
     .then(product => {
-      // console.log(product);
       if(product) {
-        res.status(200).json(product);
+        res.status(200).json({
+          message: 'product fetched successfully',
+          product: product
+        });
       } else {
         res.status(404).json({error: 'not found'});
       }

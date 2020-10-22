@@ -11,28 +11,76 @@ export class OrdersComponent implements OnInit {
   settings = {
     columns: {
       id: {
-        title: 'ID'
+        title: 'ID',
+        width: '15%'
       },
-      name: {
-        title: 'Full Name'
+      orderer: {
+        title: 'Orderer',
+        width: '20%'
       },
-      username: {
-        title: 'User Name'
+      price: {
+        title: 'Price',
+        width: '10%'
       },
-      email: {
-        title: 'Email'
+      date: {
+        title: 'Date',
+        width: '20%'
+      },
+      status: {
+        title: 'Status',
+        width: '10%'
+      },
+      details: {
+        title: 'Details',
+        type: 'html',
+        width: '10%',
+        filter: false
       }
     },
     actions: {
-      position: 'right'
+      position: 'right',
+      columnTitle: ''
     },
     edit: {
-      editButtonContent: '<i class="fa fa-edit fa-2x ml-2"></i>',
-      saveButtonContent: '<i class="fa fa-check fa-2x ml-2"></i>',
-      cancelButtonContent:'<i class="fa fa-window-close fa-2x ml-2"></i>',
+      editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
+      saveButtonContent: '<i class="fa fa-check fa-lg ml-2"></i>',
+      cancelButtonContent:'<i class="fa fa-window-close fa-lg ml-2"></i>',
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt fa-2x ml-2"></i>'
+      deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'
+    },
+    add: {
+      addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
+    }
+  };
+  settingsMobile = {
+    columns: {
+      id: {
+        title: 'ID',
+        width: '25%'
+      },
+      status: {
+        title: 'Status',
+        width: '20%'
+      },
+      details: {
+        title: 'Details',
+        type: 'html',
+        width: '20%',
+        filter: false
+      }
+    },
+    actions: {
+      position: 'right',
+      columnTitle: ''
+    },
+    edit: {
+      editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
+      saveButtonContent: '<i class="fa fa-check fa-lg ml-2"></i>',
+      cancelButtonContent:'<i class="fa fa-window-close fa-lg ml-2"></i>',
+    },
+    delete: {
+      deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'
     },
     add: {
       addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
@@ -42,80 +90,106 @@ export class OrdersComponent implements OnInit {
   data = [
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     }, {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
-      id: 11,
-      name: "Nicholas DuBuque",
-      username: "Nicholas.Stanton",
-      email: "Rey.Padberg@rosamond.biz"
+      id: 1,
+      orderer: "Leanne Graham",
+      price: "20.52",
+      date: "20/19/2020",
+      status: 'avail',
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     }
   ];
 
