@@ -5,6 +5,7 @@ import { SalesComponent } from './sales/sales.component';
 import { SocialMediaComponent } from './social-media/social-media.component';
 import {OrdersComponent} from './sales/orders/orders.component';
 import {EditProductComponent} from './edit-product/edit-product.component';
+import {ClientsComponent} from './sales/clients/clients.component';
 
 
 const routes: Routes = [{
@@ -31,6 +32,10 @@ const routes: Routes = [{
           path: 'orders',
           component: OrdersComponent
         },
+        {
+          path: 'clients',
+          component: ClientsComponent
+        }
       ]
     },
   ]
