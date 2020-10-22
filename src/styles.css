@@ -103,6 +103,45 @@ body {
   }
 }
 
+@media  {
+  
+}
+.only-mobile {
+    display: none !important;
+}
+
+@media screen and (max-width: 990px){
+  .only-mobile {
+    display: block;
+  }
+  .only-desktop {
+    display: none;
+  }
+}
+hr {
+  margin-top: 40px !important;
+  margin-bottom: -5px !important;
+  border: 0;
+  clear:both;
+  display:block;
+  width: 72%;
+  background-color: var(--black-color);
+  height: 2px;
+}
+
+.line-divider {
+  background-color: var(--blue-color);
+  border-radius: 6px;
+  display: block;
+  bottom: 0;
+  height: 1rem;
+  width: 10%;
+  margin-top: -2px;
+  padding: 0 10px 10px 10px;
+  z-index: 99;
+}
+
+
 .color-dark-blue {
   color: var(--dark-blue-color);
 }
