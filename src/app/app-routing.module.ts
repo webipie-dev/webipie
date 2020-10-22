@@ -7,6 +7,7 @@ import { AfterSigninComponent } from './index/after-signin/after-signin.componen
 import { IndexComponent } from './index/index.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
 import {OrdersComponent} from './dashboard/sales/orders/orders.component';
+import {EditProductComponent} from './dashboard/edit-product/edit-product.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    children:[
+    children: [
       {
         path: 'sales',
         component: SalesComponent
@@ -37,6 +38,10 @@ const routes: Routes = [
       {
         path: 'social-media',
         component: SocialMediaComponent
+      },
+      {
+        path: 'product-edit',
+        component: EditProductComponent
       }
     ]
   }

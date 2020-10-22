@@ -16,6 +16,7 @@ import { OrdersComponent } from './dashboard/sales/orders/orders.component';
 import {Ng2SmartTableModule} from 'ng2-smart-table';
 import { MobileAppPageComponent } from './dashboard/mobile-app-page/mobile-app-page.component';
 import { EditProductComponent } from './dashboard/edit-product/edit-product.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { EditProductComponent } from './dashboard/edit-product/edit-product.comp
     BrowserModule,
     AppRoutingModule,
     Ng2SmartTableModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
