@@ -6,6 +6,7 @@ import { SocialMediaComponent } from './dashboard/social-media/social-media.comp
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { IndexComponent } from './index/index.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
+import {OrdersComponent} from './dashboard/sales/orders/orders.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'sales',
         component: SalesComponent
+      },
+      {
+        path: 'sales/orders',
+        component: OrdersComponent
       },
       {
         path: 'social-media',
