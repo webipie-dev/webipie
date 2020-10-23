@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {logger} from 'codelyzer/util/logger';
+import {ProductDetailComponent} from './product-detail/product-detail.component';
 
 @Component({
   selector: 'app-products',
@@ -65,8 +66,12 @@ export class ProductsComponent implements OnInit {
       },
       details: {
         title: '',
-        type: 'html',
-        width: '25%'
+        width: '25%',
+        type: 'custom',
+        valuePrepareFunction: (cell, row) => {
+          return row.columnName;
+        },
+        renderComponent: ProductDetailComponent,
       },
     },
     actions: false

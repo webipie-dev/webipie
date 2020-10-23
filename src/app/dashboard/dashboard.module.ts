@@ -12,6 +12,7 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import { ClientsComponent } from './sales/clients/clients.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ProductsComponent } from './products/products.component';
     EditProductComponent,
     ClientsComponent,
     ProductsComponent,
+    ProductDetailComponent,
   ],
 })
 export class DashboardModule {
