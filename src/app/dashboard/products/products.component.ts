@@ -81,13 +81,12 @@ export class ProductsComponent implements OnInit {
     {
       id: 1,
       name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
+        "<img class='col-md-4 col-6 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
         "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -98,7 +97,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       select: "<input type='checkbox'>",
@@ -110,8 +108,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -122,8 +118,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -134,8 +128,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -146,8 +138,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -158,8 +148,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -170,8 +158,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -182,8 +168,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -194,8 +178,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -206,8 +188,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -218,8 +198,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -230,8 +208,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -242,8 +218,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -254,8 +228,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -266,8 +238,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -278,8 +248,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -290,8 +258,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -302,8 +268,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -314,8 +278,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -326,8 +288,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     },
     {
       id: 1,
@@ -338,8 +298,6 @@ export class ProductsComponent implements OnInit {
       price: "20.52",
       stock: "250",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-
     }
   ];
   selectedRows = [];
@@ -347,11 +305,6 @@ export class ProductsComponent implements OnInit {
 
   onRowSelect(event) {
     this.selectedRows = event.selected;
-  }
-
-  onUserRowSelect(event): void {
-    console.log('hellloo');
-    console.log(event);
   }
 
   ngOnInit(): void {

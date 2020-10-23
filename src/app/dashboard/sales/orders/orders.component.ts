@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductDetailComponent} from '../../products/product-detail/product-detail.component';
 
 @Component({
   selector: 'app-orders',
@@ -30,10 +31,13 @@ export class OrdersComponent implements OnInit {
         width: '10%'
       },
       details: {
-        title: 'Details',
-        type: 'html',
+        title: '',
         width: '10%',
-        filter: false
+        type: 'custom',
+        valuePrepareFunction: (cell, row) => {
+          return row.columnName;
+        },
+        renderComponent: ProductDetailComponent,
       }
     },
     actions: {
@@ -54,25 +58,25 @@ export class OrdersComponent implements OnInit {
   };
   settingsMobile = {
     columns: {
-      id: {
-        title: 'ID',
-        width: '25%'
+      orderer: {
+        title: 'Orderer',
+        width: '50%'
       },
       status: {
         title: 'Status',
-        width: '20%'
+        width: '25%'
       },
       details: {
-        title: 'Details',
-        type: 'html',
-        width: '20%',
-        filter: false
+        title: '',
+        width: '25%',
+        type: 'custom',
+        valuePrepareFunction: (cell, row) => {
+          return row.columnName;
+        },
+        renderComponent: ProductDetailComponent,
       }
     },
-    actions: {
-      position: 'right',
-      columnTitle: ''
-    },
+    actions: false,
     edit: {
       editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
       saveButtonContent: '<i class="fa fa-check fa-lg ml-2"></i>',
@@ -93,14 +97,12 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     }, {
       id: 1,
       orderer: "Leanne Graham",
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -108,7 +110,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -116,7 +117,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -124,7 +124,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -132,7 +131,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -140,7 +138,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -148,7 +145,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -156,7 +152,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -164,7 +159,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -172,7 +166,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -180,7 +173,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     },
     {
       id: 1,
@@ -188,7 +180,6 @@ export class OrdersComponent implements OnInit {
       price: "20.52",
       date: "20/19/2020",
       status: 'avail',
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
     }
   ];
 
