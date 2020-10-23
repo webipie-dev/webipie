@@ -6,6 +6,7 @@ import { SocialMediaComponent } from './social-media/social-media.component';
 import {OrdersComponent} from './sales/orders/orders.component';
 import {EditProductComponent} from './edit-product/edit-product.component';
 import {ClientsComponent} from './sales/clients/clients.component';
+import {ProductsComponent} from './products/products.component';
 
 
 const routes: Routes = [{
@@ -38,6 +39,10 @@ const routes: Routes = [{
         }
       ]
     },
+    {
+      path: 'products',
+      component: ProductsComponent
+    }
   ]
 }];
 
