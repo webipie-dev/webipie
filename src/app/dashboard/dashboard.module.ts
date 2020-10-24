@@ -11,29 +11,32 @@ import {EditProductComponent} from "./edit-product/edit-product.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import { ClientsComponent } from './sales/clients/clients.component';
-import { ProductsComponent } from './products/products.component';
-import { ProductDetailComponent } from './products/product-detail/product-detail.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {ProductsComponent} from './products/products.component';
+import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 
 
 @NgModule({
-  imports: [
-    DashboardRoutingModule,
-    HttpClientModule,
-    Ng2SmartTableModule,
-
-  ],
-  declarations: [
-    DashboardComponent,
-    SideNavComponent,
-    SalesComponent,
-    SocialMediaComponent,
-    OrdersComponent,
-    MobileAppPageComponent,
-    EditProductComponent,
-    ClientsComponent,
-    ProductsComponent,
-    ProductDetailComponent,
-  ],
+    imports: [
+        DashboardRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
+    ],
+    declarations: [
+      DashboardComponent,
+      SideNavComponent,
+      SalesComponent,
+      SocialMediaComponent,
+      OrdersComponent,
+      MobileAppPageComponent,
+      EditProductComponent,
+      ClientsComponent,
+      ProductsComponent,
+      ProductDetailComponent
+    ],
 })
 export class DashboardModule {
 }
