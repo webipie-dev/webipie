@@ -48,7 +48,7 @@ export class EditProductComponent implements OnInit {
   getProduct() {
     this.editProductService.getAll().subscribe(data => {
       console.log(data);
-      this.allProducts = data;
+      this.allProducts = data.products;
     });
   }
 

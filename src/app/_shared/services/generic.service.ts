@@ -20,7 +20,7 @@ export class GenericService<T extends GenericModel> {
   }
 
   public getAll() {
-    return this.http.get(this.getUrl() + this.suffix) as Observable<T[]>;
+    return this.http.get(this.getUrl() + this.suffix) as Observable<T>;
   }
 
   public addOne(body: T) {
