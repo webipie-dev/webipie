@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\dashboard",
+    "\\src\\app\\_shared",
+    "\\src\\app\\_shared\\services"
+  ],
+  "SelectedNode": "\\src\\app\\dashboard\\dashboard-routing.module.ts",
+  "PreviewInSolutionExplorer": false
+}
