@@ -44,7 +44,7 @@ export class ProductsComponent implements OnInit {
       cancelButtonContent:'<i class="fa fa-window-close fa-lg"></i>',
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'
+      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>'
     },
     add: {
       addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'

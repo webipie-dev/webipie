@@ -9,6 +9,7 @@ import {ProductDetailComponent} from '../../products/product-detail/product-deta
 export class OrdersComponent implements OnInit {
 
   settings = {
+    selectMode: 'multi',
     columns: {
       id: {
         title: 'ID',
@@ -50,13 +51,14 @@ export class OrdersComponent implements OnInit {
       cancelButtonContent:'<i class="fa fa-window-close fa-lg ml-2"></i>',
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'
+      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>'
     },
     add: {
       addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
     }
   };
   settingsMobile = {
+    selectMode: 'multi',
     columns: {
       orderer: {
         title: 'Orderer',
