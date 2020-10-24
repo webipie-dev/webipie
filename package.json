@@ -23,6 +23,7 @@
     "bootstrap": "^4.5.3",
     "debug": "^4.2.0",
     "http": "0.0.1-security",
+    "jquery": "^3.5.1",
     "mongoose": "^5.10.10",
     "multer": "^1.4.2",
     "ng2-completer": "^9.0.1",

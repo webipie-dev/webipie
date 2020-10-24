@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-after-signin',
-  templateUrl: './after-signin.component.html',
-  styleUrls: ['./after-signin.component.css']
+  selector: 'app-page-not-found',
+  templateUrl: './page-not-found.component.html',
+  styleUrls: ['./page-not-found.component.css']
 })
-export class AfterSigninComponent implements OnInit {
+export class PageNotFoundComponent implements OnInit {
 
   constructor() { }
 
@@ -14,6 +14,5 @@ export class AfterSigninComponent implements OnInit {
     head.className += ' color-blue-header';
     console.log(head);
   }
-
 
 }

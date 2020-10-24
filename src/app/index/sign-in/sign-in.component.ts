@@ -12,6 +12,9 @@ export class SignInComponent implements OnInit {
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
+    var head = document.getElementById('headerr');
+    head.className += ' color-blue-header';
+    console.log(head);
   }
 
   email = 'email';
