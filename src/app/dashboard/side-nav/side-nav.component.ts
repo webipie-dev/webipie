@@ -9,7 +9,7 @@ import {Utils} from "../../_shared/utils";
 export class SideNavComponent implements OnInit {
 
   constructor() { }
-  @Input() toggleSidenav: () => void;
+  @Input() toggleS: () => void;
 
   ngOnInit(): void {
   }
