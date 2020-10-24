@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Utils} from "../../_shared/utils";
 
 @Component({
@@ -9,6 +9,7 @@ import {Utils} from "../../_shared/utils";
 export class SideNavComponent implements OnInit {
 
   constructor() { }
+  @Input() toggleSidenav: () => void;
 
   ngOnInit(): void {
   }
