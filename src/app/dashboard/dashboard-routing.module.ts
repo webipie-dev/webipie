@@ -48,7 +48,6 @@ const routes: Routes = [{
         }
       ]
     },
-    
   ]
 }];
 

@@ -40,8 +40,8 @@ export class ProductsComponent implements OnInit {
     },
     edit: {
       editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
-      saveButtonContent: '<i class="fa fa-check fa-lg ml-2"></i>',
-      cancelButtonContent:'<i class="fa fa-window-close fa-lg ml-2"></i>',
+      saveButtonContent: '<i class="fa fa-check fa-lg"></i>',
+      cancelButtonContent:'<i class="fa fa-window-close fa-lg"></i>',
     },
     delete: {
       deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'

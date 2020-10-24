@@ -1,105 +1,134 @@
- <!-- edit or add product -->
- <div id="sidebar-next" class="container  sidenav-next-mobile">
-    <div class="sales-header mt-5">
-        <h1 class="big-titles text-center">Add Edit One Product</h1>
-    </div>
+
+<!-- edit or add product -->
+<div id="sidebar-next" class="container sidenav-next-mobile">
+  <div class="sales-header mt-5">
+    <h1 class="big-titles text-center">Add Edit One Product</h1>
+  </div>
+  <form [formGroup]="productForm" (submit)="addProduct()">
     <div class="row margin-top">
-        <div class="col-md-8 ">
+
+    <div class="col-md-8 col-12">
+      <div class="row">
+        <div class="col-12">
+          <div class="upload-images py-3 px-3">
             <div class="row">
-                <div class="col-12">
-                    <div class="upload-images py-3 px-3">
-                        <div class="row">
-                            <div class="col-6 col-md-3">
-                                <img class="img-fluid mx-1 my-1 img-product" src="../../../assets/images/Untitled%20design.png">
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <img class="img-fluid mx-1 my-1 img-product" src="../../../assets/images/Untitled%20design.png">
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <img class="img-fluid mx-1 my-1 img-product" src="../../../assets/images/Untitled%20design.png">
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <button class="img-fluid mx-1 my-1 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5 mb-5">
-                    <div class="container upload-images product-description py-5">
-                        <div class="row">
-                            <div class="col-md-6 col-12 mb-3">
-                                <div class="col-12">
-                                    <label class="text-size pl-2">Name</label>
-                                </div>
-                                <div class="col-12">
-                                    <input class="text-size product-input" type="text">
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="col-12">
-                                    <label class="text-size pl-2">Stock</label>
-                                </div>
-                                <div class="col-12">
-                                    <input class="text-size product-input" type="number">
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <div class="col-12">
-                                    <label class="text-size pl-2">Id</label>
-                                </div>
-                                <div class="col-12">
-                                    <input class="text-size product-input" type="text">
-                                </div>
-                            </div>
-                            <div class="col-12 mt-3">
-                                <div class="col-12">
-                                    <label class="text-size pl-2">Description</label>
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="description-area"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div class="col-6 col-md-3">
+                <img class="img-fluid mx-1 my-1 img-product" src="../../../assets/images/Untitled%20design.png">
+              </div>
+              <div class="col-6 col-md-3">
+                <img class="img-fluid mx-1 my-1 img-product" src="../../../assets/images/Untitled%20design.png">
+              </div>
+              <div class="col-6 col-md-3">
+                <img class="img-fluid mx-1 my-1 img-product" src="../../../assets/images/Untitled%20design.png">
+              </div>
+              <div class="col-6 col-md-3">
+                <input
+                  type="file"
+                  class="form-control"
+                  name="imgs"
+                  (change)="onImagePicked($event)" multiple>
+                <button class="img-fluid mx-1 my-1 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="col-md-4 col-12">
-            <div class="row upload-images mr-1 px-3 py-3 mx-auto">
-                <div class="col-12">
-                    <label class="text-size pl-2">Price</label>
+        <div class="col-12 mt-5 mb-5">
+          <div class="container upload-images product-description py-5">
+            <div class="row">
+              <div class="col-md-6 col-12 mb-3">
+                <div *ngIf="allProducts.length > 0">
+                  <p>hellooo</p>
+                  <div *ngFor="let prod of allProducts">
+                    <p>{{prod.name}}</p>
+                  </div>
                 </div>
                 <div class="col-12">
-                    <input class="text-size product-input" type="number">
-                </div>
-                <div class="col-12 mt-5">
-                    <label class="text-size pl-2">Status</label>
+                  <label class="text-size pl-2">Name</label>
                 </div>
                 <div class="col-12">
-                    <input class="text-size product-input" type="number">
+                  <input
+                    class="text-size product-input"
+                    type="text"
+                    formControlName="name">
                 </div>
-                <div class="col-12 mt-5">
-                    <label class="text-size pl-2">Size</label>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="col-12">
+                  <label class="text-size pl-2">Quantity</label>
                 </div>
                 <div class="col-12">
-                    <input type="radio" class="" name="gender" value="male">
-                    <label class="text-size">S</label><br>
+                  <input
+                    class="text-size product-input"
+                    type="number"
+                    formControlName="quantity">
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="col-12">
+                  <label class="text-size pl-2">Id</label>
                 </div>
                 <div class="col-12">
-                    <input type="radio" class="" name="gender" value="male">
-                    <label class="text-size">M</label><br>
+                  <input
+                    class="text-size product-input"
+                    type="text"
+                    formControlName="store">
+                </div>
+              </div>
+              <div class="col-12 mt-3">
+                <div class="col-12">
+                  <label class="text-size pl-2">Description</label>
                 </div>
                 <div class="col-12">
-                    <input type="radio" class="" name="gender" value="male">
-                    <label class="text-size">L</label><br>
+                  <textarea class="description-area"
+                            formControlName="description"></textarea>
                 </div>
+              </div>
             </div>
-            <div class="col-12 text-center mb-1">
-                <button class="button-generic button-blue form-button text-size">Save Changes</button>
-            </div>
-            <div class="col-12 text-center mt-1">
-                <button class="button-generic button-blue form-button text-size">Reset</button>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="col-md-4 col-12">
+      <div class="row upload-images mr-1 px-3 py-3 mx-auto">
+        <div class="col-12">
+          <label class="text-size pl-2">Price</label>
+        </div>
+        <div class="col-12">
+          <input
+            class="text-size product-input"
+            type="number"
+            formControlName="price">
+        </div>
+        <div class="col-12 mt-5">
+          <label class="text-size pl-2">Status</label>
+        </div>
+        <div class="col-12">
+          <input class="text-size product-input" type="number">
+        </div>
+        <div class="col-12 mt-5">
+          <label class="text-size pl-2">Size</label>
+        </div>
+        <div class="col-12">
+          <input type="radio" class="" name="gender" value="male">
+          <label class="text-size">S</label><br>
+        </div>
+        <div class="col-12">
+          <input type="radio" class="" name="gender" value="male">
+          <label class="text-size">M</label><br>
+        </div>
+        <div class="col-12">
+          <input type="radio" class="" name="gender" value="male">
+          <label class="text-size">L</label><br>
+        </div>
+      </div>
+      <div class="col-12 text-center mb-1">
+        <button class="button-generic button-blue form-button text-size" (submit)="addProduct()">Save Changes</button>
+      </div>
+      <div class="col-12 text-center mt-1">
+        <button class="button-generic button-blue form-button text-size">Reset</button>
+      </div>
+    </div>
+  </div>
+  </form>
 </div>
+
