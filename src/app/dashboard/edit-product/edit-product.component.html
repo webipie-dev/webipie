@@ -1,9 +1,10 @@
- <!-- edit or add product -->
- <div id="sidebar-next" class="container sidenav-next sidenav-next-mobile">
+<!-- edit or add product -->
+<div id="sidebar-next" class="container sidenav-next sidenav-next-mobile">
     <div class="sales-header mt-5">
         <h1 class="big-titles text-center">Add Edit One Product</h1>
     </div>
     <div class="row margin-top">
+      <form [formGroup]="productForm"  (submit)="addProduct()" class="form-theme">
         <div class="col-md-8 col-12">
             <div class="row">
                 <div class="col-12">
@@ -19,7 +20,14 @@
                                 <img class="img-fluid mx-1 my-1 img-product" src="../../../assets/images/Untitled%20design.png">
                             </div>
                             <div class="col-6 col-md-3">
-                                <button class="img-fluid mx-1 my-1 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
+                              <input
+                                type="file"
+                                class="form-control"
+                                name="imgs"
+                                (change)="onImagePicked($event)" multiple>
+                                <button
+                                  class="img-fluid mx-1 my-1 img-product upload-icon">
+                                  <i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
                             </div>
                         </div>
                     </div>
@@ -28,19 +36,27 @@
                     <div class="container upload-images product-description py-5">
                         <div class="row">
                             <div class="col-md-6 col-12 mb-3">
+
+                              </div>
                                 <div class="col-12">
                                     <label class="text-size pl-2">Name</label>
                                 </div>
                                 <div class="col-12">
-                                    <input class="text-size product-input" type="text">
+                                    <input
+                                      class="text-size product-input"
+                                      type="text"
+                                      formControlName="name">
                                 </div>
                             </div>
                             <div class="col-md-3 col-6">
                                 <div class="col-12">
-                                    <label class="text-size pl-2">Stock</label>
+                                    <label class="text-size pl-2">Quantity</label>
                                 </div>
                                 <div class="col-12">
-                                    <input class="text-size product-input" type="number">
+                                    <input
+                                      class="text-size product-input"
+                                      type="number"
+                                      formControlName="quantity">
                                 </div>
                             </div>
                             <div class="col-md-3 col-6">
@@ -48,7 +64,10 @@
                                     <label class="text-size pl-2">Id</label>
                                 </div>
                                 <div class="col-12">
-                                    <input class="text-size product-input" type="text">
+                                    <input
+                                      class="text-size product-input"
+                                      type="text"
+                                      formControlName="store">
                                 </div>
                             </div>
                             <div class="col-12 mt-3">
@@ -56,7 +75,9 @@
                                     <label class="text-size pl-2">Description</label>
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="description-area"></textarea>
+                                    <textarea
+                                      class="description-area"
+                                      formControlName="description"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -70,13 +91,19 @@
                     <label class="text-size pl-2">Price</label>
                 </div>
                 <div class="col-12">
-                    <input class="text-size product-input" type="number">
+                    <input
+                      class="text-size product-input"
+                      type="number"
+                      formControlName="price">
                 </div>
                 <div class="col-12 mt-5">
                     <label class="text-size pl-2">Status</label>
                 </div>
                 <div class="col-12">
-                    <input class="text-size product-input" type="number">
+                    <input
+                      class="text-size product-input"
+                      type="text"
+                      >
                 </div>
                 <div class="col-12 mt-5">
                     <label class="text-size pl-2">Size</label>
@@ -95,11 +122,12 @@
                 </div>
             </div>
             <div class="col-12 text-center mb-1">
-                <button class="button-generic button-blue form-button text-size">Save Changes</button>
+                <button type="submit" class="button-generic button-blue form-button text-size">Save Changes</button>
             </div>
             <div class="col-12 text-center mt-1">
                 <button class="button-generic button-blue form-button text-size">Reset</button>
             </div>
         </div>
+      </form>
     </div>
 </div>

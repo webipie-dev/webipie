@@ -2,14 +2,32 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 // import {Utils} from './utils';
 import {Observable} from 'rxjs';
 import {GenericModel} from '../models/generic.model';
+import {Utils} from '../utils';
 
 export class GenericService<T extends GenericModel> {
 
   constructor(protected http: HttpClient) {
   }
 
-  // protected suffix: string = '';
-  //
+  protected suffix = '';
+
+  protected getUrl() {
+    return Utils.url;
+  }
+
+  public getById(id: string) {
+    return this.http.get(this.getUrl() + this.suffix + '/' + id) as Observable<T>;
+  }
+
+  public getAll() {
+    return this.http.get(this.getUrl() + this.suffix) as Observable<T[]>;
+  }
+
+  public addOne(body: T) {
+    return this.http.post(this.getUrl() + this.suffix, body) as Observable<T>;
+  }
+
+
   // protected getHeaders(): HttpHeaders {
   //   const token = localStorage.getItem('token');
   //   return new HttpHeaders().append('Authorization', 'Bearer ' + token);
@@ -23,14 +41,6 @@ export class GenericService<T extends GenericModel> {
   //   return localStorage.getItem('municipality_id');
   // }
   //
-  // public get(): Observable<T[]> {
-  //   return this.http.get(this.getUrl(), {headers: this.getHeaders()}) as Observable<T[]>;
-  // }
-
-  public getById(id: string) {
-    return this.http.get('http://localhost:3000/product/' + id) as Observable<T>;
-  }
-
   // public post(body: T) {
   //   return this.http.post(this.getUrl(), body, {headers: this.getHeaders()}) as Observable<T>;
   // }
