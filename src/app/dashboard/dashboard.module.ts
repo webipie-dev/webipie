@@ -14,6 +14,8 @@ import { HeaderComponent } from './header/header.component';
 import { ClientsComponent } from './sales/clients/clients.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {ProductsComponent} from './products/products.component';
+import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 
 
 @NgModule({
@@ -23,19 +25,19 @@ import {CommonModule} from '@angular/common';
         Ng2SmartTableModule,
         ReactiveFormsModule,
         CommonModule,
-
     ],
-  declarations: [
-    DashboardComponent,
-    SideNavComponent,
-    SalesComponent,
-    SocialMediaComponent,
-    OrdersComponent,
-    MobileAppPageComponent,
-    EditProductComponent,
-    HeaderComponent,
-    ClientsComponent,
-  ],
+    declarations: [
+      DashboardComponent,
+      SideNavComponent,
+      SalesComponent,
+      SocialMediaComponent,
+      OrdersComponent,
+      MobileAppPageComponent,
+      EditProductComponent,
+      ClientsComponent,
+      ProductsComponent,
+      ProductDetailComponent
+    ],
 })
 export class DashboardModule {
 }
