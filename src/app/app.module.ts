@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import {DashboardModule} from "./dashboard/dashboard.module";
+import { PageNotFoundComponent } from './index/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {DashboardModule} from "./dashboard/dashboard.module";
     HeaderComponent,
     SignInComponent,
     AfterSigninComponent,
+    PageNotFoundComponent,
     // FormsModule
   ],
   imports: [

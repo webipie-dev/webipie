@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { IndexComponent } from './index/index.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
+import {PageNotFoundComponent} from "./index/page-not-found/page-not-found.component";
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'after-signIn',
     component: AfterSigninComponent
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent
   },
   {
     path: 'dashboard',
