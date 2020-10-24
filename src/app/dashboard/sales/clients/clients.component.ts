@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductDetailComponent} from '../../products/product-detail/product-detail.component';
 
 @Component({
   selector: 'app-clients',
@@ -21,6 +22,24 @@ export class ClientsComponent implements OnInit {
         title: 'Phone Number',
         width: '10%'
       },
+    },
+    actions: false,
+  };
+  settingsMobile = {
+    columns: {
+      name: {
+        title: 'Name',
+        width: '50%'
+      },
+      details: {
+        title: '',
+        width: '50%',
+        type: 'custom',
+        valuePrepareFunction: (cell, row) => {
+          return row.columnName;
+        },
+        renderComponent: ProductDetailComponent,
+      }
     },
     actions: false,
   };
@@ -75,6 +94,8 @@ export class ClientsComponent implements OnInit {
       name: "Leanne Graham",
       email: "nour@gmail.com",
       phoneNumber: "24681998",
+      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
+
     },
     {
       name: "Leanne Graham",

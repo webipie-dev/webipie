@@ -6,6 +6,8 @@ import { SocialMediaComponent } from './social-media/social-media.component';
 import {OrdersComponent} from './sales/orders/orders.component';
 import {EditProductComponent} from './edit-product/edit-product.component';
 import {ClientsComponent} from './sales/clients/clients.component';
+import {ProductsComponent} from './products/products.component';
+import { MobileAppPageComponent } from './mobile-app-page/mobile-app-page.component';
 
 
 const routes: Routes = [{
@@ -19,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'product-edit',
       component: EditProductComponent
+    },
+    {
+      path: 'products',
+      component: ProductsComponent
     },
     {
       path: 'sales',
@@ -35,9 +41,14 @@ const routes: Routes = [{
         {
           path: 'clients',
           component: ClientsComponent
+        },
+        {
+          path: 'mobile',
+          component: MobileAppPageComponent
         }
       ]
     },
+    
   ]
 }];
 
