@@ -149,6 +149,10 @@ hr {
 .color-blue {
   color: var(--blue-color);
 }
+.color-blue-header {
+  background-color: var(--blue-color);
+
+}
 
 .color-light-black {
   color: var(--light-black-color);

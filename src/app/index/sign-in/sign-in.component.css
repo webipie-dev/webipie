@@ -30,3 +30,7 @@
   }
 
 }
+
+.start-style {
+  background-color: var(--blue-color) !important;
+}
