@@ -10,6 +10,7 @@ import {MobileAppPageComponent} from "./mobile-app-page/mobile-app-page.componen
 import {EditProductComponent} from "./edit-product/edit-product.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {Ng2SmartTableModule} from "ng2-smart-table";
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {Ng2SmartTableModule} from "ng2-smart-table";
     OrdersComponent,
     MobileAppPageComponent,
     EditProductComponent,
+    HeaderComponent,
   ],
 })
 export class DashboardModule {
