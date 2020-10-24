@@ -11,15 +11,20 @@ import {EditProductComponent} from "./edit-product/edit-product.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import { HeaderComponent } from './header/header.component';
+import { ClientsComponent } from './sales/clients/clients.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
 
 
 @NgModule({
-  imports: [
-    DashboardRoutingModule,
-    HttpClientModule,
-    Ng2SmartTableModule,
+    imports: [
+        DashboardRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
 
-  ],
+    ],
   declarations: [
     DashboardComponent,
     SideNavComponent,
@@ -29,6 +34,7 @@ import { HeaderComponent } from './header/header.component';
     MobileAppPageComponent,
     EditProductComponent,
     HeaderComponent,
+    ClientsComponent,
   ],
 })
 export class DashboardModule {

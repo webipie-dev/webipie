@@ -42,13 +42,18 @@ exports.getOneProduct = (req, res, next) => {
 };
 
 exports.addProduct = (req, res, next) => {
+  console.log("heeere")
   const url = req.protocol + '://' +req.get('host');
   var images = [];
   if (req.files)
   {
+    console.log(req.files)
     req.files.map(fileimg => {
       images.push(url + '/images/' + fileimg.filename)
     });
+  }
+  else {
+    console.log('no files uploaded')
   }
 
 
@@ -72,7 +77,7 @@ exports.addProduct = (req, res, next) => {
         newProduct: result
       });
     }).catch(err => {
-     console.log('an error happens');
+     console.log(err);
   });
 };
 

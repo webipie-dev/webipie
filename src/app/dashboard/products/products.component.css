@@ -153,3 +153,16 @@
 :host /deep/ a:hover {
   text-decoration: none !important;
 }
+
+:host /deep/ .product-image-table {
+  border-radius: 10px !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+  max-width: 70px !important;
+  max-height: 70px !important;
+}
+
+:host /deep/ input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  margin:  auto auto !important;
+}

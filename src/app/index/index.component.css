@@ -1,6 +1,6 @@
 /* ********************* Scroll Button ***************** */
 .mouse-scroll-wrapper {
-  padding: 70px;
+  padding: 20px;
 }
 
 #mouse-scroll {
@@ -155,7 +155,11 @@
   padding-bottom: 20px;
   padding-top: 20px;
 }
-
+@media screen and (max-width: 991px){
+  .blue-square {
+    margin-top: 30px;
+  }
+}
 .card-home-title {
   font-weight: 600;
 }
@@ -303,4 +307,24 @@
 
 .timeline > li > .icon > .fa {
   color: var(--blue-color);
+}
+
+.topp {
+  background: url('../../assets/images/top-back.png') fixed;
+  text-align: center;
+  width: 100%;
+  /*height: 800px;*/
+  background-size: cover;
+  /*background-attachment: fixed;*/
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 85% 85% / 30%;
+}
+.topp .overlay{
+  width: 100%;
+  height: 100%;
+  padding: 50px;
+  color: #FFF;
+  /*background-image: linear-gradient( 135deg, #9f05ff69 10%, #fd5e086b 100%);*/
+
 }
