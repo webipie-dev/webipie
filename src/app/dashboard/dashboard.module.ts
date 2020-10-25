@@ -10,14 +10,15 @@ import {MobileAppPageComponent} from "./mobile-app-page/mobile-app-page.componen
 import {EditProductComponent} from "./edit-product/edit-product.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {Ng2SmartTableModule} from "ng2-smart-table";
-import { ClientsComponent } from './sales/clients/clients.component';
+import {ClientsComponent} from './sales/clients/clients.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ProductsComponent} from './products/products.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
 import { OrderDetailComponent } from './sales/orders/order-detail/order-detail.component';
 import { ClientDetailComponent } from './sales/clients/client-detail/client-detail.component';
-
+import {NgxChartsModule} from "@swimlane/ngx-charts";
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import { ClientDetailComponent } from './sales/clients/client-detail/client-deta
         Ng2SmartTableModule,
         ReactiveFormsModule,
         CommonModule,
+        NgxChartsModule,
     ],
     declarations: [
       DashboardComponent,
@@ -39,7 +41,8 @@ import { ClientDetailComponent } from './sales/clients/client-detail/client-deta
       ProductsComponent,
       ProductDetailComponent,
       OrderDetailComponent,
-      ClientDetailComponent
+      ClientDetailComponent,
+      StatisticsComponent
     ],
 })
 export class DashboardModule {
