@@ -19,6 +19,9 @@ export class SignInComponent implements OnInit {
   store_owner : StoreOwner = new StoreOwner();
 
   ngOnInit(): void {
+    var head = document.getElementById('headerr');
+    head.className += ' color-blue-header';
+    console.log(head);
   }
 
   signIn(){

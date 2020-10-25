@@ -9,6 +9,7 @@ import {ProductDetailComponent} from '../../products/product-detail/product-deta
 export class OrdersComponent implements OnInit {
 
   settings = {
+    selectMode: 'multi',
     columns: {
       id: {
         title: 'ID',
@@ -42,21 +43,25 @@ export class OrdersComponent implements OnInit {
     },
     actions: {
       position: 'right',
-      columnTitle: ''
-    },
-    edit: {
-      editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
-      saveButtonContent: '<i class="fa fa-check fa-lg ml-2"></i>',
-      cancelButtonContent:'<i class="fa fa-window-close fa-lg ml-2"></i>',
+      columnTitle: '',
+      edit: false,
+      custom: [
+        {
+          name: 'edit',
+          title: '<i class="fa fa-edit fa-lg"></i>',
+        }
+      ]
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'
+      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
+      confirmDelete: true,
     },
     add: {
       addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
     }
   };
   settingsMobile = {
+    selectMode: 'multi',
     columns: {
       orderer: {
         title: 'Orderer',
@@ -186,6 +191,21 @@ export class OrdersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDeleteConfirm(event) {
+    console.log(event);
+    event.confirm.resolve();
+    /*if (window.confirm('Are you sure you want to delete?')) {
+      event.confirm.resolve();
+    } else {
+      event.confirm.reject();
+    }*/
+  }
+
+  onEditSelect(event) {
+    console.log('clicked');
+    console.log(event);
   }
 
 }

@@ -1,0 +1,32 @@
+<div id="sidebar-next" class="container mt-3 ">
+  <div class="mx-auto">
+    <h1 class="big-titles text-center">Statistics</h1>
+    <p class="text-size text-center">Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet
+      Lorem ipsum dolor sit amet
+      Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet </p>
+
+    <ngx-charts-bar-vertical
+      [view]="[1000,400]"
+      [results]="saleData"
+      [xAxisLabel]="'Products'"
+      [legendTitle]="'Product Sale Chart'"
+      [yAxisLabel]="'Sale'"
+      [legend]="true"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [gradient]="true">
+    </ngx-charts-bar-vertical    >
+
+    <ngx-charts-number-card
+      [view]="[300,700]"
+      [results]="data2"
+      [scheme] = "'ocean'"
+      [animations] = "true"
+      [bandColor] = "'cool'"
+    >
+
+    </ngx-charts-number-card>
+  </div>
+</div>

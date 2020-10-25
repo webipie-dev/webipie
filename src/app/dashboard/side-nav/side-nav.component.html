@@ -1,117 +1,120 @@
+<!-- Sidebar -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h3 class="huge-titles text-center">Hackover</h3>
+  </div>
 
-    <!-- Sidebar -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3 class="huge-titles text-center">Hackover</h3>
-        </div>
+  <ul class="list-unstyled text-size ">
+    <li class="sidenav-elem mb-3">
+      <p>Store Configuration</p>
+      <a class="nav-link-sidebar">
+        <i class="fa fa-edit"></i> Edit your store
+      </a>
+    </li>
+    <li class="sidenav-elem mb-3">
+      <p>Marketing</p>
+      <a class="nav-link-sidebar">
+        <i class="fa fa-share-alt"></i> Social Media
+      </a>
+    </li>
+    <li class="sidenav-elem mb-3">
+      <p>Store Management</p>
+      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+         class="dropdown-toggle nav-link-sidebar">
+        <i class="fa fa-cart-arrow-down"></i> Sales
+      </a>
+      <ul class="collapse list-unstyled" id="pageSubmenu">
+        <li>
+          <a class="nav-link-sidebar child-elem" href="#"><i class="fa fa-list-alt"></i> Orders</a>
+        </li>
+        <li>
+          <a class="nav-link-sidebar child-elem" href="#"><i class="fa fa-users"></i> Clients</a>
+        </li>
+      </ul>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-warehouse"></i> Products
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-mobile-alt"></i> Mobile Application
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-money-check-alt"></i> Pricing
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-chart-bar"></i> Statistics
+      </a>
+    </li>
+    <li class="sidenav-elem ">
+      <p class="text-size">Account Management</p>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-id-card"></i> Profile
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-sign-out-alt"></i> Logout
+      </a>
+    </li>
+  </ul>
+  <div class="container sidenav-footer ">
+    <div class="row">
+      <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
+      <span (click)="toggleS()" class="col-4">
+                                <i class="fa fa-toggle-on fa-3x  " aria-hidden="true"></i>
 
-        <ul class="list-unstyled text-size ">
-            <li class="sidenav-elem mb-3">
-                <p>Store Configuration</p>
-                <a class="nav-link-sidebar">
-                    <i class="fa fa-edit"></i> Edit your store
-                </a>
-            </li>
-            <li class="sidenav-elem mb-3">
-                <p>Marketing</p>
-                <a class="nav-link-sidebar">
-                    <i class="fa fa-share-alt"></i> Social Media
-                </a>
-            </li>
-            <li class="sidenav-elem mb-3">
-                <p>Store Management</p>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
-                   class="dropdown-toggle nav-link-sidebar">
-                    <i class="fa fa-cart-arrow-down"></i> Sales
-                </a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a class="nav-link-sidebar child-elem" href="#"><i class="fa fa-list-alt"></i> Orders</a>
-                    </li>
-                    <li>
-                        <a class="nav-link-sidebar child-elem" href="#"><i class="fa fa-users"></i> Clients</a>
-                    </li>
-                </ul>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-warehouse"></i> Products
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-mobile-alt"></i> Mobile Application
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-money-check-alt"></i> Pricing
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-chart-bar"></i> Statistics
-                </a>
-            </li>
-            <li class="sidenav-elem ">
-                <p class="text-size">Account Management</p>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-id-card"></i> Profile
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-sign-out-alt"></i> Logout
-                </a>
-            </li>
-        </ul>
-        <div class="container sidenav-footer ">
-            <div class="row">
-                <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
-                <i class="fa fa-toggle-on fa-3x  col-4" aria-hidden="true" ></i>
-            </div>
-        </div>
+              </span>
+    </div>
+  </div>
 
-    </nav>
-    <nav id="sidebar-non-active" class="active">
-        <ul class="list-unstyled text-size text-center">
-            <li class=" mb-3">
-                <a class="nav-link-sidebar">
-                    <i class="fa fa-edit"></i>
-                </a>
-            </li>
-            <li class="sidenav-elem mb-3">
-                <a class="nav-link-sidebar mt-1">
-                    <i class="fa fa-share-alt "></i>
-                </a>
-            </li>
-            <li class="sidenav-elem mb-3">
-                <a  data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1">
-                    <i class="fa fa-cart-arrow-down"></i>
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-list-alt"></i>
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-users"></i>
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-warehouse"></i>
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-mobile-alt"></i>
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-money-check-alt"></i>
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-chart-bar"></i>
-                </a>
-            </li>
-            <li class="sidenav-elem ">
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1">
-                    <i class="fa fa-id-card"></i>
-                </a>
-                <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
-                    <i class="fa fa-sign-out-alt"></i>
-                </a>
-            </li>
-        </ul>
-        <div class="container  ">
-            <div class="row text-center">
-                <i class="fa fa-toggle-off fa-3x mx-auto" aria-hidden="true" ></i>
-            </div>
-        </div>
-
-    </nav>
+</nav>
+<nav id="sidebar-non-active" class="active">
+  <ul class="list-unstyled text-size text-center">
+    <li class=" mb-3">
+      <a class="nav-link-sidebar">
+        <i class="fa fa-edit"></i>
+      </a>
+    </li>
+    <li class="sidenav-elem mb-3">
+      <a class="nav-link-sidebar mt-1">
+        <i class="fa fa-share-alt "></i>
+      </a>
+    </li>
+    <li class="sidenav-elem mb-3">
+      <a data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1">
+        <i class="fa fa-cart-arrow-down"></i>
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-list-alt"></i>
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-users"></i>
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-warehouse"></i>
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-mobile-alt"></i>
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-money-check-alt"></i>
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-chart-bar"></i>
+      </a>
+    </li>
+    <li class="sidenav-elem ">
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1">
+        <i class="fa fa-id-card"></i>
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-sign-out-alt"></i>
+      </a>
+    </li>
+  </ul>
+  <div class="container  ">
+    <div class="row text-center">
+      <span class="mx-auto" (click)="toggleS()">
+        <i class="fa fa-toggle-off fa-3x " aria-hidden="true" ></i>
+      </span>
+    </div>
+  </div>
+</nav>
 

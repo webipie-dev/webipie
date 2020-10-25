@@ -8,6 +8,7 @@ import {EditProductComponent} from './edit-product/edit-product.component';
 import {ClientsComponent} from './sales/clients/clients.component';
 import {ProductsComponent} from './products/products.component';
 import { MobileAppPageComponent } from './mobile-app-page/mobile-app-page.component';
+import {StatisticsComponent} from "./statistics/statistics.component";
 
 
 const routes: Routes = [{
@@ -27,8 +28,8 @@ const routes: Routes = [{
       component: ProductsComponent
     },
     {
-      path: 'mobile-app',
-      component: MobileAppPageComponent
+      path: 'statistics',
+      component: StatisticsComponent
     },
     {
       path: 'sales',

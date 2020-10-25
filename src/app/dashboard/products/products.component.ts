@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {logger} from 'codelyzer/util/logger';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 
 @Component({
@@ -36,15 +35,18 @@ export class ProductsComponent implements OnInit {
     },
     actions: {
       position: 'right',
-      columnTitle: ''
-    },
-    edit: {
-      editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
-      saveButtonContent: '<i class="fa fa-check fa-lg"></i>',
-      cancelButtonContent:'<i class="fa fa-window-close fa-lg"></i>',
+      columnTitle: '',
+      edit: false,
+      custom: [
+        {
+          name: 'edit',
+          title: '<i class="fa fa-edit fa-lg"></i>',
+        }
+      ]
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'
+      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
+      confirmDelete: true,
     },
     add: {
       addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
@@ -81,8 +83,8 @@ export class ProductsComponent implements OnInit {
     {
       id: 1,
       name: "<div class='row'>" +
-        "<img class='col-md-4 col-6 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
+        "<img class='img-fluid product-image-table upload-images mr-3' src='../../../assets/images/Untitled%20design.png'>" +
+        "<p class='small-titles my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
       stock: "250",
@@ -91,8 +93,8 @@ export class ProductsComponent implements OnInit {
     {
       id: 1,
       name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
+        "<img class='img-fluid product-image-table upload-images mr-3' src='../../../assets/images/Untitled%20design.png'>" +
+        "<p class='small-titles my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
       stock: "250",
@@ -102,8 +104,8 @@ export class ProductsComponent implements OnInit {
       select: "<input type='checkbox'>",
       id: 1,
       name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
+        "<img class='img-fluid product-image-table upload-images mr-3' src='../../../assets/images/Untitled%20design.png'>" +
+        "<p class='small-titles my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
       stock: "250",
@@ -112,8 +114,8 @@ export class ProductsComponent implements OnInit {
     {
       id: 1,
       name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
+        "<img class='img-fluid product-image-table upload-images mr-3' src='../../../assets/images/Untitled%20design.png'>" +
+        "<p class='small-titles my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
       stock: "250",
@@ -300,6 +302,7 @@ export class ProductsComponent implements OnInit {
       status: 'avail',
     }
   ];
+
   selectedRows = [];
   constructor() { }
 
@@ -308,6 +311,21 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onDeleteConfirm(event) {
+    console.log(event);
+    event.confirm.resolve();
+    /*if (window.confirm('Are you sure you want to delete?')) {
+      event.confirm.resolve();
+    } else {
+      event.confirm.reject();
+    }*/
+  }
+
+  onEditSelect(event) {
+    console.log('clicked');
+    console.log(event);
   }
 
 }
