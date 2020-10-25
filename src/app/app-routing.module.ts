@@ -21,10 +21,6 @@ const routes: Routes = [
     component: AfterSigninComponent
   },
   {
-    path: '404',
-    component: PageNotFoundComponent
-  },
-  {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module')
       .then(m => m.DashboardModule),

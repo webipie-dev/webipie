@@ -10,33 +10,38 @@ import {MobileAppPageComponent} from "./mobile-app-page/mobile-app-page.componen
 import {EditProductComponent} from "./edit-product/edit-product.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {Ng2SmartTableModule} from "ng2-smart-table";
-import { ClientsComponent } from './sales/clients/clients.component';
+import {ClientsComponent} from './sales/clients/clients.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ProductsComponent} from './products/products.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
+import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { StatisticsComponent } from './statistics/statistics.component';
 
 
 @NgModule({
-    imports: [
-        DashboardRoutingModule,
-        HttpClientModule,
-        Ng2SmartTableModule,
-        ReactiveFormsModule,
-        CommonModule,
-    ],
-    declarations: [
-      DashboardComponent,
-      SideNavComponent,
-      SalesComponent,
-      SocialMediaComponent,
-      OrdersComponent,
-      MobileAppPageComponent,
-      EditProductComponent,
-      ClientsComponent,
-      ProductsComponent,
-      ProductDetailComponent
-    ],
+  imports: [
+    DashboardRoutingModule,
+    HttpClientModule,
+    Ng2SmartTableModule,
+    ReactiveFormsModule,
+    CommonModule,
+    NgxChartsModule,
+  ],
+  declarations: [
+    DashboardComponent,
+    SideNavComponent,
+    SalesComponent,
+    SocialMediaComponent,
+    OrdersComponent,
+    MobileAppPageComponent,
+    EditProductComponent,
+    ClientsComponent,
+    ProductsComponent,
+    ProductDetailComponent,
+    StatisticsComponent
+  ],
 })
 export class DashboardModule {
 }
