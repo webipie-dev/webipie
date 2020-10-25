@@ -15,6 +15,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ProductsComponent} from './products/products.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
+import { OrderDetailComponent } from './sales/orders/order-detail/order-detail.component';
+import { ClientDetailComponent } from './sales/clients/client-detail/client-detail.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import {ProductDetailComponent} from './products/product-detail/product-detail.c
       EditProductComponent,
       ClientsComponent,
       ProductsComponent,
-      ProductDetailComponent
+      ProductDetailComponent,
+      OrderDetailComponent,
+      ClientDetailComponent
     ],
 })
 export class DashboardModule {

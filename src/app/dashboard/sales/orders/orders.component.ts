@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductDetailComponent} from '../../products/product-detail/product-detail.component';
+import {OrderDetailComponent} from './order-detail/order-detail.component';
 
 @Component({
   selector: 'app-orders',
@@ -38,13 +38,14 @@ export class OrdersComponent implements OnInit {
         valuePrepareFunction: (cell, row) => {
           return row.columnName;
         },
-        renderComponent: ProductDetailComponent,
+        renderComponent: OrderDetailComponent,
       }
     },
     actions: {
       position: 'right',
       columnTitle: '',
       edit: false,
+      add: false,
       custom: [
         {
           name: 'edit',
@@ -55,9 +56,6 @@ export class OrdersComponent implements OnInit {
     delete: {
       deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
       confirmDelete: true,
-    },
-    add: {
-      addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
     }
   };
   settingsMobile = {
@@ -78,21 +76,10 @@ export class OrdersComponent implements OnInit {
         valuePrepareFunction: (cell, row) => {
           return row.columnName;
         },
-        renderComponent: ProductDetailComponent,
+        renderComponent: OrderDetailComponent,
       }
     },
     actions: false,
-    edit: {
-      editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
-      saveButtonContent: '<i class="fa fa-check fa-lg ml-2"></i>',
-      cancelButtonContent:'<i class="fa fa-window-close fa-lg ml-2"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'
-    },
-    add: {
-      addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
-    }
   };
 
   data = [

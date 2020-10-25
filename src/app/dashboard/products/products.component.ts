@@ -37,6 +37,7 @@ export class ProductsComponent implements OnInit {
       position: 'right',
       columnTitle: '',
       edit: false,
+      add: false,
       custom: [
         {
           name: 'edit',
@@ -48,9 +49,6 @@ export class ProductsComponent implements OnInit {
       deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
       confirmDelete: true,
     },
-    add: {
-      addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
-    }
   };
   settingsMobile = {
     selectMode: 'multi',
