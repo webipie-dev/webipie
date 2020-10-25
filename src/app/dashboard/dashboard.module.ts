@@ -36,7 +36,8 @@ import {ProductDetailComponent} from './products/product-detail/product-detail.c
       EditProductComponent,
       ClientsComponent,
       ProductsComponent,
-      ProductDetailComponent
+      ProductDetailComponent,
+      HeaderComponent
     ],
 })
 export class DashboardModule {

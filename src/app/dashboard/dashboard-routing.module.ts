@@ -27,6 +27,10 @@ const routes: Routes = [{
       component: ProductsComponent
     },
     {
+      path: 'mobile-app',
+      component: MobileAppPageComponent
+    },
+    {
       path: 'sales',
       children: [
         {
@@ -41,11 +45,7 @@ const routes: Routes = [{
         {
           path: 'clients',
           component: ClientsComponent
-        },
-        {
-          path: 'mobile',
-          component: MobileAppPageComponent
-        }
+        }  
       ]
     },
   ]

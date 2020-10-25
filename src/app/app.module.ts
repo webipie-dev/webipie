@@ -8,16 +8,13 @@ import { PricingComponent } from './index/pricing/pricing.component';
 import { HeaderComponent } from './index/header/header.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { SideNavComponent } from './dashboard/side-nav/side-nav.component';
-import { SalesComponent } from './dashboard/sales/sales.component';
-import { SocialMediaComponent } from './dashboard/social-media/social-media.component';
-import { OrdersComponent } from './dashboard/sales/orders/orders.component';
-import {Ng2SmartTableModule} from 'ng2-smart-table';
-import { MobileAppPageComponent } from './dashboard/mobile-app-page/mobile-app-page.component';
-import { EditProductComponent } from './dashboard/edit-product/edit-product.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from 'angularx-social-login';
 
 import {DashboardModule} from "./dashboard/dashboard.module";
 
@@ -36,9 +33,30 @@ import {DashboardModule} from "./dashboard/dashboard.module";
     AppRoutingModule,
     FormsModule,
     DashboardModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '790108924491-t5da8keoe1srskluak4jpi4oue78gcai.apps.googleusercontent.com'
+            ),
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('348023999826107'),
+          }
+        ],
+      } as SocialAuthServiceConfig,
+    }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
