@@ -15,33 +15,35 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ProductsComponent} from './products/products.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
+import { OrderDetailComponent } from './sales/orders/order-detail/order-detail.component';
+import { ClientDetailComponent } from './sales/clients/client-detail/client-detail.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { StatisticsComponent } from './statistics/statistics.component';
 
-
 @NgModule({
-  imports: [
-    DashboardRoutingModule,
-    HttpClientModule,
-    Ng2SmartTableModule,
-    ReactiveFormsModule,
-    CommonModule,
-    NgxChartsModule,
-  ],
-  declarations: [
-    DashboardComponent,
-    SideNavComponent,
-    SalesComponent,
-    SocialMediaComponent,
-    OrdersComponent,
-    MobileAppPageComponent,
-    EditProductComponent,
-    ClientsComponent,
-    ProductsComponent,
-    ProductDetailComponent,
-    StatisticsComponent
-  ],
+    imports: [
+        DashboardRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
+        NgxChartsModule,
+    ],
+    declarations: [
+      DashboardComponent,
+      SideNavComponent,
+      SalesComponent,
+      SocialMediaComponent,
+      OrdersComponent,
+      MobileAppPageComponent,
+      EditProductComponent,
+      ClientsComponent,
+      ProductsComponent,
+      ProductDetailComponent,
+      OrderDetailComponent,
+      ClientDetailComponent,
+      StatisticsComponent
+    ],
 })
 export class DashboardModule {
 }
