@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.0",
+    "@angular/cdk": "^10.2.5",
     "@angular/common": "~10.0.0",
     "@angular/compiler": "~10.0.0",
     "@angular/core": "~10.0.0",
@@ -20,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "angularx-social-login": "^3.2.2",
+    "@swimlane/ngx-charts": "^16.0.0",
     "bootstrap": "^4.5.3",
     "debug": "^4.2.0",
     "http": "0.0.1-security",

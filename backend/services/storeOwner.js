@@ -61,7 +61,7 @@ module.exports = {
         res.cookie('access_token', token, {
             httpOnly: true
         });
-        return res.send(token);
+        return res.status(200).json({ token });
     },
 
     signIn: async (req, res, next) => {

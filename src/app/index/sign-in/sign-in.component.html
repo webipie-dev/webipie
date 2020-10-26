@@ -15,15 +15,15 @@
                 <div class=" col-lg-7 col-12 px-5 ">
                     <div class="text-center big-titles mt-3">Sign Up</div>
                     <div class="text-center text-size mt-3">You can configure your store after creating your account.</div>
-                    <form #f="ngForm" (ngSubmit)="signIn(f.value)">
+                    <form #f="ngForm">
                         <label for="name" class="text-size ml-5 mt-3">Name</label>
                         <input type="text" id="name" class="input" placeholder="Name">
                         <label for="email" class="text-size ml-5 mt-3">Email</label>
-                        <input type="email" id="email" class="input" placeholder="Email" [(ngModel)]="email" name="email" >
+                        <input type="email" id="email" class="input" placeholder="Email" [(ngModel)]="store_owner.email" name="email" >
                         <label for="password" class="text-size ml-5 mt-3">Password</label>
-                        <input type="password" id="password" class="input" placeholder="Password"  [(ngModel)]="password" name="password">
+                        <input type="password" id="password" class="input" placeholder="Password"  [(ngModel)]="store_owner.password" name="password">
                         <div class="text-center mt-3">
-                            <button  class="button-generic button-blue small-titles " type='submit'>Configure your store</button>
+                            <button  class="button-generic button-blue small-titles " (click)="signIn()" type='submit'>Configure your store</button>
                         </div>
                     </form>
                     <div class="row text-center text-size d-flex justify-content-center">
@@ -32,11 +32,11 @@
                         <div class="line-login my-3 ml-2"></div>
                     </div>
                     <div class="row my-3">
-                        <div class="col-6">
-                            <img src="../../../assets/images/facebook.png" alt="" class="img-fluid  mx-auto sign-in-icon">
+                        <div class="col-6 ">
+                            <img src="../../../assets/images/facebook.png" alt="" class="img-fluid  mx-auto sign-in-icon pointer" (click)="signInWithFB()">
                         </div>
                         <div class="col-6">
-                            <img src="../../../assets/images/google.png" alt="" class="img-fluid mx-auto sign-in-icon">
+                            <img src="../../../assets/images/google.png" alt="" class="img-fluid mx-auto sign-in-icon pointer" (click)="signInWithGoogle()">
                         </div>
                     </div>
 

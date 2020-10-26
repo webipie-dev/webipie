@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductDetailComponent} from '../../products/product-detail/product-detail.component';
+import {OrderDetailComponent} from './order-detail/order-detail.component';
 
 @Component({
   selector: 'app-orders',
@@ -38,24 +38,26 @@ export class OrdersComponent implements OnInit {
         valuePrepareFunction: (cell, row) => {
           return row.columnName;
         },
-        renderComponent: ProductDetailComponent,
+        renderComponent: OrderDetailComponent,
       }
     },
     actions: {
       position: 'right',
-      columnTitle: ''
-    },
-    edit: {
-      editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
-      saveButtonContent: '<i class="fa fa-check fa-lg ml-2"></i>',
-      cancelButtonContent:'<i class="fa fa-window-close fa-lg ml-2"></i>',
+      columnTitle: '',
+      edit: false,
+      add: false,
+      custom: [
+        {
+          name: 'edit',
+          title: '<i class="fa fa-edit fa-lg"></i>',
+        }
+      ]
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>'
+      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
+      confirmDelete: true,
     },
-    add: {
-      addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
-    }
+    noDataMessage: 'Oups, no Data yet !'
   };
   settingsMobile = {
     selectMode: 'multi',
@@ -75,21 +77,11 @@ export class OrdersComponent implements OnInit {
         valuePrepareFunction: (cell, row) => {
           return row.columnName;
         },
-        renderComponent: ProductDetailComponent,
+        renderComponent: OrderDetailComponent,
       }
     },
     actions: false,
-    edit: {
-      editButtonContent: '<i class="fa fa-edit fa-lg"></i>',
-      saveButtonContent: '<i class="fa fa-check fa-lg ml-2"></i>',
-      cancelButtonContent:'<i class="fa fa-window-close fa-lg ml-2"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-2 fa-lg d-flex float-right"></i>'
-    },
-    add: {
-      addButtonContent: '<i class="fa fa-plus fa-2x ml-2"></i>'
-    }
+    noDataMessage: 'Oups, no Data yet !'
   };
 
   data = [
@@ -183,11 +175,26 @@ export class OrdersComponent implements OnInit {
       date: "20/19/2020",
       status: 'avail',
     }
-  ];
+];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDeleteConfirm(event) {
+    console.log(event);
+    event.confirm.resolve();
+    /*if (window.confirm('Are you sure you want to delete?')) {
+      event.confirm.resolve();
+    } else {
+      event.confirm.reject();
+    }*/
+  }
+
+  onEditSelect(event) {
+    console.log('clicked');
+    console.log(event);
   }
 
 }

@@ -525,15 +525,13 @@ input:focus:-ms-input-placeholder {
 
 #sidebar-next {
   transition: all 0.3s;
-  /*margin-left: 250px;*/
   z-index: 1;
 }
 
 @media screen and (max-width: 768px) {
   #sidebar-next {
     transition: all 0.3s ease-in-out;
-    width: 70%;
-    /*margin-left: 0;*/
+    width: 90%;
   }
 }
 
@@ -545,5 +543,9 @@ input:focus:-ms-input-placeholder {
 .dashboard-content-wrapper-active {
   margin-left: 80px;
   transition: 0.3s all;
+}
 
+.modal-backdrop {
+  width: 100% !important;
+  height: 100% !important;
 }
