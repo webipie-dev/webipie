@@ -12,12 +12,13 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class EditProductComponent implements OnInit {
 
-  private productSub: Subscription;
-  productModif: Product;
+
   productForm: FormGroup;
   postData = new FormData();
   singleProduct: Product = new Product();
   allProducts: Product[] = [];
+  edit = false;
+  productId = '5f93ffc994a31e4b6cb602dc';
 
 
   constructor(private http: HttpClient,
@@ -25,29 +26,40 @@ export class EditProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productForm = new FormGroup({
-      name: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
-      price: new FormControl(null, Validators.required),
-      imgs: new FormControl(null, Validators.required),
-      quantity: new FormControl(null, Validators.required),
-      store: new FormControl(null, Validators.required),
-    });
-    // this.getProductById('5f875b3ab940975b7087477c');
-    // this.getProduct();
+    if (this.edit) {
+      this.productForm = new FormGroup({
+        ids: new FormControl(null, Validators.required),
+        name: new FormControl(null, Validators.required),
+        description: new FormControl(null, Validators.required),
+        price: new FormControl(null, Validators.required),
+        imgs: new FormControl(null, Validators.required),
+        quantity: new FormControl(null, Validators.required),
+        store: new FormControl(null, Validators.required),
+      });
+      this.getProductById(this.productId);
+    } else {
+      this.productForm = new FormGroup({
+        name: new FormControl(null, Validators.required),
+        description: new FormControl(null, Validators.required),
+        price: new FormControl(null, Validators.required),
+        imgs: new FormControl(null, Validators.required),
+        quantity: new FormControl(null, Validators.required),
+        store: new FormControl(null, Validators.required),
+      });
+    }
   }
 
 
   getProductById(id) {
     this.editProductService.getById(id).subscribe(data => {
-      this.singleProduct = data;
+      this.singleProduct = data.product;
       console.log(data);
     });
   }
 
   getProduct() {
     this.editProductService.getAll().subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.allProducts = data.products;
     });
   }
@@ -55,7 +67,7 @@ export class EditProductComponent implements OnInit {
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files;
     const name = (event.target as HTMLInputElement).name;
-    for (let i = 0; i < file.length; i++){
+    for (let i = 0; i < file.length; i++) {
       this.postData.append('imgs', file[i], name);
     }
 
@@ -85,21 +97,46 @@ export class EditProductComponent implements OnInit {
 
       }
     }
-    // this.productForm.reset();
+    this.productForm.reset();
     this.editProductService.addOne(this.postData).subscribe((data) => {
       console.log(data);
     });
 
   }
 
+  editProduct(id) {
+    for (const field in this.productForm.controls) {
+      const control = this.productForm.get(field);
+      if (control.value) {
+        console.log('exist: ' + field);
+        console.log(control.value);
+        console.log('--------');
+        this.postData.append(field, control.value);
+      } else {
+        console.log('doesnt exits: ' + field);
+        console.log(control.value);
+        console.log('--------');
+        if (field === 'ids') {
+          this.postData.append(field, id);
+        } else if (field in ['imgs']) {
+          this.postData.append(field, '', field);
+        } else {
+          this.postData.append(field, '');
+        }
 
-  // getProduct() {
-  //   this.editProductService.getProductModif('5f875b3ab940975b7087477c');
-  //   this.productSub = this.editProductService.getProductUpdateListener()
-  //     .subscribe((product: Product) => {
-  //       this.productModif = product;
-  //     });
-  //
-  // }
+      }
+    }
+    this.productForm.reset();
+    this.editProductService.edit(this.postData).subscribe((data) => {
+      console.log(data);
+    });
+  }
 
-}
+  onSubmit() {
+      if (this.edit) {
+        this.editProduct(this.productId);
+      } else {
+        this.addProduct();
+      }
+    }
+  }
