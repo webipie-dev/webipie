@@ -56,7 +56,8 @@ export class OrdersComponent implements OnInit {
     delete: {
       deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
       confirmDelete: true,
-    }
+    },
+    noDataMessage: 'Oups, no Data yet !'
   };
   settingsMobile = {
     selectMode: 'multi',
@@ -80,6 +81,7 @@ export class OrdersComponent implements OnInit {
       }
     },
     actions: false,
+    noDataMessage: 'Oups, no Data yet !'
   };
 
   data = [
@@ -173,7 +175,7 @@ export class OrdersComponent implements OnInit {
       date: "20/19/2020",
       status: 'avail',
     }
-  ];
+];
 
   constructor() { }
 

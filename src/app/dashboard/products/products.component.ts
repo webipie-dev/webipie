@@ -49,6 +49,7 @@ export class ProductsComponent implements OnInit {
       deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
       confirmDelete: true,
     },
+    noDataMessage: 'Oups, no Data yet !'
   };
   settingsMobile = {
     selectMode: 'multi',
@@ -74,7 +75,8 @@ export class ProductsComponent implements OnInit {
         renderComponent: ProductDetailComponent,
       },
     },
-    actions: false
+    actions: false,
+    noDataMessage: 'Oups, no Data yet !'
   };
 
   data = [

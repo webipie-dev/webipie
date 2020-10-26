@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductDetailComponent} from '../../products/product-detail/product-detail.component';
+import {ClientDetailComponent} from './client-detail/client-detail.component';
 
 @Component({
   selector: 'app-clients',
@@ -24,6 +24,7 @@ export class ClientsComponent implements OnInit {
       },
     },
     actions: false,
+    noDataMessage: 'Oups, no Data yet !'
   };
   settingsMobile = {
     columns: {
@@ -38,10 +39,11 @@ export class ClientsComponent implements OnInit {
         valuePrepareFunction: (cell, row) => {
           return row.columnName;
         },
-        renderComponent: ProductDetailComponent,
+        renderComponent: ClientDetailComponent,
       }
     },
     actions: false,
+    noDataMessage: 'Oups, no Data yet !'
   };
 
   data = [
@@ -127,8 +129,9 @@ export class ClientsComponent implements OnInit {
       email: "nour@gmail.com",
       phoneNumber: "24681998",
     }
-
   ];
+
+  noData = [];
 
   constructor() { }
 
