@@ -19,6 +19,7 @@ import { OrderDetailComponent } from './sales/orders/order-detail/order-detail.c
 import { ClientDetailComponent } from './sales/clients/client-detail/client-detail.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import { StatisticsComponent } from './statistics/statistics.component';
+import { OrderEditComponent } from './sales/orders/order-edit/order-edit.component';
 
 @NgModule({
     imports: [
@@ -42,7 +43,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
       ProductDetailComponent,
       OrderDetailComponent,
       ClientDetailComponent,
-      StatisticsComponent
+      StatisticsComponent,
+      OrderEditComponent
     ],
 })
 export class DashboardModule {
