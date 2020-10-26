@@ -1,0 +1,98 @@
+#modal-dialogue-order {
+  width: 90%;
+  margin: auto;
+  margin-top: 50px !important;
+  margin-bottom: 10px !important;
+}
+
+.close-x {
+  color: #a40000;
+  font-weight: bolder;
+}
+
+:host /deep/ .product-image-table {
+  border-radius: 10px !important;
+  width: 30px !important;
+  height: 30px !important;
+
+}
+
+:host /deep/ .border-bottom-blue {
+  border-bottom: solid 1px var(--blue-color)
+}
+
+:host /deep/ #checkbox-product {
+  width: 20px;
+  height: 20px;
+  margin:  auto 0 !important;
+}
+
+:host /deep/ .change-quantity {
+  margin-bottom: 0 !important;
+}
+
+:host /deep/ .button-delete {
+  background: #9a0017;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+:host /deep/ #delete-icon {
+  color: var(--white-color);
+}
+
+:host /deep/ .button-delete:hover {
+  background: var(--white-color);
+  color: #9a0017;
+  border: solid 1px #9a0017;
+  transition: all 200ms ease-in-out;
+}
+
+:host /deep/ .button-delete:hover #delete-icon {
+  color: #9a0017;
+}
+
+:host /deep/ .button-edit {
+  background: #0e9c21;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+:host /deep/ #edit-icon, :host /deep/ #save-icon {
+  color: var(--white-color);
+}
+
+
+:host /deep/ .button-edit:hover {
+  background: var(--white-color);
+  color: #0e9c21;
+  border: solid 1px #0e9c21;
+}
+
+:host /deep/ .button-edit:hover #edit-icon, :host /deep/ .button-edit:hover #save-icon {
+  color: #0e9c21;
+}
+
+:host /deep/ .button-cancel {
+  background: var(--blue-color);
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+:host /deep/ #cancel-icon {
+  color: var(--white-color);
+}
+
+:host /deep/ .button-cancel:hover {
+  background: var(--white-color);
+  color: var(--blue-color);
+  border: solid 1px var(--blue-color);
+}
+
+:host /deep/ .button-cancel:hover #cancel-icon {
+  color: var(--blue-color);
+}
+
+.icon-edit:hover {
+  cursor: pointer;
+}
