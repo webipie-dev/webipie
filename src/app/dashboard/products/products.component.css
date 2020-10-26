@@ -28,7 +28,7 @@
   }
 }
 
-:host /deep/ ng2-smart-table .fa-edit {
+:host /deep/ ng2-smart-table .icon-edit {
   color: black !important;
 }
 
@@ -36,18 +36,18 @@
   width: 50px !important;
 }
 
-:host /deep/ ng2-smart-table .fa-trash-alt {
+:host /deep/ ng2-smart-table .icon-trash-alt {
   color: #c21400 !important;
 }
 
-:host /deep/ ng2-smart-table .fa-check {
+:host /deep/ ng2-smart-table .icon-check {
   color: #179203 !important;
 }
 
-:host /deep/ ng2-smart-table .fa-window-close {
+:host /deep/ ng2-smart-table .icon-window-close {
   color: var(--dark-blue-color) !important;
 }
-:host /deep/ ng2-smart-table .fa-plus {
+:host /deep/ ng2-smart-table .icon-plus {
   color: #179203 !important;
   display: none;
 }
@@ -156,9 +156,8 @@
 
 :host /deep/ .product-image-table {
   border-radius: 10px !important;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
-  max-width: 70px !important;
-  max-height: 70px !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 
 :host /deep/ input[type=checkbox] {

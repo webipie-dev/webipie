@@ -49,12 +49,12 @@ export class OrdersComponent implements OnInit {
       custom: [
         {
           name: 'edit',
-          title: '<i class="fa fa-edit fa-lg"></i>',
+          title: '<a data-toggle="modal" data-target="#order-detail-modal"><i class="fa fa-edit icon-edit fa-lg"></i></a>',
         }
       ]
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
+      deleteButtonContent: '<i class="fa fa-trash-alt icon-trash-alt mt-3 fa-lg"></i>',
       confirmDelete: true,
     },
     noDataMessage: 'Oups, no Data yet !'
