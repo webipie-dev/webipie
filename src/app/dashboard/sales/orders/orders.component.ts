@@ -96,7 +96,7 @@ export class OrdersComponent implements OnInit {
   };
 
 
-  orders: Order[] = [];
+  orders = [];
 
   constructor(private http: HttpClient,
               private orderService: OrderService,
