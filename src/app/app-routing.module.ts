@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { IndexComponent } from './index/index.component';
-import { SignInComponent } from './index/sign-in/sign-in.component';
+import { SignUpComponent } from './index/sign-up/sign-up.component';
 import {PageNotFoundComponent} from "./index/page-not-found/page-not-found.component";
 
 
@@ -13,11 +13,11 @@ const routes: Routes = [
     component: IndexComponent,
   },
   {
-    path: 'signIn',
-    component: SignInComponent
+    path: 'signup',
+    component: SignUpComponent
   },
   {
-    path: 'after-signIn',
+    path: 'after-signin',
     component: AfterSigninComponent
   },
   {

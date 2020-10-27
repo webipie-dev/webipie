@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { PricingComponent } from './index/pricing/pricing.component';
 import { HeaderComponent } from './index/header/header.component';
-import { SignInComponent } from './index/sign-in/sign-in.component';
+import { SignUpComponent } from './index/sign-up/sign-up.component';
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,6 +18,7 @@ import {
 
 import {DashboardModule} from "./dashboard/dashboard.module";
 import { PageNotFoundComponent } from './index/page-not-found/page-not-found.component';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { PageNotFoundComponent } from './index/page-not-found/page-not-found.com
     IndexComponent,
     PricingComponent,
     HeaderComponent,
-    SignInComponent,
+    SignUpComponent,
     AfterSigninComponent,
     PageNotFoundComponent,
     // FormsModule
@@ -56,8 +57,10 @@ import { PageNotFoundComponent } from './index/page-not-found/page-not-found.com
           }
         ],
       } as SocialAuthServiceConfig,
-    }
+    },
 
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
