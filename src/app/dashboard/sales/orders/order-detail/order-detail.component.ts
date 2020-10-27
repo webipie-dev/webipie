@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderDetailComponent implements OnInit {
 
+  editMode = false;
+  displayMode= !this.editMode;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onSwitch() {
+    this.editMode = !this.editMode;
+    this.displayMode = !this.editMode;
+  }
 }

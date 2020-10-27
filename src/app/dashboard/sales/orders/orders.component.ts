@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
+import {OrderEditComponent} from './order-edit/order-edit.component';
 
 @Component({
   selector: 'app-orders',
@@ -39,22 +40,26 @@ export class OrdersComponent implements OnInit {
           return row.columnName;
         },
         renderComponent: OrderDetailComponent,
-      }
+      },
+      edit: {
+        title: '',
+        width: '10%',
+        type: 'custom',
+        valuePrepareFunction: (cell, row) => {
+          return row.columnName;
+        },
+        renderComponent: OrderEditComponent,
+      },
+
     },
     actions: {
       position: 'right',
       columnTitle: '',
       edit: false,
       add: false,
-      custom: [
-        {
-          name: 'edit',
-          title: '<i class="fa fa-edit fa-lg"></i>',
-        }
-      ]
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
+      deleteButtonContent: '<i class="fa fa-trash-alt icon-trash-alt mt-3 fa-lg"></i>',
       confirmDelete: true,
     },
     noDataMessage: 'Oups, no Data yet !'
@@ -176,6 +181,7 @@ export class OrdersComponent implements OnInit {
       status: 'avail',
     }
 ];
+  show = false;
 
   constructor() { }
 
@@ -195,6 +201,7 @@ export class OrdersComponent implements OnInit {
   onEditSelect(event) {
     console.log('clicked');
     console.log(event);
+    this.show = true;
   }
 
 }
