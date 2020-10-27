@@ -165,3 +165,22 @@
   height: 20px;
   margin:  auto auto !important;
 }
+
+:host /deep/ .product-image-table {
+  transition: 0.5s;
+  border-radius: 5px !important;
+
+}
+
+:host /deep/ .product-image-table:hover {
+  transform: scale(5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4) !important;
+}
+
+@media screen and (max-width: 990px) {
+  :host /deep/ .product-image-table:hover {
+    transform: scale(3);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4) !important;
+  }
+
+}

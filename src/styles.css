@@ -503,6 +503,7 @@ input:focus:-ms-input-placeholder {
   /*display: flex;*/
   align-items: stretch;
   margin-right: 7%;
+  transition : 0.3s all ease-in-out;
 }
 @media screen and (max-width: 991px){
   .wrapper {
@@ -524,7 +525,7 @@ input:focus:-ms-input-placeholder {
 }
 
 #sidebar-next {
-  transition: all 0.3s;
+  transition: all 0.3s ease-in-out;
   z-index: 1;
 }
 
