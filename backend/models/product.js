@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 
 const productSchema = mongoose.Schema({
-  name: {type: String, required: false},
-  description: {type: String, required: false},
-  imgs: {type: [String], required: false},
-  price: {type: Number, required: false},
-  quantity: {type: Number, required: false},
-  store: {type: Schema.Types.ObjectID, ref: "Store"}
+  name: {type: String, required: false, default: ''},
+  description: {type: String, required: false, default: ''},
+  imgs: {type: [String], required: false, default: ''},
+  price: {type: Number, required: false, default: 0},
+  quantity: {type: Number, required: false, default: 0},
+  store: {type: Schema.Types.ObjectID, ref: "Store", default: ''}
 
 });
 
