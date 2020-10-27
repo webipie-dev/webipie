@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClientDetailComponent} from './client-detail/client-detail.component';
+import {Product} from '../../../_shared/models/product.model';
+import {HttpClient} from '@angular/common/http';
+import {EditProductService} from '../../../_shared/services/edit-product.service';
+import {ClientService} from '../../../_shared/services/client.service';
 
 @Component({
   selector: 'app-clients',
@@ -10,7 +14,7 @@ export class ClientsComponent implements OnInit {
 
   settings = {
     columns: {
-      name: {
+      firstname: {
         title: 'Name',
         width: '15%'
       },
@@ -46,96 +50,107 @@ export class ClientsComponent implements OnInit {
     noDataMessage: 'Oups, no Data yet !'
   };
 
-  data = [
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-      details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
+  // data = [
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //     details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
+  //
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   },
+  //   {
+  //     name: 'Leanne Graham',
+  //     email: 'nour@gmail.com',
+  //     phoneNumber: '24681998',
+  //   }
+  // ];
 
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    },
-    {
-      name: "Leanne Graham",
-      email: "nour@gmail.com",
-      phoneNumber: "24681998",
-    }
-  ];
+  clients: Product[] = [];
 
-  noData = [];
 
-  constructor() { }
+  constructor(private http: HttpClient,
+              private clientService: ClientService) {
+  }
 
   ngOnInit(): void {
+    this.getAllClients();
+  }
+
+  getAllClients(): void {
+    this.clientService.getAll().subscribe((data) => {
+      console.log(data.clients);
+      this.clients = data.clients;
+    });
   }
 
 }

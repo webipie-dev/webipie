@@ -27,6 +27,24 @@ export class GenericService<T extends GenericModel> {
     return this.http.post(this.getUrl() + this.suffix, body) as Observable<T>;
   }
 
+  public edit(body: T) {
+    return this.http.patch(this.getUrl() + this.suffix, body) as Observable<T>;
+  }
+
+  public deleteMany(body: T) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body
+    };
+    return this.http.delete(this.getUrl() + this.suffix, options) as Observable<T>;
+  }
+
+  public deleteAll() {
+    return this.http.delete(this.getUrl() + this.suffix) as Observable<T>;
+  }
+
 
   // protected getHeaders(): HttpHeaders {
   //   const token = localStorage.getItem('token');
