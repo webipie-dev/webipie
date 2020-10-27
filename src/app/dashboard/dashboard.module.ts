@@ -22,6 +22,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { ProfileComponent } from './profile/profile.component';
 import { OrderEditComponent } from './sales/orders/order-edit/order-edit.component';
+import { AuthGuard } from '../_shared/services/auth-guard.service';
 
 @NgModule({
     imports: [
@@ -50,6 +51,9 @@ import { OrderEditComponent } from './sales/orders/order-edit/order-edit.compone
       ProfileComponent,
       OrderEditComponent
     ],
+    providers:[
+      AuthGuard,
+    ]
 })
 export class DashboardModule {
 }

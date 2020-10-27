@@ -14,7 +14,6 @@ export class OrderDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
   }
 
   onSwitch() {
@@ -22,6 +21,7 @@ export class OrderDetailComponent implements OnInit {
     this.displayMode = !this.editMode;
   }
 
+<<<<<<< HEAD
   openModal() {
     document.getElementById('order-detail-modal').style.setProperty('display' , 'block' , 'important');
     console.log(document.getElementById('order-detail-modal'));

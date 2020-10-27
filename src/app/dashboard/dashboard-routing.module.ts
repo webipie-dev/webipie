@@ -10,7 +10,7 @@ import {ProductsComponent} from './products/products.component';
 import { MobileAppPageComponent } from './mobile-app-page/mobile-app-page.component';
 import {StatisticsComponent} from "./statistics/statistics.component";
 import { ProfileComponent } from './profile/profile.component';
-
+import { AuthGuard } from '../_shared/services/auth-guard.service';
 
 const routes: Routes = [{
   path: '',
@@ -18,7 +18,8 @@ const routes: Routes = [{
   children: [
     {
       path: 'social-media',
-      component: SocialMediaComponent
+      component: SocialMediaComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: 'product-edit',
@@ -35,6 +36,10 @@ const routes: Routes = [{
     {
       path: 'statistics',
       component: StatisticsComponent
+    },
+    {
+      path: 'mobile-app',
+      component: MobileAppPageComponent
     },
     {
       path: 'sales',
