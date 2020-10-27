@@ -1,4 +1,4 @@
-export class Client {
+export class Order {
   public orderDate: string;
   public orderStatus: string;
   public totalPrice: string;
@@ -9,7 +9,10 @@ export class Client {
       quantity: string
     }
   ];
-  client: string;
+  client: {
+    _id: string,
+    name: string
+  };
   store: string;
 
 

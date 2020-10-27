@@ -3,19 +3,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const address = new Schema({
-  street: {type: String},
-  houseNumber: {type: String},
-  city: {type: String},
-  state: {type: String},
-  zipCode: {type: String},
+  street: {type: String, default: ''},
+  houseNumber: {type: String, default: ''},
+  city: {type: String, default: ''},
+  state: {type: String, default: ''},
+  zipCode: {type: String, default: ''},
 });
 
 const ExSchema = new Schema({
-  firstname: {type: String},
-  lastname: {type: String},
-  phoneNumber: {type: String},
-  email: {type: String},
-  gender: {type: String},
+  firstname: {type: String, default: ''},
+  lastname: {type: String, default: ''},
+  phoneNumber: {type: String, default: ''},
+  email: {type: String, default: ''},
+  gender: {type: String, default: ''},
   fullAddress: address,
   orders: [{ type: Schema.Types.ObjectID, ref: "Order", default: [] }]
 

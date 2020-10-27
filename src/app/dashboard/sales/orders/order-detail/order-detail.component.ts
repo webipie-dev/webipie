@@ -13,7 +13,7 @@ export class OrderDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("console log " + JSON.stringify(this.value));
+    // console.log("console log " + JSON.stringify(this.value));
   }
 
   onSwitch() {
@@ -22,6 +22,6 @@ export class OrderDetailComponent implements OnInit {
   }
 
   row() {
-    console.log(this.value);
+    // console.log(this.value);
   }
 }
