@@ -1,24 +1,135 @@
-<a data-toggle="modal" data-target="#basicExampleModal"
-   class="button-generic button-white-border-blue detail-button">Details</a>
+<a data-toggle="modal" data-target="#order-detail-modal"
+   class="button-generic button-white-border-blue detail-button" (click)="row()">Details</a>
 
 
 <!-- Modal -->
-<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade"  id="order-detail-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" id="modal-dialogue-order" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title my-auto" id="exampleModalLabel">Order ID: 145963</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" class="close-x huge-titles">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <p class="small-titles font-weight-lighter">Orderer: </p>
+            <p>Shadi Hammami</p>
+          </div>
+          <div class="col-md-6 col-12">
+            <p class="small-titles font-weight-lighter">Date: </p>
+            <p>15/02/2020</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <p *ngIf="displayMode" class="small-titles font-weight-lighter">Status: </p>
+            <p *ngIf="editMode" class="small-titles font-weight-lighter">Change Status: </p>
+            <p *ngIf="displayMode">Shipped</p>
+            <div *ngIf="editMode">
+              <select name="cars" id="cars">
+                <option value="volvo">Shipped</option>
+                <option value="saab">Canceled</option>
+                <option value="mercedes">Pending</option>
+                <option value="audi">On Review</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <p class="small-titles font-weight-lighter">Total Price: </p>
+            <p class="big-titles color-blue">22.500dt</p>
+          </div>
+        </div>
+        <div class="text-center big-titles my-3 pt-5 mx-auto border-top">List Of Products</div>
+        <div class="row my-3 mx-auto">
+          <div class="col-md-6 col-12">
+            <p class='small-titles text-center'>Product</p>
+          </div>
+          <div class="col-md-3 col-6 small-titles">Quantity</div>
+          <div class="col-md-3 col-6 small-titles my-auto">Unit Price</div>
+        </div>
+        <div class="row mx-auto border-bottom pb-3 mt-3">
+          <div class="col-md-6 col-12">
+            <div class='row'>
+              <a *ngIf="editMode" type="button">
+                <span class="close-x huge-titles">&times;</span>
+              </a>
+              <img class='img-fluid product-image-table ml-3 mr-2' src='../../../../../assets/images/dress.jpg'>
+              <p class='my-auto text-center'>Leanne Graham</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-6 my-auto">
+            <p *ngIf="displayMode">3</p>
+            <input *ngIf="editMode" type="number" class="change-quantity" value="3">
+          </div>
+          <div class="col-md-3 col-6 my-auto">25</div>
+        </div>
+        <div class="row mx-auto border-bottom pb-3 mt-3">
+          <div class="col-md-6 col-12">
+            <div class='row'>
+              <a *ngIf="editMode" type="button">
+                <span class="close-x huge-titles">&times;</span>
+              </a>
+              <img class='img-fluid product-image-table ml-3 mr-2' src='../../../../../assets/images/dress.jpg'>
+              <p class='my-auto text-center'>Leanne Graham</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-6 my-auto">
+            <p *ngIf="displayMode">3</p>
+            <input *ngIf="editMode" type="number" class="change-quantity" value="3">
+          </div>
+          <div class="col-md-3 col-6 my-auto">25</div>
+        </div>
+        <div class="row mx-auto border-bottom pb-3 mt-3">
+          <div class="col-md-6 col-12">
+            <div class='row'>
+              <a *ngIf="editMode" type="button">
+                <span class="close-x huge-titles">&times;</span>
+              </a>
+              <img class='img-fluid product-image-table ml-3 mr-2' src='../../../../../assets/images/dress.jpg'>
+              <p class='my-auto text-center'>Leanne Graham</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-6 my-auto">
+            <p *ngIf="displayMode">3</p>
+            <input *ngIf="editMode" type="number" class="change-quantity" value="3">
+          </div>
+          <div class="col-md-3 col-6 my-auto">25</div>
+        </div>
+        <div class="row mx-auto border-bottom pb-3 mt-3">
+          <div class="col-md-6 col-12">
+            <div class='row'>
+              <a *ngIf="editMode" type="button">
+                <span class="close-x huge-titles">&times;</span>
+              </a>
+              <img class='img-fluid product-image-table ml-3 mr-2' src='../../../../../assets/images/dress.jpg'>
+              <p class='my-auto text-center'>Leanne Graham</p>
+              </div>
+          </div>
+          <div class="col-md-3 col-6 my-auto">
+            <p *ngIf="displayMode">3</p>
+            <input *ngIf="editMode" type="number" class="change-quantity" value="3">
+          </div>
+          <div class="col-md-3 col-6 my-auto">25</div>
+        </div>
+
+        <div class="mt-3">
+          <div *ngIf="displayMode">
+            <a class="button-generic button-edit mr-2" (click)="onSwitch()"><i id="edit-icon" class="fa fa-edit"></i> Edit</a>
+            <a class="button-generic button-delete"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete</a>
+          </div>
+          <div *ngIf="editMode">
+            <a class="button-generic button-edit mr-2" (click)="onSwitch()"><i id="save-icon" class="fa fa-check"></i> Save</a>
+            <a class="button-generic button-cancel" (click)="onSwitch()"><i id="backward-icon" class="fa fa-backward"></i> Cancel</a>
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="button-generic button-white-border-blue" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

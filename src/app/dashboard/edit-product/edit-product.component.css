@@ -2,15 +2,15 @@
 .upload-images {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  display: flex;
+  /* display: flex; */
   background: white;
 }
 
 .img-product {
   border: solid 1px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  width: 100px;
-  height: 100px;
+  width: 75%;
+  height: 90%;
 }
 
 .product-input {
@@ -41,4 +41,19 @@
 .form-button {
   margin: 10px 0 0 0;
   font-weight: lighter !important;
+}
+
+.fileInput {
+  cursor: pointer;
+  height: 100%;
+  position:absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  /*This makes the button huge. If you want a bigger button, increase the font size*/
+  /* font-size:50px; */
+  /*Opacity settings for all browsers*/
+  opacity: 0;
+  -moz-opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }

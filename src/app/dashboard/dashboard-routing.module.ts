@@ -9,6 +9,7 @@ import {ClientsComponent} from './sales/clients/clients.component';
 import {ProductsComponent} from './products/products.component';
 import { MobileAppPageComponent } from './mobile-app-page/mobile-app-page.component';
 import {StatisticsComponent} from "./statistics/statistics.component";
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [{
@@ -26,6 +27,10 @@ const routes: Routes = [{
     {
       path: 'products',
       component: ProductsComponent
+    },
+    {
+      path: 'profile',
+      component: ProfileComponent
     },
     {
       path: 'statistics',

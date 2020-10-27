@@ -41,14 +41,15 @@ export class ProductsComponent implements OnInit {
       custom: [
         {
           name: 'edit',
-          title: '<i class="fa fa-edit fa-lg"></i>',
+          title: '<i class="fa icon-edit fa-edit ml-2 fa-lg"></i>',
         }
       ]
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt mt-3 mr-1 fa-lg"></i>',
+      deleteButtonContent: '<i class="fa icon-trash-alt fa-trash-alt mt-3 ml-2 fa-lg"></i>',
       confirmDelete: true,
     },
+    noDataMessage: 'Oups, no Data yet !'
   };
   settingsMobile = {
     selectMode: 'multi',
@@ -74,14 +75,15 @@ export class ProductsComponent implements OnInit {
         renderComponent: ProductDetailComponent,
       },
     },
-    actions: false
+    actions: false,
+    noDataMessage: 'Oups, no Data yet !'
   };
 
   data = [
     {
       id: 1,
       name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table upload-images mr-3' src='../../../assets/images/Untitled%20design.png'>" +
+        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
         "<p class='small-titles my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
@@ -91,7 +93,7 @@ export class ProductsComponent implements OnInit {
     {
       id: 1,
       name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table upload-images mr-3' src='../../../assets/images/Untitled%20design.png'>" +
+        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
         "<p class='small-titles my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
@@ -102,7 +104,7 @@ export class ProductsComponent implements OnInit {
       select: "<input type='checkbox'>",
       id: 1,
       name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table upload-images mr-3' src='../../../assets/images/Untitled%20design.png'>" +
+        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
         "<p class='small-titles my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
@@ -112,193 +114,13 @@ export class ProductsComponent implements OnInit {
     {
       id: 1,
       name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table upload-images mr-3' src='../../../assets/images/Untitled%20design.png'>" +
+        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
         "<p class='small-titles my-auto'>Leanne Graham</p>" +
         "</div>",
       price: "20.52",
       stock: "250",
       status: 'avail',
     },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='col-md-4 col-12 img-fluid product-image-table upload-images middle-text' src='../../../assets/images/Untitled%20design.png'>" +
-        "<p class='col-md-8 col-6 small-titles mx-auto my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    }
   ];
 
   selectedRows = [];
