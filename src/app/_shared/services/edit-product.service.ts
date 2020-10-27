@@ -15,33 +15,4 @@ export class EditProductService extends GenericService<any> {
     this.suffix = '/product';
   }
 
-
-  // getProductModif(id) {
-  //   this.http
-  //     .get<{ message: string; product: any }>(
-  //       `http://localhost:3000/product/${id}`
-  //     )
-  //     .pipe(map((productData) => {
-  //       return productData.product(product => {
-  //         return {
-  //           _id: product._id,
-  //           name: product.name,
-  //           description: product.description,
-  //           price: product.price,
-  //           imgs: product.imgs,
-  //           quantity: product.quantity,
-  //           store: product.store
-  //         };
-  //       });
-  //     }))
-  //     .subscribe(transformedProductModif => {
-  //       this.productModif = transformedProductModif;
-  //       // this.productUpdated = this.productModif;
-  //     });
-  // }
-  //
-  // getProductUpdateListener() {
-  //   return this.productUpdated.asObservable();
-  // }
-
 }
