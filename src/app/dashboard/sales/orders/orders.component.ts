@@ -37,7 +37,7 @@ export class OrdersComponent implements OnInit {
         width: '10%',
         type: 'custom',
         valuePrepareFunction: (cell, row) => {
-          return row.columnName;
+          return row;
         },
         renderComponent: OrderDetailComponent,
       },
@@ -181,7 +181,6 @@ export class OrdersComponent implements OnInit {
       status: 'avail',
     }
 ];
-  show = false;
 
   constructor() { }
 
@@ -189,19 +188,10 @@ export class OrdersComponent implements OnInit {
   }
 
   onDeleteConfirm(event) {
-    console.log(event);
-    event.confirm.resolve();
-    /*if (window.confirm('Are you sure you want to delete?')) {
+    if (window.confirm('Are you sure you want to delete?')) {
       event.confirm.resolve();
     } else {
       event.confirm.reject();
-    }*/
+    }
   }
-
-  onEditSelect(event) {
-    console.log('clicked');
-    console.log(event);
-    this.show = true;
-  }
-
 }
