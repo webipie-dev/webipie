@@ -8,7 +8,7 @@ import {OrderEditComponent} from './order-edit/order-edit.component';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-
+  windowWidth = window.screen.width;
   settings = {
     selectMode: 'multi',
     columns: {
@@ -64,6 +64,8 @@ export class OrdersComponent implements OnInit {
     },
     noDataMessage: 'Oups, no Data yet !'
   };
+
+
   settingsMobile = {
     selectMode: 'multi',
     columns: {
@@ -83,7 +85,7 @@ export class OrdersComponent implements OnInit {
           return row.columnName;
         },
         renderComponent: OrderDetailComponent,
-      }
+      },
     },
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
@@ -185,6 +187,9 @@ export class OrdersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    window.addEventListener("resize", () => {
+      this.windowWidth = window.screen.width;
+    });
   }
 
   onDeleteConfirm(event) {

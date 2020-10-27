@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-order-detail',
@@ -9,11 +9,12 @@ export class OrderDetailComponent implements OnInit {
   // it contains row elements
   public value;
   editMode = false;
-  displayMode= !this.editMode;
+  displayMode = !this.editMode;
+  windowWidth = window.screen.width;
   constructor() { }
 
   ngOnInit(): void {
-    console.log("console log " + JSON.stringify(this.value));
+
   }
 
   onSwitch() {
@@ -21,7 +22,9 @@ export class OrderDetailComponent implements OnInit {
     this.displayMode = !this.editMode;
   }
 
-  row() {
-    console.log(this.value);
+  openModal() {
+    document.getElementById('order-detail-modal').style.setProperty('display' , 'block' , 'important');
+    console.log(document.getElementById('order-detail-modal'));
+    console.log(window.screen.width);
   }
 }

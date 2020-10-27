@@ -18,6 +18,7 @@ import {
 
 import {DashboardModule} from "./dashboard/dashboard.module";
 import { PageNotFoundComponent } from './index/page-not-found/page-not-found.component';
+import {StoreEditModule} from "./store-edit/store-edit.module";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PageNotFoundComponent } from './index/page-not-found/page-not-found.com
     AppRoutingModule,
     FormsModule,
     DashboardModule,
+    StoreEditModule,
     HttpClientModule,
     SocialLoginModule
   ],

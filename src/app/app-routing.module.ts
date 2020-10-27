@@ -26,6 +26,11 @@ const routes: Routes = [
       .then(m => m.DashboardModule),
   },
   {
+    path: 'store',
+    loadChildren: () => import('./store-edit/store-edit.module')
+      .then(m => m.StoreEditModule),
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   },
