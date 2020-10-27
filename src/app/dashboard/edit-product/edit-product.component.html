@@ -6,7 +6,7 @@
   <div class="sales-header mt-5">
     <h1 class="big-titles text-center">Add Edit One Product</h1>
   </div>
-  <form [formGroup]="productForm" (submit)="addProduct()">
+  <form [formGroup]="productForm" (submit)="onSubmit()">
     <div class="row margin-top">
       <!-- <div> <ng-image-slider [images]="imageObject"></ng-image-slider> </div> -->
     <div class="col-md-9 col-12">
@@ -59,7 +59,7 @@
                   <input
                     class="text-size product-input"
                     type="text"
-                    formControlName="name">
+                    formControlName="name" [ngModel]="singleProduct.name">
                 </div>
               </div>
               <div class="col-md-3 col-6">
@@ -70,7 +70,7 @@
                   <input
                     class="text-size product-input"
                     type="number"
-                    formControlName="quantity">
+                    formControlName="quantity" [ngModel]="singleProduct.quantity">
                 </div>
               </div>
               <div class="col-md-3 col-6">
@@ -81,7 +81,7 @@
                   <input
                     class="text-size product-input"
                     type="text"
-                    formControlName="store">
+                    formControlName="store" [ngModel]="singleProduct.store">
                 </div>
               </div>
               <div class="col-12 mt-3">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-12">
                   <textarea class="description-area"
-                            formControlName="description"></textarea>
+                            formControlName="description" [ngModel]="singleProduct.description"></textarea>
                 </div>
               </div>
             </div>
@@ -107,7 +107,7 @@
           <input
             class="text-size product-input"
             type="number"
-            formControlName="price">
+            formControlName="price" [ngModel]="singleProduct.price">
         </div>
         <div class="col-12 mt-5">
           <label class="text-size pl-2">Status</label>

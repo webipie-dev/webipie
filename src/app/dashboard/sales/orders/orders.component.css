@@ -28,26 +28,27 @@
   }
 }
 
-:host /deep/ ng2-smart-table .fa-edit {
+:host /deep/ ng2-smart-table .icon-edit {
   color: black !important;
 }
 
 :host /deep/ ng2-smart-table .ng2-smart-actions {
-  width: 50px !important;
+  width: 200px !important;
 }
 
-:host /deep/ ng2-smart-table .fa-trash-alt {
+:host /deep/ ng2-smart-table .icon-trash-alt {
   color: #c21400 !important;
+  display: inline !important;
 }
 
-:host /deep/ ng2-smart-table .fa-check {
-  color: #179203 !important;
+:host /deep/ ng2-smart-table .icon-edit {
+  display: inline !important;
 }
 
-:host /deep/ ng2-smart-table .fa-window-close {
+:host /deep/ ng2-smart-table .icon-window-close {
   color: var(--dark-blue-color) !important;
 }
-:host /deep/ ng2-smart-table .fa-plus {
+:host /deep/ ng2-smart-table .icon-plus {
   color: #179203 !important;
   display: none;
 }

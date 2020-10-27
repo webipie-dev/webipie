@@ -21,6 +21,7 @@ import {NgxChartsModule} from "@swimlane/ngx-charts";
 import { StatisticsComponent } from './statistics/statistics.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { ProfileComponent } from './profile/profile.component';
+import { OrderEditComponent } from './sales/orders/order-edit/order-edit.component';
 
 @NgModule({
     imports: [
@@ -46,7 +47,8 @@ import { ProfileComponent } from './profile/profile.component';
       OrderDetailComponent,
       ClientDetailComponent,
       StatisticsComponent,
-      ProfileComponent
+      ProfileComponent,
+      OrderEditComponent
     ],
 })
 export class DashboardModule {
