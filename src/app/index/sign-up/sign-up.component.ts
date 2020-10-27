@@ -4,17 +4,20 @@ import { StoreOwner } from '../../_shared/models/store_owner.model';
 
 import { SocialAuthService } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css'],
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css'],
 
 })
-export class SignInComponent implements OnInit {
+export class SignUpComponent implements OnInit {
 
   constructor(private auth: AuthService,
-    private authService: SocialAuthService) { }
+    private authService: SocialAuthService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   store_owner : StoreOwner = new StoreOwner();
 
@@ -24,16 +27,15 @@ export class SignInComponent implements OnInit {
     console.log(head);
   }
 
-  signIn(){
-    console.log(JSON.stringify(this.store_owner));
+  signUp(){
+    // console.log(JSON.stringify(this.store_owner));
     this.auth.login(this.store_owner)
       .subscribe( result =>{
-        console.log(result)
         if (result){
           // console.log(result);
           localStorage.setItem('token', result['token'])
-          // console.log(result);
-          console.log('success here');
+          let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+          this.router.navigate([returnUrl || '/after-signin'])
         }
         else
           console.log('error here')

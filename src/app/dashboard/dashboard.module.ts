@@ -19,7 +19,10 @@ import { OrderDetailComponent } from './sales/orders/order-detail/order-detail.c
 import { ClientDetailComponent } from './sales/clients/client-detail/client-detail.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import { StatisticsComponent } from './statistics/statistics.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { ProfileComponent } from './profile/profile.component';
 import { OrderEditComponent } from './sales/orders/order-edit/order-edit.component';
+import { AuthGuard } from '../_shared/services/auth-guard.service';
 
 @NgModule({
     imports: [
@@ -29,6 +32,7 @@ import { OrderEditComponent } from './sales/orders/order-edit/order-edit.compone
         ReactiveFormsModule,
         CommonModule,
         NgxChartsModule,
+        NgImageSliderModule
     ],
     declarations: [
       DashboardComponent,
@@ -44,8 +48,12 @@ import { OrderEditComponent } from './sales/orders/order-edit/order-edit.compone
       OrderDetailComponent,
       ClientDetailComponent,
       StatisticsComponent,
+      ProfileComponent,
       OrderEditComponent
     ],
+    providers:[
+      AuthGuard,
+    ]
 })
 export class DashboardModule {
 }

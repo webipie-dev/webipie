@@ -12,6 +12,32 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class EditProductComponent implements OnInit {
 
+  // images that should be populated by getProducts
+  imageObject = [{
+      image: '../../../assets/images/Untitled%20design.png',
+      thumbImage: '../../../assets/images/Untitled%20design.png',
+  }, {
+      image: '../../../assets/images/Untitled%20design.png',
+      thumbImage: '../../../assets/images/Untitled%20design.png'
+  },
+  //  {
+  //     image: '../../../assets/images/Untitled%20design.png',
+  //     thumbImage: '../../../assets/images/Untitled%20design.png',
+  // },{
+  //     image: '../../../assets/images/Untitled%20design.png',
+  //     thumbImage: '../../../assets/images/Untitled%20design.png',
+  // }, {
+  //     image: '../../../assets/images/Untitled%20design.png',
+  //     thumbImage: '../../../assets/images/Untitled%20design.png'
+  // }, 
+  {
+      image: '../../../assets/images/Untitled%20design.png',
+      thumbImage: '../../../assets/images/Untitled%20design.png',
+  }];
+
+
+  private productSub: Subscription;
+  productModif: Product;
 
   productForm: FormGroup;
   postData = new FormData();
