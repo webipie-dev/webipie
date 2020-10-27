@@ -1,46 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../_shared/services/auth.service';
-import { StoreOwner } from '../../_shared/models/store_owner.model';
-
 import { SocialAuthService } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../_shared/services/auth.service';
+import { StoreOwner } from '../../_shared/models/store_owner.model';
+
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css'],
-
+  selector: 'app-sign-in',
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignInComponent implements OnInit {
 
-  constructor(private auth: AuthService,
-    private authService: SocialAuthService,
+  constructor(private authService: SocialAuthService,
+    private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute) { }
-
-  store_owner : StoreOwner = new StoreOwner();
 
   ngOnInit(): void {
     var head = document.getElementById('headerr');
     head.className += ' color-blue-header';
-    console.log(head);
   }
 
-  signUp(){
-    // console.log(JSON.stringify(this.store_owner));
-    this.auth.login(this.store_owner)
-      .subscribe( result =>{
-        if (result){
-          // console.log(result);
-          localStorage.setItem('token', result['token'])
-          let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
-          this.router.navigate([returnUrl || '/after-signin'])
-        }
-        else
-          console.log('error here')
-      })
-  }
+  store_owner : StoreOwner = new StoreOwner();
 
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
@@ -78,5 +61,4 @@ export class SignUpComponent implements OnInit {
         })
     });
   }
-
 }

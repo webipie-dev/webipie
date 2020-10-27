@@ -19,6 +19,7 @@ import {
 import {DashboardModule} from "./dashboard/dashboard.module";
 import { PageNotFoundComponent } from './index/page-not-found/page-not-found.component';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { SignInComponent } from './index/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
     SignUpComponent,
     AfterSigninComponent,
     PageNotFoundComponent,
+    SignInComponent,
     // FormsModule
   ],
   imports: [

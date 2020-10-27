@@ -5,6 +5,7 @@ import { AfterSigninComponent } from './index/after-signin/after-signin.componen
 import { IndexComponent } from './index/index.component';
 import { SignUpComponent } from './index/sign-up/sign-up.component';
 import {PageNotFoundComponent} from "./index/page-not-found/page-not-found.component";
+import { SignInComponent } from './index/sign-in/sign-in.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignUpComponent
+  },
+  {
+    path: 'signin',
+    component: SignInComponent
   },
   {
     path: 'after-signin',
