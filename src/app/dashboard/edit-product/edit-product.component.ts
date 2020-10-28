@@ -4,6 +4,7 @@ import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-edit-product',
@@ -11,21 +12,27 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-
-
   productForm: FormGroup;
   postData = new FormData();
   singleProduct: Product = new Product();
   allProducts: Product[] = [];
   edit = false;
-  productId = '5f93ffc994a31e4b6cb602dc';
+  productId = '';
 
 
   constructor(private http: HttpClient,
-              private editProductService: EditProductService) {
+              private editProductService: EditProductService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if(params.id) {
+        this.productId = params.id;
+        this.edit = true;
+        console.log('I got here')
+      }
+    });
     if (this.edit) {
       this.productForm = new FormGroup({
         ids: new FormControl(null, Validators.required),
