@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {OrderService} from '../../_shared/services/order.service';
 import {ProductService} from '../../_shared/services/product.service';
 import {Product} from '../../_shared/models/product.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -132,7 +133,8 @@ export class ProductsComponent implements OnInit {
   products: Product[] = [];
 
   constructor(private http: HttpClient,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private router: Router) {
   }
 
   onRowSelect(event) {
@@ -188,6 +190,7 @@ export class ProductsComponent implements OnInit {
   onEditSelect(event) {
     console.log('clicked');
     console.log(event);
+    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: '5f93ffc994a31e4b6cb602dc'} });
   }
 
 }

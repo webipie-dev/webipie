@@ -169,7 +169,6 @@
 :host /deep/ .product-image-table {
   transition: 0.5s;
   border-radius: 5px !important;
-
 }
 
 :host /deep/ .product-image-table:hover {

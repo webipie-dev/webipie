@@ -3,6 +3,7 @@
 }
 
 .shadow {
+  width: fit-content !important;
   border: none;
   border-radius: 20px;
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.3) !important;

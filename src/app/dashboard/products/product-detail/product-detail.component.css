@@ -1,0 +1,68 @@
+#modal-dialogue-order {
+  width: 90%;
+  margin: auto;
+  margin-top: 50px !important;
+  margin-bottom: 10px !important;
+}
+
+.close-x {
+  color: #a40000;
+  font-weight: bolder;
+}
+
+:host /deep/ .product-image-list {
+  border-radius: 10px !important;
+  width: 100px !important;
+  height: 100px !important;
+}
+
+:host /deep/ .border-bottom-blue {
+  border-bottom: solid 1px var(--blue-color)
+}
+
+:host /deep/ .change-quantity {
+  margin-bottom: 0 !important;
+}
+
+:host /deep/ .button-delete {
+  background: #9a0017;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+:host /deep/ #delete-icon-product {
+  color: var(--white-color);
+}
+
+:host /deep/ .button-delete:hover {
+  background: var(--white-color);
+  color: #9a0017;
+  border: solid 1px #9a0017;
+  transition: all 200ms ease-in-out;
+}
+
+:host /deep/ .button-delete:hover #delete-icon-product {
+  color: #9a0017;
+}
+
+:host /deep/ .button-edit {
+  background: #0e9c21;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+:host /deep/ #edit-icon-product {
+  color: var(--white-color);
+}
+
+
+:host /deep/ .button-edit:hover {
+  background: var(--white-color);
+  color: #0e9c21;
+  border: solid 1px #0e9c21;
+}
+
+:host /deep/ .button-edit:hover #edit-icon-product {
+  color: #0e9c21;
+}
+
