@@ -29,7 +29,7 @@ export class EditProductComponent implements OnInit {
   // }, {
   //     image: '../../../assets/images/Untitled%20design.png',
   //     thumbImage: '../../../assets/images/Untitled%20design.png'
-  // }, 
+  // },
   {
       image: '../../../assets/images/Untitled%20design.png',
       thumbImage: '../../../assets/images/Untitled%20design.png',
@@ -76,21 +76,21 @@ export class EditProductComponent implements OnInit {
   }
 
 
-  getProductById(id) {
+  getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
       this.singleProduct = data.product;
       console.log(data);
     });
   }
 
-  getProduct() {
+  getAllProducts(): void {
     this.editProductService.getAll().subscribe(data => {
       // console.log(data);
       this.allProducts = data.products;
     });
   }
 
-  onImagePicked(event: Event) {
+  onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
     const name = (event.target as HTMLInputElement).name;
     for (let i = 0; i < file.length; i++) {
@@ -99,7 +99,7 @@ export class EditProductComponent implements OnInit {
 
   }
 
-  addProduct() {
+  addProduct(): void {
 
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
@@ -130,7 +130,7 @@ export class EditProductComponent implements OnInit {
 
   }
 
-  editProduct(id) {
+  editProduct(id): void {
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
@@ -158,7 +158,7 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
       if (this.edit) {
         this.editProduct(this.productId);
       } else {

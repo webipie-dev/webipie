@@ -5,7 +5,6 @@ import {Order} from '../../../_shared/models/order.model';
 import {HttpClient} from '@angular/common/http';
 import {ClientService} from '../../../_shared/services/client.service';
 import {OrderService} from '../../../_shared/services/order.service';
-import {element} from 'protractor';
 
 @Component({
   selector: 'app-orders',
@@ -101,8 +100,7 @@ export class OrdersComponent implements OnInit {
   orders = [];
 
   constructor(private http: HttpClient,
-              private orderService: OrderService,
-              private clientService: ClientService) {
+              private orderService: OrderService) {
   }
 
   ngOnInit(): void {

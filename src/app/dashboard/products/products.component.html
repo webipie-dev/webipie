@@ -1,9 +1,10 @@
+<div *ngIf="products.length > 0">
 <div id="sidebar-next">
   <div class="container web-show">
     <div class="my-5 mx-auto px-5 py-3 shadow">
       <ng2-smart-table class="text-size text-center"
                        [settings]="settings"
-                       [source]="data"
+                       [source]="products"
                        (userRowSelect)="onRowSelect($event)"
                        (deleteConfirm)="onDeleteConfirm($event)"
                        (custom)="onEditSelect($event)"
@@ -14,11 +15,10 @@
     <div class="my-5 px-5 py-3 shadow">
       <ng2-smart-table class="text-size text-center"
                        [settings]="settingsMobile"
-                       [source]="data"
+                       [source]="products"
                        (userRowSelect)="onRowSelect($event)"
       ></ng2-smart-table>
     </div>
   </div>
-
-
+</div>
 </div>

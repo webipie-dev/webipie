@@ -49,7 +49,7 @@ exports.addProduct = (req, res, next) => {
   {
     console.log(req.files)
     req.files.map(fileimg => {
-      images.push(url + '/images/' + fileimg.filename)
+      images.push(url + '/backend/images/' + fileimg.filename)
     });
   }
   else {

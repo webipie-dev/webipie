@@ -1,5 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
+import {HttpClient} from '@angular/common/http';
+import {OrderService} from '../../_shared/services/order.service';
+import {ProductService} from '../../_shared/services/product.service';
+import {Product} from '../../_shared/models/product.model';
 
 @Component({
   selector: 'app-products',
@@ -24,7 +28,7 @@ export class ProductsComponent implements OnInit {
         title: 'Price',
         width: '15%'
       },
-      stock: {
+      quantity: {
         title: 'Stock',
         width: '20%'
       },
@@ -79,61 +83,99 @@ export class ProductsComponent implements OnInit {
     noDataMessage: 'Oups, no Data yet !'
   };
 
-  data = [
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
-        "<p class='small-titles my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
-        "<p class='small-titles my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      select: "<input type='checkbox'>",
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
-        "<p class='small-titles my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
-        "<p class='small-titles my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-  ];
+  // data = [
+  //   {
+  //     id: 1,
+  //     name: '<div class=\'row\'>' +
+  //       '<img class=\'img-fluid product-image-table mr-3\' src=\'../../../assets/images/dress.jpg\'>' +
+  //       '<p class=\'small-titles my-auto\'>Leanne Graham</p>' +
+  //       '</div>',
+  //     price: '20.52',
+  //     stock: '250',
+  //     status: 'avail',
+  //   },
+  //   {
+  //     id: 1,
+  //     name: '<div class=\'row\'>' +
+  //       '<img class=\'img-fluid product-image-table mr-3\'  src=\'../../../assets/images/dress.jpg\'>' +
+  //       '<p class=\'small-titles my-auto\'>Leanne Graham</p>' +
+  //       '</div>',
+  //     price: '20.52',
+  //     stock: '250',
+  //     status: 'avail',
+  //   },
+  //   {
+  //     select: '<input type=\'checkbox\'>',
+  //     id: 1,
+  //     name: '<div class=\'row\'>' +
+  //       '<img class=\'img-fluid product-image-table mr-3\' src=\'../../../assets/images/dress.jpg\'>' +
+  //       '<p class=\'small-titles my-auto\'>Leanne Graham</p>' +
+  //       '</div>',
+  //     price: '20.52',
+  //     stock: '250',
+  //     status: 'avail',
+  //   },
+  //   {
+  //     id: 1,
+  //     name: '<div class=\'row\'>' +
+  //       '<img class=\'img-fluid product-image-table mr-3\' src=\'../../../assets/images/dress.jpg\'>' +
+  //       '<p class=\'small-titles my-auto\'>Leanne Graham</p>' +
+  //       '</div>',
+  //     price: '20.52',
+  //     stock: '250',
+  //     status: 'avail',
+  //   },
+  // ];
 
   selectedRows = [];
-  constructor() { }
+
+  products: Product[] = [];
+
+  constructor(private http: HttpClient,
+              private productService: ProductService) {
+  }
 
   onRowSelect(event) {
     this.selectedRows = event.selected;
   }
 
   ngOnInit(): void {
+    this.getAllProducts();
   }
 
-  onDeleteConfirm(event) {
+  getAllProducts(): void {
+    this.productService.getAll().subscribe((data) => {
+      // console.log(data.products);
+      let quant;
+      data.products.forEach((element) => {
+        if (element.quantity > 0){
+          quant = element.quantity;
+        } else {
+          quant = 0;
+        }
+        console.log('<div class=\'row\'>' +
+          '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
+          '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
+          '</div>');
+        let aux = {
+          _id: element._id,
+          name: '<div class=\'row\'>' +
+        '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
+        '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
+        '</div>',
+          description: element.description,
+          imgs: element.imgs,
+          price: element.price,
+          quantity: quant,
+          store: element.store,
+
+        };
+        this.products.push(aux);
+      });
+    });
+  }
+
+  onDeleteConfirm(event): void {
     console.log(event);
     event.confirm.resolve();
     /*if (window.confirm('Are you sure you want to delete?')) {
