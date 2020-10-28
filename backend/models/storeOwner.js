@@ -5,33 +5,34 @@ const bcrypt = require('bcrypt');
 const storeOwnerSchema = new mongoose.Schema({
   methods: {
     type: [String],
-    required: true
+    required: true,
+    default: []
   },
   local: {
     email: {
       type: String,
-      lowercase: true
+      lowercase: true, default: ''
     },
     password: {
-      type: String
+      type: String, default: ''
     }
   },
   google: {
     id: {
-      type: String
+      type: String, default: ''
     },
     email: {
       type: String,
-      lowercase: true
+      lowercase: true, default: ''
     }
   },
   facebook: {
     id: {
-      type: String
+      type: String, default: ''
     },
     email: {
       type: String,
-      lowercase: true
+      lowercase: true, default: ''
     }
   }
 });
@@ -80,10 +81,10 @@ function validatestoreOwner(storeOwner) {
         })
     }
 
-  
+
     return schemas['authSchema'].validate(storeOwner);
 }
-  
+
 
 module.exports.validatestoreOwner = validatestoreOwner;
 module.exports.StoreOwner = StoreOwner;

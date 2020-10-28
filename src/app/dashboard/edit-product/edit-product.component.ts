@@ -12,6 +12,28 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
+  // images that should be populated by getProducts
+  imageObject = [{
+      image: '../../../assets/images/Untitled%20design.png',
+      thumbImage: '../../../assets/images/Untitled%20design.png',
+  }, {
+      image: '../../../assets/images/Untitled%20design.png',
+      thumbImage: '../../../assets/images/Untitled%20design.png'
+  },
+  //  {
+  //     image: '../../../assets/images/Untitled%20design.png',
+  //     thumbImage: '../../../assets/images/Untitled%20design.png',
+  // },{
+  //     image: '../../../assets/images/Untitled%20design.png',
+  //     thumbImage: '../../../assets/images/Untitled%20design.png',
+  // }, {
+  //     image: '../../../assets/images/Untitled%20design.png',
+  //     thumbImage: '../../../assets/images/Untitled%20design.png'
+  // }, 
+  {
+      image: '../../../assets/images/Untitled%20design.png',
+      thumbImage: '../../../assets/images/Untitled%20design.png',
+  }];
   productForm: FormGroup;
   postData = new FormData();
   singleProduct: Product = new Product();

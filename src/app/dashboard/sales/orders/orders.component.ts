@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {OrderEditComponent} from './order-edit/order-edit.component';
+import {Order} from '../../../_shared/models/order.model';
+import {HttpClient} from '@angular/common/http';
+import {ClientService} from '../../../_shared/services/client.service';
+import {OrderService} from '../../../_shared/services/order.service';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-orders',
@@ -8,7 +13,7 @@ import {OrderEditComponent} from './order-edit/order-edit.component';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-
+  windowWidth = window.screen.width;
   settings = {
     selectMode: 'multi',
     columns: {
@@ -16,19 +21,20 @@ export class OrdersComponent implements OnInit {
         title: 'ID',
         width: '15%'
       },
-      orderer: {
+      clientName: {
         title: 'Orderer',
         width: '20%'
       },
-      price: {
+      totalPrice: {
         title: 'Price',
         width: '10%'
       },
-      date: {
+      orderDate: {
         title: 'Date',
-        width: '20%'
+        width: '20%',
+        format: 'short'
       },
-      status: {
+      orderStatus: {
         title: 'Status',
         width: '10%'
       },
@@ -64,6 +70,8 @@ export class OrdersComponent implements OnInit {
     },
     noDataMessage: 'Oups, no Data yet !'
   };
+
+
   settingsMobile = {
     selectMode: 'multi',
     columns: {
@@ -83,109 +91,51 @@ export class OrdersComponent implements OnInit {
           return row.columnName;
         },
         renderComponent: OrderDetailComponent,
-      }
+      },
     },
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
 
-  data = [
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    }, {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      orderer: "Leanne Graham",
-      price: "20.52",
-      date: "20/19/2020",
-      status: 'avail',
-    }
-];
 
-  constructor() { }
+  orders = [];
+
+  constructor(private http: HttpClient,
+              private orderService: OrderService,
+              private clientService: ClientService) {
+  }
 
   ngOnInit(): void {
+    window.addEventListener("resize", () => {
+      this.windowWidth = window.screen.width;
+    });
+    this.getAllOrders();
   }
+
+  getAllOrders(): void {
+    this.orderService.getAll().subscribe((data) => {
+      data.orders.forEach((element) => {
+        if (element.store) {
+          const date = element.orderDate.split('T');
+          const time = date[1].split('.');
+          let aux = {
+            _id: element._id,
+            orderDate: date[0] ,
+            orderStatus: element.orderStatus,
+            totalPrice: element.totalPrice,
+            paymentMethod: element.paymentMethod,
+            products: element.products,
+            clientId: element.client._id,
+            clientName: element.client.name,
+            store: element.store,
+          };
+          this.orders.push(aux);
+
+        }
+      });
+    });
+  }
+
 
   onDeleteConfirm(event) {
     if (window.confirm('Are you sure you want to delete?')) {

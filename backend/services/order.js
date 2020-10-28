@@ -47,7 +47,7 @@ exports.addOrder = async (req, res) => {
     .save()
     .then(doc =>{
       Client
-        .updateOne({ _id : doc.client }, {$push: {orders: doc._id}})
+        .updateOne({ _id : doc.client._id }, {$push: {orders: doc._id}})
         .exec();
 
       let bulkQueries = [];
