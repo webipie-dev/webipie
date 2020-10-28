@@ -8,17 +8,48 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title my-auto" id="exampleModalLabel">Product ID: 145963</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <span aria-hidden="true" class="close-x huge-titles">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="row">
+          <div class="col-12">
+            <p class="small-titles font-weight-lighter">Product Name: </p>
+            <p class="big-titles">Hair Brush</p>
+          </div>
+          <div class="col-12">
+            <p class="small-titles font-weight-lighter">Price: </p>
+            <p class="big-titles color-blue">22.500dt</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <p class="small-titles font-weight-lighter">Stock: </p>
+            <p>250</p>
+          </div>
+          <div class="col-6">
+            <p class="small-titles font-weight-lighter">Status: </p>
+            <p>Available</p>
+          </div>
+        </div>
+        <div class="text-center big-titles my-3 pt-5 mx-auto border-top">Product Images</div>
+        <img class='img-fluid product-image-list ml-3 mt-3 mr-2' src='../../../../assets/images/dress.jpg'>
+        <img class='img-fluid product-image-list ml-3 mr-2 mt-3' src='../../../../assets/images/dress.jpg'>
+        <img class='img-fluid product-image-list ml-3 mt-3 mr-2' src='../../../../assets/images/dress.jpg'>
+        <img class='img-fluid product-image-list ml-3 mt-3 mr-2' src='../../../../assets/images/dress.jpg'>
+
+        <div class="mt-4">
+          <div>
+            <a class="button-generic button-edit mr-2" (click)="onEditSelect()"><i id="edit-icon-product" class="fa fa-edit"></i> Edit</a>
+            <a class="button-generic button-delete"><i id="delete-icon-product" class="fa fa-trash-alt"></i> Delete</a>
+          </div>
+        </div>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="button-generic button-white-border-blue" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

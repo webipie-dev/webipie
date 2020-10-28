@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -124,7 +125,7 @@ export class ProductsComponent implements OnInit {
   ];
 
   selectedRows = [];
-  constructor() { }
+  constructor(private router: Router) { }
 
   onRowSelect(event) {
     this.selectedRows = event.selected;
@@ -134,18 +135,17 @@ export class ProductsComponent implements OnInit {
   }
 
   onDeleteConfirm(event) {
-    console.log(event);
-    event.confirm.resolve();
-    /*if (window.confirm('Are you sure you want to delete?')) {
+    if (window.confirm('Are you sure you want to delete?')) {
       event.confirm.resolve();
     } else {
       event.confirm.reject();
-    }*/
+    }
   }
 
   onEditSelect(event) {
     console.log('clicked');
     console.log(event);
+    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: '5f93ffc994a31e4b6cb602dc'} });
   }
 
 }
