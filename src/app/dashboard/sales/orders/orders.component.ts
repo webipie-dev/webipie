@@ -5,7 +5,6 @@ import {Order} from '../../../_shared/models/order.model';
 import {HttpClient} from '@angular/common/http';
 import {ClientService} from '../../../_shared/services/client.service';
 import {OrderService} from '../../../_shared/services/order.service';
-import {element} from 'protractor';
 
 @Component({
   selector: 'app-orders',

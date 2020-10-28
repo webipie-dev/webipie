@@ -25,6 +25,20 @@ export class SignInComponent implements OnInit {
 
   store_owner : StoreOwner = new StoreOwner();
 
+  signIn(): void{
+    this.auth.signIn(this.store_owner)
+      .subscribe( result =>{
+        if (result){
+          // console.log(result);
+          localStorage.setItem('token', result['token'])
+          // let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+          this.router.navigate(['/after-signin'])
+        }
+        else
+          console.log('error here')
+      })
+  }
+
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
       .then(x =>{
