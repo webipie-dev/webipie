@@ -536,7 +536,7 @@ input:focus:-ms-input-placeholder {
 @media screen and (max-width: 576px) {
   #sidebar-next {
     transition: all 0.3s ease-in-out;
-    width: 97%;
+    width: 100%;
   }
 }
 
@@ -623,3 +623,15 @@ input:focus:-ms-input-placeholder {
   transition: 0.3s all ease-in-out;
 
 }
+
+.fa-toggle-off, .fa-toggle-on {
+  cursor: pointer !important;
+  transition: ease-in-out all 0.3s;
+  color: var(--white-color)
+}
+
+.fa-toggle-off:hover, .fa-toggle-on:hover {
+  transform: scale(1.6);
+
+}
+
