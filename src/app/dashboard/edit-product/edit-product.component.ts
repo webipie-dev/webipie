@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 @Component({
   selector: 'app-edit-product',
@@ -12,28 +13,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-  // images that should be populated by getProducts
-  imageObject = [{
-      image: '../../../assets/images/Untitled%20design.png',
-      thumbImage: '../../../assets/images/Untitled%20design.png',
-  }, {
-      image: '../../../assets/images/Untitled%20design.png',
-      thumbImage: '../../../assets/images/Untitled%20design.png'
-  },
-  //  {
-  //     image: '../../../assets/images/Untitled%20design.png',
-  //     thumbImage: '../../../assets/images/Untitled%20design.png',
-  // },{
-  //     image: '../../../assets/images/Untitled%20design.png',
-  //     thumbImage: '../../../assets/images/Untitled%20design.png',
-  // }, {
-  //     image: '../../../assets/images/Untitled%20design.png',
-  //     thumbImage: '../../../assets/images/Untitled%20design.png'
-  // },
-  {
-      image: '../../../assets/images/Untitled%20design.png',
-      thumbImage: '../../../assets/images/Untitled%20design.png',
-  }];
+
   productForm: FormGroup;
   postData = new FormData();
   singleProduct: Product = new Product();
@@ -52,20 +32,25 @@ export class EditProductComponent implements OnInit {
       if(params.id) {
         this.productId = params.id;
         this.edit = true;
-        console.log('I got here')
       }
     });
     if (this.edit) {
       this.productForm = new FormGroup({
-        ids: new FormControl(null, Validators.required),
-        name: new FormControl(null, Validators.required),
-        description: new FormControl(null, Validators.required),
-        price: new FormControl(null, Validators.required),
-        imgs: new FormControl(null, Validators.required),
-        quantity: new FormControl(null, Validators.required),
-        store: new FormControl(null, Validators.required),
+        name: new FormControl('', Validators.required),
+        description: new FormControl('', Validators.required),
+        price: new FormControl('', Validators.required),
+        imgs: new FormControl('', Validators.required),
+        quantity: new FormControl('', Validators.required),
+        store: new FormControl('', Validators.required),
       });
       this.getProductById(this.productId);
+      this.productForm.patchValue({
+        name: this.singleProduct.name,
+        description: this.singleProduct.description,
+        price: this.singleProduct.price,
+        quantity: this.singleProduct.quantity,
+        store: this.singleProduct.store,
+      });
     } else {
       this.productForm = new FormGroup({
         name: new FormControl(null, Validators.required),
@@ -82,13 +67,11 @@ export class EditProductComponent implements OnInit {
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
       this.singleProduct = data.product;
-      console.log(data);
     });
   }
 
   getAllProducts(): void {
     this.editProductService.getAll().subscribe(data => {
-      // console.log(data);
       this.allProducts = data.products;
     });
   }
@@ -137,14 +120,14 @@ export class EditProductComponent implements OnInit {
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
-        console.log('exist: ' + field);
-        console.log(control.value);
-        console.log('--------');
+        // console.log('exist: ' + field);
+        // console.log(control.value);
+        // console.log('--------');
         this.postData.append(field, control.value);
       } else {
-        console.log('doesnt exits: ' + field);
-        console.log(control.value);
-        console.log('--------');
+        // console.log('doesnt exits: ' + field);
+        // console.log(control.value);
+        // console.log('--------');
         if (field === 'ids') {
           this.postData.append(field, id);
         } else if (field in ['imgs']) {
@@ -155,7 +138,7 @@ export class EditProductComponent implements OnInit {
 
       }
     }
-    this.productForm.reset();
+    // this.productForm.reset();
     this.editProductService.edit(this.postData).subscribe((data) => {
       console.log(data);
     });

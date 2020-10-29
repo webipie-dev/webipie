@@ -47,7 +47,7 @@ exports.addProduct = (req, res, next) => {
   var images = [];
   if (req.files)
   {
-    console.log(req.files)
+    // console.log(req.files)
     req.files.map(fileimg => {
       images.push(url + '/backend/images/' + fileimg.filename)
     });

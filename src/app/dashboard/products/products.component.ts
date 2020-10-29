@@ -84,49 +84,7 @@ export class ProductsComponent implements OnInit {
     noDataMessage: 'Oups, no Data yet !'
   };
 
-  // data = [
-  //   {
-  //     id: 1,
-  //     name: '<div class=\'row\'>' +
-  //       '<img class=\'img-fluid product-image-table mr-3\' src=\'../../../assets/images/dress.jpg\'>' +
-  //       '<p class=\'small-titles my-auto\'>Leanne Graham</p>' +
-  //       '</div>',
-  //     price: '20.52',
-  //     stock: '250',
-  //     status: 'avail',
-  //   },
-  //   {
-  //     id: 1,
-  //     name: '<div class=\'row\'>' +
-  //       '<img class=\'img-fluid product-image-table mr-3\'  src=\'../../../assets/images/dress.jpg\'>' +
-  //       '<p class=\'small-titles my-auto\'>Leanne Graham</p>' +
-  //       '</div>',
-  //     price: '20.52',
-  //     stock: '250',
-  //     status: 'avail',
-  //   },
-  //   {
-  //     select: '<input type=\'checkbox\'>',
-  //     id: 1,
-  //     name: '<div class=\'row\'>' +
-  //       '<img class=\'img-fluid product-image-table mr-3\' src=\'../../../assets/images/dress.jpg\'>' +
-  //       '<p class=\'small-titles my-auto\'>Leanne Graham</p>' +
-  //       '</div>',
-  //     price: '20.52',
-  //     stock: '250',
-  //     status: 'avail',
-  //   },
-  //   {
-  //     id: 1,
-  //     name: '<div class=\'row\'>' +
-  //       '<img class=\'img-fluid product-image-table mr-3\' src=\'../../../assets/images/dress.jpg\'>' +
-  //       '<p class=\'small-titles my-auto\'>Leanne Graham</p>' +
-  //       '</div>',
-  //     price: '20.52',
-  //     stock: '250',
-  //     status: 'avail',
-  //   },
-  // ];
+
 
   selectedRows = [];
 
@@ -155,10 +113,6 @@ export class ProductsComponent implements OnInit {
         } else {
           quant = 0;
         }
-        console.log('<div class=\'row\'>' +
-          '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
-          '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
-          '</div>');
         let aux = {
           _id: element._id,
           name: '<div class=\'row\'>' +
@@ -178,7 +132,7 @@ export class ProductsComponent implements OnInit {
   }
 
   onDeleteConfirm(event): void {
-    console.log(event);
+    // console.log(event);
     event.confirm.resolve();
     /*if (window.confirm('Are you sure you want to delete?')) {
       event.confirm.resolve();
@@ -188,9 +142,10 @@ export class ProductsComponent implements OnInit {
   }
 
   onEditSelect(event) {
-    console.log('clicked');
-    console.log(event);
-    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: '5f93ffc994a31e4b6cb602dc'} });
+    // console.log('clicked');
+    // console.log(event.data._id);
+    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: event.data._id} });
   }
+
 
 }

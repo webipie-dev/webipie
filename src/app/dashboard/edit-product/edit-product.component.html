@@ -33,12 +33,11 @@
               </div>
 
               <div class='col-9'>
-                <ng-image-slider 
-                  [images]="imageObject" 
+                <ng-image-slider
                   [infinite]="false"
-                  [imageSize]="{width: '150', height: 150, space: 3}"></ng-image-slider> 
+                  [imageSize]="{width: '150', height: 150, space: 3}"></ng-image-slider>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -46,12 +45,6 @@
           <div class="container upload-images product-description py-5">
             <div class="row">
               <div class="col-md-6 col-12 mb-3">
-                <div *ngIf="allProducts.length > 0">
-                  <p>hellooo</p>
-                  <div *ngFor="let prod of allProducts">
-                    <p>{{prod.name}}</p>
-                  </div>
-                </div>
                 <div class="col-12">
                   <label class="text-size pl-2">Name</label>
                 </div>
@@ -59,7 +52,7 @@
                   <input
                     class="text-size product-input"
                     type="text"
-                    formControlName="name" [ngModel]="singleProduct.name">
+                    formControlName="name" [value]="singleProduct.name">
                 </div>
               </div>
               <div class="col-md-3 col-6">
@@ -70,7 +63,7 @@
                   <input
                     class="text-size product-input"
                     type="number"
-                    formControlName="quantity" [ngModel]="singleProduct.quantity">
+                    formControlName="quantity" [value]="singleProduct.quantity">
                 </div>
               </div>
               <div class="col-md-3 col-6">
@@ -81,7 +74,7 @@
                   <input
                     class="text-size product-input"
                     type="text"
-                    formControlName="store" [ngModel]="singleProduct.store">
+                    formControlName="store" [value]="singleProduct.store">
                 </div>
               </div>
               <div class="col-12 mt-3">
@@ -90,7 +83,7 @@
                 </div>
                 <div class="col-12">
                   <textarea class="description-area"
-                            formControlName="description" [ngModel]="singleProduct.description"></textarea>
+                            formControlName="description" [value]="singleProduct.description"></textarea>
                 </div>
               </div>
             </div>
@@ -107,7 +100,7 @@
           <input
             class="text-size product-input"
             type="number"
-            formControlName="price" [ngModel]="singleProduct.price">
+            formControlName="price" [value]="singleProduct.price">
         </div>
         <div class="col-12 mt-5">
           <label class="text-size pl-2">Status</label>
