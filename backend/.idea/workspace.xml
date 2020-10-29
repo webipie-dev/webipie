@@ -20,13 +20,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73a8d782-341c-4192-940e-6ee10193b34f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/dashboard.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/app/_shared/loading-spinner/loading-spinner.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/app/_shared/loading-spinner/loading-spinner.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/app/_shared/loading-spinner/loading-spinner.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../src/app/_shared/loading-spinner/loading-spinner.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/_shared/services/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/_shared/services/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/edit-product/edit-product.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/edit-product/edit-product.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/products/product-detail/product-detail.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/products/product-detail/product-detail.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/products/product-detail/product-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/products/product-detail/product-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/products/product-detail/product-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/products/product-detail/product-detail.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/app/dashboard/products/products.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/products/products.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/products/products.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/products/products.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/index/index.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/index/index.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/products/products.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/products/products.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/sales/orders/order-detail/order-detail.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/sales/orders/order-detail/order-detail.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/sales/orders/orders.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/sales/orders/orders.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/dashboard/sales/orders/orders.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/dashboard/sales/orders/orders.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/index/sign-in/sign-in.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/index/sign-in/sign-in.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/index/sign-in/sign-in.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/index/sign-in/sign-in.component.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -87,16 +99,15 @@
       <option name="presentableId" value="Default" />
       <updated>1603459085412</updated>
       <workItem from="1603459086445" duration="367000" />
-      <workItem from="1603969912317" duration="253000" />
+      <workItem from="1603969912317" duration="594000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="253000" />
+    <option name="totallyTimeSpent" value="594000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-10" y="-10" width="1940" height="1060" extended-state="7" />
-    <editor active="true" />
     <layout>
       <window_info id="npm" side_tool="true" />
       <window_info id="Favorites" side_tool="true" />

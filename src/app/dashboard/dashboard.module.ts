@@ -23,6 +23,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { ProfileComponent } from './profile/profile.component';
 import { OrderEditComponent } from './sales/orders/order-edit/order-edit.component';
 import { AuthGuard } from '../_shared/services/auth-guard.service';
+import {HeaderComponent} from "./header/header.component";
 
 @NgModule({
     imports: [
@@ -49,7 +50,8 @@ import { AuthGuard } from '../_shared/services/auth-guard.service';
       ClientDetailComponent,
       StatisticsComponent,
       ProfileComponent,
-      OrderEditComponent
+      OrderEditComponent,
+      HeaderComponent
     ],
     providers:[
       AuthGuard,

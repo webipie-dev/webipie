@@ -23,7 +23,7 @@
                         <label for="password" class="text-size ml-5 mt-3">Password</label>
                         <input type="password" id="password" class="input" placeholder="Password"  [(ngModel)]="store_owner.password" name="password">
                         <div class="text-center mt-3">
-                            <button  class="button-generic button-blue small-titles " type='submit'>Navigate to your store</button>
+                            <button routerLink='/after-signin' (click)='signIn()' class="button-generic button-blue small-titles " type='submit'>Navigate to your store</button>
                         </div>
                     </form>
                     <div class="row text-center text-size d-flex justify-content-center">
