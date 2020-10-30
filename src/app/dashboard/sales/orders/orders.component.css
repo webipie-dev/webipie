@@ -95,30 +95,6 @@
   display: none !important;
 }
 
-.other-show {
-  display: none;
-}
-
-/* ***************** Smart Table on tablet screen ****************** */
-@media screen and (max-width: 1024px) {
-  .other-show {
-    display: block;
-  }
-  .web-show {
-    display: none;
-  }
-}
-
-/* ***************** Smart Table on mobile screen ****************** */
-@media screen and (max-width: 768px) {
-  .other-show {
-    display: block;
-    /*display: none !important;*/
-  }
-  .web-show {
-    display: none;
-  }
-}
 
 :host /deep/ ng2-smart-table tr.selected {
   background: #F8F8F8 !important;

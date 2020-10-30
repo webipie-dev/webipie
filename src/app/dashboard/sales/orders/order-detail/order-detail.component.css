@@ -1,8 +1,7 @@
-#modal-dialogue-order {
-  width: 90%;
+#order-detail-modal {
   margin: auto;
   margin-top: 50px !important;
-  margin-bottom: 10px !important;
+  margin-bottom: 50px !important;
 }
 
 .close-x {

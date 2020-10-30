@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { IndexComponent } from './index/index.component';
 import { SignUpComponent } from './index/sign-up/sign-up.component';

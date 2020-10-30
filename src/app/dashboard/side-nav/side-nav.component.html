@@ -65,6 +65,8 @@
   </div>
 
 </nav>
+<div class="only-tablet">
+
 <nav id="sidebar-non-active" class="active">
   <ul class="list-unstyled text-size text-center">
     <li class=" mb-3">
@@ -109,10 +111,21 @@
       </a>
     </li>
   </ul>
-  <div class="container  ">
+  <div class="container ">
     <div class="row text-center">
       <span class="mx-auto" (click)="toggleS()">
         <i class="fa fa-toggle-off fa-3x " aria-hidden="true" ></i>
+      </span>
+    </div>
+  </div>
+</nav>
+
+</div>
+<nav>
+  <div id="sidebar-non-active2" class="container only-mobile active toggle-sidenav-2 hidden-sidenav">
+    <div class="row text-center">
+      <span class="mx-auto" (click)="toggleS()">
+        <i class="fa fa-toggle-off fa-3x white-colored" aria-hidden="true" ></i>
       </span>
     </div>
   </div>

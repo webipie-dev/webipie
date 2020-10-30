@@ -1,5 +1,5 @@
 <a data-toggle="modal" data-target="#product-detail-modal"
-   class="button-generic button-white-border-blue detail-button">Details</a>
+   class="button-generic button-white-border-blue detail-button" (click)="clicked()">Details</a>
 
 
 <!-- Modal -->
@@ -9,7 +9,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title my-auto" id="exampleModalLabel">Product ID: 145963</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" id="close-modal" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="close-x huge-titles">&times;</span>
         </button>
       </div>

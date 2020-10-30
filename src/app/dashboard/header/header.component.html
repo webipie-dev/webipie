@@ -1,8 +1,31 @@
-<div class="row">
-    <div class="col-3 text-center">
-        <button class="button-generic button-blue form-button text-size"> change template </button>
+<div class="row ">
+  <div class="col-8 row">
+    <div class="text-center">
+      <button class="button-generic button-blue form-button text-size"> Change Template </button>
     </div>
-    <div class="col-2 text-center">
-        <button class="button-generic button-blue form-button text-size"> preview </button>
+    <div class="text-center ml-5">
+      <button class="button-generic button-blue form-button text-size"> Preview </button>
     </div>
+
+  </div>
+
+  <div class="col-4">
+    <div class="profile text-size" (click)="openDropDown()">
+      <div class="icon_wrap" id="dropdown-profile">
+        <i class="fas fa-chevron-down"></i>
+
+        <span class="name">John Alex</span>
+        <img  class="img-fluid image-profile ml-2" src="https://i.imgur.com/x3omKbe.png" alt="profile_pic">
+
+      </div>
+
+      <div class="profile_dd">
+        <ul class="profile_ul">
+          <li><a href="#"><span class="picon"><i class="fas fa-user-alt"></i></span>Profile</a></li>
+          <li><a  href="#"><span class="picon"><i class="fas fa-sign-out-alt"></i></span>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
 </div>
