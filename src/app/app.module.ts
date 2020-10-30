@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -23,6 +22,7 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { SignInComponent } from './index/sign-in/sign-in.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
+
 
 @NgModule({
   declarations: [

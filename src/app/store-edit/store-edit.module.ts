@@ -7,19 +7,22 @@ import {CommonModule} from '@angular/common';
 import {StoreEditRoutingModule} from "./store-edit-routing.module";
 import { SidenavStoreComponent } from './sidenav-store/sidenav-store.component';
 import {StoreEditComponent} from "./store-edit.component";
+import { ChangeFontComponent } from './change-font/change-font.component';
+
 
 @NgModule({
     imports: [
-        StoreEditRoutingModule,
-        HttpClientModule,
-        Ng2SmartTableModule,
-        ReactiveFormsModule,
-        CommonModule,
+      StoreEditRoutingModule,
+      HttpClientModule,
+      Ng2SmartTableModule,
+      ReactiveFormsModule,
+      CommonModule
     ],
     declarations: [
       StoreEditComponent,
-    SidenavStoreComponent
-    ],
+      SidenavStoreComponent,
+      ChangeFontComponent,
+    ]
 })
 export class StoreEditModule {
 }
