@@ -7,7 +7,8 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 })
 export class OrderDetailComponent implements OnInit {
   // it contains row elements
-  public value;
+  @Input() value;
+  public rowData: any;
   editMode = false;
   displayMode = !this.editMode;
   windowWidth = window.screen.width;
@@ -25,5 +26,8 @@ export class OrderDetailComponent implements OnInit {
     document.getElementById('order-detail-modal').style.setProperty('display' , 'block' , 'important');
     console.log(document.getElementById('order-detail-modal'));
     console.log(window.screen.width);
+    console.log('heeeeey');
+    console.log(this.value);
+    console.log(this.rowData);
   }
 }

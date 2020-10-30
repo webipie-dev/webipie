@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -7,7 +7,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-
+  // public value;
+  @Input() value: any;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -15,6 +16,7 @@ export class ProductDetailComponent implements OnInit {
 
   clicked() {
     console.log('heeeyyy');
+    console.log(this.value);
   }
 
   onEditSelect() {
