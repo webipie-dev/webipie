@@ -101,6 +101,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProducts();
+    console.log(this.products);
   }
 
   getAllProducts(): void {

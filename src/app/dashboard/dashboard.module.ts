@@ -11,7 +11,7 @@ import {EditProductComponent} from "./edit-product/edit-product.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import {ClientsComponent} from './sales/clients/clients.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ProductsComponent} from './products/products.component';
 import {ProductDetailComponent} from './products/product-detail/product-detail.component';
@@ -26,15 +26,16 @@ import { AuthGuard } from '../_shared/services/auth-guard.service';
 import {HeaderComponent} from "./header/header.component";
 
 @NgModule({
-    imports: [
-        DashboardRoutingModule,
-        HttpClientModule,
-        Ng2SmartTableModule,
-        ReactiveFormsModule,
-        CommonModule,
-        NgxChartsModule,
-        NgImageSliderModule
-    ],
+  imports: [
+    DashboardRoutingModule,
+    HttpClientModule,
+    Ng2SmartTableModule,
+    ReactiveFormsModule,
+    CommonModule,
+    NgxChartsModule,
+    NgImageSliderModule,
+    FormsModule
+  ],
     declarations: [
       DashboardComponent,
       SideNavComponent,

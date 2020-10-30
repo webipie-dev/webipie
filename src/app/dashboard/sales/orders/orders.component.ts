@@ -135,7 +135,7 @@ export class OrdersComponent implements OnInit {
 
   onDetailSelect(event) {
     // console.log('clicked');
-    console.log(event);
+    // console.log(event);
   }
 
 
