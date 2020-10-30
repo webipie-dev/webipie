@@ -33,6 +33,7 @@
     "ng-image-slider": "^2.6.4",
     "ng2-completer": "^9.0.1",
     "ng2-smart-table": "^1.7.0",
+    "ngx-font-picker": "^10.0.1",
     "ngx-spinner": "^10.0.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
