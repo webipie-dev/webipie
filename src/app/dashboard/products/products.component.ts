@@ -132,13 +132,14 @@ export class ProductsComponent implements OnInit {
   }
 
   onDeleteConfirm(event): void {
-    // console.log(event);
-    event.confirm.resolve();
-    /*if (window.confirm('Are you sure you want to delete?')) {
+    if (window.confirm('Are you sure you want to delete?')) {
+      this.productService.deleteMany({ids: event.data._id}).subscribe((data) => {
+        console.log(data);
+      });
       event.confirm.resolve();
     } else {
       event.confirm.reject();
-    }*/
+    }
   }
 
   onEditSelect(event) {

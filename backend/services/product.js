@@ -84,6 +84,7 @@ exports.addProduct = (req, res, next) => {
 exports.editProducts = (req, res, next) => {
   // separating the ids
   const ids = req.body.ids;
+  console.log(req.body)
 
   // separating the updates
   const edits = {};

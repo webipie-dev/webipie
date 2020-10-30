@@ -115,7 +115,6 @@ export class OrdersComponent implements OnInit {
       data.orders.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');
-          const time = date[1].split('.');
           let aux = {
             _id: element._id,
             orderDate: date[0] ,
@@ -134,9 +133,17 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+  onDetailSelect(event) {
+    // console.log('clicked');
+    console.log(event);
+  }
+
 
   onDeleteConfirm(event) {
     if (window.confirm('Are you sure you want to delete?')) {
+      this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
+        console.log(data);
+      });
       event.confirm.resolve();
     } else {
       event.confirm.reject();

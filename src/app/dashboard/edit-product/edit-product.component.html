@@ -34,6 +34,7 @@
 
               <div class='col-9'>
                 <ng-image-slider
+                  [images]="imageObject"
                   [infinite]="false"
                   [imageSize]="{width: '150', height: 150, space: 3}"></ng-image-slider>
               </div>
@@ -52,7 +53,7 @@
                   <input
                     class="text-size product-input"
                     type="text"
-                    formControlName="name" [value]="singleProduct.name">
+                    formControlName="name" [ngModel]="singleProduct.name">
                 </div>
               </div>
               <div class="col-md-3 col-6">
@@ -63,7 +64,7 @@
                   <input
                     class="text-size product-input"
                     type="number"
-                    formControlName="quantity" [value]="singleProduct.quantity">
+                    formControlName="quantity" [ngModel]="singleProduct.quantity">
                 </div>
               </div>
               <div class="col-md-3 col-6">
@@ -74,7 +75,7 @@
                   <input
                     class="text-size product-input"
                     type="text"
-                    formControlName="store" [value]="singleProduct.store">
+                    formControlName="store" [ngModel]="singleProduct.store">
                 </div>
               </div>
               <div class="col-12 mt-3">
@@ -83,7 +84,7 @@
                 </div>
                 <div class="col-12">
                   <textarea class="description-area"
-                            formControlName="description" [value]="singleProduct.description"></textarea>
+                            formControlName="description" [ngModel]="singleProduct.description"></textarea>
                 </div>
               </div>
             </div>
@@ -100,7 +101,7 @@
           <input
             class="text-size product-input"
             type="number"
-            formControlName="price" [value]="singleProduct.price">
+            formControlName="price" [ngModel]="singleProduct.price">
         </div>
         <div class="col-12 mt-5">
           <label class="text-size pl-2">Status</label>

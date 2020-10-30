@@ -14,13 +14,14 @@ import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/ta
 })
 export class EditProductComponent implements OnInit {
 
+  imageObject = [];
+
   productForm: FormGroup;
   postData = new FormData();
   singleProduct: Product = new Product();
   allProducts: Product[] = [];
   edit = false;
   productId = '';
-
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -29,13 +30,14 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      if(params.id) {
+      if (params.id) {
         this.productId = params.id;
         this.edit = true;
       }
     });
     if (this.edit) {
       this.productForm = new FormGroup({
+        ids: new FormControl('', Validators.required),
         name: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required),
         price: new FormControl('', Validators.required),
@@ -44,13 +46,18 @@ export class EditProductComponent implements OnInit {
         store: new FormControl('', Validators.required),
       });
       this.getProductById(this.productId);
-      this.productForm.patchValue({
-        name: this.singleProduct.name,
-        description: this.singleProduct.description,
-        price: this.singleProduct.price,
-        quantity: this.singleProduct.quantity,
-        store: this.singleProduct.store,
-      });
+      console.log(this.singleProduct.imgs);
+      // this.productForm.patchValue({
+      //   name: this.singleProduct.name,
+      //   description: this.singleProduct.description,
+      //   price: this.singleProduct.price,
+      //   imgs: this.singleProduct.imgs,
+      //   quantity: this.singleProduct.quantity,
+      //   store: this.singleProduct.store,
+      // });
+      // this.productForm.get('name').updateValueAndValidity();
+      //
+      // console.log(this.productForm.get('name').value);
     } else {
       this.productForm = new FormGroup({
         name: new FormControl(null, Validators.required),
@@ -66,7 +73,14 @@ export class EditProductComponent implements OnInit {
 
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
+      console.log(data.product);
       this.singleProduct = data.product;
+      this.singleProduct.imgs.forEach((elt) => {
+        this.imageObject.push({
+          image: elt,
+          thumbImage: elt,
+        });
+      });
     });
   }
 
@@ -79,9 +93,11 @@ export class EditProductComponent implements OnInit {
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
     const name = (event.target as HTMLInputElement).name;
+    console.log(file);
     for (let i = 0; i < file.length; i++) {
       this.postData.append('imgs', file[i], name);
     }
+    console.log(this.postData.get('imgs'));
 
   }
 
@@ -130,25 +146,24 @@ export class EditProductComponent implements OnInit {
         // console.log('--------');
         if (field === 'ids') {
           this.postData.append(field, id);
-        } else if (field in ['imgs']) {
-          this.postData.append(field, '', field);
-        } else {
+        } else if (field !== 'imgs'){
           this.postData.append(field, '');
         }
 
       }
     }
     // this.productForm.reset();
+    // console.log(this.postData.get('imgs'));
     this.editProductService.edit(this.postData).subscribe((data) => {
       console.log(data);
     });
   }
 
   onSubmit(): void {
-      if (this.edit) {
-        this.editProduct(this.productId);
-      } else {
-        this.addProduct();
-      }
+    if (this.edit) {
+      this.editProduct(this.productId);
+    } else {
+      this.addProduct();
     }
   }
+}
