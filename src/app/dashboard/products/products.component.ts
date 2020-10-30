@@ -1,5 +1,9 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
+import {HttpClient} from '@angular/common/http';
+import {OrderService} from '../../_shared/services/order.service';
+import {ProductService} from '../../_shared/services/product.service';
+import {Product} from '../../_shared/models/product.model';
 import {Router} from '@angular/router';
 
 @Component({
@@ -25,7 +29,7 @@ export class ProductsComponent implements OnInit {
         title: 'Price',
         width: '15%'
       },
-      stock: {
+      quantity: {
         title: 'Stock',
         width: '20%'
       },
@@ -80,62 +84,59 @@ export class ProductsComponent implements OnInit {
     noDataMessage: 'Oups, no Data yet !'
   };
 
-  data = [
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
-        "<p class='small-titles my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
-        "<p class='small-titles my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      select: "<input type='checkbox'>",
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
-        "<p class='small-titles my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-    {
-      id: 1,
-      name: "<div class='row'>" +
-        "<img class='img-fluid product-image-table mr-3' src='../../../assets/images/dress.jpg'>" +
-        "<p class='small-titles my-auto'>Leanne Graham</p>" +
-        "</div>",
-      price: "20.52",
-      stock: "250",
-      status: 'avail',
-    },
-  ];
+
 
   selectedRows = [];
-  constructor(private router: Router) { }
+
+  products: Product[] = [];
+
+  constructor(private http: HttpClient,
+              private productService: ProductService,
+              private router: Router) {
+  }
 
   onRowSelect(event) {
     this.selectedRows = event.selected;
   }
 
   ngOnInit(): void {
+    this.getAllProducts();
+    console.log(this.products);
   }
 
-  onDeleteConfirm(event) {
+  getAllProducts(): void {
+    this.productService.getAll().subscribe((data) => {
+      // console.log(data.products);
+      let quant;
+      data.products.forEach((element) => {
+        if (element.quantity > 0){
+          quant = element.quantity;
+        } else {
+          quant = 0;
+        }
+        let aux = {
+          _id: element._id,
+          name: '<div class=\'row\'>' +
+        '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
+        '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
+        '</div>',
+          description: element.description,
+          imgs: element.imgs,
+          price: element.price,
+          quantity: quant,
+          store: element.store,
+
+        };
+        this.products.push(aux);
+      });
+    });
+  }
+
+  onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
+      this.productService.deleteMany({ids: event.data._id}).subscribe((data) => {
+        console.log(data);
+      });
       event.confirm.resolve();
     } else {
       event.confirm.reject();
@@ -143,9 +144,10 @@ export class ProductsComponent implements OnInit {
   }
 
   onEditSelect(event) {
-    console.log('clicked');
-    console.log(event);
-    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: '5f93ffc994a31e4b6cb602dc'} });
+    // console.log('clicked');
+    // console.log(event.data._id);
+    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: event.data._id} });
   }
+
 
 }

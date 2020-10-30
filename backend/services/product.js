@@ -47,9 +47,9 @@ exports.addProduct = (req, res, next) => {
   var images = [];
   if (req.files)
   {
-    console.log(req.files)
+    // console.log(req.files)
     req.files.map(fileimg => {
-      images.push(url + '/images/' + fileimg.filename)
+      images.push(url + '/backend/images/' + fileimg.filename)
     });
   }
   else {
@@ -84,6 +84,7 @@ exports.addProduct = (req, res, next) => {
 exports.editProducts = (req, res, next) => {
   // separating the ids
   const ids = req.body.ids;
+  console.log(req.body)
 
   // separating the updates
   const edits = {};

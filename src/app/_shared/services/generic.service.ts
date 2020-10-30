@@ -28,6 +28,9 @@ export class GenericService<T extends GenericModel> {
   }
 
   public edit(body: T) {
+      // const headers = new HttpHeaders({
+      //   'Content-Type': 'application/x-www-form-urlencoded',
+      // });
     return this.http.patch(this.getUrl() + this.suffix, body) as Observable<T>;
   }
 

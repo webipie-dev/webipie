@@ -12,9 +12,14 @@ export class OrderDetailComponent implements OnInit {
   editMode = false;
   displayMode = !this.editMode;
   windowWidth = window.screen.width;
+  newVal = {
+    _id: ''
+  };
+
   constructor() { }
 
   ngOnInit(): void {
+    // console.log(this.value._id);
   }
 
   onSwitch() {
@@ -24,10 +29,6 @@ export class OrderDetailComponent implements OnInit {
 
   openModal() {
     document.getElementById('order-detail-modal').style.setProperty('display' , 'block' , 'important');
-    console.log(document.getElementById('order-detail-modal'));
-    console.log(window.screen.width);
-    console.log('heeeeey');
-    console.log(this.value);
-    console.log(this.rowData);
+    console.log(this.rowData._id);
   }
 }
