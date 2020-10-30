@@ -1,14 +1,14 @@
-<a data-toggle="modal" data-target="#order-detail-modal"
-   class="button-generic button-white-border-blue detail-button" (click) = "openModal()">Details</a>
+<a data-toggle="modal" (click)="openModal()" data-target="#order-detail-modal-{{rowData._id}}"
+   class="button-generic button-white-border-blue detail-button">Details</a>
 
 
 <!-- Modal -->
-<div class="modal fade "  id="order-detail-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade order-detail-modal"  id="order-detail-modal-{{rowData._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true" >
   <div class="modal-dialog"  role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title my-auto" id="exampleModalLabel" >Order ID: 145963 {{rowData._id}} </h5>
+        <h5 class="modal-title my-auto" id="exampleModalLabel">Order ID: {{rowData._id}} </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="close-x huge-titles">&times;</span>
         </button>

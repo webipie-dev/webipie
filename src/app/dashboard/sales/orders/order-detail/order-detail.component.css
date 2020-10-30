@@ -1,7 +1,14 @@
-#order-detail-modal {
+.order-detail-modal {
   margin: auto;
-  margin-top: 50px !important;
-  margin-bottom: 50px !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .order-detail-modal {
+    margin-top: 50px !important;
+  }
+}
+.display-block-important {
+  display: block !important;
 }
 
 .close-x {

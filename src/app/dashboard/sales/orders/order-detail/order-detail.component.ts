@@ -6,6 +6,7 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
   styleUrls: ['./order-detail.component.css']
 })
 export class OrderDetailComponent implements OnInit {
+  elements;
   // it contains row elements
   @Input() value;
   public rowData: any;
@@ -19,7 +20,6 @@ export class OrderDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // console.log(this.value._id);
   }
 
   onSwitch() {
@@ -28,7 +28,10 @@ export class OrderDetailComponent implements OnInit {
   }
 
   openModal() {
-    document.getElementById('order-detail-modal').style.setProperty('display' , 'block' , 'important');
-    console.log(this.rowData._id);
+    this.elements = this.rowData;
+    console.log(this.elements);
+    console.log(this.rowData);
+    document.getElementById('order-detail-modal-'+this.rowData._id).style.setProperty('display' , 'block' , 'important');
+    console.log(document.getElementById('order-detail-modal-'+this.rowData._id));
   }
 }
