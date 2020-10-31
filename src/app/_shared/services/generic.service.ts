@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 // import {Utils} from './utils';
 import {Observable} from 'rxjs';
 import {GenericModel} from '../models/generic.model';
@@ -21,6 +21,13 @@ export class GenericService<T extends GenericModel> {
 
   public getAll() {
     return this.http.get(this.getUrl() + this.suffix) as Observable<T>;
+  }
+
+  public getMany(orderProducts: string[]) {
+    let params = new HttpParams()
+      .set('ids', '5f99a321eaa76827b859f31a');
+
+    return this.http.get(this.getUrl() + this.suffix + '/many' + {params}) as Observable<T>;
   }
 
   public addOne(body: T) {
