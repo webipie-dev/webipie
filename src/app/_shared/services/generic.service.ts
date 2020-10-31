@@ -24,10 +24,11 @@ export class GenericService<T extends GenericModel> {
   }
 
   public getMany(orderProducts: string[]) {
-    let params = new HttpParams()
-      .set('ids', '5f99a321eaa76827b859f31a');
-
-    return this.http.get(this.getUrl() + this.suffix + '/many' + {params}) as Observable<T>;
+    const httpOptions = {
+      headers: { 'Content-Type': 'application/json' },
+      params: { ids: orderProducts}
+    };
+    return this.http.get(this.getUrl() + this.suffix + '/many', httpOptions) as Observable<T>;
   }
 
   public addOne(body: T) {

@@ -7,11 +7,13 @@ const OrderService = require('../services/order');
 // getOrders
 router.get('', OrderService.getOrders)
 
+router.get('/many', OrderService.getManyOrderById)
+
 // getOrderbyId
 router.get('/:_id', OrderService.getOneOrder)
 
 
-router.get('/detail/:_id', OrderService.detailOrder)
+// router.get('/detail/:_id', OrderService.detailOrder)
 
 // addOrder
 router.post('', OrderService.addOrder)

@@ -7,6 +7,9 @@ const ClientService = require('../services/client')
 // getClients
 router.get('', ClientService.getClients)
 
+router.get('/many', ClientService.getManyClientById)
+
+
 // getClientbyId
 router.get('/:_id', ClientService.getOneClient)
 
