@@ -1,9 +1,8 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, Output, OnChanges, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {OrderService} from '../../../../_shared/services/order.service';
 import {ProductService} from '../../../../_shared/services/product.service';
 import {Product} from '../../../../_shared/models/product.model';
-import {Component, Input, Output,  OnChanges, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -57,16 +56,16 @@ export class OrderDetailComponent implements OnInit {
   }
 
   openModal() {
-    document.getElementById('order-detail-modal').style.setProperty('display' , 'block' , 'important');
+    // document.getElementById('order-detail-modal').style.setProperty('display' , 'block' , 'important');
     console.log(this.rowData._id);
-    this.prodcutService.getMany(this.orderProducts).subscribe((data) => {
-      console.log(data);
-    });
+    // this.prodcutService.getMany(this.orderProducts).subscribe((data) => {
+    //   console.log(data);
+    // });
     // this.orderService.getById(this.rowData._id).subscribe((data) => {
     //   console.log(data);
     //   this.newVal._id = data._id;
     // });
-    document.getElementById('order-detail-modal-'+this.rowData._id).style.setProperty('display' , 'block' , 'important');
-    console.log(document.getElementById('order-detail-modal-'+this.rowData._id));
+    document.getElementById('order-detail-modal-' + this.rowData._id).style.setProperty('display' , 'block' , 'important');
+    console.log(document.getElementById('order-detail-modal-' + this.rowData._id));
   }
 }
