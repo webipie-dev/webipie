@@ -87,7 +87,7 @@ export class OrdersComponent implements OnInit {
         width: '25%',
         type: 'custom',
         valuePrepareFunction: (cell, row) => {
-          return row.columnName;
+          return row;
         },
         renderComponent: OrderDetailComponent,
       },

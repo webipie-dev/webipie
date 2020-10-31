@@ -22,6 +22,7 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { SignInComponent } from './index/sign-in/sign-in.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinn
     StoreEditModule,
     HttpClientModule,
     SocialLoginModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgbModule
   ],
   providers: [
     {
