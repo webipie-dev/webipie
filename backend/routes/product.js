@@ -27,6 +27,7 @@ const storage = multer.diskStorage({
 
 router
   .get('/', productService.getProducts)
+  .get('/many', productService.getManyProductById)
   .get('/:id', productService.getOneProduct)
   .post('/', multer({storage: storage}).any("productImgs", 5), productService.addProduct)
   .patch('/', multer({storage: storage}).any("productImgs", 5), productService.editProducts)

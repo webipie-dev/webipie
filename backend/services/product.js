@@ -21,6 +21,29 @@ exports.getProducts = (req, res, next) => {
     })
 };
 
+exports.getManyProductById = (req, res) =>{
+  console.log(req.query)
+  const productId = req.query.ids;
+  console.log(productId)
+  Product
+    .find({_id: {$in: productId}})
+    .exec()
+    .then(product => {
+      if(product) {
+        res.status(200).json({
+          message: 'products fetched successfully',
+          count: product.length,
+          product: product
+        });
+      } else {
+        res.status(404).json({error: 'not found'});
+      }
+    })
+    .catch(err => {
+      res.status(500).json({error: err});
+    });
+}
+
 exports.getOneProduct = (req, res, next) => {
   const productId = req.params.id;
   Product
