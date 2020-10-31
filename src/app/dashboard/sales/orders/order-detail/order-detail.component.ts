@@ -47,12 +47,4 @@ export class OrderDetailComponent implements OnInit {
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;
   }
-
-  openModal() {
-    this.elements = this.rowData;
-    console.log(this.elements);
-    console.log(this.rowData);
-    document.getElementById('order-detail-modal-'+this.rowData._id).style.setProperty('display' , 'block' , 'important');
-    console.log(document.getElementById('order-detail-modal-'+this.rowData._id));
-  }
 }

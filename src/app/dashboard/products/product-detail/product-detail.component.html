@@ -1,56 +1,51 @@
-<a data-toggle="modal" data-target="#product-detail-modal"
-   class="button-generic button-white-border-blue detail-button" (click)="clicked()">Details</a>
+<a data-toggle="modal" (click)="open(content)" data-target="#order-detail-modal-{{rowData._id[rowData._id.length-1]}}"
+   class="button-generic button-white-border-blue detail-button">Details</a>
 
 
-<!-- Modal -->
-<div class="modal fade" id="product-detail-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title my-auto" id="exampleModalLabel">Product ID: 145963</h5>
-        <button type="button" class="close" id="close-modal" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="close-x huge-titles">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-12">
-            <p class="small-titles font-weight-lighter">Product Name: </p>
-            <p class="big-titles">Hair Brush</p>
-          </div>
-          <div class="col-12">
-            <p class="small-titles font-weight-lighter">Price: </p>
-            <p class="big-titles color-blue">22.500dt</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-6">
-            <p class="small-titles font-weight-lighter">Stock: </p>
-            <p>250</p>
-          </div>
-          <div class="col-6">
-            <p class="small-titles font-weight-lighter">Status: </p>
-            <p>Available</p>
-          </div>
-        </div>
-        <div class="text-center big-titles my-3 pt-5 mx-auto border-top">Product Images</div>
-        <img class='img-fluid product-image-list ml-3 mt-3 mr-2' src='../../../../assets/images/dress.jpg'>
-        <img class='img-fluid product-image-list ml-3 mr-2 mt-3' src='../../../../assets/images/dress.jpg'>
-        <img class='img-fluid product-image-list ml-3 mt-3 mr-2' src='../../../../assets/images/dress.jpg'>
-        <img class='img-fluid product-image-list ml-3 mt-3 mr-2' src='../../../../assets/images/dress.jpg'>
-
-        <div class="mt-4">
-          <div>
-            <a class="button-generic button-edit mr-2" (click)="onEditSelect()"><i id="edit-icon-product" class="fa fa-edit"></i> Edit</a>
-            <a class="button-generic button-delete"><i id="delete-icon-product" class="fa fa-trash-alt"></i> Delete</a>
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="button-generic button-white-border-blue" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+<ng-template #content let-modal class="order-detail-modal">
+  <div class="modal-header">
+    <h5 class="modal-title my-auto" id="exampleModalLabel">Order ID: {{rowData._id}} </h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true" class="close-x">&times;</span>
+    </button>
   </div>
-</div>
+  <div class="modal-body text-center">
+      <div class="row">
+        <div class="col-12">
+          <p class="small-titles font-weight-lighter">Product Name: </p>
+          <p class="big-titles">Hair Brush</p>
+        </div>
+        <div class="col-12">
+          <p class="small-titles font-weight-lighter">Price: </p>
+          <p class="big-titles color-blue">22.500dt</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p class="small-titles font-weight-lighter">Stock: </p>
+          <p>250</p>
+        </div>
+        <div class="col-6">
+          <p class="small-titles font-weight-lighter">Status: </p>
+          <p>Available</p>
+        </div>
+      </div>
+      <div class="text-center big-titles my-3 pt-5 mx-auto border-top">Product Images</div>
+      <img class='img-fluid product-image-table ml-3 mt-3 mr-3' src='../../../../assets/images/dress.jpg'>
+      <img class='img-fluid product-image-table ml-3 mr-3 mt-3' src='../../../../assets/images/dress.jpg'>
+      <img class='img-fluid product-image-table ml-3 mt-3 mr-3' src='../../../../assets/images/dress.jpg'>
+      <img class='img-fluid product-image-table ml-3 mt-3 mr-3' src='../../../../assets/images/dress.jpg'>
+
+      <div class="mt-3">
+        <div>
+          <a class="button-generic button-edit py-2 mr-2 text-size" (click)="onEditSelect()"><i id="edit-icon" class="fa fa-edit"></i> Edit</a>
+          <a class="button-generic button-delete py-2 text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete</a>
+        </div>
+      </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="text-size button-generic button-white-border-blue" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+

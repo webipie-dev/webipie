@@ -1,66 +1,116 @@
-#product-detail-modal {
+.order-detail-modal {
   margin: auto;
-  margin-top: 100px !important;
+}
+
+@media all and (max-width: 1024px) {
+  ng-template {
+    position: relative;
+    z-index: 100;
+  }
+}
+.display-block-important {
+  display: block !important;
 }
 
 .close-x {
-  color: #a40000;
+  color: rgba(164,0,0, 0.5);
   font-weight: bolder;
+  font-size: x-large;
 }
 
-:host /deep/ .product-image-list {
+.close-x:hover {
+  color: #a40000;
+  font-size: xx-large;
+}
+
+.product-image-table {
   border-radius: 10px !important;
-  width: 100px !important;
-  height: 100px !important;
+  width: 150px !important;
+  height: 150px !important;
+  margin-top: 10px;
 }
 
-:host /deep/ .border-bottom-blue {
+.border-bottom-blue {
   border-bottom: solid 1px var(--blue-color)
 }
 
-:host /deep/ .change-quantity {
-  margin-bottom: 0 !important;
+#checkbox-product {
+  width: 20px;
+  height: 20px;
+  margin:  auto 0 !important;
 }
 
-:host /deep/ .button-delete {
+.change-quantity {
+  margin-bottom: 0 !important;
+  width: 80%;
+  border: solid 1px #7a7a7a;
+  border-radius: 5px;
+  padding-left: 15px;
+}
+
+.select {
+  border: solid 1px #7a7a7a;
+  border-radius: 5px;
+}
+
+.button-delete {
   background: #9a0017;
   color: var(--white-color);
   transition: all 200ms ease-in-out;
 }
 
-:host /deep/ #delete-icon-product {
+#delete-icon {
   color: var(--white-color);
 }
 
-:host /deep/ .button-delete:hover {
+.button-delete:hover {
   background: var(--white-color);
   color: #9a0017;
   border: solid 1px #9a0017;
   transition: all 200ms ease-in-out;
 }
 
-:host /deep/ .button-delete:hover #delete-icon-product {
+.button-delete:hover #delete-icon {
   color: #9a0017;
 }
 
-:host /deep/ .button-edit {
+.button-edit {
   background: #0e9c21;
   color: var(--white-color);
   transition: all 200ms ease-in-out;
 }
 
-:host /deep/ #edit-icon-product {
+#edit-icon, #save-icon {
   color: var(--white-color);
 }
 
 
-:host /deep/ .button-edit:hover {
+.button-edit:hover {
   background: var(--white-color);
   color: #0e9c21;
   border: solid 1px #0e9c21;
 }
 
-:host /deep/ .button-edit:hover #edit-icon-product {
+.button-edit:hover #edit-icon, .button-edit:hover #save-icon {
   color: #0e9c21;
 }
 
+.button-cancel {
+  background: var(--blue-color);
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+#cancel-icon {
+  color: var(--white-color);
+}
+
+.button-cancel:hover {
+  background: var(--white-color);
+  color: var(--blue-color);
+  border: solid 1px var(--blue-color);
+}
+
+.button-cancel:hover #cancel-icon {
+  color: var(--blue-color);
+}
