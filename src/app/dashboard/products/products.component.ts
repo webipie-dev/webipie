@@ -101,7 +101,6 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProducts();
-    console.log(this.products);
   }
 
   getAllProducts(): void {
@@ -144,8 +143,6 @@ export class ProductsComponent implements OnInit {
   }
 
   onEditSelect(event) {
-    // console.log('clicked');
-    // console.log(event.data._id);
     this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: event.data._id} });
   }
 

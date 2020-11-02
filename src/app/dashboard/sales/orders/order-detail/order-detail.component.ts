@@ -17,7 +17,9 @@ export class OrderDetailComponent implements OnInit {
   public rowData: any;
   editMode = false;
   displayMode = !this.editMode;
-  orderProducts = ['5f99a32eeaa76827b859f31b', '5f99a321eaa76827b859f31a'];
+  windowWidth = window.screen.width;
+  orderProductsIds = ['5f99a32eeaa76827b859f31b', '5f99a321eaa76827b859f31a'];
+  orderProducts: Product[] = [];
   newVal = {
     _id: ''
   };
@@ -54,4 +56,16 @@ export class OrderDetailComponent implements OnInit {
     this.displayMode = !this.editMode;
   }
 
+  openModal() {
+    // console.log(this.rowData._id);
+    this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
+      this.orderProducts = data.product;
+    });
+    // this.orderService.getById(this.rowData._id).subscribe((data) => {
+    //   console.log(data);
+    //   this.newVal._id = data._id;
+    // });
+    // document.getElementById('order-detail-modal-' + this.rowData._id).style.setProperty('display' , 'block' , 'important');
+    // console.log(document.getElementById('order-detail-modal-' + this.rowData._id));
+  }
 }
