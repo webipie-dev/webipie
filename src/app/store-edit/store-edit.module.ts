@@ -8,6 +8,7 @@ import {StoreEditRoutingModule} from "./store-edit-routing.module";
 import { SidenavStoreComponent } from './sidenav-store/sidenav-store.component';
 import {StoreEditComponent} from "./store-edit.component";
 import { ChangeFontComponent } from './change-font/change-font.component';
+import { SocialMediaComponent } from './social-media/social-media.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ChangeFontComponent } from './change-font/change-font.component';
       StoreEditComponent,
       SidenavStoreComponent,
       ChangeFontComponent,
+      SocialMediaComponent,
     ]
 })
 export class StoreEditModule {
