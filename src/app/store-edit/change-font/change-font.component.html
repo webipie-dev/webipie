@@ -1,12 +1,10 @@
-<!-- Sidebar -->
-<nav id="sidebar">
-  <div class="sidebar-header">
-    <h3 class="huge-titles text-center">Hackover</h3>
-  </div>
-
+<div id="sidebar-font">
   <ul class="list-unstyled components">
     <li class="sidenav-elem">
-      <div class="my-4 py-3 px-1 back-button nav-link-sidebar text-size"><i class="fa fa-chevron-left"></i><span class="ml-3">Edit your store</span></div>
+      <div class="my-4 py-3 px-1 back-button nav-link-sidebar text-size cursor-pointer" routerLink="/store">
+        <i class="fa fa-chevron-left"></i>
+        <span class="ml-3">Edit your store</span>
+      </div>
       <a class="nav-link-sidebar mt-1 big-titles">
         <i class="fa fa-font mr-3"></i> Font
       </a>
@@ -26,39 +24,37 @@
       </div>
       <div class="row mt-4">
         <label class="text-size mt-2 col-4">Weight</label>
-        <input type="text" class="sidenav-input-item col-7 text-size px-3 py-1" placeholder="Bold">
+        <select class="sidenav-input-item col-7 text-size px-3 py-1" name="cars" id="font-weight">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>
       </div>
       <div class="row mt-4">
         <div class="col-6">
           <div class="text-center py-2 px-1 sidenav-input-item">
-            <i class="fa fa-align-center mx-2 fa-2x"></i>
-            <i class="fa fa-align-left mx-2 fa-2x"></i>
-            <i class="fa fa-align-right mx-2 fa-2x"></i>
+            <i class="fa fa-align-center mx-2 fa-2x cursor-pointer"></i>
+            <i class="fa fa-align-left mx-2 fa-2x cursor-pointer"></i>
+            <i class="fa fa-align-right mx-2 fa-2x cursor-pointer"></i>
           </div>
         </div>
         <div class="col-6 mt-1">
           <div class="py-2">
-            <i class="fa fa-bold mr-3 fa-2x"></i>
-            <i class="fa fa-italic mx-3 fa-2x"></i>
-            <i class="fa fa-font mx-3 fa-2x"></i>
+            <span (click)="onSelect()"><i class="fa fa-bold mr-3 fa-2x cursor-pointer" [ngClass] = "{'font-item-selected': selectItem}"></i></span>
+            <i class="fa fa-italic mx-3 fa-2x cursor-pointer"></i>
+            <i class="fa fa-font mx-3 fa-2x cursor-pointer"></i>
           </div>
         </div>
       </div>
     </li>
   </ul>
   <div class="text-center my-5">
+    <a class="button-generic button-black text-size mr-2">Save</a>
     <a class="button-generic button-black text-size">Reset</a>
   </div>
-  <div class="container sidenav-footer">
-    <div class="row">
-      <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
-      <span (click)="toggleS()" class="col-4">
-        <i class="fa fa-toggle-on fa-3x " aria-hidden="true"></i>
-      </span>
-    </div>
-  </div>
 
-</nav>
+</div>
 <!--<nav id="sidebar-non-active" class="active">-->
   <!--<ul class="list-unstyled text-size text-center">-->
     <!--<li class=" mb-3">-->

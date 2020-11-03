@@ -1,33 +1,26 @@
-/* ***************** SideNav ****************** */
-
-#sidebar-font .sidebar-header {
-  padding: 20px;
-  background: var(--light-black-color);
-}
-
-#sidebar-font ul p, #sidebar-font-non-active ul p {
+#sidebar-contact ul p, #sidebar-contact-non-active ul p {
   color: #fff;
   padding: 10px;
   padding-bottom: 0 !important;
 }
 
-#sidebar-font ul li a {
+#sidebar-contact ul li a {
   padding: 10px 10px 10px 35px;
   display: block;
 }
 
-#sidebar-font-non-active ul li a {
+#sidebar-contact-non-active ul li a {
   padding: 20px;
   display: block;
 }
 
-#sidebar-font ul li a:hover, #sidebar-font-non-active ul li a:hover, .back-button:hover {
+#sidebar-contact ul li a:hover, #sidebar-contact-non-active ul li a:hover, .back-button:hover {
   color: var(--white-color);
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
 }
 
-#sidebar-font ul li.active > a, a[aria-expanded="true"], #sidebar-font-non-active ul li.active > a, a[aria-expanded="true"] {
+#sidebar-contact ul li.active > a, a[aria-expanded="true"], #sidebar-contact-non-active ul li.active > a, a[aria-expanded="true"] {
   color: #fff;
   background: var(--light-black-color);
 }
@@ -61,8 +54,30 @@ a[data-toggle="collapse"] {
   border-top: solid 2px var(--white-color);;
 }
 
-.font-weight-lighter {
-  font-weight: lighter !important;
+
+/*********** contact *********/
+/*input {
+    background-color:rgba(0, 0, 0, 0);
+    color:white;
+    outline:none;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+    border-color : white;
+    border-radius: 9px;
+}
+input:focus {
+    height:50px;
+    font-size:16px;
+}*/
+
+.circle {
+    border-style: solid;
+    /* background-color: white; */
+    height: 2em;
+    width: 2em;
+    border-color: white;
+    border-radius: 100%;
 }
 
 .sidenav-input-item {
@@ -70,14 +85,4 @@ a[data-toggle="collapse"] {
   border: solid 2px rgba(248,248,248,0.5);
   color: var(--white-color);
   border-radius: 10px;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.font-item-selected {
-  color: var(--blue-color) !important;
 }

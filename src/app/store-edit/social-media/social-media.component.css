@@ -1,78 +1,26 @@
-/* ***************** SideNav ****************** */
-
-
-#sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  overflow-y: scroll !important;
-  z-index: 5;
-  min-width: 300px;
-  max-width: 300px;
-  min-height: 100vh;
-  height: auto;
-  background: var(--light-black-color);
-  color: #fff;
-  transition: all 0.3s;
-}
-
-#sidebar::-webkit-scrollbar {
-  display: none;
-}
-
-
-#sidebar.active {
-  margin-left: -250px;
-}
-
-#sidebar-non-active.active {
-  margin-left: -330px;
-
-}
-
-#sidebar-non-active {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  overflow-y: scroll !important;
-  min-width: 80px;
-  max-width: 80px;
-  min-height: 100vh;
-  height: auto;
-  background: var(--light-black-color);
-  color: #fff;
-  transition: all 0.3s;
-}
-
-
-#sidebar .sidebar-header {
-  padding: 20px;
-  background: var(--light-black-color);
-}
-
-#sidebar ul p, #sidebar-non-active ul p {
+#sidebar-social-media ul p, #sidebar-social-media-non-active ul p {
   color: #fff;
   padding: 10px;
   padding-bottom: 0 !important;
 }
 
-#sidebar ul li a {
+#sidebar-social-media ul li a {
   padding: 10px 10px 10px 35px;
   display: block;
 }
 
-#sidebar-non-active ul li a {
+#sidebar-social-media-non-active ul li a {
   padding: 20px;
   display: block;
 }
 
-#sidebar ul li a:hover, #sidebar-non-active ul li a:hover, .back-button:hover {
+#sidebar-social-media ul li a:hover, #sidebar-social-media-non-active ul li a:hover, .back-button:hover {
   color: var(--white-color);
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"], #sidebar-non-active ul li.active > a, a[aria-expanded="true"] {
+#sidebar-social-media ul li.active > a, a[aria-expanded="true"], #sidebar-social-media-non-active ul li.active > a, a[aria-expanded="true"] {
   color: #fff;
   background: var(--light-black-color);
 }

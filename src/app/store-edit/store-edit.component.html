@@ -1,11 +1,71 @@
 <div class="wrapper">
-    <!--<app-side-nav ></app-side-nav>-->
-  <div class=" row">
+  <div class="row">
     <div class="col-lg-3 col-1">
-      <!--<app-sidenav-store [toggleS] = "toggleS"></app-sidenav-store>-->
-      <router-outlet></router-outlet>
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <h3 class="huge-titles text-center">Hackover</h3>
+        </div>
+        <router-outlet></router-outlet>
+        <div class="container sidenav-footer ">
+          <div class="row">
+            <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
+            <span (click)="toggleS()" class="col-4">
+              <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
+      </nav>
     </div>
     <div class="col-lg-9 col-11">
     </div>
   </div>
 </div>
+
+
+<!--<nav id="sidebar-non-active" class="active">-->
+<!--<ul class="list-unstyled text-size text-center">-->
+<!--<li class=" mb-3">-->
+<!--<a class="nav-link-sidebar">-->
+<!--<i class="fa fa-palette"></i>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li class="sidenav-elem mb-3">-->
+<!--<a class="nav-link-sidebar mt-1">-->
+<!--<i class="fa fa-font"></i>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li class="sidenav-elem mb-3">-->
+<!--<a class="nav-link-sidebar mt-1">-->
+<!--<i class="fa fa-share-alt"></i>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li class="sidenav-elem mb-3">-->
+<!--<a class="nav-link-sidebar mt-1">-->
+<!--<i class="fa fa-align-left"></i>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li class="sidenav-elem mb-3">-->
+<!--<a class="nav-link-sidebar mt-1">-->
+<!--<i class="fa fa-phone" style="transform: rotate(90deg)"></i>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li class="sidenav-elem mb-3">-->
+<!--<a class="nav-link-sidebar mt-1">-->
+<!--<i class="fa fa-columns"></i>-->
+<!--</a>-->
+<!--</li>-->
+<!--<li class="sidenav-elem mb-3">-->
+<!--<a class="nav-link-sidebar mt-1">-->
+<!--<i class="fa fa-backward"></i>-->
+<!--</a>-->
+<!--</li>-->
+
+<!--</ul>-->
+<!--<div class="container  ">-->
+<!--<div class="row text-center">-->
+<!--<span class="mx-auto" (click)="toggleS()">-->
+<!--<i class="fa fa-toggle-off fa-3x " aria-hidden="true" ></i>-->
+<!--</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--</nav>-->
