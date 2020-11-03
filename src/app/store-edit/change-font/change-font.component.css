@@ -67,9 +67,8 @@ a[data-toggle="collapse"] {
 
 .sidenav-input-item {
   background-color: var(--light-black-color);
-  border: solid 2px var(--white-color);
+  border: solid 2px rgba(248,248,248,0.5);
   color: var(--white-color);
-  opacity: 0.5;
   border-radius: 10px;
 }
 
