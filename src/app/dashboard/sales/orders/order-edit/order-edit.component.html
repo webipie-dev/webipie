@@ -23,7 +23,6 @@
       <div class="col-6">
         <p class="small-titles">Change Status: </p>
         <div>
-          <div>{{rowData.orderStatus}}</div>
           <select class="select text-size py-2 pl-2"  [value]="rowData.orderStatus">
             <option value="volvo">Shipped</option>
             <option value="saab">Canceled</option>
@@ -34,7 +33,7 @@
       </div>
       <div class="col-6">
         <p class="small-titles">Total Price: </p>
-        <p class="big-titles color-blue">22.500dt</p>
+        <p class="big-titles color-blue">{{rowData.totalPrice}}DT</p>
       </div>
     </div>
     <div class="text-center big-titles my-3 pt-3 mx-auto border-top">List Of Products</div>
@@ -46,22 +45,22 @@
         <div class="col-3 small-titles">Quantity</div>
         <div class="col-3 small-titles my-auto">Unit Price</div>
       </div>
-      <div *ngFor="let order of orderProducts">
+      <div *ngFor="let product of orderProducts; index as i">
         <div class="row mx-auto text-size border-bottom pb-3 mt-3">
           <div class="col-6">
             <div class='row'>
-              <a type="button">
-                <span class="close-x huge-titles">&times;</span>
+              <a type="button" (click)="onDeleteProduct(rowData, product)">
+                <span class="close-x huge-titles" >&times;</span>
               </a>
-              <img class='product-image-table img-fluid ml-3 mr-3' [src]="order.imgs[0]">
-              <p class='my-auto text-center'>{{order.name}}</p>
+              <img class='product-image-table img-fluid ml-3 mr-3' [src]="product.imgs[0]">
+              <p class='my-auto text-center'>{{product.name}}</p>
             </div>
           </div>
           <div class="col-3 my-auto">
 
-            <input type="number" class="change-quantity" [value]="order.quantity">
+            <input type="number" class="change-quantity" [value]="rowData.products[i].quantity">
           </div>
-          <div class="col-3 my-auto">{{order.price}}</div>
+          <div class="col-3 my-auto">{{product.price}}</div>
         </div>
       </div>
     </div>

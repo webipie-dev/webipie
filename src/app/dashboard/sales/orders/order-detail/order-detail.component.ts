@@ -20,6 +20,7 @@ export class OrderDetailComponent implements OnInit {
   windowWidth = window.screen.width;
   orderProductsIds = [];
   orderProducts: Product[] = [];
+  orderProductsQuantity = [];
   newVal = {
     _id: ''
   };
@@ -28,7 +29,8 @@ export class OrderDetailComponent implements OnInit {
   constructor(private http: HttpClient,
               private orderService: OrderService,
               private prodcutService: ProductService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal) {
+  }
 
   ngOnInit(): void {
   }
@@ -39,10 +41,29 @@ export class OrderDetailComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    this.orderProductsIds = this.rowData.products.map(s => s._id);
-    this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
-      this.orderProducts = data.product;
+    this.orderService.getById(this.rowData._id).subscribe((datas) => {
+      if (datas) {
+        const date = datas.orderDate.split('T');
+        this.rowData = {
+          _id: datas._id,
+          orderDate: date[0],
+          orderStatus: datas.orderStatus,
+          totalPrice: datas.totalPrice,
+          paymentMethod: datas.paymentMethod,
+          products: datas.products,
+          clientId: datas.client._id,
+          clientName: datas.client.name,
+          store: datas.store,
+        };
+        this.orderProductsIds = this.rowData.products.map(s => s._id);
+        this.orderProductsQuantity = this.rowData.products.map(s => s.quantity);
+        this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
+          console.log(data);
+          this.orderProducts = data.product;
+        });
+      }
     });
+
   }
 
   private getDismissReason(reason: any): string {

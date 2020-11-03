@@ -54,10 +54,15 @@ exports.getOneOrder = (req, res) => {
 }
 
 exports.addOrder = async (req, res) => {
+  let totalprice = 0;
+  req.body.products.forEach(elt =>{
+    totalprice += elt.price * elt.quantity;
+  })
+
   const order = new Order({
     orderDate: req.body.orderDate,
     orderStatus: req.body.orderStatus,
-    totalPrice: req.body.totalPrice,
+    totalPrice: totalprice,
     paymentMethod: req.body.paymentMethod,
     products: req.body.products,
     client: req.body.client,
@@ -163,6 +168,19 @@ exports.editOrder = (req, res, next) => {
       res.status(500).json({error: err});
     });
 };
+
+
+exports.deleteProductOrder = (req,res) => {
+  const ids = req.body.ids;
+
+  Order.updateOne({_id: ids}, {$pull: {products: {_id : req.body.product}}})
+    .then(doc => {
+      res.status(200).json({
+            message: 'Product deleted successfully from the order',
+            order: doc,
+          })
+    })
+}
 
 
 // exports.detailOrder = (req, res) => {
