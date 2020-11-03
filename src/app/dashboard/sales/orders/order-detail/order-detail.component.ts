@@ -18,7 +18,7 @@ export class OrderDetailComponent implements OnInit {
   editMode = false;
   displayMode = !this.editMode;
   windowWidth = window.screen.width;
-  orderProductsIds = ['5f99a32eeaa76827b859f31b', '5f99a321eaa76827b859f31a'];
+  orderProductsIds = [];
   orderProducts: Product[] = [];
   newVal = {
     _id: ''
@@ -39,6 +39,10 @@ export class OrderDetailComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    this.orderProductsIds = this.rowData.products.map(s => s._id);
+    this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
+      this.orderProducts = data.product;
+    });
   }
 
   private getDismissReason(reason: any): string {
@@ -57,10 +61,9 @@ export class OrderDetailComponent implements OnInit {
   }
 
   openModal() {
-    // console.log(this.rowData._id);
-    this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
-      this.orderProducts = data.product;
-    });
+    // this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
+    //   this.orderProducts = data.product;
+    // });
     // this.orderService.getById(this.rowData._id).subscribe((data) => {
     //   console.log(data);
     //   this.newVal._id = data._id;

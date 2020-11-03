@@ -22,6 +22,7 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getManyProductById = (req, res) =>{
+  console.log(req.query)
   const productId = req.query.ids;
   Product
     .find({_id: {$in: productId}})
@@ -118,10 +119,15 @@ exports.editProducts = (req, res, next) => {
   // adding the images
   const url = req.protocol + '://' +req.get('host');
   var images = [];
-  req.files.map(fileimg => {
-    images.push(url + '/images/' + fileimg.filename)
-  });
-  edits['imgs'] = images;
+  if(req.files){
+    req.files.map(fileimg => {
+      images.push(url + '/images/' + fileimg.filename)
+    });
+    edits['imgs'] = images;
+  } else {
+    console.log("no files uploaded")
+  }
+
 
   Product.updateMany({_id: {$in :ids}}, { $set: edits })
     .exec()

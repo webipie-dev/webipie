@@ -30,7 +30,7 @@ router
   .get('/many', productService.getManyProductById)
   .get('/:id', productService.getOneProduct)
   .post('/', multer({storage: storage}).any("productImgs", 5), productService.addProduct)
-  .patch('/', multer({storage: storage}).any("productImgs", 5), productService.editProducts)
+  .patch('/update', multer({storage: storage}).any("productImgs", 5), productService.editProducts)
   .delete('/', productService.deleteManyProducts)
   .delete('/delete', productService.deleteAllProducts);
 

@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Product} from '../../../../_shared/models/product.model';
+import {ProductService} from '../../../../_shared/services/product.service';
 
 @Component({
   selector: 'app-order-edit',
@@ -13,13 +15,17 @@ export class OrderEditComponent implements OnInit {
   @Input() value;
   public rowData: any;
   windowWidth = window.screen.width;
+  orderProductsIds = [];
+  orderProducts: Product[] = [];
   newVal = {
     _id: ''
   };
   closeResult;
 
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal,
+              private prodcutService: ProductService,
+              ) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +35,11 @@ export class OrderEditComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    console.log(this.rowData);
+    this.orderProductsIds = this.rowData.products.map(s => s._id);
+    this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
+      this.orderProducts = data.product;
     });
   }
 

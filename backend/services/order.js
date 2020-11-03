@@ -132,6 +132,7 @@ exports.deleteAllOrders = (req, res, next) => {
 
 exports.editOrder = (req, res, next) => {
   // separating the ids
+  console.log(req.body)
   const ids = req.body.ids;
 
   // separating the updates
@@ -139,8 +140,14 @@ exports.editOrder = (req, res, next) => {
   for(var key in req.body) {
       if(key !== 'ids'){
         edits[key] = req.body[key];
+
       }
+      // else if (key === 'products'){
+      //   edits[key] = req.body[key].map(s => mongoose.Types.ObjectId(s));
+      //
+      // }
   }
+  console.log(edits)
 
   Order.updateMany({_id: {$in :ids}}, { $set: edits })
     .exec()
