@@ -14,6 +14,28 @@ exports.getClients = (req, res) => {
   });
 }
 
+exports.getManyClientById = (req, res) =>{
+  const clientId = req.query.ids;
+  Client
+    .find({_id: {$in: clientId}})
+    .exec()
+    .then(client => {
+      if(client) {
+        res.status(200).json({
+          message: 'clients fetched successfully',
+          count: client.length,
+          client: client
+        });
+      } else {
+        res.status(404).json({error: 'not found'});
+      }
+    })
+    .catch(err => {
+      res.status(500).json({error: err});
+    });
+}
+
+
 exports.getOneClient = (req, res) => {
   const id = req.params._id;
   Client.findById(id)

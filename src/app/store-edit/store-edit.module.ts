@@ -12,6 +12,7 @@ import { ChangeColorComponent } from './change-color/change-color.component';
 import { ChangeContactComponent } from './change-contact/change-contact.component';
 import { ChangeHeaderComponent } from './change-header/change-header.component';
 import { ColorPickerComponent } from './change-color/color-picker/color-picker.component';
+import { SocialMediaComponent } from './social-media/social-media.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ColorPickerComponent } from './change-color/color-picker/color-picker.c
       ChangeContactComponent,
       ChangeHeaderComponent,
       ColorPickerComponent,
+      SocialMediaComponent,
     ]
 })
 export class StoreEditModule {

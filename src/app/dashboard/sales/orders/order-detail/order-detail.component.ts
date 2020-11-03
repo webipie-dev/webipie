@@ -1,4 +1,9 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, Output, OnChanges, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {OrderService} from '../../../../_shared/services/order.service';
+import {ProductService} from '../../../../_shared/services/product.service';
+import {Product} from '../../../../_shared/models/product.model';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-order-detail',
@@ -6,20 +11,44 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
   styleUrls: ['./order-detail.component.css']
 })
 export class OrderDetailComponent implements OnInit {
+  elements;
   // it contains row elements
   @Input() value;
   public rowData: any;
   editMode = false;
   displayMode = !this.editMode;
   windowWidth = window.screen.width;
+  orderProductsIds = ['5f99a32eeaa76827b859f31b', '5f99a321eaa76827b859f31a'];
+  orderProducts: Product[] = [];
   newVal = {
     _id: ''
   };
+  closeResult;
 
-  constructor() { }
+  constructor(private http: HttpClient,
+              private orderService: OrderService,
+              private prodcutService: ProductService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    // console.log(this.value._id);
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   onSwitch() {
@@ -28,7 +57,15 @@ export class OrderDetailComponent implements OnInit {
   }
 
   openModal() {
-    document.getElementById('order-detail-modal').style.setProperty('display' , 'block' , 'important');
-    console.log(this.rowData._id);
+    // console.log(this.rowData._id);
+    this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
+      this.orderProducts = data.product;
+    });
+    // this.orderService.getById(this.rowData._id).subscribe((data) => {
+    //   console.log(data);
+    //   this.newVal._id = data._id;
+    // });
+    // document.getElementById('order-detail-modal-' + this.rowData._id).style.setProperty('display' , 'block' , 'important');
+    // console.log(document.getElementById('order-detail-modal-' + this.rowData._id));
   }
 }

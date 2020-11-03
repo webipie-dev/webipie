@@ -64,7 +64,7 @@ export class OrdersComponent implements OnInit {
       add: false,
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt icon-trash-alt mt-3 fa-lg"></i>',
+      deleteButtonContent: '<i class="fa fa-trash-alt icon-trash-alt fa-lg"></i>',
       confirmDelete: true,
     },
     noDataMessage: 'Oups, no Data yet !'
@@ -87,7 +87,7 @@ export class OrdersComponent implements OnInit {
         width: '25%',
         type: 'custom',
         valuePrepareFunction: (cell, row) => {
-          return row.columnName;
+          return row;
         },
         renderComponent: OrderDetailComponent,
       },

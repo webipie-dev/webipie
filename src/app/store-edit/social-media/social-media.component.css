@@ -124,8 +124,17 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.img-social-media{
+  width: 30px;
+  height: 30px;
+}
+
 .option:hover {
   color: var(--light-black-color) !important;
   background-color: var(--white-color) !important;
+}
+
+.width {
+  width: 100%;
 }
 

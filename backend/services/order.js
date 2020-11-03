@@ -18,6 +18,28 @@ exports.getOrders = (req, res) => {
   });
 }
 
+exports.getManyOrderById = (req, res) =>{
+  const orderId = req.query.ids;
+  Order
+    .find({_id: {$in: orderId}})
+    .exec()
+    .then(order => {
+      if(order) {
+        res.status(200).json({
+          message: 'orders fetched successfully',
+          count: order.length,
+          order: order
+        });
+      } else {
+        res.status(404).json({error: 'not found'});
+      }
+    })
+    .catch(err => {
+      res.status(500).json({error: err});
+    });
+}
+
+
 exports.getOneOrder = (req, res) => {
   const id = req.params._id;
   Order.findById(id)
@@ -136,31 +158,31 @@ exports.editOrder = (req, res, next) => {
 };
 
 
-exports.detailOrder = (req, res) => {
-  const id = req.params._id;
-  let prodId = []
-  let prods = {}
-  Order.findById(id)
-    .exec()
-    .then(doc => {
-      doc.products.map(elem => {
-        prodId.push(elem._id)
-      })
-      prods["_id"] = prodId
-      Product.find(prods)
-        .then((documents) => {
-          res.status(200).json({
-            message: 'Products fetched successfully',
-            order: doc,
-            products: documents
-          })
-        })
-    })
-    .catch(err => {
-      // console.log(err);
-      res.status(500).json({error: err})
-    });
-}
+// exports.detailOrder = (req, res) => {
+//   const id = req.params._id;
+//   let prodId = []
+//   let prods = {}
+//   Order.findById(id)
+//     .exec()
+//     .then(doc => {
+//       doc.products.map(elem => {
+//         prodId.push(elem._id)
+//       })
+//       prods["_id"] = prodId
+//       Product.find(prods)
+//         .then((documents) => {
+//           res.status(200).json({
+//             message: 'Products fetched successfully',
+//             order: doc,
+//             products: documents
+//           })
+//         })
+//     })
+//     .catch(err => {
+//       // console.log(err);
+//       res.status(500).json({error: err})
+//     });
+// }
 
 
 

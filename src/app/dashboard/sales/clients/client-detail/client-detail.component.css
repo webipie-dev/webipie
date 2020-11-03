@@ -1,12 +1,116 @@
-#modal-dialogue-client {
-  margin-top: 200px;
-  width: 70%;
-  margin-left: auto;
-  margin-right: auto;
+.order-detail-modal {
+  margin: auto;
+}
+
+@media all and (max-width: 1024px) {
+  ng-template {
+    position: relative;
+    z-index: 100;
+  }
+}
+.display-block-important {
+  display: block !important;
 }
 
 .close-x {
-  color: #a40000;
+  color: rgba(164,0,0, 0.5);
   font-weight: bolder;
+  font-size: x-large;
 }
 
+.close-x:hover {
+  color: #a40000;
+  font-size: xx-large;
+}
+
+.product-image-table {
+  border-radius: 10px !important;
+  width: 30px !important;
+  height: 30px !important;
+  margin-top: 10px;
+}
+
+.border-bottom-blue {
+  border-bottom: solid 1px var(--blue-color)
+}
+
+#checkbox-product {
+  width: 20px;
+  height: 20px;
+  margin:  auto 0 !important;
+}
+
+.change-quantity {
+  margin-bottom: 0 !important;
+  width: 80%;
+  border: solid 1px #7a7a7a;
+  border-radius: 5px;
+  padding-left: 15px;
+}
+
+.select {
+  border: solid 1px #7a7a7a;
+  border-radius: 5px;
+}
+
+.button-delete {
+  background: #9a0017;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+#delete-icon {
+  color: var(--white-color);
+}
+
+.button-delete:hover {
+  background: var(--white-color);
+  color: #9a0017;
+  border: solid 1px #9a0017;
+  transition: all 200ms ease-in-out;
+}
+
+.button-delete:hover #delete-icon {
+  color: #9a0017;
+}
+
+.button-edit {
+  background: #0e9c21;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+#edit-icon, #save-icon {
+  color: var(--white-color);
+}
+
+
+.button-edit:hover {
+  background: var(--white-color);
+  color: #0e9c21;
+  border: solid 1px #0e9c21;
+}
+
+.button-edit:hover #edit-icon, .button-edit:hover #save-icon {
+  color: #0e9c21;
+}
+
+.button-cancel {
+  background: var(--blue-color);
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+#cancel-icon {
+  color: var(--white-color);
+}
+
+.button-cancel:hover {
+  background: var(--white-color);
+  color: var(--blue-color);
+  border: solid 1px var(--blue-color);
+}
+
+.button-cancel:hover #cancel-icon {
+  color: var(--blue-color);
+}

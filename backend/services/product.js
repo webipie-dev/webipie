@@ -21,6 +21,27 @@ exports.getProducts = (req, res, next) => {
     })
 };
 
+exports.getManyProductById = (req, res) =>{
+  const productId = req.query.ids;
+  Product
+    .find({_id: {$in: productId}})
+    .exec()
+    .then(product => {
+      if(product) {
+        res.status(200).json({
+          message: 'products fetched successfully',
+          count: product.length,
+          product: product
+        });
+      } else {
+        res.status(404).json({error: 'not found'});
+      }
+    })
+    .catch(err => {
+      res.status(500).json({error: err});
+    });
+}
+
 exports.getOneProduct = (req, res, next) => {
   const productId = req.params.id;
   Product
@@ -118,13 +139,30 @@ exports.editProducts = (req, res, next) => {
 
 exports.deleteManyProducts = (req, res, next) => {
   const ids = req.body.ids;
-  Product.deleteMany({_id: {$in: ids}})
-    .exec()
-    .then(result => {
-      res.status(200).json(result);
+  Product.find({_id: {$in: ids}})
+    .then((products) => {
+      Product.deleteMany({_id: {$in: ids}})
+        .exec()
+        .then(result => {
+          let bulkQueries = [];
+          products.map(product => {
+            bulkQueries.push({
+              updateOne: {
+                "filter": { _id: product.store},
+                "update":{$pull: {products: product._id}}
+              }
+            })
+          });
+          Store
+            .bulkWrite(bulkQueries, {ordered: false})
+
+          res.status(200).json({
+            result: result,
+            productsDeleted: products
+          });
+        })
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({ error: err});
     });
 };

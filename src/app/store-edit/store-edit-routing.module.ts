@@ -6,6 +6,8 @@ import {ChangeFontComponent} from './change-font/change-font.component';
 import { ChangeColorComponent } from './change-color/change-color.component';
 import {ChangeContactComponent} from './change-contact/change-contact.component';
 import {ChangeHeaderComponent} from './change-header/change-header.component';
+import {SocialMediaComponent} from './social-media/social-media.component';
+
 
 const routes: Routes = [{
     path: '',
@@ -29,7 +31,11 @@ const routes: Routes = [{
       },
       {
         path: 'header',
-        component: ChangeHeaderComponent
+        component: ChangeHeaderComponent,
+      },
+      {
+        path: 'social-media',
+        component: SocialMediaComponent
       }
     ]
   }]
