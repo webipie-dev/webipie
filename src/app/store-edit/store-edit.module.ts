@@ -8,6 +8,10 @@ import {StoreEditRoutingModule} from "./store-edit-routing.module";
 import { SidenavStoreComponent } from './sidenav-store/sidenav-store.component';
 import {StoreEditComponent} from "./store-edit.component";
 import { ChangeFontComponent } from './change-font/change-font.component';
+import { ChangeColorComponent } from './change-color/change-color.component';
+import { ChangeContactComponent } from './change-contact/change-contact.component';
+import { ChangeHeaderComponent } from './change-header/change-header.component';
+import { ColorPickerComponent } from './change-color/color-picker/color-picker.component';
 
 
 @NgModule({
@@ -22,6 +26,10 @@ import { ChangeFontComponent } from './change-font/change-font.component';
       StoreEditComponent,
       SidenavStoreComponent,
       ChangeFontComponent,
+      ChangeColorComponent,
+      ChangeContactComponent,
+      ChangeHeaderComponent,
+      ColorPickerComponent,
     ]
 })
 export class StoreEditModule {
