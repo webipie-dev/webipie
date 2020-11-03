@@ -1,0 +1,59 @@
+<!-- Sidebar -->
+<nav id="sidebar">
+    <div class="sidebar-header">
+      <h3 class="huge-titles text-center">Hackover</h3>
+    </div>
+  
+    <ul class="list-unstyled components text-size">
+      <li class="sidenav-elem">
+        <div class="my-4 py-3 px-1 back-button nav-link-sidebar"><i class="fa fa-chevron-left"></i><span class="ml-3">Edit your store</span></div>
+        <a class="nav-link-sidebar mt-1 ">
+          <i class="fas fa-heading"></i> Header
+        </a>
+        <p>Lorem ipsum dolor sit amet!</p>
+
+        <div>
+            <div class="my-3"> 
+                <label for=""> Big Title  </label> 
+                <input class='input' type='text' [placeholder]="title">
+            </div>
+
+            <div class="my-3"> 
+                <label for=""> Description  </label> 
+                <input class='input' style="height: 100px;" type='text' [placeholder]="description">
+            </div>
+
+            <div class="my-3"> 
+                <label for=""> Main Button  </label> 
+                <input class='input' type='text' [placeholder]="main_button">
+            </div>
+
+            <div class="my-3"> 
+                <label for=""> Background  </label> 
+                <div class="background">
+                    <input
+                        type="file"
+                        class="fileInput"
+                        accept="image/jpg, image/jpeg"
+                        name="img">
+                    <button class="img-fluid  my-2 img-product ">
+                        <img class="image" src="../../../assets/images/dress.jpg" alt="">
+                        <img src="../../../assets/images/upload-image.png" class='ml-6 upload-image ' alt=""> 
+                    </button>              
+                </div>
+            </div>
+
+        </div>
+      </li>
+    </ul>
+    <div class="container sidenav-footer ">
+      <div class="row">
+        <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
+        <span (click)="toggleS()" class="col-4">
+                                  <i class="fa fa-toggle-on fa-3x  " aria-hidden="true"></i>
+  
+                </span>
+      </div>
+    </div>
+  
+  </nav>

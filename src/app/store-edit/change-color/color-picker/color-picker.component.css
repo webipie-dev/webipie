@@ -1,0 +1,94 @@
+/******* color picker ******/
+
+.color-picker .summary-info {
+    box-shadow: 0 7px 13px 0 rgba(86, 95, 102, 0.07);
+    background: #fff;
+    /* max-width: 240px; */
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    cursor: pointer;
+}
+.color-picker .summary-info .info {
+    width: calc(100% - 40px);
+    color: #000;
+}
+.color-picker .summary-info .info p.style {
+    color: #000;
+    margin-bottom: 5px;
+}
+.color-picker .summary-info .info p.style-value {
+    color: #595b65;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 10px;
+}
+.color-picker .circle {
+    height: 40px;
+    width: 40px;
+    box-sizing: border-box;
+    border-radius: 100%;
+    cursor: pointer;
+    border: 1px solid #dadada;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
+}
+.color-picker .opened {
+    box-shadow: 0 7px 13px 0 rgba(86, 95, 102, 0.07);
+    background: #fff;
+    /* max-width: 240px; */
+    padding: 15px;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 15px;
+}
+.color-picker .opened:after {
+    border: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    content: '';
+    right: 10px;
+    position: absolute;
+    top: -20px;
+}
+.color-picker .opened .colors {
+    display: flex;
+    flex-wrap: wrap;
+}
+.color-picker .opened .colors .circle {
+    flex: 40px 0 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.color-picker .opened .colors .circle:nth-child(5n) {
+    margin-right: 0;
+}
+.color-picker .opened .hex-code {
+    display: flex;
+    margin-top: 20px;
+}
+.color-picker .opened .hex-code p {
+    width: 50%;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 45px;
+}
+.color-picker .opened .hex-code .g-input {
+    border: 1px solid #e8ebed;
+    height: 45px;
+    border-radius: 5px;
+    width: 120px;
+}
+.color-picker .opened .hex-code .g-input input {
+    border: none;
+    width: 100%;
+    text-transform: uppercase;
+    outline: none;
+    text-align: center;
+    letter-spacing: 1.5px;
+    color: #595b65;
+    height: 100%;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+}
