@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-
 import {HttpClientModule} from "@angular/common/http";
 import {DashboardComponent} from "./dashboard.component";
 import {SideNavComponent} from "./side-nav/side-nav.component";
