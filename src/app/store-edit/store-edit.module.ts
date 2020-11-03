@@ -5,10 +5,10 @@ import {Ng2SmartTableModule} from "ng2-smart-table";
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {StoreEditRoutingModule} from "./store-edit-routing.module";
-import { SidenavStoreComponent } from './sidenav-store/sidenav-store.component';
 import {StoreEditComponent} from "./store-edit.component";
 import { ChangeFontComponent } from './change-font/change-font.component';
 import { SocialMediaComponent } from './social-media/social-media.component';
+import { SidenavMenuComponent } from './sidenav-menu/sidenav-menu.component';
 
 
 @NgModule({
@@ -21,9 +21,9 @@ import { SocialMediaComponent } from './social-media/social-media.component';
     ],
     declarations: [
       StoreEditComponent,
-      SidenavStoreComponent,
       ChangeFontComponent,
       SocialMediaComponent,
+      SidenavMenuComponent,
     ]
 })
 export class StoreEditModule {

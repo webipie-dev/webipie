@@ -641,3 +641,7 @@ input:focus:-ms-input-placeholder {
   }
 }
 
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
