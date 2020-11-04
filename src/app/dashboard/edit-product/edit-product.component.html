@@ -2,8 +2,8 @@
 
 
 <!-- edit or add product -->
-  <div class="sales-header mt-5">
-    <h1 class="big-titles text-center">Add Edit One Product</h1>
+  <div class="sales-header mt-3">
+    <h1 class="big-titles text-center mb-3">Add Edit One Product</h1>
   </div>
   <form [formGroup]="productForm" (submit)="onSubmit()">
     <div class="row margin-top">
@@ -28,7 +28,7 @@
                   class="form-control fileInput"
                   name="imgs"
                   (change)="onImagePicked($event)" multiple>
-                <button class="img-fluid mx-5 my-2 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
+                <button class="img-fluid mx-5 my-2 img-product upload-icon text-size"><i class="fa fa-upload fa-3x icon mx-auto"></i>Add Photos</button>
               </div>
 
               <div class='col-9'>

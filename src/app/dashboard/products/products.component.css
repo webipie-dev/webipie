@@ -53,19 +53,19 @@
 }
 :host /deep/ ng2-smart-table input {
   margin-bottom: 30px !important;
-  border: solid 1px rgba(45, 52, 56, 0.35);
+  border: solid 1px rgba(45, 52, 56, 0.23);
   width: 90%;
   height: 60%;
   padding: 5px 15px;
   border-radius: 7px;
-  transition: .4s transform ease-in-out;
+  transition: .3s all ease-in-out;
   font-size: var(--text-desktop);
 }
 
 :host /deep/ ng2-smart-table input:focus {
-  border: solid 2px var(--blue-color);
-  transition: .4s transform ease-in-out;
-  box-shadow: 0 0 7px rgba(34, 101, 178, 0.5);
+  border: solid 1px var(--blue-color);
+  transition: .3s transform ease-in-out;
+  box-shadow: 0 0 13px rgba(34, 101, 178, 0.2);
 }
 
 :host /deep/ ng2-smart-table input::placeholder {
@@ -85,9 +85,6 @@
   border: none !important;
 }
 
-:host /deep/ ng2-smart-table tr.ng2-smart-titles:hover {
-  background: rgba(242,242,242, 0.7) !important;
-}
 
 :host /deep/ ng2-smart-table th.details {
   display: none !important;
@@ -124,16 +121,12 @@
 
 :host /deep/ ng2-smart-table tr:hover {
   transition: 0.3s ease-in-out all !important;
-  background: rgba(242,242,242, 0.7) !important;
 }
 
 :host /deep/ ng2-smart-table tr.ng2-smart-filters {
   border: none !important;
 }
 
-:host /deep/ ng2-smart-table tr.ng2-smart-filters:hover {
-  background: rgba(242,242,242, 0.7) !important;
-}
 
 :host /deep/ ng2-smart-table ng2-smart-table-pager {
   display: block !important;
@@ -186,4 +179,12 @@
 .remove-padding {
   padding-right: 0.8rem !important;
   padding-left: 0.8rem !important;
+}
+
+.table-shadow {
+  box-shadow: 0 3px 19px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin: 20px;
+  border-radius: 15px;
+  background-color: white;
 }

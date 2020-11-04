@@ -641,3 +641,7 @@ input:focus:-ms-input-placeholder {
   }
 }
 
+.modal-content {
+  border-radius: 20px !important;
+  padding: 20px;
+}
