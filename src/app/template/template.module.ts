@@ -4,6 +4,7 @@ import {Ng2SmartTableModule} from "ng2-smart-table";
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {TemplateRoutingModule} from './template-routing.module';
+import { BannerImageComponent } from './banner-image/banner-image.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {TemplateRoutingModule} from './template-routing.module';
     CommonModule
   ],
   declarations: [
+    BannerImageComponent
   ]
 })
 export class TemplateModule {
