@@ -5,6 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {TemplateRoutingModule} from './template-routing.module';
 import { BannerImageComponent } from './banner-image/banner-image.component';
+import {TemplateComponent} from './template.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { BannerImageComponent } from './banner-image/banner-image.component';
     CommonModule
   ],
   declarations: [
-    BannerImageComponent
+    BannerImageComponent,
+    TemplateComponent
   ]
 })
 export class TemplateModule {
