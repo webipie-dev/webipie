@@ -6,7 +6,8 @@ import {CommonModule} from '@angular/common';
 import {TemplateRoutingModule} from './template-routing.module';
 import { BannerImageComponent } from './banner-image/banner-image.component';
 import {TemplateComponent} from './template.component';
-
+import { ProductCardComponent } from './product-card/product-card.component';
+import {ChangeImgDirective} from './product-card/change-img.directive';
 
 @NgModule({
   imports: [
@@ -18,7 +19,9 @@ import {TemplateComponent} from './template.component';
   ],
   declarations: [
     BannerImageComponent,
-    TemplateComponent
+    TemplateComponent,
+    ProductCardComponent,
+    ChangeImgDirective
   ]
 })
 export class TemplateModule {
