@@ -1,5 +1,7 @@
 <div class="product-card px-1 py-1">
-  <img appChangeImg (mouseenter)="changeImg('enter')" class="img-dim img-fluid" [src]="src">
+  <div class="image-container">
+    <img [@onHover]="hover ? 'hover' : 'fixed'" (mouseenter)="onImgHover()" (mouseleave)="onImgHover()" class="img-dim img-fluid" [src]="src">
+  </div>
   <div class="text-size-template">name</div>
   <div class="text-size-template">19.99$</div>
   <div class="text-size-template">very pretty product</div>

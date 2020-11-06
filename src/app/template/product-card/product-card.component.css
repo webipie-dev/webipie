@@ -18,3 +18,9 @@
   width: 347px !important;
   height: 230px !important;
 }
+
+.image-container {
+  overflow: hidden !important;
+  width: 347px !important;
+  height: 230px !important;
+}
