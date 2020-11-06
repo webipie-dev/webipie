@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Route} from '@angular/router';
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 @Component({
@@ -47,17 +47,6 @@ export class EditProductComponent implements OnInit {
       });
       this.getProductById(this.productId);
       console.log(this.singleProduct.imgs);
-      // this.productForm.patchValue({
-      //   name: this.singleProduct.name,
-      //   description: this.singleProduct.description,
-      //   price: this.singleProduct.price,
-      //   imgs: this.singleProduct.imgs,
-      //   quantity: this.singleProduct.quantity,
-      //   store: this.singleProduct.store,
-      // });
-      // this.productForm.get('name').updateValueAndValidity();
-      //
-      // console.log(this.productForm.get('name').value);
     } else {
       this.productForm = new FormGroup({
         name: new FormControl(null, Validators.required),
@@ -92,12 +81,9 @@ export class EditProductComponent implements OnInit {
 
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
-    const name = (event.target as HTMLInputElement).name;
-    console.log(file);
     for (let i = 0; i < file.length; i++) {
-      this.postData.append('imgs', file[i], name);
+      this.postData.append('imgs', file[i], file[i].name);
     }
-    console.log(this.postData.get('imgs'));
 
   }
 
@@ -110,22 +96,21 @@ export class EditProductComponent implements OnInit {
         // console.log(control.value);
         // console.log('--------');
         this.postData.append(field, control.value);
-        // if (field in ['imgs']) {
-        //   this.postData.append(field, control.value, field);
-        // } else {
       } else {
         // console.log('doesnt exist: ' + field);
         // console.log(control.value);
         // console.log('--------');
-        if (field in ['imgs']) {
-          this.postData.append(field, '', field);
-        } else {
+        if ((field !== 'imgs')) {
           this.postData.append(field, '');
         }
+
 
       }
     }
     this.productForm.reset();
+    // this.postData.forEach((value, key) => {
+    //   console.log(key + ' ' + value);
+    // });
     this.editProductService.addOne(this.postData).subscribe((data) => {
       console.log(data);
     });
@@ -152,8 +137,11 @@ export class EditProductComponent implements OnInit {
 
       }
     }
-    // this.productForm.reset();
+    this.productForm.reset();
     // console.log(this.postData.get('imgs'));
+    // this.postData.forEach((value, key) => {
+    //   console.log(key + ' ' + value);
+    // });
     this.editProductService.edit(this.postData).subscribe((data) => {
       console.log(data);
     });

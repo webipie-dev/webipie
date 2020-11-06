@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
-import {OrderEditComponent} from './order-edit/order-edit.component';
 import {Order} from '../../../_shared/models/order.model';
 import {HttpClient} from '@angular/common/http';
 import {ClientService} from '../../../_shared/services/client.service';
@@ -16,17 +15,13 @@ export class OrdersComponent implements OnInit {
   settings = {
     selectMode: 'multi',
     columns: {
-      id: {
-        title: 'ID',
-        width: '15%'
-      },
       clientName: {
-        title: 'Orderer',
+        title: 'Client',
         width: '20%'
       },
       totalPrice: {
         title: 'Price',
-        width: '10%'
+        width: '20%'
       },
       orderDate: {
         title: 'Date',
@@ -42,7 +37,8 @@ export class OrdersComponent implements OnInit {
         width: '10%',
         type: 'custom',
         valuePrepareFunction: (cell, row) => {
-          return row;
+          this.edit = false;
+          return this.edit;
         },
         renderComponent: OrderDetailComponent,
       },
@@ -51,9 +47,10 @@ export class OrdersComponent implements OnInit {
         width: '10%',
         type: 'custom',
         valuePrepareFunction: (cell, row) => {
-          return row.columnName;
+          this.edit = true;
+          return this.edit;
         },
-        renderComponent: OrderEditComponent,
+        renderComponent: OrderDetailComponent,
       },
 
     },
@@ -64,7 +61,7 @@ export class OrdersComponent implements OnInit {
       add: false,
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash-alt icon-trash-alt fa-lg"></i>',
+      deleteButtonContent: '<i class="fa fa-trash-alt icon-trash-alt fa-lg cursor-pointer"></i>',
       confirmDelete: true,
     },
     noDataMessage: 'Oups, no Data yet !'
@@ -74,11 +71,11 @@ export class OrdersComponent implements OnInit {
   settingsMobile = {
     selectMode: 'multi',
     columns: {
-      orderer: {
-        title: 'Orderer',
+      clientName: {
+        title: 'Client',
         width: '50%'
       },
-      status: {
+      orderStatus: {
         title: 'Status',
         width: '25%'
       },
@@ -87,7 +84,8 @@ export class OrdersComponent implements OnInit {
         width: '25%',
         type: 'custom',
         valuePrepareFunction: (cell, row) => {
-          return row;
+          this.edit = false;
+          return this.edit;
         },
         renderComponent: OrderDetailComponent,
       },
@@ -96,7 +94,7 @@ export class OrdersComponent implements OnInit {
     noDataMessage: 'Oups, no Data yet !'
   };
 
-
+  edit = false;
   orders = [];
 
   constructor(private http: HttpClient,
