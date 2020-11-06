@@ -9,6 +9,8 @@ import {TemplateComponent} from './template.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
+import { ProductCardComponent } from './product-card/product-card.component';
+import {ChangeImgDirective} from './product-card/change-img.directive';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { FooterComponent } from './footer/footer.component';
     BannerImageComponent,
     TemplateComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ProductCardComponent,
+    ChangeImgDirective
   ]
 })
 export class TemplateModule {
