@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { SignInComponent } from './index/sign-in/sign-in.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {TemplateModule} from './template/template.module';
 
 
 @NgModule({
@@ -40,10 +42,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     DashboardModule,
     StoreEditModule,
+    TemplateModule,
     HttpClientModule,
     SocialLoginModule,
     NgxSpinnerModule,

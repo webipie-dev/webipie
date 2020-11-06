@@ -1,0 +1,26 @@
+.product-card {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.button-edit {
+  background: #0e9c21;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+.button-edit:hover {
+  background: var(--white-color);
+  color: #0e9c21;
+  border: solid 1px #0e9c21;
+}
+
+.img-dim {
+  width: 347px !important;
+  height: 230px !important;
+}
+
+.image-container {
+  overflow: hidden !important;
+  width: 347px !important;
+  height: 230px !important;
+}

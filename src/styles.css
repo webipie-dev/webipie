@@ -156,9 +156,13 @@ hr {
 .color-blue {
   color: var(--blue-color);
 }
+
 .color-blue-header {
   background-color: var(--blue-color);
+}
 
+.color-black {
+  color: var(--black-color);
 }
 
 .color-light-black {
@@ -240,8 +244,6 @@ hr {
   display: block;
 }
 /*****************************************/
-
-
 
 
 /* ***************** Buttons ****************** */

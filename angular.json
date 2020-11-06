@@ -126,6 +126,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "savvy"
+    }
+  },
+  "defaultProject": "savvy",
+  "cli": {
+    "analytics": "ef5e3a71-44cc-479f-9302-064b00c66f06"
+  }
 }
