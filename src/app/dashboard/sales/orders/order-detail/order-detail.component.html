@@ -49,21 +49,21 @@
       </div>
         <div *ngFor="let product of orderProducts; index as i">
           <div class="row mx-auto text-size border-bottom pb-3 mt-3">
-        <div class="col-6">
-          <div class='row'>
-            <a *ngIf="editMode" type="button">
-              <span class="close-x huge-titles">&times;</span>
-            </a>
-            <img class='product-image-table img-fluid ml-3 mr-3' [src]="product.imgs[0]">
-            <p class='my-auto text-center'>{{product.name}}</p>
+            <div class="col-6">
+              <div class='row'>
+                <a *ngIf="editMode" type="button">
+                  <span class="close-x huge-titles">&times;</span>
+                </a>
+                <img class='product-image-table img-fluid ml-3 mr-3' [src]="product.imgs[0]">
+                <p class='my-auto text-center'>{{product.name}}</p>
+              </div>
+            </div>
+            <div class="col-3 my-auto">
+              <p *ngIf="displayMode">{{rowData.products[i].quantity}}</p>
+              <input *ngIf="editMode" type="number" class="change-quantity" [value]="rowData.products[i].quantity">
+            </div>
+            <div class="col-3 my-auto">{{product.price}}</div>
           </div>
-        </div>
-        <div class="col-3 my-auto">
-          <p *ngIf="displayMode">{{rowData.products[i].quantity}}</p>
-          <input *ngIf="editMode" type="number" class="change-quantity" [value]="rowData.products[i].quantity">
-        </div>
-        <div class="col-3 my-auto">{{product.price}}</div>
-      </div>
         </div>
       </div>
       <div class="mt-3">
