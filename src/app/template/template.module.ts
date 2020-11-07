@@ -8,6 +8,7 @@ import { BannerImageComponent } from './banner-image/banner-image.component';
 import {TemplateComponent} from './template.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import {ChangeImgDirective} from './product-card/change-img.directive';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {ChangeImgDirective} from './product-card/change-img.directive';
     BannerImageComponent,
     TemplateComponent,
     ProductCardComponent,
-    ChangeImgDirective
+    ChangeImgDirective,
+    CheckoutPageComponent
   ]
 })
 export class TemplateModule {
