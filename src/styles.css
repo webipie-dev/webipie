@@ -156,9 +156,13 @@ hr {
 .color-blue {
   color: var(--blue-color);
 }
+
 .color-blue-header {
   background-color: var(--blue-color);
+}
 
+.color-black {
+  color: var(--black-color);
 }
 
 .color-light-black {
@@ -645,3 +649,7 @@ input:focus:-ms-input-placeholder {
   border-radius: 20px !important;
   padding: 20px;
 }
+.cursor-pointer {
+  cursor: pointer !important;
+}
+

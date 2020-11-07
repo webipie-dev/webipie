@@ -11,7 +11,8 @@ const ExSchema = new Schema({
   products: [
     {
     _id: {type:  Schema.Types.ObjectID, ref: "Product", default: ''},
-    quantity: {type: Number, default: 1}
+    quantity: {type: Number, default: 1},
+    price: {type: Number, default: 0}
     }
   ],
   client: {

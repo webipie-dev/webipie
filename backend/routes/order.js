@@ -25,6 +25,8 @@ router.delete('', OrderService.deleteManyOrders)
 //deleteAllOrders
 router.delete('/delete', OrderService.deleteAllOrders)
 
+router.delete('/delete/product', OrderService.deleteProductOrder)
+
 router.patch('/update', OrderService.editOrder)
 
 

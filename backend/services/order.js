@@ -54,10 +54,15 @@ exports.getOneOrder = (req, res) => {
 }
 
 exports.addOrder = async (req, res) => {
+  let totalprice = 0;
+  req.body.products.forEach(elt =>{
+    totalprice += elt.price * elt.quantity;
+  })
+
   const order = new Order({
     orderDate: req.body.orderDate,
     orderStatus: req.body.orderStatus,
-    totalPrice: req.body.totalPrice,
+    totalPrice: totalprice,
     paymentMethod: req.body.paymentMethod,
     products: req.body.products,
     client: req.body.client,
@@ -132,6 +137,7 @@ exports.deleteAllOrders = (req, res, next) => {
 
 exports.editOrder = (req, res, next) => {
   // separating the ids
+  console.log(req.body)
   const ids = req.body.ids;
 
   // separating the updates
@@ -139,8 +145,14 @@ exports.editOrder = (req, res, next) => {
   for(var key in req.body) {
       if(key !== 'ids'){
         edits[key] = req.body[key];
+
       }
+      // else if (key === 'products'){
+      //   edits[key] = req.body[key].map(s => mongoose.Types.ObjectId(s));
+      //
+      // }
   }
+  console.log(edits)
 
   Order.updateMany({_id: {$in :ids}}, { $set: edits })
     .exec()
@@ -156,6 +168,19 @@ exports.editOrder = (req, res, next) => {
       res.status(500).json({error: err});
     });
 };
+
+
+exports.deleteProductOrder = (req,res) => {
+  const ids = req.body.ids;
+
+  Order.updateOne({_id: ids}, {$pull: {products: {_id : req.body.product}}})
+    .then(doc => {
+      res.status(200).json({
+            message: 'Product deleted successfully from the order',
+            order: doc,
+          })
+    })
+}
 
 
 // exports.detailOrder = (req, res) => {

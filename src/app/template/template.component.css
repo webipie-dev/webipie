@@ -1,0 +1,48 @@
+#template {
+  --huge-titles-desktop: 3.5rem;
+  --huge-titles-tablet: 2.7rem;
+  --huge-titles-mobile: 1.7rem;
+
+  --big-titles-desktop: 2.4rem;
+  --small-titles-desktop: 2rem;
+  --text-desktop: 1.7rem;
+
+  --big-titles-tablet: 1.9rem;
+  --small-titles-tablet: 1.7rem;
+  --text-tablet: 1.4rem;
+
+  --big-titles-mobile: 1.7rem;
+  --small-titles-mobile: 1.5rem;
+  --text-mobile: 1.2rem;
+
+  --white-color: #F1F1F1;
+  --black-color: #2c2c2c;
+  --light-black-color: #2D3438;
+
+  /* ***************** General Font ****************** */
+
+  font-family: 'Jost', sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
+
+  transition: all 200ms linear;
+}
+
+
+.huge-titles-template {
+  font-size: var(--huge-titles-desktop) !important;
+}
+
+.big-titles-template {
+  font-size: var(--big-titles-desktop) !important;
+  font-weight: 700;
+}
+
+.small-titles-template {
+  font-size: var(--small-titles-desktop) !important;
+  font-weight: 600;
+}
+
+.text-size-template {
+  font-size: var(--text-desktop) !important;
+}

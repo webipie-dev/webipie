@@ -35,6 +35,11 @@ const routes: Routes = [
       .then(m => m.StoreEditModule),
   },
   {
+    path: 'template',
+    loadChildren: () => import('./template/template.module')
+      .then(m => m.TemplateModule),
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   },
