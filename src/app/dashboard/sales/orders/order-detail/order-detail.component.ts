@@ -65,7 +65,6 @@ export class OrderDetailComponent implements OnInit {
         this.orderProductsQuantity = this.rowData.products.map(s => s.quantity);
         this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
           this.orderProducts = data.product;
-          console.log(this.orderProducts);
         });
       }
     });
@@ -102,7 +101,6 @@ export class OrderDetailComponent implements OnInit {
   }
 
   onDeleteOrder(orderId: string){
-    console.log("khra");
     this.orderService.deleteMany({ids: orderId}).subscribe(data => {
       console.log(data);
     });

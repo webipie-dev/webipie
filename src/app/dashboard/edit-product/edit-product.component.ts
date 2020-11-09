@@ -22,6 +22,8 @@ export class EditProductComponent implements OnInit {
   allProducts: Product[] = [];
   edit = false;
   productId = '';
+  url;
+  msg = '';
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -46,7 +48,6 @@ export class EditProductComponent implements OnInit {
         store: new FormControl('', Validators.required),
       });
       this.getProductById(this.productId);
-      console.log(this.singleProduct.imgs);
     } else {
       this.productForm = new FormGroup({
         name: new FormControl(null, Validators.required),
@@ -81,6 +82,16 @@ export class EditProductComponent implements OnInit {
 
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
+    console.log(file[0]);
+    const reader = new FileReader();
+    reader.readAsDataURL(file[0]);
+
+    reader.onload = (_event) => {
+      this.msg = "";
+      this.url = reader.result;
+      // console.log(this.url);
+      // this.imageObject.push(this.url)
+    }
     for (let i = 0; i < file.length; i++) {
       this.postData.append('imgs', file[i], file[i].name);
     }
@@ -131,7 +142,7 @@ export class EditProductComponent implements OnInit {
         // console.log('--------');
         if (field === 'ids') {
           this.postData.append(field, id);
-        } else if (field !== 'imgs'){
+        } else if (field !== 'imgs') {
           this.postData.append(field, '');
         }
 
