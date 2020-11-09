@@ -16,7 +16,6 @@ export class SideNavComponent implements OnInit {
 
   @HostListener('window:resize') windwosResize() {
     this.windwosWidth = window.innerWidth;
-    console.log(this.windwosWidth);
     if (this.windwosWidth < 576) {
       document.getElementById("sidebar").classList.add("active");
       document.getElementById("sidebar-non-active2").classList.remove("hidden-sidenav");

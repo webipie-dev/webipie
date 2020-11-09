@@ -4,6 +4,8 @@ import {OrderService} from '../../../../_shared/services/order.service';
 import {ProductService} from '../../../../_shared/services/product.service';
 import {Product} from '../../../../_shared/models/product.model';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {Router} from '@angular/router';
+import {EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-order-detail',
@@ -12,7 +14,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 })
 export class OrderDetailComponent implements OnInit {
   elements;
-  // it contains row elements
+  @Output() someEvent = new EventEmitter();
   @Input() value;
   public rowData: any;
   editMode = false;
@@ -29,10 +31,13 @@ export class OrderDetailComponent implements OnInit {
   constructor(private http: HttpClient,
               private orderService: OrderService,
               private prodcutService: ProductService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private router: Router) {
   }
 
   ngOnInit(): void {
+    this.editMode = this.value;
+    this.displayMode = !this.editMode;
   }
 
   open(content) {
@@ -55,15 +60,54 @@ export class OrderDetailComponent implements OnInit {
           clientName: datas.client.name,
           store: datas.store,
         };
+        console.log(this.rowData);
         this.orderProductsIds = this.rowData.products.map(s => s._id);
         this.orderProductsQuantity = this.rowData.products.map(s => s.quantity);
         this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
-          console.log(data);
           this.orderProducts = data.product;
         });
       }
     });
 
+  }
+
+  onDeleteProduct(event, prod) {
+    if (window.confirm('Are you sure you want to delete?')) {
+      const index = this.orderProducts.indexOf(prod);
+      const index2 = this.orderProductsIds.indexOf(prod._id);
+      this.orderService.deleteProduct(event._id, prod._id).subscribe((data) => {
+        if (index > -1 && index2 > -1) {
+          this.orderProducts.splice(index, 1);
+          this.orderProductsIds.splice(index2, 1);
+
+          this.orderService.getById(event._id).subscribe((datas) => {
+            const date = datas.orderDate.split('T');
+            this.rowData = {
+              _id: datas._id,
+              orderDate: date[0] ,
+              orderStatus: datas.orderStatus,
+              totalPrice: datas.totalPrice,
+              paymentMethod: datas.paymentMethod,
+              products: datas.products,
+              clientId: datas.client._id,
+              clientName: datas.client.name,
+              store: datas.store,
+            };
+          });
+        }
+      });
+
+    }
+  }
+
+  onDeleteOrder(orderId: string){
+    this.orderService.deleteMany({ids: orderId}).subscribe(data => {
+      console.log(data);
+    });
+    this.modalService.dismissAll();
+    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['dashboard/sales/orders']);
+    });
   }
 
   private getDismissReason(reason: any): string {
