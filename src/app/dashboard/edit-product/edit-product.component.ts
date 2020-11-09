@@ -14,7 +14,7 @@ import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/ta
 })
 export class EditProductComponent implements OnInit {
 
-  imageObject = [];
+  imageObject: Array<object> = [];
 
   productForm: FormGroup;
   postData = new FormData();
@@ -85,13 +85,17 @@ export class EditProductComponent implements OnInit {
     console.log(file[0]);
     const reader = new FileReader();
     reader.readAsDataURL(file[0]);
+    
 
     reader.onload = (_event) => {
       this.msg = "";
       this.url = reader.result;
-      // console.log(this.url);
-      // this.imageObject.push(this.url)
+      console.log(reader.result);
+
+      this.imageObject.push({ image : this.url , thumbImage : this.url})
+      // console.log(this.imageObject)
     }
+
     for (let i = 0; i < file.length; i++) {
       this.postData.append('imgs', file[i], file[i].name);
     }
