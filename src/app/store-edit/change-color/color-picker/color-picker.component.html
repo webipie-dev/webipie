@@ -4,16 +4,16 @@
         <p class="style">{{ heading }}</p>
         <p class="style-value">{{ color }}</p>
       </div>
-  
+
       <div class="circle" [ngStyle]="{'background': color}"></div>
     </div>
-  
+
     <div *ngIf="show" class="opened">
       <div class="colors">
         <div (click)="changeColor(paint)" *ngFor="let paint of defaultColors" class="circle"
              [ngStyle]="{'background': paint}"></div>
       </div>
-  
+
       <div class="hex-code">
         <p>Hex Code</p>
         <div class="g-input">
