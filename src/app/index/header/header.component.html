@@ -17,20 +17,20 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto py-4 py-md-0 ">
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
-                                    <a class="nav-link active mx-4" href="#">Home</a>
+                                    <a class="nav-link active mx-4" (click)="goTo('home')" style="cursor: pointer;">Home</a>
                                 </li>
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
-                                    <a class="nav-link mx-4" href="#">About Us</a>
+                                    <a class="nav-link mx-4" (click)="goTo('aboutus')" style="cursor: pointer;">About Us</a>
                                 </li>
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
-                                    <a class="nav-link mx-4" href="#">Pricing</a>
+                                    <a class="nav-link mx-4" (click)="goTo('pricing')" style="cursor: pointer;">Pricing</a>
                                 </li>
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
-                                    <a class="nav-link mx-4" href="#">Contact Us</a>
+                                    <a class="nav-link mx-4" (click)="goTo('contactus')" style="cursor: pointer;">Contact Us</a>
                                 </li>
                                 <li>
                                     <div class="text-center mt-1 mx-5">
-                                        <a routerLink='/signup' class="button-generic button-white small-titles py-2 ">Sign In</a>
+                                        <a routerLink='/signin' class="button-generic button-white small-titles py-2 ">Sign In</a>
                                     </div>
                                 </li>
                             </ul>

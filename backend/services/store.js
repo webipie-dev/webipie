@@ -1,4 +1,6 @@
+
 const Store = require('../models/store')
+const Product = require('../models/store')
 const mongoose = require('mongoose')
 
 // getAndFilter
@@ -59,25 +61,42 @@ exports.addStore = (req, res) => {
   });
 }
 
-exports.deleteManyStores = (req, res, next) => {
+exports.deleteOneStore = (req, res, next) => {
   // console.log(req.body)
   const ids = req.body.ids;
   // console.log(ids)
-  Store.deleteMany({_id: {$in: ids}})
-    .exec()
-    .then(result => {
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err});
+  Store.find({_id: {$in: ids}})
+    .then((store) => {
+      Store.deleteOne({_id: {$in: ids}})
+        .exec()
+        .then(result => {
+          let bulkQueries = [];
+          store.products.map(product => {
+            bulkQueries.push({
+              deleteOne: {
+                "filter": {_id: product},
+              }
+            })
+          });
+          Product
+            .bulkWrite(bulkQueries, {ordered: false})
+          res.status(200).json({
+            message: 'deleted with success',
+            store: store
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({error: err});
+        });
     });
-};
+}
 
 exports.deleteAllStores = (req, res, next) => {
   Store.deleteMany({})
     .exec()
     .then(result => {
+
       res.status(200).json(result);
     })
     .catch(err => {
@@ -91,23 +110,23 @@ exports.editStore = (req, res, next) => {
   const ids = req.body.ids;
   console.log(ids)
 
-  if(req.file){
-    logo = req.protocol + "://" + req.get("host")  + "/images/logos" + req.file.filename
-  }else {
+  if (req.file) {
+    logo = req.protocol + "://" + req.get("host") + "/images/logos" + req.file.filename
+  } else {
     logo = ''
   }
 
   // separating the updates
   const edits = {};
   edits['logo'] = logo
-  for(var key in req.body) {
-      if(key !== 'ids'){
-        edits[key] = req.body[key];
+  for (var key in req.body) {
+    if (key !== 'ids') {
+      edits[key] = req.body[key];
 
     }
   }
 
-  Store.updateMany({_id: {$in :ids}}, { $set: edits })
+  Store.updateMany({_id: {$in: ids}}, {$set: edits})
     .exec()
     .then(result => {
       res.status(200).json({
@@ -120,5 +139,6 @@ exports.editStore = (req, res, next) => {
       res.status(500).json({error: err});
     });
 };
+
 
 

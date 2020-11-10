@@ -37,7 +37,7 @@ router.post('',multer({storage: storage}).single("logoImg"), StoreService.addSto
 
 
 // deleteManyStores
-router.delete('', StoreService.deleteManyStores)
+router.delete('/delete/single', StoreService.deleteOneStore)
 
 //deleteAllStores
 router.delete('/delete', StoreService.deleteAllStores)

@@ -33,9 +33,9 @@ export class SignUpComponent implements OnInit {
     this.auth.login(this.store_owner)
       .subscribe(result => {
         if (result) {
-          // console.log(result);
+          console.log(result);
           localStorage.setItem('token', result['token']);
-          const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+          let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate([returnUrl || '/after-signin']);
         } else {
           console.log('error here');
@@ -74,9 +74,9 @@ export class SignUpComponent implements OnInit {
               let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
               this.router.navigate([returnUrl || '/after-signin']);
             } else {
-              console.log('error here');
+              console.log('error here')
             }
-          });
+          })
       });
   }
 
