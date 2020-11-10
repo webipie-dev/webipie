@@ -8,8 +8,10 @@ import {Component, Input, OnInit} from '@angular/core';
 
 export class TemplateComponent implements OnInit {
 
+  @Input() fromStoreEdit = false;
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.fromStoreEdit);
   }
 }

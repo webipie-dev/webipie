@@ -19,7 +19,7 @@ const routes: Routes = [{
     {
       path: 'social-media',
       component: SocialMediaComponent,
-      canActivate: [AuthGuard]
+      /*canActivate: [AuthGuard]*/
     },
     {
       path: 'product-edit',

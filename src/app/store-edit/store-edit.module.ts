@@ -12,15 +12,17 @@ import { ChangeHeaderComponent } from './change-header/change-header.component';
 import { ColorPickerComponent } from './change-color/color-picker/color-picker.component';
 import { SocialMediaComponent } from './social-media/social-media.component';
 import { SidenavMenuComponent } from './sidenav-menu/sidenav-menu.component';
+import {TemplateModule} from '../template/template.module';
 
 
 @NgModule({
     imports: [
-      StoreEditRoutingModule,
-      HttpClientModule,
-      Ng2SmartTableModule,
-      ReactiveFormsModule,
-      CommonModule
+        StoreEditRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
+        TemplateModule
     ],
     declarations: [
       StoreEditComponent,
