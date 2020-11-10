@@ -20,6 +20,7 @@ export class IndexComponent implements OnInit{
             this.fragment = fragment; 
             console.log(this.fragment);
           });
+          
           this.vps.scrollToAnchor(this.fragment);}
       });
     }
