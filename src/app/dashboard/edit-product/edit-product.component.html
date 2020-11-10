@@ -7,123 +7,123 @@
   </div>
   <form [formGroup]="productForm" (submit)="onSubmit()">
     <div class="row margin-top">
-    <div class="col-md-9 col-12">
-      <div class="row">
-        <div class="col-12">
-          <div class="upload-images py-3 px-3">
-            <div class="row">
-              <div class="col-2 col-md-3">
+      
+      <div class="col-12">
+        <div class="upload-images py-3 px-3">
+          <div class="row">
+            <div class="col-2 col-md-3">
+              <input
+                type="file"
+                class="form-control fileInput"
+                name="imgs"
+                accept="image/*"
+                (change)="onImagePicked($event)" multiple>
+              <button class="img-fluid mx-5 my-2 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
+            </div>
+
+            <div class='col-9'>
+              <ng-image-slider
+                [images]="imageObject"
+                [infinite]="false"
+                [imageSize]="{width: 150, height: 150, space: 4}"></ng-image-slider>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row margin-top">
+      <div class="col-8 mt-5 mb-5">
+        <div class="container upload-images product-description py-5">
+          <div class="row">
+            <div class="col-md-6 col-12 mb-3">
+              <div class="col-12">
+                <label class="text-size pl-2">Name</label>
+              </div>
+              <div class="col-12">
                 <input
-                  type="file"
-                  class="form-control fileInput"
-                  name="imgs"
-                  accept="image/*"
-                  (change)="onImagePicked($event)" multiple>
-                <button class="img-fluid mx-5 my-2 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
+                  class="text-size product-input"
+                  type="text"
+                  formControlName="name" [ngModel]="singleProduct.name">
               </div>
-
-              <div class='col-9'>
-                <ng-image-slider
-                  [images]="imageObject"
-                  [infinite]="false"
-                  [imageSize]="{width: 150, height: 150, space: 4}"></ng-image-slider>
-              </div>
-
             </div>
-          </div>
-        </div>
-        <div class="col-12 mt-5 mb-5">
-          <div class="container upload-images product-description py-5">
-            <div class="row">
-              <div class="col-md-6 col-12 mb-3">
-                <div class="col-12">
-                  <label class="text-size pl-2">Name</label>
-                </div>
-                <div class="col-12">
-                  <input
-                    class="text-size product-input"
-                    type="text"
-                    formControlName="name" [ngModel]="singleProduct.name">
-                </div>
+            <div class="col-md-3 col-6">
+              <div class="col-12">
+                <label class="text-size pl-2">Quantity</label>
               </div>
-              <div class="col-md-3 col-6">
-                <div class="col-12">
-                  <label class="text-size pl-2">Quantity</label>
-                </div>
-                <div class="col-12">
-                  <input
-                    class="text-size product-input"
-                    type="number"
-                    formControlName="quantity" [ngModel]="singleProduct.quantity">
-                </div>
+              <div class="col-12">
+                <input
+                  class="text-size product-input"
+                  type="number"
+                  min="0"
+                  formControlName="quantity" [ngModel]="singleProduct.quantity">
               </div>
-              <div class="col-md-3 col-6">
-                <div class="col-12">
-                  <label class="text-size pl-2">Id</label>
-                </div>
-                <div class="col-12">
-                  <input
-                    class="text-size product-input"
-                    type="text"
-                    formControlName="store" [ngModel]="singleProduct.store">
-                </div>
+            </div>
+            <div class="col-md-3 col-6">
+              <div class="col-12">
+                <label class="text-size pl-2">Ref</label>
               </div>
-              <div class="col-12 mt-3">
-                <div class="col-12">
-                  <label class="text-size pl-2">Description</label>
-                </div>
-                <div class="col-12">
-                  <textarea class="description-area"
-                            formControlName="description" [ngModel]="singleProduct.description"></textarea>
-                </div>
+              <div class="col-12">
+                <input
+                  class="text-size product-input"
+                  type="text"
+                  formControlName="store" [ngModel]="singleProduct.store">
+              </div>
+            </div>
+            <div class="col-12 mt-3">
+              <div class="col-12">
+                <label class="text-size pl-2">Description</label>
+              </div>
+              <div class="col-12">
+                <!-- <textarea class="description-area"
+                          formControlName="description" [ngModel]="singleProduct.description"></textarea> -->
+                <quill-editor></quill-editor>
               </div>
             </div>
           </div>
         </div>
       </div>
+  
+      <div class="col-md-4 col-4 mt-5 mb-5">
+        <div class="row upload-images mr-1 px-3 py-4 mx-auto mb-3">
+          <div class="col-12">
+            <label class="text-size pl-2">Price</label>
+          </div>
+          <div class="col-12">
+            <input
+              class="text-size product-input"
+              type="number"
+              min="0"
+              formControlName="price" [ngModel]="singleProduct.price">
+          </div>
+          <div class="col-12 mt-5">
+            <label class="text-size pl-2">Status</label>
+          </div>
+          <div class="col-12">
+            <select class="text-size product-input" name="status" id="status">
+              <option value="disponible">Disponible</option>
+              <option value="in arrival">In arrival</option>
+              <option value="out of stock">Out of stock</option>
+            </select>          
+          </div>
+          
+          
+        </div>
+
+        <div class="col-12 text-center my-1">
+          <button class="button-generic button-blue form-button text-size" (submit)="addProduct()">Save Changes</button>
+        </div>
+        <div class="col-12 text-center mt-1">
+          <button class="button-generic button-blue form-button text-size">Reset</button>
+        </div>
+            
+      </div>      
     </div>
-    <div class="col-md-3 col-12">
-      <div class="row upload-images mr-1 px-3 py-3 mx-auto">
-        <div class="col-12">
-          <label class="text-size pl-2">Price</label>
-        </div>
-        <div class="col-12">
-          <input
-            class="text-size product-input"
-            type="number"
-            formControlName="price" [ngModel]="singleProduct.price">
-        </div>
-        <div class="col-12 mt-5">
-          <label class="text-size pl-2">Status</label>
-        </div>
-        <div class="col-12">
-          <input class="text-size product-input" type="number">
-        </div>
-        <div class="col-12 mt-5">
-          <label class="text-size pl-2">Size</label>
-        </div>
-        <div class="col-12">
-          <input type="radio" class="" name="gender" value="male">
-          <label class="text-size">S</label><br>
-        </div>
-        <div class="col-12">
-          <input type="radio" class="" name="gender" value="male">
-          <label class="text-size">M</label><br>
-        </div>
-        <div class="col-12">
-          <input type="radio" class="" name="gender" value="male">
-          <label class="text-size">L</label><br>
-        </div>
-      </div>
-      <div class="col-12 text-center mb-1">
-        <button class="button-generic button-blue form-button text-size" (submit)="addProduct()">Save Changes</button>
-      </div>
-      <div class="col-12 text-center mt-1">
-        <button class="button-generic button-blue form-button text-size">Reset</button>
-      </div>
-    </div>
-  </div>
+    
   </form>
+
+
 
 
 

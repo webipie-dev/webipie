@@ -25,7 +25,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {TemplateModule} from './template/template.module';
-
+import { QuillModule } from 'ngx-quill' ;
 
 @NgModule({
   declarations: [
@@ -51,7 +51,8 @@ import {TemplateModule} from './template/template.module';
     HttpClientModule,
     SocialLoginModule,
     NgxSpinnerModule,
-    NgbModule
+    NgbModule,
+    QuillModule.forRoot()
   ],
   providers: [
     {

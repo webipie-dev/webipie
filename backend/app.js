@@ -1,4 +1,5 @@
 const express = require('express');
+var cors = require('cors')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const productsRoutes = require('./routes/product');
@@ -9,6 +10,8 @@ const templateRoutes = require('./routes/template')
 const app = express();
 const storeOwnerRoutes = require('./routes/storeOwner');
 
+//enable cors
+app.use(cors());
 
 // change the db
 mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTteam?retryWrites=true&w=majority')
@@ -19,6 +22,7 @@ mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTte
     console.log('connection failed');
   });
 
+  
 app
   .use('/backend/images',express.static('backend/images'))
   .use(bodyParser.urlencoded({extended: true}))
@@ -39,7 +43,6 @@ app
 
 module.exports = app;
 
-//app.listen(3000);
-
 // app.listen(3000);
+
 

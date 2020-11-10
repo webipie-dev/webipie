@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
+import { QuillModule } from 'ngx-quill' ;
 import {DashboardComponent} from './dashboard.component';
 import {SideNavComponent} from './side-nav/side-nav.component';
 import {SalesComponent} from './sales/sales.component';
@@ -32,7 +33,8 @@ import {HeaderComponent} from './header/header.component';
     CommonModule,
     NgxChartsModule,
     NgImageSliderModule,
-    FormsModule
+    FormsModule,
+    QuillModule.forRoot()
   ],
   declarations: [
     DashboardComponent,

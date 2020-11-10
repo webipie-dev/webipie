@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
     this.auth.login(this.store_owner)
       .subscribe( result =>{
         if (result){
-          // console.log(result);
+          console.log(result);
           localStorage.setItem('token', result['token'])
           let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate([returnUrl || '/after-signin'])

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit{
 
   constructor(private router : Router) { }
 
@@ -30,8 +30,10 @@ export class HeaderComponent implements OnInit {
 
   }
 
+
   goTo(fragment){
     this.router.navigate( ['/'], {fragment: fragment});
+    window.location.reload();
   }
 
 }
