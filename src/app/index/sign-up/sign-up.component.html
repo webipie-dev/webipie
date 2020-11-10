@@ -1,47 +1,49 @@
 <app-header></app-header>
-
-
 <div class="container">
-    <div class="row col-12 ">
-        <div class="card-wrapper col-10 mx-auto py-5">
-            <div class="card-background row">
-                <div class="card-background-image col-lg-5 col-12 ">
-                    <div class="text-center big-titles white-colored mt-3">Logo Savvy</div>
-                    <img src="../../../assets/images/login.svg" alt="" class="img-fluid my-5 img-login d-flex mx-auto ">
-                    <div class="text-center text-size white-colored pt-5 " >You have already an account ?</div>
-                    <div class="text-center text-size white-colored  mb-2" >Forgot your password ?</div>
-
-                </div>
-                <div class=" col-lg-7 col-12 px-5 ">
-                    <div class="text-center big-titles mt-3">Sign Up</div>
-                    <div class="text-center text-size mt-3">You can configure your store after creating your account.</div>
-                    <form #f="ngForm">
-                        <label for="name" class="text-size ml-5 mt-3">Name</label>
-                        <input type="text" id="name" class="input" placeholder="Name">
-                        <label for="email" class="text-size ml-5 mt-3">Email</label>
-                        <input type="email" id="email" class="input" placeholder="Email" [(ngModel)]="store_owner.email" name="email" >
-                        <label for="password" class="text-size ml-5 mt-3">Password</label>
-                        <input type="password" id="password" class="input" placeholder="Password"  [(ngModel)]="store_owner.password" name="password">
-                        <div class="text-center mt-3">
-                            <button  class="button-generic button-blue small-titles " (click)="signUp()" type='submit'>Configure your store</button>
-                        </div>
-                    </form>
-                    <div class="row text-center text-size d-flex justify-content-center">
-                        <div class="line-login my-3 mr-2"></div>
-                        Or login with
-                        <div class="line-login my-3 ml-2"></div>
-                    </div>
-                    <div class="row my-3">
-                        <div class="col-6 ">
-                            <img src="../../../assets/images/facebook.png" alt="" class="img-fluid  mx-auto sign-in-icon pointer" (click)="signInWithFB()">
-                        </div>
-                        <div class="col-6">
-                            <img src="../../../assets/images/google.png" alt="" class="img-fluid mx-auto sign-in-icon pointer" (click)="signInWithGoogle()">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+  <div class="row col-12 ">
+    <div class="card-wrapper col-10 mx-auto py-5">
+      <div class="card-background row">
+        <div class="card-background-image col-lg-5 col-12 ">
+          <div class="text-center big-titles white-colored mt-3">Logo Savvy</div>
+          <img alt="" class="img-fluid my-5 img-login d-flex mx-auto " src="../../../assets/images/login.svg">
+          <div class="text-center text-size white-colored pt-5 ">You have already an account ?</div>
+          <div class="text-center text-size white-colored  mb-2">Forgot your password ?</div>
         </div>
+        <div class=" col-lg-7 col-12 px-5 ">
+          <div class="text-center big-titles mt-3">Sign Up</div>
+          <div class="text-center text-size mt-3">You can configure your store after creating your account.</div>
+          <form #f="ngForm">
+            <label class="text-size ml-5 mt-3" for="name">Name</label>
+            <input class="input" id="name" placeholder="Name" type="text">
+            <label class="text-size ml-5 mt-3" for="email">Email</label>
+            <input [(ngModel)]="store_owner.email" class="input" id="email" name="email" placeholder="Email"
+                   type="email">
+            <label class="text-size ml-5 mt-3" for="password">Password</label>
+            <input [(ngModel)]="store_owner.password" class="input" id="password" name="password" placeholder="Password"
+                   type="password">
+            <div class="text-center mt-3">
+              <button (click)="signUp()" class="button-generic button-blue small-titles " type='submit'>Configure your
+                store
+              </button>
+            </div>
+          </form>
+          <div class="row text-center text-size d-flex justify-content-center">
+            <div class="line-login my-3 mr-2"></div>
+            Or login with
+            <div class="line-login my-3 ml-2"></div>
+          </div>
+          <div class="row my-3">
+            <div class="col-6 ">
+              <img (click)="signInWithFB()" alt="" class="img-fluid  mx-auto sign-in-icon pointer"
+                   src="../../../assets/images/facebook.png">
+            </div>
+            <div class="col-6">
+              <img (click)="signInWithGoogle()" alt="" class="img-fluid mx-auto sign-in-icon pointer"
+                   src="../../../assets/images/google.png">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

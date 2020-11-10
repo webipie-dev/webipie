@@ -1,3 +1,4 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<router-outlet *ngIf="!fromStoreEdit"></router-outlet>
+<app-home *ngIf="fromStoreEdit"></app-home>
 <app-footer></app-footer>

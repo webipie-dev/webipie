@@ -25,6 +25,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { LoadingSpinnerComponent } from './_shared/loading-spinner/loading-spinner.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {TemplateModule} from './template/template.module';
+import { FooterComponent } from './index/footer/footer.component';
+import { TemplatesPageComponent } from './index/templates-page/templates-page.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import {TemplateModule} from './template/template.module';
     PageNotFoundComponent,
     SignInComponent,
     LoadingSpinnerComponent,
+    FooterComponent,
+    TemplatesPageComponent,
     // FormsModule
   ],
   imports: [

@@ -24,6 +24,11 @@ header {
     transition: all 0.3s ease-out;
 }
 
+.elseWhere {
+  opacity: 0 !important;
+  background-color: var(--blue-color) !important;
+}
+
 .start-header.scroll-on {
     background-color: var(--blue-color);
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
