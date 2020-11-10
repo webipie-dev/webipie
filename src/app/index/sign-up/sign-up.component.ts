@@ -74,9 +74,9 @@ export class SignUpComponent implements OnInit {
               let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
               this.router.navigate([returnUrl || '/after-signin']);
             } else {
-              console.log('error here')
+              console.log('error here');
             }
-          })
+          });
       });
   }
 

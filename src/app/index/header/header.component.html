@@ -1,43 +1,42 @@
 <header>
-    <div class="navigation-wrap start-header start-style vivify fadeInTop delay-150" id="headerr">
-        <div class="small-titles">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="navbar navbar-expand-md navbar-light">
-                        <a class="navbar-brand" href="https://front.codes/" target="_blank">
-                            <img alt="">
-                        </a>
-                        <button class="navbar-toggler mx-5" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent"
-                                aria-controls="navbarSupportedContent" aria-expanded="false"
-                                aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon mt-1"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ml-auto py-4 py-md-0 ">
-                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
-                                    <a class="nav-link active mx-4" (click)="goTo('home')" style="cursor: pointer;">Home</a>
-                                </li>
-                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
-                                    <a class="nav-link mx-4" (click)="goTo('aboutus')" style="cursor: pointer;">About Us</a>
-                                </li>
-                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
-                                    <a class="nav-link mx-4" (click)="goTo('pricing')" style="cursor: pointer;">Pricing</a>
-                                </li>
-                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
-                                    <a class="nav-link mx-4" (click)="goTo('contactus')" style="cursor: pointer;">Contact Us</a>
-                                </li>
-                                <li>
-                                    <div class="text-center mt-1 mx-5">
-                                        <a routerLink='/signin' class="button-generic button-white small-titles py-2 ">Sign In</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
+  <div class="navigation-wrap start-header start-style vivify fadeInTop delay-150" id="headerr">
+    <div class="small-titles">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-md navbar-light">
+            <a class="navbar-brand" href="https://front.codes/" target="_blank">
+              <img alt="">
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler mx-5"
+                    data-target="#navbarSupportedContent" data-toggle="collapse"
+                    type="button">
+              <span class="navbar-toggler-icon mt-1"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto py-4 py-md-0 ">
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
+                  <a (click)="goTo('home')" class="nav-link active mx-4 cursor-pointer">Home</a>
+                </li>
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
+                  <a (click)="goTo('aboutus')" class="nav-link mx-4 cursor-pointer">About Us</a>
+                </li>
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
+                  <a (click)="goTo('pricing')" class="nav-link mx-4 cursor-pointer">Pricing</a>
+                </li>
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
+                  <a (click)="goTo('contactus')" class="nav-link mx-4 cursor-pointer">Contact Us</a>
+                </li>
+                <li>
+                  <div class="text-center mt-1 mx-5">
+                    <a class="button-generic button-white small-titles py-2 " routerLink='/signin'>Sign In</a>
+                  </div>
+                </li>
+              </ul>
             </div>
+          </nav>
         </div>
+      </div>
     </div>
+  </div>
 </header>

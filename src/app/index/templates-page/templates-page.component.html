@@ -12,7 +12,7 @@
         <p class="text-size color-dark-blue">Choose the template that suits your business, taste and strategy.</p>
         <p class="text-size color-dark-blue second-paragraph">Get Ready to dazzle your clients.<b>You can change it anytime.</b></p>
       </div>
-      <a class="button-generic button-white-border-blue text-size">Go Back</a>
+      <a routerLink="/" class="button-generic button-white-border-blue text-size">Go Back</a>
     </div>
   </div>
 </div>
@@ -28,7 +28,7 @@
         <div class="template-buttons">
           <div class="container">
             <a routerLink="/template/home" class="button-generic button-white-border-blue text-size mr-5">Preview</a>
-            <a href="" class="button-generic button-blue text-size ml-5">Pick</a>
+            <a (click)="onTemplatePick('templateID')" class="button-generic button-blue text-size ml-5">Pick</a>
           </div>
         </div>
       </div>
