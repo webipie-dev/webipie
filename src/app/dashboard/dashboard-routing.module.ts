@@ -26,6 +26,10 @@ const routes: Routes = [{
       component: EditProductComponent
     },
     {
+      path: 'product-add',
+      component: EditProductComponent
+    },
+    {
       path: 'products',
       component: ProductsComponent
     },
@@ -56,7 +60,7 @@ const routes: Routes = [{
         {
           path: 'clients',
           component: ClientsComponent
-        }  
+        }
       ]
     },
   ]

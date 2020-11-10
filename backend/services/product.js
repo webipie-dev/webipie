@@ -64,12 +64,12 @@ exports.getOneProduct = (req, res, next) => {
 };
 
 exports.addProduct = (req, res, next) => {
-  console.log("heeere")
   const url = req.protocol + '://' +req.get('host');
+  console.log(req.body)
   var images = [];
   if (req.files)
   {
-    // console.log(req.files)
+    console.log(req.files)
     req.files.map(fileimg => {
       images.push(url + '/backend/images/' + fileimg.filename)
     });
@@ -121,7 +121,7 @@ exports.editProducts = (req, res, next) => {
   var images = [];
   if(req.files){
     req.files.map(fileimg => {
-      images.push(url + '/images/' + fileimg.filename)
+      images.push(url + '/backend/images/' + fileimg.filename)
     });
     edits['imgs'] = images;
   } else {

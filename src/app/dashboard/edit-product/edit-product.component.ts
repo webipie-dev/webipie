@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Route} from '@angular/router';
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 @Component({
@@ -14,7 +14,7 @@ import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/ta
 })
 export class EditProductComponent implements OnInit {
 
-  imageObject = [];
+  imageObject: Array<object> = [];
 
   productForm: FormGroup;
   postData = new FormData();
@@ -22,6 +22,8 @@ export class EditProductComponent implements OnInit {
   allProducts: Product[] = [];
   edit = false;
   productId = '';
+  url;
+  msg = '';
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -46,18 +48,6 @@ export class EditProductComponent implements OnInit {
         store: new FormControl('', Validators.required),
       });
       this.getProductById(this.productId);
-      console.log(this.singleProduct.imgs);
-      // this.productForm.patchValue({
-      //   name: this.singleProduct.name,
-      //   description: this.singleProduct.description,
-      //   price: this.singleProduct.price,
-      //   imgs: this.singleProduct.imgs,
-      //   quantity: this.singleProduct.quantity,
-      //   store: this.singleProduct.store,
-      // });
-      // this.productForm.get('name').updateValueAndValidity();
-      //
-      // console.log(this.productForm.get('name').value);
     } else {
       this.productForm = new FormGroup({
         name: new FormControl(null, Validators.required),
@@ -92,12 +82,23 @@ export class EditProductComponent implements OnInit {
 
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
-    const name = (event.target as HTMLInputElement).name;
-    console.log(file);
-    for (let i = 0; i < file.length; i++) {
-      this.postData.append('imgs', file[i], name);
+    console.log(file[0]);
+    const reader = new FileReader();
+    reader.readAsDataURL(file[0]);
+    
+
+    reader.onload = (_event) => {
+      this.msg = "";
+      this.url = reader.result;
+      console.log(reader.result);
+
+      this.imageObject.push({ image : this.url , thumbImage : this.url})
+      // console.log(this.imageObject)
     }
-    console.log(this.postData.get('imgs'));
+
+    for (let i = 0; i < file.length; i++) {
+      this.postData.append('imgs', file[i], file[i].name);
+    }
 
   }
 
@@ -110,22 +111,21 @@ export class EditProductComponent implements OnInit {
         // console.log(control.value);
         // console.log('--------');
         this.postData.append(field, control.value);
-        // if (field in ['imgs']) {
-        //   this.postData.append(field, control.value, field);
-        // } else {
       } else {
         // console.log('doesnt exist: ' + field);
         // console.log(control.value);
         // console.log('--------');
-        if (field in ['imgs']) {
-          this.postData.append(field, '', field);
-        } else {
+        if ((field !== 'imgs')) {
           this.postData.append(field, '');
         }
+
 
       }
     }
     this.productForm.reset();
+    // this.postData.forEach((value, key) => {
+    //   console.log(key + ' ' + value);
+    // });
     this.editProductService.addOne(this.postData).subscribe((data) => {
       console.log(data);
     });
@@ -146,14 +146,17 @@ export class EditProductComponent implements OnInit {
         // console.log('--------');
         if (field === 'ids') {
           this.postData.append(field, id);
-        } else if (field !== 'imgs'){
+        } else if (field !== 'imgs') {
           this.postData.append(field, '');
         }
 
       }
     }
-    // this.productForm.reset();
+    this.productForm.reset();
     // console.log(this.postData.get('imgs'));
+    // this.postData.forEach((value, key) => {
+    //   console.log(key + ' ' + value);
+    // });
     this.editProductService.edit(this.postData).subscribe((data) => {
       console.log(data);
     });

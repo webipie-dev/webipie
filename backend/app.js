@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const productsRoutes = require('./routes/product');
 const clientRoutes = require('./routes/client');
-const addressClientRoutes = require('./routes/addressClient');
 const orderRoutes = require('./routes/order');
 const storeRoutes = require('./routes/store')
 const templateRoutes = require('./routes/template')
@@ -33,7 +32,6 @@ app
   .use("/storeOwner", storeOwnerRoutes)
   .use('/product', productsRoutes)
   .use('/client', clientRoutes)
-  .use('/address', addressClientRoutes)
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
   .use('/template',templateRoutes)
