@@ -29,20 +29,20 @@
 }
 
 
-.huge-titles-template {
+:host /deep/ .huge-titles-template {
   font-size: var(--huge-titles-desktop) !important;
 }
 
-.big-titles-template {
+:host /deep/ .big-titles-template {
   font-size: var(--big-titles-desktop) !important;
   font-weight: 700;
 }
 
-.small-titles-template {
+:host /deep/ .small-titles-template {
   font-size: var(--small-titles-desktop) !important;
   font-weight: 600;
 }
 
-.text-size-template {
+:host /deep/ .text-size-template {
   font-size: var(--text-desktop) !important;
 }
