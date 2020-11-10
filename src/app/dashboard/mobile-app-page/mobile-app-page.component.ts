@@ -10,6 +10,7 @@ export class MobileAppPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

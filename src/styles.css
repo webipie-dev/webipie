@@ -508,13 +508,7 @@ input:focus:-ms-input-placeholder {
 .wrapper {
   /*display: flex;*/
   align-items: stretch;
-  margin-right: 7%;
   transition : 0.3s all ease-in-out;
-}
-@media screen and (max-width: 991px){
-  .wrapper {
-    margin-right: auto;
-  }
 }
 
 .sidenav-next {

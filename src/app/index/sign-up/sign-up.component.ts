@@ -24,7 +24,6 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
     var head = document.getElementById('headerr');
     head.className += ' color-blue-header';
-    console.log(head);
   }
 
   signUp(){

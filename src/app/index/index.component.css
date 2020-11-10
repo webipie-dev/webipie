@@ -294,9 +294,9 @@
 }
 
 
-@media (min-width: 576px) {
+@media (max-width: 576px) {
   .timeline > li > .icon {
-    left: 50%;
+    left: 20px !important;
   }
 }
 .timeline > li > .icon {
