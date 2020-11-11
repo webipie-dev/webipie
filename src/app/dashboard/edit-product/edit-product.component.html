@@ -7,16 +7,16 @@
       <div class="col-12">
         <div class="upload-images py-3 px-3">
           <div class="row">
-            <div class="col-2 col-md-3">
+            <div class="col-4 col-md-3">
               <input
                 type="file"
                 class="form-control fileInput"
                 name="imgs"
                 accept="image/*"
                 (change)="onImagePicked($event)" multiple>
-              <button class="img-fluid mx-5 my-2 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
+              <button class="img-fluid my-2 px-5 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
             </div>
-            <div class='col-9'>
+            <div class='col-8 col-md-9'>
               <ng-image-slider
                 [images]="imageObject"
                 [infinite]="false"
