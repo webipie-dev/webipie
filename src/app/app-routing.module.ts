@@ -5,12 +5,17 @@ import { IndexComponent } from './index/index.component';
 import { SignUpComponent } from './index/sign-up/sign-up.component';
 import {PageNotFoundComponent} from "./index/page-not-found/page-not-found.component";
 import { SignInComponent } from './index/sign-in/sign-in.component';
+import {TemplatesPageComponent} from './index/templates-page/templates-page.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
+  },
+  {
+    path: 'templates',
+    component: TemplatesPageComponent
   },
   {
     path: 'signup',

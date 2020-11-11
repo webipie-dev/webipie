@@ -3,7 +3,7 @@
 
 }
 .start-style {
-  background-color: var(--blue-color);
+  background-color: var(--blue-color) !important;
 }
 @media screen and (max-width: 990px){
   .img-login {

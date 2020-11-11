@@ -10,6 +10,12 @@
   vertical-align: middle;
   padding: 15px;
 }
+
+@media screen and (max-width: 990px){
+  .card-background {
+    margin-bottom: 30px;
+  }
+}
 .card-background-image {
   height: 100%;
   background: linear-gradient(180deg, var(--blue-color) 0%, var(--black-color) 80%);

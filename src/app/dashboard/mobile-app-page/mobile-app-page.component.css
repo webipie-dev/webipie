@@ -1,13 +1,12 @@
 .contact-image {
-    width: 45vw;
-    height: 70vh;
+    max-width: 50vh;
 }
 
-@media screen and (max-width: 768px){
-    .contact-image {
-      height: 40vh;
-    }
-}
+/*@media screen and (max-width: 768px){*/
+/*    .contact-image {*/
+/*      height: 40vh;*/
+/*    }*/
+/*}*/
 
 /* a{
     height : 10vw

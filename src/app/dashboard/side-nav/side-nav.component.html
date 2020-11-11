@@ -7,21 +7,22 @@
   <ul class="list-unstyled text-size ">
     <li class="sidenav-elem mb-3">
       <p>Store Configuration</p>
-      <a class="nav-link-sidebar" routerLink='../store'>
+      <a routerLink='/store' class="nav-link-sidebar">
         <i class="fa fa-edit"></i> Edit your store
       </a>
     </li>
     <li class="sidenav-elem mb-3">
       <p>Marketing</p>
-      <a routerLink='/dashboard/social-media' class="nav-link-sidebar">
+      <a routerLink="social-media" class="nav-link-sidebar">
         <i class="fa fa-share-alt"></i> Social Media
       </a>
     </li>
     <li class="sidenav-elem mb-3">
       <p>Store Management</p>
-      <a routerLink='/dashboard/sales' data-toggle="collapse" aria-expanded="false"
+      <a data-toggle="collapse" aria-expanded="false" href="#pageSubmenu"
          class="dropdown-toggle nav-link-sidebar">
-        <i class="fa fa-cart-arrow-down"></i> Sales
+        <i class="fa fa-cart-arrow-down"></i>
+        <span  class="ml-2" routerLink='/dashboard/sales'>Sales</span>
       </a>
       <ul class="collapse list-unstyled" id="pageSubmenu">
         <li>
@@ -37,10 +38,10 @@
       <a routerLink='/dashboard/mobile-app' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
         <i class="fa fa-mobile-alt"></i> Mobile Application
       </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a href="" data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar" disabled="'true'">
         <i class="fa fa-money-check-alt"></i> Pricing
       </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a href="" data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar" disabled="'true'">
         <i class="fa fa-chart-bar"></i> Statistics
       </a>
     </li>

@@ -8,8 +8,7 @@
                 <div class="card-background-image col-lg-5 col-12 ">
                     <div class="text-center big-titles white-colored mt-3">Logo Savvy</div>
                     <img src="../../../assets/images/login.svg" alt="" class="img-fluid my-5 img-login d-flex mx-auto ">
-                    <div class="text-center text-size white-colored pt-5 " >You have already an account ?</div>
-                    <div class="text-center text-size white-colored  mb-2" >Forgot your password ?</div>
+                    <div class="text-center text-size white-colored pt-5 " style="cursor: pointer;" routerLink='/signup'>You don't have an account ?</div>
 
                 </div>
                 <div class=" col-lg-7 col-12 px-5 ">
@@ -23,7 +22,7 @@
                         <label for="password" class="text-size ml-5 mt-3">Password</label>
                         <input type="password" id="password" class="input" placeholder="Password"  [(ngModel)]="store_owner.password" name="password">
                         <div class="text-center mt-3">
-                            <button routerLink='/after-signin' (click)='signIn()' class="button-generic button-blue small-titles " type='submit'>Navigate to your store</button>
+                            <button (click)='signIn()' class="button-generic button-blue small-titles " type='submit'>Navigate to your store</button>
                         </div>
                     </form>
                     <div class="row text-center text-size d-flex justify-content-center">
@@ -39,7 +38,9 @@
                             <img src="../../../assets/images/google.png" alt="" class="img-fluid mx-auto sign-in-icon pointer" (click)="signInWithGoogle()">
                         </div>
                     </div>
-
+                    <div class="row pt-3 text-center text-size d-flex justify-content-center">
+                      <a routerLink="/signup">create new Account</a>
+                    </div>
                 </div>
             </div>
         </div>

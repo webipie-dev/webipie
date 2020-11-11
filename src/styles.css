@@ -492,6 +492,7 @@ input:focus:-ms-input-placeholder {
   background: var(--white-color );
 }
 .card-background-image {
+  min-height: 70vh;
   height: 100%;
   background: linear-gradient(180deg, var(--blue-color) 0%, var(--black-color) 80%);
   border-radius: 30px;
@@ -508,13 +509,7 @@ input:focus:-ms-input-placeholder {
 .wrapper {
   /*display: flex;*/
   align-items: stretch;
-  margin-right: 7%;
   transition : 0.3s all ease-in-out;
-}
-@media screen and (max-width: 991px){
-  .wrapper {
-    margin-right: auto;
-  }
 }
 
 .sidenav-next {
@@ -643,6 +638,10 @@ input:focus:-ms-input-placeholder {
   }
 }
 
+.modal-content {
+  border-radius: 20px !important;
+  padding: 20px;
+}
 .cursor-pointer {
   cursor: pointer !important;
 }

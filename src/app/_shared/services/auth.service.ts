@@ -16,19 +16,20 @@ export class AuthService {
   }
 
   signIn(credentials){
-    return this.http.post(this.getUrl()+'storeOwner/signin', credentials);
+    return this.http.post(this.getUrl()+'/storeOwner/signin', credentials);
   };
 
   login(credentials){
-    return this.http.post(this.getUrl()+'storeOwner/signup', credentials)
+    
+    return this.http.post(this.getUrl()+'/storeOwner/signup', credentials)
   };
 
   loginWithFb(credentials){
-    return this.http.post(this.getUrl()+'storeOwner/oauth/facebook', {"access_token":credentials})
+    return this.http.post(this.getUrl()+'/storeOwner/oauth/facebook', {"access_token":credentials})
   };
 
   loginWithGoogle(credentials){
-    return this.http.post(this.getUrl()+ 'storeOwner/oauth/google', {"access_token":credentials})
+    return this.http.post(this.getUrl()+ '/storeOwner/oauth/google', {"access_token":credentials})
   };
 
 

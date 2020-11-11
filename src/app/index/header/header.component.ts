@@ -7,13 +7,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private router : Router) { }
+  route = this.router.url;
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-
-    var header = document.querySelector(".start-style");
-
+    var header = document.getElementById("headerr");
+    console.log(header)
     window.addEventListener("scroll", function() {
         var scroll =  window.pageYOffset;
         if (scroll >= 40) {
@@ -21,17 +20,16 @@ export class HeaderComponent implements OnInit {
             // header.classList.add('bg-light');
             header.classList.add('scroll-on');
         } else {
-            header.classList.remove('scroll-on');
+
+          header.classList.remove('scroll-on');
             // header.classList.remove('bg-light');
-            header.classList.add('start-style');
+          header.classList.add('start-style');
+
         }
+
     });
 
 
-  }
-
-  goTo(fragment){
-    this.router.navigate( ['/'], {fragment: fragment});
   }
 
 }

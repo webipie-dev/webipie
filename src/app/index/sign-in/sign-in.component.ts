@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { SocialAuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../_shared/services/auth.service';
-import { StoreOwner } from '../../_shared/models/store_owner.model';
+import {Component, OnInit} from '@angular/core';
+import {SocialAuthService} from 'angularx-social-login';
+import {FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../_shared/services/auth.service';
+import {StoreOwner} from '../../_shared/models/store_owner.model';
 
 
 @Component({
@@ -14,65 +14,66 @@ import { StoreOwner } from '../../_shared/models/store_owner.model';
 export class SignInComponent implements OnInit {
 
   constructor(private authService: SocialAuthService,
-    private auth: AuthService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+              private auth: AuthService,
+              private router: Router,
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     var head = document.getElementById('headerr');
     head.className += ' color-blue-header';
   }
 
-  store_owner : StoreOwner = new StoreOwner();
+  store_owner: StoreOwner = new StoreOwner();
 
-  signIn(): void{
+  signIn(): void {
     this.auth.signIn(this.store_owner)
-      .subscribe( result =>{
-        if (result){
-          // console.log(result);
-          localStorage.setItem('token', result['token'])
+      .subscribe(result => {
+        if (result) {
+          console.log(result['status']);
+          localStorage.setItem('token', result['token']);
           // let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
-          this.router.navigate(['/after-signin'])
+          this.router.navigate(['/after-signin']);
+        } else {
+          console.log('error here');
         }
-        else
-          console.log('error here')
-      })
+      });
   }
 
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then(x =>{
+      .then(x => {
         // let credentials = {"acces_token": x};
         // console.log(x['authToken']);
         this.auth.loginWithFb(x['authToken'])
-          .subscribe( result =>{
-            console.log(result)
-        if (result){
-          localStorage.setItem('token', result['token'])
-          let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
-          this.router.navigate([returnUrl || '/after-signin'])
-        }
-        else
-          console.log('error here')
-          })
+          .subscribe(result => {
+            console.log(result);
+            if (result) {
+              localStorage.setItem('token', result['token']);
+              let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+              this.router.navigate([returnUrl || '/after-signin']);
+            } else {
+              console.log('error here');
+            }
+          });
       });
   }
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
-    .then(x =>{
-      // console.log(x['authToken']);
-      this.auth.loginWithGoogle(x['authToken'])
-        .subscribe( result =>{
-          console.log(result)
-      if (result){
-        localStorage.setItem('token', result['token'])
-        let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
-        this.router.navigate([returnUrl || '/after-signin'])
-      }
-      else
-        console.log('error here')
-        })
-    });
+      .then(x => {
+        // console.log(x['authToken']);
+        this.auth.loginWithGoogle(x['authToken'])
+          .subscribe(result => {
+            console.log(result);
+            if (result) {
+              localStorage.setItem('token', result['token']);
+              let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+              this.router.navigate([returnUrl || '/after-signin']);
+            } else {
+              console.log('error here')
+            }
+          })
+      });
   }
 }

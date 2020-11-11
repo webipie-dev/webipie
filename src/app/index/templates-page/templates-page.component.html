@@ -1,0 +1,70 @@
+<app-header></app-header>
+<!-- template heading -->
+<div>
+  <div class="top-content">
+    <div class="templates-heading">
+      <h1 class="big-titles color-dark-blue">Welcome
+        <span class="text-front">Hackover
+                        <span class="line-behind-big-text"></span>
+                    </span>, choose your website
+      </h1>
+      <div class="paragraph">
+        <p class="text-size color-dark-blue">Choose the template that suits your business, taste and strategy.</p>
+        <p class="text-size color-dark-blue second-paragraph">Get Ready to dazzle your clients.<b>You can change it anytime.</b></p>
+      </div>
+      <a routerLink="/" class="button-generic button-white-border-blue text-size">Go Back</a>
+    </div>
+  </div>
+</div>
+
+<!-- template list -->
+<div class="container templates-list">
+  <div class="row">
+    <div class="col-md-6 col-12 template-content">
+      <div class="template-section">
+        <div class="template-card">
+          <img src="assets/images/template1.png" class="img-fluid template-img">
+        </div>
+        <div class="template-buttons">
+          <div class="container">
+            <a routerLink="/template/home" class="button-generic button-white-border-blue text-size mr-5">Preview</a>
+            <a (click)="onTemplatePick('templateID')" class="button-generic button-blue text-size ml-5">Pick</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-12 template-content">
+      <div class="template-section">
+        <div class="template-card">
+          <img src="assets/images/Untitled%20design.png" class="coming-soon img-fluid template-img">
+        </div>
+        <div class="template-buttons">
+          <div class="container">
+            <a href="" class="disabled-cursor button-generic button-white-border-blue text-size mr-5">Preview</a>
+            <a href="" class="disabled-cursor button-generic button-blue text-size ml-5">Pick</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="blue-footer-templates-page blue-footer ">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h6 class="footer-copyright text-size">Copyright @ 2020 All Rights Reserved by Savvy</h6>
+
+      </div>
+      <div class="col-6">
+        <div class="footer-social-media mb-5">
+          <i class="fab fa-facebook-f fa-2x circle-icon-footer mt-3 ml-2"></i>
+          <i class="fab fa-twitter fa-2x circle-icon-footer mt-3 ml-2"></i>
+          <i class="fab fa-linkedin-in fa-2x circle-icon-footer mt-3 ml-2"></i>
+          <i class="fab fa-instagram fa-2x circle-icon-footer mt-3 ml-2"></i>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>

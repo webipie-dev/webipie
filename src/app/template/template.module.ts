@@ -15,27 +15,29 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { HomeComponent } from './home/home.component';
 
 
-
 @NgModule({
-  imports: [
-    TemplateRoutingModule,
-    HttpClientModule,
-    Ng2SmartTableModule,
-    ReactiveFormsModule,
-    CommonModule,
-    FormsModule
-  ],
-  declarations: [
-    BannerImageComponent,
-    TemplateComponent,
-    HeaderComponent,
-    FooterComponent,
-    ProductCardComponent,
-    ChangeImgDirective,
-    CheckoutPageComponent,
-    ProductPageComponent,
-    HomeComponent
-  ]
+    imports: [
+        TemplateRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
+        FormsModule
+    ],
+    exports: [
+        TemplateComponent
+    ],
+    declarations: [
+        BannerImageComponent,
+        TemplateComponent,
+        HeaderComponent,
+        FooterComponent,
+        ProductCardComponent,
+        ChangeImgDirective,
+        CheckoutPageComponent,
+        ProductPageComponent,
+        HomeComponent
+    ]
 })
 export class TemplateModule {
 }

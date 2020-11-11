@@ -3,3 +3,11 @@
     margin-top: 55px !important;
   }
 }
+.dashboard-sidenav {
+  padding-left: 0 !important;
+}
+@media screen and (max-width: 576px){
+  .dashboard-sidenav {
+    padding-right: 0 !important;
+  }
+}
