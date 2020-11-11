@@ -155,7 +155,7 @@ export class EditProductComponent implements OnInit {
 
       }
     }
-    this.productForm.reset();
+    // this.productForm.reset();
     // console.log(this.postData.get('imgs'));
     // this.postData.forEach((value, key) => {
     //   console.log(key + ' ' + value);
