@@ -16,10 +16,6 @@ export class ProductsComponent implements OnInit {
   settings = {
     selectMode: 'multi',
     columns: {
-      id: {
-        title: 'ID',
-        width: '10%'
-      },
       name: {
         title: 'Name',
         type: 'html',
@@ -46,12 +42,12 @@ export class ProductsComponent implements OnInit {
       custom: [
         {
           name: 'edit',
-          title: '<i class="fa icon-edit fa-edit ml-2 fa-lg"></i>',
+          title: '<i class="fa icon-edit fa-edit ml-3 fa-lg"></i>',
         }
       ]
     },
     delete: {
-      deleteButtonContent: '<i class="fa icon-trash-alt fa-trash-alt mt-3 ml-2 fa-lg"></i>',
+      deleteButtonContent: '<i class="fa icon-trash-alt fa-trash-alt mt-3 ml-3 fa-lg"></i>',
       confirmDelete: true,
     },
     noDataMessage: 'Oups, no Data yet !'
@@ -83,10 +79,8 @@ export class ProductsComponent implements OnInit {
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
-
-
-
   selectedRows = [];
+  showDeleteManyButton = false;
 
   products: Product[] = [];
 
@@ -97,6 +91,7 @@ export class ProductsComponent implements OnInit {
 
   onRowSelect(event) {
     this.selectedRows = event.selected;
+    this.showDeleteManyButton = this.selectedRows.length > 0;
   }
 
   ngOnInit(): void {
@@ -113,7 +108,7 @@ export class ProductsComponent implements OnInit {
         } else {
           quant = 0;
         }
-        let aux = {
+        const aux = {
           _id: element._id,
           name: '<div class=\'row\'>' +
         '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
@@ -146,5 +141,8 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: event.data._id} });
   }
 
+  deleteMany() {
+    // use the table selectedRows and take the ids from there
+  }
 
 }

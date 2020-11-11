@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTte
     console.log('connection failed');
   });
 
-  
+
 app
   .use('/backend/images',express.static('backend/images'))
   .use(bodyParser.urlencoded({extended: true}))
@@ -43,7 +43,7 @@ app
 
 module.exports = app;
 
-app.listen(3000);
+// app.listen(3000);
 
 // app.listen(3000);
 

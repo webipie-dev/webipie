@@ -1,14 +1,9 @@
-
-
-
 <!-- edit or add product -->
   <div class="sales-header mt-3">
     <h1 class="big-titles text-center mb-3">Add Edit One Product</h1>
   </div>
   <form [formGroup]="productForm" (submit)="onSubmit()">
     <div class="row margin-top">
-
-      
       <div class="col-12">
         <div class="upload-images py-3 px-3">
           <div class="row">
@@ -21,7 +16,6 @@
                 (change)="onImagePicked($event)" multiple>
               <button class="img-fluid mx-5 my-2 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
             </div>
-
             <div class='col-9'>
               <ng-image-slider
                 [images]="imageObject"
@@ -85,7 +79,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="col-md-4 col-4 mt-5 mb-5">
         <div class="row upload-images mr-1 px-3 py-4 mx-auto mb-3">
           <div class="col-12">
@@ -106,10 +100,10 @@
               <option value="disponible">Disponible</option>
               <option value="in arrival">In arrival</option>
               <option value="out of stock">Out of stock</option>
-            </select>          
+            </select>
           </div>
-          
-          
+
+
         </div>
 
         <div class="col-12 text-center my-1">
@@ -118,10 +112,10 @@
         <div class="col-12 text-center mt-1">
           <button class="button-generic button-blue form-button text-size">Reset</button>
         </div>
-            
-      </div>      
+
+      </div>
     </div>
-    
+
   </form>
 
 

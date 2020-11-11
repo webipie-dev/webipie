@@ -1,12 +1,17 @@
 <div *ngIf="orders.length > 0">
   <div class="container ">
+    <div class="row mt-5">
+      <div class="col-12">
+        <a (click)="deleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</a>
+      </div>
+    </div>
     <div class="my-5 mx-auto px-5 py-3 shadow" *ngIf="windowWidth >= 1024">
       <ng2-smart-table class="text-size text-center"
-
                        [settings]="settings"
                        [source]="orders"
                        (deleteConfirm)="onDeleteConfirm($event)"
                        (custom)="onDetailSelect($event)"
+                       (userRowSelect)="onRowSelect($event)"
       ></ng2-smart-table>
 
     </div>

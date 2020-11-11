@@ -186,5 +186,51 @@
   padding: 15px;
   margin: 20px;
   border-radius: 15px;
-  background-color: white;
+}
+
+.button-delete {
+  background: #9a0017;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+#delete-icon {
+  color: var(--white-color);
+}
+
+.button-delete:hover {
+  background: var(--white-color);
+  color: #9a0017;
+  border: solid 1px #9a0017;
+  transition: all 200ms ease-in-out;
+}
+
+.button-delete:hover #delete-icon {
+  color: #9a0017;
+}
+
+.button-edit {
+  background: #0e9c21;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+#edit-icon, #save-icon {
+  color: var(--white-color);
+}
+
+
+.button-edit:hover {
+  background: var(--white-color);
+  color: #0e9c21;
+  border: solid 1px #0e9c21;
+}
+
+.button-edit:hover #edit-icon, .button-edit:hover #save-icon {
+  color: #0e9c21;
+}
+
+.delete-many-disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
 }
