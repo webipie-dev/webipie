@@ -13,6 +13,11 @@
   border: none;
 }
 
+
+.width-100 {
+  width: 100% !important;
+}
+
 .product-input {
   border: solid 1px rgba(45, 52, 56, 0.23);
   width: 90%;
@@ -56,4 +61,16 @@
   opacity: 0;
   -moz-opacity: 0;
   filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

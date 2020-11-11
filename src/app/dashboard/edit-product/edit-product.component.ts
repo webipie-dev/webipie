@@ -82,19 +82,22 @@ export class EditProductComponent implements OnInit {
 
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
-    console.log(file[0]);
-    const reader = new FileReader();
-    reader.readAsDataURL(file[0]);
-    
+    // console.log(file);
+    Object.keys(file).forEach((item) => {
+      console.log(item); // key
+      console.log(file[item]); // value
+      const reader = new FileReader();
+      reader.readAsDataURL(file[item]);
 
-    reader.onload = (_event) => {
-      this.msg = "";
-      this.url = reader.result;
-      console.log(reader.result);
+      reader.onload = (_event) => {
+        this.msg = '';
+        this.url = reader.result;
+        // console.log(reader.result);
 
-      this.imageObject.push({ image : this.url , thumbImage : this.url})
-      // console.log(this.imageObject)
-    }
+        this.imageObject.push({ image : this.url , thumbImage : this.url});
+        // console.log(this.imageObject)
+      };
+    });
 
     for (let i = 0; i < file.length; i++) {
       this.postData.append('imgs', file[i], file[i].name);
@@ -152,7 +155,7 @@ export class EditProductComponent implements OnInit {
 
       }
     }
-    this.productForm.reset();
+    // this.productForm.reset();
     // console.log(this.postData.get('imgs'));
     // this.postData.forEach((value, key) => {
     //   console.log(key + ' ' + value);
