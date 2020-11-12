@@ -128,7 +128,7 @@ export class ProductsComponent implements OnInit {
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.productService.deleteMany({ids: event.data._id}).subscribe((data) => {
+      this.productService.deleteMany([event.data._id]).subscribe((data) => {
         console.log(data);
       });
       event.confirm.resolve();
