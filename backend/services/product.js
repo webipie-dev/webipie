@@ -156,7 +156,7 @@ exports.editOneProduct = (req, res, next) => {
 };
 
 exports.deleteManyProducts = (req, res, next) => {
-  const ids = req.body.ids;
+  const ids = req.body;
   Product.find({_id: {$in: ids}})
     .then((products) => {
       Product.deleteMany({_id: {$in: ids}})
