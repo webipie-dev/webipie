@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Route} from '@angular/router';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 @Component({
@@ -27,7 +27,8 @@ export class EditProductComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -82,19 +83,22 @@ export class EditProductComponent implements OnInit {
 
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
-    console.log(file[0]);
-    const reader = new FileReader();
-    reader.readAsDataURL(file[0]);
-    
+    // console.log(file);
+    Object.keys(file).forEach((item) => {
+      console.log(item); // key
+      console.log(file[item]); // value
+      const reader = new FileReader();
+      reader.readAsDataURL(file[item]);
 
-    reader.onload = (_event) => {
-      this.msg = "";
-      this.url = reader.result;
-      console.log(reader.result);
+      reader.onload = (_event) => {
+        this.msg = '';
+        this.url = reader.result;
+        // console.log(reader.result);
 
-      this.imageObject.push({ image : this.url , thumbImage : this.url})
-      // console.log(this.imageObject)
-    }
+        this.imageObject.push({ image : this.url , thumbImage : this.url});
+        // console.log(this.imageObject)
+      };
+    });
 
     for (let i = 0; i < file.length; i++) {
       this.postData.append('imgs', file[i], file[i].name);
@@ -128,6 +132,7 @@ export class EditProductComponent implements OnInit {
     // });
     this.editProductService.addOne(this.postData).subscribe((data) => {
       console.log(data);
+      this.router.navigate(['dashboard/products']);
     });
 
   }
@@ -152,13 +157,14 @@ export class EditProductComponent implements OnInit {
 
       }
     }
-    this.productForm.reset();
+    // this.productForm.reset();
     // console.log(this.postData.get('imgs'));
     // this.postData.forEach((value, key) => {
     //   console.log(key + ' ' + value);
     // });
     this.editProductService.edit(this.postData).subscribe((data) => {
       console.log(data);
+      this.router.navigate(['dashboard/products']);
     });
   }
 

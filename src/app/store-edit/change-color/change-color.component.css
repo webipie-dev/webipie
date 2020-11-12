@@ -66,3 +66,13 @@ a[data-toggle="collapse"] {
   border: 1px solid #dadada;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.14);
 }
+
+.button-white-color {
+  background-color: var(--white-color);
+  color: var(--dark-blue-color) !important;
+  font-weight: 600;
+}
+
+.button-white-color:hover, .button-white-color:focus {
+  box-shadow: 0 0 5px rgba(255, 255, 255, 1);
+}

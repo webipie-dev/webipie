@@ -103,7 +103,7 @@ exports.addProduct = (req, res, next) => {
   });
 };
 
-exports.editProducts = (req, res, next) => {
+exports.editOneProduct = (req, res, next) => {
   // separating the ids
   const ids = req.body.ids;
   console.log(req.body)
@@ -119,18 +119,30 @@ exports.editProducts = (req, res, next) => {
   // adding the images
   const url = req.protocol + '://' +req.get('host');
   var images = [];
-  if(req.files){
+  if(req.files.length > 0){
     req.files.map(fileimg => {
       images.push(url + '/backend/images/' + fileimg.filename)
     });
-    edits['imgs'] = images;
+    // edits['imgs'] = images;
   } else {
     console.log("no files uploaded")
   }
 
-
-  Product.updateMany({_id: {$in :ids}}, { $set: edits })
-    .exec()
+  let bulkQueries = [];
+    bulkQueries.push({
+      updateOne: {
+        "filter": { _id: ids},
+        "update":{ $set: edits }
+      }
+    })
+    bulkQueries.push({
+      updateOne: {
+        "filter": { _id: ids},
+        "update": { $addToSet: {imgs: {$each: images} } }
+      }
+    })
+  Product
+    .bulkWrite(bulkQueries, {ordered: false})
     .then(result => {
       res.status(200).json({
         edits: edits,
@@ -144,7 +156,7 @@ exports.editProducts = (req, res, next) => {
 };
 
 exports.deleteManyProducts = (req, res, next) => {
-  const ids = req.body.ids;
+  const ids = req.body;
   Product.find({_id: {$in: ids}})
     .then((products) => {
       Product.deleteMany({_id: {$in: ids}})
@@ -184,6 +196,7 @@ exports.deleteAllProducts = (req, res, next) => {
       res.status(500).json({ error: err});
     });
 };
+
 
 filterProducts = (req => {
   var query = {};

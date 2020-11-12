@@ -64,15 +64,18 @@
 .template-buttons a.button-blue {
   padding: 5px 27px;
 }
-
-.template-img {
-  background-size: cover;
-  width: 450px;
+.template-card {
+  max-width: 450px;
   height: 300px;
+  background-size: cover;
+  background-position: center;
   border: none;
   border-radius: 25px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background-image: url("../../../assets/images/template1.png");
+  background-repeat: no-repeat;
 }
+
 
 .footer-elsewhere {
   border-top: solid 2px var(--white-color);

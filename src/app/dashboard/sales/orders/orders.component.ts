@@ -96,6 +96,8 @@ export class OrdersComponent implements OnInit {
 
   edit = false;
   orders = [];
+  selectedRows = [];
+  showDeleteManyButton = false;
 
   constructor(private http: HttpClient,
               private orderService: OrderService) {
@@ -147,5 +149,14 @@ export class OrdersComponent implements OnInit {
     } else {
       event.confirm.reject();
     }
+  }
+
+  onRowSelect(event) {
+    this.selectedRows = event.selected;
+    this.showDeleteManyButton = this.selectedRows.length > 0;
+  }
+
+  deleteMany() {
+    // use the table selectedRows and take the ids from there
   }
 }
