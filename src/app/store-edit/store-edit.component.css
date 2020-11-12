@@ -102,3 +102,8 @@ a[data-toggle="collapse"] {
   margin: auto;
   border-top: solid 2px var(--white-color);;
 }
+
+#iframe {
+  position: fixed;
+  right: 0;
+}
