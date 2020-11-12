@@ -9,7 +9,7 @@ import {StoreOwner} from '../../_shared/models/store_owner.model';
 })
 export class TemplatesPageComponent implements OnInit {
   storeOwnerId = 'storeOwnerId';
-  isConnected = false;
+  isConnected = true;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -17,7 +17,7 @@ export class TemplatesPageComponent implements OnInit {
 
   onTemplatePick(templateId) {
     if (this.isConnected) {
-      this.router.navigate(['after-signin'], { queryParams: { templateId: 'templateId', storeOwner: this.storeOwnerId }});
+      this.router.navigate(['dashboard'], { queryParams: { templateId: 'templateId', storeOwner: this.storeOwnerId }});
     } else {
       this.router.navigate(['signup'], { queryParams: {templateId: 'templateId'}});
     }
