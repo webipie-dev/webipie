@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ProductService} from '../../../_shared/services/product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -22,7 +23,8 @@ export class ProductDetailComponent implements OnInit {
   closeResult;
 
   constructor(private router: Router,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal,
+              private productService: ProductService) { }
 
   ngOnInit(): void {
   }
@@ -33,9 +35,19 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onEditSelect() {
-    console.log('clicked');
-    document.getElementById("close-modal").click();
-    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: '5f93ffc994a31e4b6cb602dc'} });
+    document.getElementById('close-modal').click();
+    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: this.rowData._id} });
+  }
+
+  onDelete(){
+    console.log(this.rowData);
+    document.getElementById('close-modal').click();
+    this.productService.deleteMany([this.rowData._id]).subscribe(data => {
+      console.log(data);
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['dashboard/products']);
+      });
+    });
   }
 
   open(content) {

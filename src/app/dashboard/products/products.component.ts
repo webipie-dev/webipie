@@ -82,7 +82,7 @@ export class ProductsComponent implements OnInit {
   selectedRows = [];
   showDeleteManyButton = false;
 
-  products: Product[] = [];
+  products = [];
 
   constructor(private http: HttpClient,
               private productService: ProductService,
@@ -142,6 +142,16 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteMany() {
+    const ids = [];
+    this.selectedRows.forEach(elt => {
+      ids.push(elt._id);
+    });
+    ids.forEach(elt => {
+      this.products = this.products.filter(prod => prod._id !== elt );
+    });
+    this.productService.deleteMany(ids).subscribe(data => {
+      console.log(data);
+    });
     // use the table selectedRows and take the ids from there
   }
 

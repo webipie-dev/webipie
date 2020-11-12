@@ -5,7 +5,7 @@
 <ng-template #content let-modal class="order-detail-modal">
   <div class="modal-header">
     <h5 class="modal-title my-auto" id="exampleModalLabel">Order ID: {{rowData._id}} </h5>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" id="close-modal" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true" class="close-x">&times;</span>
     </button>
   </div>
@@ -31,15 +31,15 @@
         </div>
       </div>
       <div class="text-center big-titles my-3 pt-5 mx-auto border-top">Product Images</div>
-      <img class='img-fluid product-image-table ml-3 mt-3 mr-3' src='../../../../assets/images/dress.jpg'>
-      <img class='img-fluid product-image-table ml-3 mr-3 mt-3' src='../../../../assets/images/dress.jpg'>
-      <img class='img-fluid product-image-table ml-3 mt-3 mr-3' src='../../../../assets/images/dress.jpg'>
-      <img class='img-fluid product-image-table ml-3 mt-3 mr-3' src='../../../../assets/images/dress.jpg'>
+      <img class='img-fluid product-image-table mx-1 mt-3' src='../../../../assets/images/dress.jpg'>
+      <img class='img-fluid product-image-table mx-1 mt-3' src='../../../../assets/images/dress.jpg'>
+      <img class='img-fluid product-image-table mx-1 mt-3' src='../../../../assets/images/dress.jpg'>
+      <img class='img-fluid product-image-table mx-1 mt-3' src='../../../../assets/images/dress.jpg'>
 
       <div class="mt-3">
         <div>
           <a class="button-generic button-edit py-2 mr-2 text-size" (click)="onEditSelect()"><i id="edit-icon" class="fa fa-edit"></i> Edit</a>
-          <a class="button-generic button-delete py-2 text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete</a>
+          <a class="button-generic button-delete py-2 text-size" (click)="onDelete()"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete</a>
         </div>
       </div>
 

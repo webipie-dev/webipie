@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Route} from '@angular/router';
+import {ActivatedRoute, Route, Router} from '@angular/router';
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 @Component({
@@ -27,7 +27,8 @@ export class EditProductComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -131,6 +132,7 @@ export class EditProductComponent implements OnInit {
     // });
     this.editProductService.addOne(this.postData).subscribe((data) => {
       console.log(data);
+      this.router.navigate(['dashboard/products']);
     });
 
   }
@@ -162,6 +164,7 @@ export class EditProductComponent implements OnInit {
     // });
     this.editProductService.edit(this.postData).subscribe((data) => {
       console.log(data);
+      this.router.navigate(['dashboard/products']);
     });
   }
 
