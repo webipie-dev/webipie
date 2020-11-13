@@ -1,4 +1,4 @@
-<div *ngIf="products.length > 0">
+<div>
   <div id="sidebar-next">
     <div class="container web-show">
       <div class="big-titles my-3 text-center">Enjoy the flexibility in customizing your products</div>
@@ -21,6 +21,7 @@
                          [settings]="settings"
                          [source]="products"
                          class="text-size text-center"
+                         *ngIf="products.length > 0"
         ></ng2-smart-table>
       </div>
     </div>
