@@ -6,13 +6,14 @@ const Schema = mongoose.Schema;
 const ExSchema = new Schema({
   orderDate: {type: Date, default: Date.now() },
   orderStatus: {type: String, default: ''},
-  totalPrice: {type: Number, default: 0},
   paymentMethod: {type: String, default: ''},
   products: [
     {
     _id: {type:  Schema.Types.ObjectID, ref: "Product", default: ''},
+    name: {type: String, default: ''},
     quantity: {type: Number, default: 1},
-    price: {type: Number, default: 0}
+    price: {type: Number, default: 0},
+    imgs: {type: [String], default: []}
     }
   ],
   client: {

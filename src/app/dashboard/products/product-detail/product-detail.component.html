@@ -13,17 +13,18 @@
       <div class="row">
         <div class="col-12">
           <p class="small-titles font-weight-lighter">Product Name: </p>
-          <p class="big-titles">Hair Brush</p>
+
+          <p class="big-titles">{{rowData.productName}}</p>
         </div>
         <div class="col-12">
           <p class="small-titles font-weight-lighter">Price: </p>
-          <p class="big-titles color-blue">22.500dt</p>
+          <p class="big-titles color-blue">{{rowData.price}}</p>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
           <p class="small-titles font-weight-lighter">Stock: </p>
-          <p>250</p>
+          <p>{{rowData.quantity}}</p>
         </div>
         <div class="col-6">
           <p class="small-titles font-weight-lighter">Status: </p>
@@ -31,10 +32,10 @@
         </div>
       </div>
       <div class="text-center big-titles my-3 pt-5 mx-auto border-top">Product Images</div>
-      <img class='img-fluid product-image-table mx-1 mt-3' src='../../../../assets/images/dress.jpg'>
-      <img class='img-fluid product-image-table mx-1 mt-3' src='../../../../assets/images/dress.jpg'>
-      <img class='img-fluid product-image-table mx-1 mt-3' src='../../../../assets/images/dress.jpg'>
-      <img class='img-fluid product-image-table mx-1 mt-3' src='../../../../assets/images/dress.jpg'>
+      <div *ngFor="let img of rowData.imgs">
+        <img class='img-fluid product-image-table mx-1 mt-3' [src]="img">
+
+      </div>
 
       <div class="mt-3">
         <div>

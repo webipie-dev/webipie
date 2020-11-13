@@ -5,9 +5,9 @@
   <form [formGroup]="productForm" (submit)="onSubmit()">
     <div class="row margin-top">
       <div class="col-12">
-        <div class="upload-images py-3 px-3">
+        <div class="px-3">
           <div class="row">
-            <div class="col-4 col-md-3">
+            <div class="col-4">
               <input
                 type="file"
                 class="form-control fileInput"
@@ -16,7 +16,7 @@
                 (change)="onImagePicked($event)" multiple>
               <button class="img-fluid my-2 px-5 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
             </div>
-            <div class='col-8 col-md-9'>
+            <div class='col-8 upload-images'>
               <ng-image-slider
                 [images]="imageObject"
                 [infinite]="false"
