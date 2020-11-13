@@ -115,11 +115,15 @@ export class OrdersComponent implements OnInit {
       data.orders.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');
+          let totalprice = 0;
+          element.products.forEach(product => {
+            totalprice += product.quantity * product.price;
+          });
           let aux = {
             _id: element._id,
             orderDate: date[0] ,
             orderStatus: element.orderStatus,
-            totalPrice: element.totalPrice,
+            totalPrice: totalprice,
             paymentMethod: element.paymentMethod,
             products: element.products,
             clientId: element.client._id,
@@ -157,6 +161,16 @@ export class OrdersComponent implements OnInit {
   }
 
   deleteMany() {
-    // use the table selectedRows and take the ids from there
+    const ids = [];
+    this.selectedRows.forEach(elt => {
+      ids.push(elt._id);
+    });
+    ids.forEach(elt => {
+      this.orders = this.orders.filter(prod => prod._id !== elt );
+    });
+    this.orderService.deleteMany(ids).subscribe(data => {
+      console.log(data);
+      this.selectedRows = [];
+    });
   }
 }

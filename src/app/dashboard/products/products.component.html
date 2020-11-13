@@ -25,6 +25,14 @@
       </div>
     </div>
     <div class="other-show">
+      <div class="row mt-5">
+        <div class="col-6">
+          <a routerLink="../product-add" class="ml-5 button-generic py-2 button-edit mr-2 text-size"><i id="edit-icon" class="fa fa-plus-circle"></i> Add</a>
+        </div>
+        <div class="col-6">
+          <a (click)="deleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</a>
+        </div>
+      </div>
       <div class="my-5 px-2 py-3 table-shadow">
         <div class="big-titles my-3 text-center">Enjoy the flexibility in customizing your products</div>
         <div class="text-size mb-3 text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
