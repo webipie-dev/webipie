@@ -13,6 +13,18 @@
   border: none;
 }
 
+.add-photo-button {
+  border: dashed 2px var(--blue-color);
+  color: var(--blue-color);
+  border-radius: 7px;
+  background-color: white;
+  /*background-color: var(--blue-color);*/
+  box-shadow: 2px 2px 7px rgba(1, 1, 1, 0.4);
+}
+
+#blue-color {
+  color: var(--blue-color) !important;
+}
 
 .width-100 {
   width: 100% !important;
