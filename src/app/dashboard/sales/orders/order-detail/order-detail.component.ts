@@ -21,7 +21,7 @@ export class OrderDetailComponent implements OnInit {
   displayMode = !this.editMode;
   windowWidth = window.screen.width;
   orderProductsIds = [];
-  orderProducts: Product[] = [];
+  orderProducts = [];
   orderProductsQuantity = [];
   newVal = {
     _id: ''
@@ -49,23 +49,28 @@ export class OrderDetailComponent implements OnInit {
     this.orderService.getById(this.rowData._id).subscribe((datas) => {
       if (datas) {
         const date = datas.orderDate.split('T');
+        let totalprice = 0;
+        datas.products.forEach(product => {
+          totalprice += product.quantity * product.price;
+        });
         this.rowData = {
           _id: datas._id,
           orderDate: date[0],
           orderStatus: datas.orderStatus,
-          totalPrice: datas.totalPrice,
+          totalPrice: totalprice,
           paymentMethod: datas.paymentMethod,
           products: datas.products,
           clientId: datas.client._id,
           clientName: datas.client.name,
           store: datas.store,
         };
-        console.log(this.rowData);
-        this.orderProductsIds = this.rowData.products.map(s => s._id);
-        this.orderProductsQuantity = this.rowData.products.map(s => s.quantity);
-        this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
-          this.orderProducts = data.product;
-        });
+        // console.log(this.rowData);
+        // this.orderProductsIds = this.rowData.products.map(s => s._id);
+        // this.orderProductsQuantity = this.rowData.products.map(s => s.quantity);
+        // this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
+        //   this.orderProducts = data.product;
+        // });
+        this.orderProducts = this.rowData.products;
       }
     });
 
@@ -74,19 +79,23 @@ export class OrderDetailComponent implements OnInit {
   onDeleteProduct(event, prod) {
     if (window.confirm('Are you sure you want to delete?')) {
       const index = this.orderProducts.indexOf(prod);
-      const index2 = this.orderProductsIds.indexOf(prod._id);
+      // const index2 = this.orderProductsIds.indexOf(prod._id);
       this.orderService.deleteProduct(event._id, prod._id).subscribe((data) => {
-        if (index > -1 && index2 > -1) {
+        if (index > -1) {
           this.orderProducts.splice(index, 1);
-          this.orderProductsIds.splice(index2, 1);
+          // this.orderProductsIds.splice(index2, 1);
 
           this.orderService.getById(event._id).subscribe((datas) => {
             const date = datas.orderDate.split('T');
+            let totalprice = 0;
+            datas.products.forEach(product => {
+              totalprice += product.quantity * product.price;
+            });
             this.rowData = {
               _id: datas._id,
               orderDate: date[0] ,
               orderStatus: datas.orderStatus,
-              totalPrice: datas.totalPrice,
+              totalPrice: totalprice,
               paymentMethod: datas.paymentMethod,
               products: datas.products,
               clientId: datas.client._id,

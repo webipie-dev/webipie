@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Utils} from "../_shared/utils";
+import {Utils} from '../_shared/utils';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,11 +11,10 @@ export class DashboardComponent implements OnInit {
 
   constructor() { }
   toggleS = (): void =>  {
-    console.log(document.getElementById("sidebar"));
-    document.getElementById("sidebar").classList.toggle("active");
-    document.getElementById("sidebar-non-active").classList.toggle("active");
-    document.getElementById("sidebar-non-active2").classList.toggle("hidden-sidenav");
-    document.getElementById("sidebar-next").classList.toggle("sidenav-next");
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('sidebar-non-active').classList.toggle('active');
+    document.getElementById('sidebar-non-active2').classList.toggle('hidden-sidenav');
+    document.getElementById('sidebar-next').classList.toggle('sidenav-next');
   }
   ngOnInit(): void {
   }

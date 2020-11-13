@@ -73,7 +73,7 @@ exports.addClient = (req, res) => {
 
 exports.deleteManyClients = (req, res, next) => {
   // console.log(req.body)
-  const ids = req.body.ids;
+  const ids = req.body;
   // console.log(ids)
   Client.deleteMany({_id: {$in: ids}})
     .exec()

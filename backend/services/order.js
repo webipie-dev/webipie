@@ -54,15 +54,10 @@ exports.getOneOrder = (req, res) => {
 }
 
 exports.addOrder = async (req, res) => {
-  let totalprice = 0;
-  req.body.products.forEach(elt =>{
-    totalprice += elt.price * elt.quantity;
-  })
 
   const order = new Order({
     orderDate: req.body.orderDate,
     orderStatus: req.body.orderStatus,
-    totalPrice: totalprice,
     paymentMethod: req.body.paymentMethod,
     products: req.body.products,
     client: req.body.client,
@@ -109,7 +104,7 @@ exports.addOrder = async (req, res) => {
 
 exports.deleteManyOrders = (req, res, next) => {
   // console.log(req.body)
-  const ids = req.body.ids;
+  const ids = req.body;
   // console.log(ids)
   Order.deleteMany({_id: {$in: ids}})
     .exec()

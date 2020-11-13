@@ -22,7 +22,6 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getManyProductById = (req, res) =>{
-  console.log(req.query)
   const productId = req.query.ids;
   Product
     .find({_id: {$in: productId}})

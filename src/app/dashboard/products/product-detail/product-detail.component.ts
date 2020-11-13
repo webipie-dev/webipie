@@ -51,6 +51,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   open(content) {
+    console.log(this.rowData);
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

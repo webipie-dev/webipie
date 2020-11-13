@@ -119,6 +119,7 @@ export class ProductsComponent implements OnInit {
           price: element.price,
           quantity: quant,
           store: element.store,
+          productName: element.name
 
         };
         this.products.push(aux);
@@ -128,7 +129,7 @@ export class ProductsComponent implements OnInit {
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.productService.deleteMany({ids: event.data._id}).subscribe((data) => {
+      this.productService.deleteMany([event.data._id]).subscribe((data) => {
         console.log(data);
       });
       event.confirm.resolve();
@@ -151,6 +152,7 @@ export class ProductsComponent implements OnInit {
     });
     this.productService.deleteMany(ids).subscribe(data => {
       console.log(data);
+      this.selectedRows = [];
     });
     // use the table selectedRows and take the ids from there
   }
