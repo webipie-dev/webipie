@@ -492,7 +492,6 @@ input:focus:-ms-input-placeholder {
   background: var(--white-color );
 }
 .card-background-image {
-  min-height: 70vh;
   height: 100%;
   background: linear-gradient(180deg, var(--blue-color) 0%, var(--black-color) 80%);
   border-radius: 30px;

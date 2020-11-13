@@ -1,6 +1,6 @@
 <header>
     <div class="navigation-wrap start-header start-style vivify fadeInTop delay-150" id="headerr"
-         [ngClass]="{'scroll-on' : route !== '/' && route.indexOf('/#') === -1, 'start-style' : route === '/' || route.indexOf('/#') !== -1  }">
+         [ngClass]="{'scroll-on' : !changeable, 'start-style' : changeable  }">
         <div class="small-titles">
             <div class="row">
                 <div class="col-12">
