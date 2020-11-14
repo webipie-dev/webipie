@@ -63,7 +63,6 @@ export class ProductsComponent implements OnInit {
       },
       name: {
         title: 'Name',
-        type: 'html',
         width: '60%'
       },
       details: {
@@ -83,6 +82,7 @@ export class ProductsComponent implements OnInit {
   showDeleteManyButton = false;
 
   products = [];
+  productsMobile = [];
 
   constructor(private http: HttpClient,
               private productService: ProductService,
@@ -126,7 +126,18 @@ export class ProductsComponent implements OnInit {
           productName: element.name
 
         };
+        const aux2 = {
+          _id: element._id,
+          name: element.name,
+          description: element.description,
+          imgs: element.imgs,
+          price: element.price,
+          quantity: quant,
+          store: element.store,
+          productName: element.name
+        };
         this.products.push(aux);
+        this.productsMobile.push(aux2);
       });
     });
   }
