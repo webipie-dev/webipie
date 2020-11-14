@@ -1,7 +1,7 @@
-<div class="row ">
-  <div class="col-9 row ml-5-px">
+<div class="d-flex ">
+  <div class=" row ml-5-px ">
     <div class="text-center ml-3">
-      <button class="button-generic button-blue form-button text-size"> Change Template </button>
+      <button class="button-generic button-blue form-button text-size only-tablet"> Change Template </button>
     </div>
     <div class="text-center ml-3">
       <button class="button-generic button-blue form-button text-size"> Preview </button>
@@ -9,7 +9,7 @@
 
   </div>
 
-  <div class="col-3">
+  <div class="d-flex" style="margin-left: auto;">
     <div class="profile text-size" (click)="openDropDown()">
       <div class="icon_wrap" id="dropdown-profile">
         <i class="fas fa-chevron-down"></i>
@@ -23,6 +23,7 @@
         <ul class="profile_ul">
           <li><a href="#"><span class="picon"><i class="fas fa-user-alt"></i></span>Profile</a></li>
           <li><a  href="#"><span class="picon"><i class="fas fa-sign-out-alt"></i></span>Logout</a></li>
+          <li><a  href="#"><span class="picon"><i class="fas fa-sign-out-alt"></i></span>Change Template</a></li>
         </ul>
       </div>
     </div>
