@@ -11,3 +11,9 @@
     padding-right: 0 !important;
   }
 }
+@media screen and (min-width: 992px) and (max-width: 1300px){
+  .dashboard-medium-lg {
+    padding-left: 100px !important;
+  }
+}
+
