@@ -3,20 +3,20 @@
     <h1 class="big-titles text-center mb-3">Add Edit One Product</h1>
   </div>
   <form [formGroup]="productForm" (submit)="onSubmit()">
-    <div class="row margin-top">
+    <div class="row">
       <div class="col-12">
-        <div class="px-3">
-          <div class="row">
-            <div class="col-4">
+        <div class="px-2">
+          <div class="row upload-images">
+            <div class="col-5 col-md-2 my-auto">
               <input
                 type="file"
                 class="form-control fileInput"
                 name="imgs"
                 accept="image/*"
                 (change)="onImagePicked($event)" multiple>
-              <button class="img-fluid my-2 px-5 img-product upload-icon"><i class="fa fa-upload fa-3x icon mx-auto"></i>add photos</button>
+              <button class="py-5 px-5 add-photo-button mx-auto text-size"><i class="fa fa-images d-block fa-2x mx-auto mb-3" id="blue-color"></i>add photos</button>
             </div>
-            <div class='col-8 upload-images'>
+            <div class='col-7 col-md-10 pt-2'>
               <ng-image-slider
                 [images]="imageObject"
                 [infinite]="false"

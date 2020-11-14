@@ -66,8 +66,6 @@ export class OrdersComponent implements OnInit {
     },
     noDataMessage: 'Oups, no Data yet !'
   };
-
-
   settingsMobile = {
     selectMode: 'multi',
     columns: {
@@ -143,13 +141,17 @@ export class OrdersComponent implements OnInit {
     // console.log(event);
   }
 
-
-  onDeleteConfirm(event) {
+  onDeleteOne(event) {
     if (window.confirm('Are you sure you want to delete?')) {
       this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
         console.log(data);
       });
       event.confirm.resolve();
+      const index = this.selectedRows.indexOf(event.data);
+      if (index > -1) {
+        this.selectedRows.splice(index, 1);
+      }
+      this.changeShowDeleteManyButton();
     } else {
       event.confirm.reject();
     }
@@ -157,10 +159,14 @@ export class OrdersComponent implements OnInit {
 
   onRowSelect(event) {
     this.selectedRows = event.selected;
+    this.changeShowDeleteManyButton();
+  }
+
+  changeShowDeleteManyButton() {
     this.showDeleteManyButton = this.selectedRows.length > 0;
   }
 
-  deleteMany() {
+  onDeleteMany() {
     const ids = [];
     this.selectedRows.forEach(elt => {
       ids.push(elt._id);
@@ -171,6 +177,7 @@ export class OrdersComponent implements OnInit {
     this.orderService.deleteMany(ids).subscribe(data => {
       console.log(data);
       this.selectedRows = [];
+      this.changeShowDeleteManyButton();
     });
   }
 }

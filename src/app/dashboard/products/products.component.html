@@ -11,12 +11,12 @@
           <a routerLink="../product-add" class="ml-5 button-generic py-2 button-edit mr-2 text-size"><i id="edit-icon" class="fa fa-plus-circle"></i> Add</a>
         </div>
         <div class="col-6">
-          <a (click)="deleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</a>
+          <a (click)="onDeleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</a>
         </div>
       </div>
       <div class="my-5 mx-auto px-5 py-3 table-shadow ">
         <ng2-smart-table (custom)="onEditSelect($event)"
-                         (deleteConfirm)="onDeleteConfirm($event)"
+                         (deleteConfirm)="onDeleteOne($event)"
                          (userRowSelect)="onRowSelect($event)"
                          [settings]="settings"
                          [source]="products"
@@ -31,7 +31,7 @@
           <a routerLink="../product-add" class="ml-5 button-generic py-2 button-edit mr-2 text-size"><i id="edit-icon" class="fa fa-plus-circle"></i> Add</a>
         </div>
         <div class="col-6">
-          <a (click)="deleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</a>
+          <a (click)="onDeleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</a>
         </div>
       </div>
       <div class="my-5 px-2 py-3 table-shadow">
