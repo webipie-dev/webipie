@@ -1,7 +1,7 @@
 <div>
   <div class="container ">
     <div class="row mt-5">
-      <div class="col-12">
+      <div class="col d-flex justify-content-center">
         <a (click)="onDeleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</a>
       </div>
     </div>
@@ -18,11 +18,12 @@
     </div>
   </div>
   <div *ngIf="windowWidth < 1024">
-    <div class="col-12">
-      <a (click)="onDeleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</a>
-    </div>
-    <div class="my-5 px-5 py-3 shadow" >
-      <ng2-smart-table class="text-size text-center" *ngIf="orders.length > 0" [settings]="settingsMobile" [source]="orders"></ng2-smart-table>
+    <div class="my-5 px-2 py-3 shadow" >
+      <ng2-smart-table class="text-size text-center"
+                       *ngIf="orders.length > 0"
+                       [settings]="settingsMobile"
+                       [source]="orders">
+      </ng2-smart-table>
     </div>
   </div>
 </div>
