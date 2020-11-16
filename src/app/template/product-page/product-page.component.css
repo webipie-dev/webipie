@@ -11,9 +11,8 @@ img {
     border: 1px solid #ebeeee;
     cursor: pointer;
     text-align: center;
-    width: 5vw;
-    height: 12vh;
-    display: inline-block;
+  padding: 10px;
+    display: inline-table;
 }
 
 span > div {
@@ -21,8 +20,7 @@ span > div {
 }
 
 .raise{
-    width: 250px;
-    height: 12vh;
+  padding: 25px;
     background: none;
     border: 2px solid;
     font: inherit;

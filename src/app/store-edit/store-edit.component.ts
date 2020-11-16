@@ -8,7 +8,7 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 })
 
 export class StoreEditComponent implements OnInit {
-  urlToPreview: string = "http://localhost:4200/";
+  urlToPreview: string = "http://localhost:4200/template/home";
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
