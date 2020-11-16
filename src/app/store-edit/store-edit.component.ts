@@ -14,12 +14,10 @@ export class StoreEditComponent implements OnInit {
   newWidth;
   constructor(public sanitizer: DomSanitizer) { }
   toggleS = (): void =>  {
-    console.log(document.getElementById("sidebar"));
-    console.log(document.getElementById("sidebar-non-active"));
-    console.log(document.getElementById("sidebar-next"));
     document.getElementById("sidebar").classList.toggle("active");
     document.getElementById("sidebar-non-active").classList.toggle("active");
     document.getElementById('sidebar-non-active2').classList.toggle('hidden-sidenav');
+
     document.getElementById('iframe').classList.toggle('margin-iframe');
     document.getElementById('iframe').style.width = this.newWidth.toString();
     if (document.getElementById('sidebar').classList.contains('active')) {

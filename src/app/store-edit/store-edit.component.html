@@ -82,10 +82,11 @@
       </nav>
 
     </div>
-    <div class="">
-      <iframe id="iframe" class="" width="100%" height="{{windowHeight}}" frameBorder="0" [src]="urlSafe"></iframe>
-
-<!--      <app-template [fromStoreEdit]="'true'" ></app-template>-->
+<!--    <div class="">-->
+<!--      <iframe id="iframe" class="" width="100%" height="{{windowHeight}}" frameBorder="0" [src]="urlSafe"></iframe>-->
+<!--    </div>-->
+    <div  id="iframe" style="overflow-y: scroll; position: absolute !important; padding-left: 5px">
+      <app-template  [fromStoreEdit]="'true'" ></app-template>
     </div>
   </div>
 </div>
