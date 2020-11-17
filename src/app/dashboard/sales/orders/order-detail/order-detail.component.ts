@@ -110,7 +110,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   onDeleteOrder(orderId: string){
-    this.orderService.deleteMany({ids: orderId}).subscribe(data => {
+    this.orderService.deleteMany([orderId]).subscribe(data => {
       console.log(data);
     });
     this.modalService.dismissAll();
