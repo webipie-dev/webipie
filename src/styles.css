@@ -104,7 +104,7 @@ body {
 }
 
 @media  {
-  
+
 }
 .only-mobile {
   display: none !important;
@@ -492,7 +492,6 @@ input:focus:-ms-input-placeholder {
   background: var(--white-color );
 }
 .card-background-image {
-  min-height: 70vh;
   height: 100%;
   background: linear-gradient(180deg, var(--blue-color) 0%, var(--black-color) 80%);
   border-radius: 30px;
@@ -621,7 +620,7 @@ input:focus:-ms-input-placeholder {
 
 }
 
-.fa-toggle-off, .fa-toggle-on {
+.fa-toggle-off, .fa-toggle-on, .fa-images {
   cursor: pointer !important;
   transition: ease-in-out all 0.3s;
   color: var(--white-color)

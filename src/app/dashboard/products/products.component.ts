@@ -63,7 +63,6 @@ export class ProductsComponent implements OnInit {
       },
       name: {
         title: 'Name',
-        type: 'html',
         width: '60%'
       },
       details: {
@@ -83,6 +82,7 @@ export class ProductsComponent implements OnInit {
   showDeleteManyButton = false;
 
   products = [];
+  productsMobile = [];
 
   constructor(private http: HttpClient,
               private productService: ProductService,
@@ -91,6 +91,10 @@ export class ProductsComponent implements OnInit {
 
   onRowSelect(event) {
     this.selectedRows = event.selected;
+    this.changeShowDeleteManyButton();
+  }
+
+  changeShowDeleteManyButton() {
     this.showDeleteManyButton = this.selectedRows.length > 0;
   }
 
@@ -122,17 +126,33 @@ export class ProductsComponent implements OnInit {
           productName: element.name
 
         };
+        const aux2 = {
+          _id: element._id,
+          name: element.name,
+          description: element.description,
+          imgs: element.imgs,
+          price: element.price,
+          quantity: quant,
+          store: element.store,
+          productName: element.name
+        };
         this.products.push(aux);
+        this.productsMobile.push(aux2);
       });
     });
   }
 
-  onDeleteConfirm(event): void {
+  onDeleteOne(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.productService.deleteMany([event.data._id]).subscribe((data) => {
         console.log(data);
       });
       event.confirm.resolve();
+      const index = this.selectedRows.indexOf(event.data);
+      if (index > -1) {
+        this.selectedRows.splice(index, 1);
+      }
+      this.changeShowDeleteManyButton();
     } else {
       event.confirm.reject();
     }
@@ -142,7 +162,7 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: event.data._id} });
   }
 
-  deleteMany() {
+  onDeleteMany() {
     const ids = [];
     this.selectedRows.forEach(elt => {
       ids.push(elt._id);
@@ -153,6 +173,7 @@ export class ProductsComponent implements OnInit {
     this.productService.deleteMany(ids).subscribe(data => {
       console.log(data);
       this.selectedRows = [];
+      this.changeShowDeleteManyButton();
     });
     // use the table selectedRows and take the ids from there
   }

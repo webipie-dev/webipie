@@ -19,7 +19,7 @@
 
 
 #sidebar.active {
-  margin-left: -250px;
+  margin-left: -300px;
 }
 
 #sidebar-non-active.active {
@@ -101,4 +101,16 @@ a[data-toggle="collapse"] {
   width: 90%;
   margin: auto;
   border-top: solid 2px var(--white-color);;
+}
+
+#iframe {
+  position: fixed;
+  right: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 567px){
+  .margin-iframe {
+    margin-top: 44.25px;
+  }
 }

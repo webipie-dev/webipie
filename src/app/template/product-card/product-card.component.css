@@ -1,5 +1,6 @@
 .product-card {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 
 .button-edit {
@@ -15,12 +16,11 @@
 }
 
 .img-dim {
-  width: 347px !important;
-  height: 230px !important;
+  border-radius: 10px;
 }
 
 .image-container {
   overflow: hidden !important;
-  width: 347px !important;
-  height: 230px !important;
+  /*width: 347px !important;*/
+  /*height: 230px !important;*/
 }

@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Utils} from '../_shared/utils';
 
 @Component({
   selector: 'app-dashboard',
