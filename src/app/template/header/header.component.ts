@@ -10,6 +10,11 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.getElementById('cart').addEventListener('click', () => {
+      document.querySelector('.shopping-cart').classList.toggle( 'cart-display');
+      console.log("hh");
+    });
+
   }
 
 }

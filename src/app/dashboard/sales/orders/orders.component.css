@@ -64,6 +64,7 @@
   font-size: var(--text-desktop);
 }
 
+
 :host /deep/ ng2-smart-table input:focus {
   border: solid 2px var(--blue-color);
   transition: .4s transform ease-in-out;

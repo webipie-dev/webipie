@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const StoreService = require('../services/store')
 const multer = require('multer');
 

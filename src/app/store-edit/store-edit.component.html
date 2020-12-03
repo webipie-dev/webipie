@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="d-flex">
-    <div class="">
+    <div>
       <nav id="sidebar">
         <div class="sidebar-header">
           <h3 class="huge-titles text-center">Hackover</h3>
@@ -15,12 +15,79 @@
           </div>
         </div>
       </nav>
+      <div class="only-tablet">
+
+        <nav id="sidebar-non-active" class="active">
+          <ul class="list-unstyled text-size text-center">
+            <li class=" mb-3">
+              <a class="nav-link-sidebar">
+                <i class="fa fa-edit"></i>
+              </a>
+            </li>
+            <li class="sidenav-elem mb-3">
+              <a class="nav-link-sidebar mt-1">
+                <i class="fa fa-share-alt "></i>
+              </a>
+            </li>
+            <li class="sidenav-elem mb-3">
+              <a data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1">
+                <i class="fa fa-cart-arrow-down"></i>
+              </a>
+              <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+                <i class="fa fa-list-alt"></i>
+              </a>
+              <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+                <i class="fa fa-users"></i>
+              </a>
+              <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+                <i class="fa fa-warehouse"></i>
+              </a>
+              <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+                <i class="fa fa-mobile-alt"></i>
+              </a>
+              <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+                <i class="fa fa-money-check-alt"></i>
+              </a>
+              <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+                <i class="fa fa-chart-bar"></i>
+              </a>
+            </li>
+            <li class="sidenav-elem ">
+              <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1">
+                <i class="fa fa-id-card"></i>
+              </a>
+              <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+                <i class="fa fa-sign-out-alt"></i>
+              </a>
+            </li>
+          </ul>
+          <div class="container ">
+            <div class="row text-center">
+      <span class="mx-auto" (click)="toggleS()">
+        <i class="fa fa-toggle-off fa-3x " aria-hidden="true" ></i>
+      </span>
+            </div>
+          </div>
+        </nav>
+
+      </div>
+      <nav>
+        <div id="sidebar-non-active2" class="container only-mobile active toggle-sidenav-2 hidden-sidenav">
+          <div class="row text-center">
+      <span class="mx-auto" (click)="toggleS()">
+        <i class="fa fa-toggle-off fa-3x white-colored" aria-hidden="true" ></i>
+      </span>
+          </div>
+        </div>
+      </nav>
+
     </div>
     <div class="">
-      <iframe id="iframe" width="100%" height="1000vh" frameBorder="0" [src]="urlSafe"></iframe>
-
-<!--      <app-template [fromStoreEdit]="'true'" ></app-template>-->
+      <iframe id="iframe" class="" width="100%" height="{{windowHeight}}" frameBorder="0" [src]="urlSafe"></iframe>
     </div>
+<!--    <div  id="iframe" style="overflow-y: scroll; position: absolute !important; padding-left: 5px">-->
+<!--      <app-template  [fromStoreEdit]="'true'" ></app-template>-->
+<!--    </div>-->
   </div>
 </div>
 

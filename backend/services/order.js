@@ -3,7 +3,6 @@ const Product = require('../models/product')
 const Client = require('../models/client')
 const Store = require('../models/store')
 
-const mongoose = require('mongoose')
 
 // getAndFilterOrder
 exports.getOrders = (req, res) => {
@@ -19,7 +18,9 @@ exports.getOrders = (req, res) => {
 }
 
 exports.getManyOrderById = (req, res) =>{
+  //get orders ids
   const orderId = req.query.ids;
+
   Order
     .find({_id: {$in: orderId}})
     .exec()
@@ -41,6 +42,7 @@ exports.getManyOrderById = (req, res) =>{
 
 
 exports.getOneOrder = (req, res) => {
+  //get the order id
   const id = req.params._id;
   Order.findById(id)
     .exec()
@@ -68,10 +70,11 @@ exports.addOrder = async (req, res) => {
   order
     .save()
     .then(doc =>{
+      //adding the order id to the client
       Client
         .updateOne({ _id : doc.client._id }, {$push: {orders: doc._id}})
         .exec();
-
+      //updating the quantity of the product in the product model
       let bulkQueries = [];
       doc.products.map(product => {
         bulkQueries.push({
@@ -83,16 +86,13 @@ exports.addOrder = async (req, res) => {
       });
       Product
         .bulkWrite(bulkQueries, {ordered: false})
-
-
+      //add the client id to the store
       Store
-        .updateOne({_id : doc.store }, {$addToSet: {clients: doc._id}})
+        .updateOne({_id : doc.store }, {$addToSet: {clients: doc.client._id}})
         .exec()
-
       res.status(201).json({
         message: 'added with success',
         order: doc,
-        // product: product
       });
     }).catch(err => {
     res.status(500).json({error: err});
@@ -103,16 +103,15 @@ exports.addOrder = async (req, res) => {
 
 
 exports.deleteManyOrders = (req, res, next) => {
-  // console.log(req.body)
+  //get orders ids
   const ids = req.body;
-  // console.log(ids)
+
   Order.deleteMany({_id: {$in: ids}})
     .exec()
     .then(result => {
       res.status(200).json(result);
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({ error: err});
     });
 };
@@ -129,10 +128,9 @@ exports.deleteAllOrders = (req, res, next) => {
     });
 };
 
-
+//edit many orders
 exports.editOrder = (req, res, next) => {
   // separating the ids
-  console.log(req.body)
   const ids = req.body.ids;
 
   // separating the updates
@@ -142,12 +140,7 @@ exports.editOrder = (req, res, next) => {
         edits[key] = req.body[key];
 
       }
-      // else if (key === 'products'){
-      //   edits[key] = req.body[key].map(s => mongoose.Types.ObjectId(s));
-      //
-      // }
   }
-  console.log(edits)
 
   Order.updateMany({_id: {$in :ids}}, { $set: edits })
     .exec()
@@ -166,6 +159,7 @@ exports.editOrder = (req, res, next) => {
 
 
 exports.deleteProductOrder = (req,res) => {
+  //get order id
   const ids = req.body.ids;
 
   Order.updateOne({_id: ids}, {$pull: {products: {_id : req.body.product}}})

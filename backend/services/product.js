@@ -1,10 +1,8 @@
 const Product = require('../models/product');
 const Store = require('../models/store');
-const mongoose = require('mongoose');
 
 exports.getProducts = (req, res, next) => {
   const query = filterProducts(req);
-  // console.log(query);
   Product
     .find(query)
     .exec()
@@ -16,12 +14,12 @@ exports.getProducts = (req, res, next) => {
       })
     })
     .catch(err =>{
-      console.log(err);
-      // handle error function
+      res.status(500).json({error: err});
     })
 };
 
 exports.getManyProductById = (req, res) =>{
+  //get products ids
   const productId = req.query.ids;
   Product
     .find({_id: {$in: productId}})
@@ -43,6 +41,7 @@ exports.getManyProductById = (req, res) =>{
 }
 
 exports.getOneProduct = (req, res, next) => {
+  //get product id
   const productId = req.params.id;
   Product
     .findById(productId)
@@ -64,11 +63,10 @@ exports.getOneProduct = (req, res, next) => {
 
 exports.addProduct = (req, res, next) => {
   const url = req.protocol + '://' +req.get('host');
-  console.log(req.body)
   var images = [];
+  //check if there are any images uploaded
   if (req.files)
   {
-    console.log(req.files)
     req.files.map(fileimg => {
       images.push(url + '/backend/images/' + fileimg.filename)
     });
@@ -90,6 +88,7 @@ exports.addProduct = (req, res, next) => {
   product
     .save()
     .then(result => {
+      //add the product id to the store
       Store
         .updateOne({ _id : result.store}, {$push: {products: result._id}})
         .exec()
@@ -98,7 +97,7 @@ exports.addProduct = (req, res, next) => {
         newProduct: result
       });
     }).catch(err => {
-     console.log(err);
+    res.status(500).json({error: err});
   });
 };
 
@@ -109,7 +108,7 @@ exports.editOneProduct = (req, res, next) => {
 
   // separating the updates
   const edits = {};
-  for(var key in req.body) {
+  for(let key in req.body) {
       if(key !== 'ids'){
         edits[key] = req.body[key];
       }
@@ -117,7 +116,7 @@ exports.editOneProduct = (req, res, next) => {
 
   // adding the images
   const url = req.protocol + '://' +req.get('host');
-  var images = [];
+  let images = [];
   if(req.files.length > 0){
     req.files.map(fileimg => {
       images.push(url + '/backend/images/' + fileimg.filename)
@@ -149,12 +148,12 @@ exports.editOneProduct = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({error: err});
     });
 };
 
 exports.deleteManyProducts = (req, res, next) => {
+  //get products ids
   const ids = req.body;
   Product.find({_id: {$in: ids}})
     .then((products) => {

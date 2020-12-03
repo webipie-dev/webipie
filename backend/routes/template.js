@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const TemplateService = require('../services/template')
 
 // getTemplates
@@ -19,7 +18,7 @@ router.delete('', TemplateService.deleteManyTemplates)
 //deleteAllTemplates
 router.delete('/delete', TemplateService.deleteAllTemplates)
 
-
+//update Templates
 router.patch('/update', TemplateService.editTemplate)
 
 module.exports = router;
