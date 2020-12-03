@@ -1,5 +1,4 @@
 const Client = require('../models/client')
-const mongoose = require('mongoose')
 
 // getAndFilter
 exports.getClients = (req, res) => {
@@ -14,7 +13,9 @@ exports.getClients = (req, res) => {
   });
 }
 
+//getManyClients
 exports.getManyClientById = (req, res) =>{
+  //get clients ids
   const clientId = req.query.ids;
   Client
     .find({_id: {$in: clientId}})
@@ -35,21 +36,21 @@ exports.getManyClientById = (req, res) =>{
     });
 }
 
-
+//getOneClient
 exports.getOneClient = (req, res) => {
+  //get client id
   const id = req.params._id;
   Client.findById(id)
     .exec()
     .then(doc => {
-      // console.log(doc);
       res.status(200).json(doc);
     })
     .catch(err => {
-      // console.log(err);
       res.status(500).json({error: err})
     });
 }
 
+//addOneClient
 exports.addClient = (req, res) => {
   const client = new Client({
     firstname: req.body.firstname,
@@ -71,10 +72,11 @@ exports.addClient = (req, res) => {
   });
 }
 
+
+//deleteManyClients
 exports.deleteManyClients = (req, res, next) => {
-  // console.log(req.body)
+  //get clients ids
   const ids = req.body;
-  // console.log(ids)
   Client.deleteMany({_id: {$in: ids}})
     .exec()
     .then(result => {
@@ -86,6 +88,8 @@ exports.deleteManyClients = (req, res, next) => {
     });
 };
 
+
+//deleteAllClients
 exports.deleteAllClients = (req, res, next) => {
   Client.deleteMany({})
     .exec()
@@ -98,6 +102,7 @@ exports.deleteAllClients = (req, res, next) => {
     });
 };
 
+//editManyClients
 exports.editClient = (req, res, next) => {
   // separating the ids
   const ids = req.body.ids;

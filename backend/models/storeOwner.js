@@ -34,7 +34,7 @@ const storeOwnerSchema = new mongoose.Schema({
       type: String,
       lowercase: true, default: ''
     }
-  }
+  },
 });
 
 storeOwnerSchema.pre('save' , async function(next){

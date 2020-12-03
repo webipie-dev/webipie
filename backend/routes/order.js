@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const OrderService = require('../services/order');
-// const router = require('express-promise-router')();
 
 // getOrders
 router.get('', OrderService.getOrders)
 
+//getManyOrders
 router.get('/many', OrderService.getManyOrderById)
 
 // getOrderbyId
@@ -25,8 +24,11 @@ router.delete('', OrderService.deleteManyOrders)
 //deleteAllOrders
 router.delete('/delete', OrderService.deleteAllOrders)
 
+//delete Products From an Order
 router.delete('/delete/product', OrderService.deleteProductOrder)
 
+
+//edit Orders
 router.patch('/update', OrderService.editOrder)
 
 

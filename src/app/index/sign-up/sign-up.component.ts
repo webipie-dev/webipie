@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
   store_owner: StoreOwner = new StoreOwner();
 
   ngOnInit(): void {
-    var head = document.getElementById('headerr');
+    const head = document.getElementById('headerr');
     head.className += ' color-blue-header';
   }
 
@@ -34,7 +34,7 @@ export class SignUpComponent implements OnInit {
         if (result) {
           console.log(result);
           localStorage.setItem('token', result['token']);
-          let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+          const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate([returnUrl || '/after-signin']);
         } else {
           console.log('error here');
@@ -52,7 +52,7 @@ export class SignUpComponent implements OnInit {
             console.log(result);
             if (result) {
               localStorage.setItem('token', result['token']);
-              let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+              const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
               this.router.navigate([returnUrl || '/after-signin']);
             } else {
               console.log('error here');
@@ -70,7 +70,7 @@ export class SignUpComponent implements OnInit {
             console.log(result);
             if (result) {
               localStorage.setItem('token', result['token']);
-              let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+              const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
               this.router.navigate([returnUrl || '/after-signin']);
             } else {
               console.log('error here');

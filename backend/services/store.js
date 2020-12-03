@@ -1,7 +1,5 @@
-
 const Store = require('../models/store')
 const Product = require('../models/store')
-const mongoose = require('mongoose')
 
 // getAndFilter
 exports.getStores = (req, res) => {
@@ -18,24 +16,24 @@ exports.getStores = (req, res) => {
 
 
 exports.getOneStore = (req, res) => {
+  //get store id
   const id = req.params._id;
   Store.findById(id)
     .exec()
     .then(doc => {
-      // console.log(doc);
       res.status(200).json(doc);
     })
     .catch(err => {
-      // console.log(err);
       res.status(500).json({error: err})
     });
 }
 
 exports.addStore = (req, res) => {
-
-  if(req.file){
-    logo = req.protocol + "://" + req.get("host")  + "/images/logos" + req.file.filename
-  }else {
+  //check if a logo is uploaded
+  let logo;
+  if (req.file) {
+    logo = req.protocol + "://" + req.get("host") + "/images/logos" + req.file.filename
+  } else {
     logo = ''
   }
 
@@ -135,7 +133,6 @@ exports.editStore = (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({error: err});
     });
 };
