@@ -133,16 +133,4 @@ export class OrderDetailComponent implements OnInit {
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;
   }
-
-  openModal() {
-    // this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
-    //   this.orderProducts = data.product;
-    // });
-    // this.orderService.getById(this.rowData._id).subscribe((data) => {
-    //   console.log(data);
-    //   this.newVal._id = data._id;
-    // });
-    // document.getElementById('order-detail-modal-' + this.rowData._id).style.setProperty('display' , 'block' , 'important');
-    // console.log(document.getElementById('order-detail-modal-' + this.rowData._id));
-  }
 }

@@ -14,32 +14,38 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
 
+  invalidForm = false;
   constructor(private auth: AuthService,
               private authService: SocialAuthService,
               private router: Router,
               private route: ActivatedRoute) {
   }
 
-  store_owner: StoreOwner = new StoreOwner();
+  storeOwner: StoreOwner = new StoreOwner();
 
   ngOnInit(): void {
-    var head = document.getElementById('headerr');
+    const head = document.getElementById('headerr');
     head.className += ' color-blue-header';
   }
 
   signUp() {
-    // console.log(JSON.stringify(this.store_owner));
-    this.auth.login(this.store_owner)
+    // console.log(JSON.stringify(this.storeOwner));
+    this.auth.login(this.storeOwner)
       .subscribe(result => {
         if (result) {
           console.log(result);
           localStorage.setItem('token', result['token']);
-          let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+          const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate([returnUrl || '/after-signin']);
         } else {
           console.log('error here');
+          this.invalidForm = true;
         }
       });
+  }
+
+  onInputFocus() {
+    this.invalidForm = false;
   }
 
   signInWithFB(): void {
@@ -52,7 +58,7 @@ export class SignUpComponent implements OnInit {
             console.log(result);
             if (result) {
               localStorage.setItem('token', result['token']);
-              let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+              const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
               this.router.navigate([returnUrl || '/after-signin']);
             } else {
               console.log('error here');

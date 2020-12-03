@@ -21,9 +21,11 @@
             <label for="name" class="text-size ml-5 mt-3">Name</label>
             <input type="text" id="name" class="input" placeholder="Name">
             <label for="email" class="text-size ml-5 mt-3">Email</label>
-            <input type="email" id="email" class="input" placeholder="Email" [(ngModel)]="store_owner.email" name="email" >
+            <input type="email" id="email" class="input" placeholder="Email" [ngClass]="invalidForm? 'red-border': ''" [(ngModel)]="storeOwner.email" name="email" (focus)="onInputFocus()">
+            <p class="text-size mt-2 red-color" *ngIf="invalidForm">* Email Already Registered</p>
             <label for="password" class="text-size ml-5 mt-3">Password</label>
-            <input type="password" id="password" class="input" placeholder="Password"  [(ngModel)]="store_owner.password" name="password">
+            <input type="password" id="password" class="input" placeholder="Password" [ngClass]="invalidForm? 'red-border': ''" [(ngModel)]="storeOwner.password" name="password" (focus)="onInputFocus()">
+            <p class="text-size mt-2 red-color" *ngIf="invalidForm">* Invalid Password</p>
             <div class="text-center mt-3">
               <button  class="button-generic button-blue small-titles " (click)="signUp()" type='submit'>Configure your store</button>
             </div>
