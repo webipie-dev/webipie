@@ -12,6 +12,7 @@ import {ClientService} from '../../../_shared/services/client.service';
 })
 export class ClientsComponent implements OnInit {
 
+  // settings for the web version of the table
   settings = {
     columns: {
       firstname: {
@@ -30,6 +31,7 @@ export class ClientsComponent implements OnInit {
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
+  // settings for the mobile & tablet version of the table
   settingsMobile = {
     columns: {
       name: {
@@ -49,94 +51,7 @@ export class ClientsComponent implements OnInit {
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
-
-  // data = [
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //     details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-  //
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   }
-  // ];
-
   clients: Product[] = [];
-
 
   constructor(private http: HttpClient,
               private clientService: ClientService) {
@@ -148,9 +63,7 @@ export class ClientsComponent implements OnInit {
 
   getAllClients(): void {
     this.clientService.getAll().subscribe((data) => {
-      console.log(data.clients);
       this.clients = data.clients;
     });
   }
-
 }

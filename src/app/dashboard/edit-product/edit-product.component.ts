@@ -62,10 +62,8 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
-      console.log(data.product);
       this.singleProduct = data.product;
       this.singleProduct.imgs.forEach((elt) => {
         this.imageObject.push({
@@ -76,28 +74,15 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  getAllProducts(): void {
-    this.editProductService.getAll().subscribe(data => {
-      this.allProducts = data.products;
-    });
-  }
-
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
-    // console.log(file);
     Object.keys(file).forEach((item) => {
-      console.log(item); // key
-      console.log(file[item]); // value
       const reader = new FileReader();
       reader.readAsDataURL(file[item]);
-
       reader.onload = (_event) => {
         this.msg = '';
         this.url = reader.result;
-        // console.log(reader.result);
-
-        this.imageObject.push({ image : this.url , thumbImage : this.url});
-        // console.log(this.imageObject)
+        this.imageObject.push({image: this.url, thumbImage: this.url});
       };
     });
 
@@ -108,31 +93,18 @@ export class EditProductComponent implements OnInit {
   }
 
   addProduct(): void {
-
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
-        // console.log('exist: ' + field);
-        // console.log(control.value);
-        // console.log('--------');
         this.postData.append(field, control.value);
       } else {
-        // console.log('doesnt exist: ' + field);
-        // console.log(control.value);
-        // console.log('--------');
         if ((field !== 'imgs')) {
           this.postData.append(field, '');
         }
-
-
       }
     }
     this.productForm.reset();
-    // this.postData.forEach((value, key) => {
-    //   console.log(key + ' ' + value);
-    // });
     this.editProductService.addOne(this.postData).subscribe((data) => {
-      console.log(data);
       this.router.navigate(['dashboard/products']);
     });
 
@@ -142,14 +114,8 @@ export class EditProductComponent implements OnInit {
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
-        // console.log('exist: ' + field);
-        // console.log(control.value);
-        // console.log('--------');
         this.postData.append(field, control.value);
       } else {
-        // console.log('doesnt exits: ' + field);
-        // console.log(control.value);
-        // console.log('--------');
         if (field === 'ids') {
           this.postData.append(field, id);
         } else if (field !== 'imgs') {
@@ -158,13 +124,7 @@ export class EditProductComponent implements OnInit {
 
       }
     }
-    // this.productForm.reset();
-    // console.log(this.postData.get('imgs'));
-    // this.postData.forEach((value, key) => {
-    //   console.log(key + ' ' + value);
-    // });
     this.editProductService.edit(this.postData).subscribe((data) => {
-      console.log(data);
       this.router.navigate(['dashboard/products']);
     });
   }

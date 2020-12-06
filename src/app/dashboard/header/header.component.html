@@ -1,29 +1,29 @@
 <div class="d-flex ">
   <div class=" row ml-5-px ">
     <div class="text-center ml-3">
-      <button class="button-generic button-blue form-button text-size only-tablet"> Change Template </button>
+      <button class="button-generic button-blue form-button text-size only-tablet"> Change Template</button>
     </div>
     <div class="text-center ml-3">
-      <button class="button-generic button-blue form-button text-size"> Preview </button>
+      <button class="button-generic button-blue form-button text-size"> Preview</button>
     </div>
 
   </div>
 
   <div class="d-flex" style="margin-left: auto;">
-    <div class="profile text-size" (click)="openDropDown()">
+    <div (click)="openDropDown()" class="profile text-size">
       <div class="icon_wrap" id="dropdown-profile">
         <i class="fas fa-chevron-down"></i>
 
         <span class="name">John Alex</span>
-        <img  class="img-fluid image-profile ml-2" src="https://i.imgur.com/x3omKbe.png" alt="profile_pic">
+        <img alt="profile_pic" class="img-fluid image-profile ml-2" src="https://i.imgur.com/x3omKbe.png">
 
       </div>
 
       <div class="profile_dd">
         <ul class="profile_ul">
           <li><a href="#"><span class="picon"><i class="fas fa-user-alt"></i></span>Profile</a></li>
-          <li><a  href="#"><span class="picon"><i class="fas fa-sign-out-alt"></i></span>Logout</a></li>
-          <li><a  href="#"><span class="picon"><i class="fas fa-sign-out-alt"></i></span>Change Template</a></li>
+          <li><a href="#"><span class="picon"><i class="fas fa-sign-out-alt"></i></span>Logout</a></li>
+          <li><a href="#"><span class="picon"><i class="fas fa-sign-out-alt"></i></span>Change Template</a></li>
         </ul>
       </div>
     </div>
