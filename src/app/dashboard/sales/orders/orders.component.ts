@@ -129,16 +129,10 @@ export class OrdersComponent implements OnInit {
             store: element.store,
           };
           this.orders.push(aux);
-
         }
       });
       this.orders = this.orders.reverse();
     });
-  }
-
-  onDetailSelect(event) {
-    // console.log('clicked');
-    // console.log(event);
   }
 
   onDeleteOne(event) {
@@ -147,6 +141,7 @@ export class OrdersComponent implements OnInit {
         console.log(data);
       });
       event.confirm.resolve();
+      // delete the order from orders displayed
       const index = this.selectedRows.indexOf(event.data);
       if (index > -1) {
         this.selectedRows.splice(index, 1);

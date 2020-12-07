@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {GenericService} from './generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OrderEditService {
+export class OrderEditService extends GenericService<any>{
 
-  constructor() { }
+  constructor(protected http: HttpClient) {
+    super(http);
+    this.suffix = '/order/edit';
+  }
 }

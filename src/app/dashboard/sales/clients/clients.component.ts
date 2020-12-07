@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientDetailComponent} from './client-detail/client-detail.component';
-import {Product} from '../../../_shared/models/product.model';
+import {Client} from '../../../_shared/models/client.model';
 import {HttpClient} from '@angular/common/http';
-import {EditProductService} from '../../../_shared/services/edit-product.service';
 import {ClientService} from '../../../_shared/services/client.service';
 
 @Component({
@@ -49,93 +48,7 @@ export class ClientsComponent implements OnInit {
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
-
-  // data = [
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //     details: '<a href="#" class="button-generic button-white-border-blue detail-button">Details</a>'
-  //
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   },
-  //   {
-  //     name: 'Leanne Graham',
-  //     email: 'nour@gmail.com',
-  //     phoneNumber: '24681998',
-  //   }
-  // ];
-
-  clients: Product[] = [];
+  clients: Client[] = [];
 
 
   constructor(private http: HttpClient,
@@ -148,7 +61,6 @@ export class ClientsComponent implements OnInit {
 
   getAllClients(): void {
     this.clientService.getAll().subscribe((data) => {
-      console.log(data.clients);
       this.clients = data.clients;
     });
   }

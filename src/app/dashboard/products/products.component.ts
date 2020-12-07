@@ -104,7 +104,6 @@ export class ProductsComponent implements OnInit {
 
   getAllProducts(): void {
     this.productService.getAll().subscribe((data) => {
-      // console.log(data.products);
       let quant;
       data.products.forEach((element) => {
         if (element.quantity > 0){
@@ -148,6 +147,7 @@ export class ProductsComponent implements OnInit {
         console.log(data);
       });
       event.confirm.resolve();
+      // delete the product from the displayed products
       const index = this.selectedRows.indexOf(event.data);
       if (index > -1) {
         this.selectedRows.splice(index, 1);
@@ -171,11 +171,9 @@ export class ProductsComponent implements OnInit {
       this.products = this.products.filter(prod => prod._id !== elt );
     });
     this.productService.deleteMany(ids).subscribe(data => {
-      console.log(data);
       this.selectedRows = [];
       this.changeShowDeleteManyButton();
     });
-    // use the table selectedRows and take the ids from there
   }
 
 }

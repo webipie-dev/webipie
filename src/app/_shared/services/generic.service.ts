@@ -36,9 +36,6 @@ export class GenericService<T extends GenericModel> {
   }
 
   public edit(body: T) {
-      // const headers = new HttpHeaders({
-      //   'Content-Type': 'application/x-www-form-urlencoded',
-      // });
     return this.http.patch(this.getUrl() + this.suffix + '/update', body) as Observable<T>;
   }
 
@@ -56,25 +53,4 @@ export class GenericService<T extends GenericModel> {
     return this.http.delete(this.getUrl() + this.suffix) as Observable<T>;
   }
 
-
-  // protected getHeaders(): HttpHeaders {
-  //   const token = localStorage.getItem('token');
-  //   return new HttpHeaders().append('Authorization', 'Bearer ' + token);
-  // }
-
-  // protected getUrl() {
-  //   return Utils.url + 'municipalities/' + this.getMunicipalityId() + this.suffix;
-  // }
-  //
-  // public getMunicipalityId(): string {
-  //   return localStorage.getItem('municipality_id');
-  // }
-  //
-  // public post(body: T) {
-  //   return this.http.post(this.getUrl(), body, {headers: this.getHeaders()}) as Observable<T>;
-  // }
-  //
-  // public put(id: string, body: T) {
-  //   return this.http.put(this.getUrl() + '/' + id, body, {headers: this.getHeaders()}) as Observable<T>;
-  // }
 }

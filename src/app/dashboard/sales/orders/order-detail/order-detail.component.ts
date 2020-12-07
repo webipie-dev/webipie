@@ -64,12 +64,6 @@ export class OrderDetailComponent implements OnInit {
           clientName: datas.client.name,
           store: datas.store,
         };
-        // console.log(this.rowData);
-        // this.orderProductsIds = this.rowData.products.map(s => s._id);
-        // this.orderProductsQuantity = this.rowData.products.map(s => s.quantity);
-        // this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
-        //   this.orderProducts = data.product;
-        // });
         this.orderProducts = this.rowData.products;
       }
     });
@@ -79,12 +73,11 @@ export class OrderDetailComponent implements OnInit {
   onDeleteProduct(event, prod) {
     if (window.confirm('Are you sure you want to delete?')) {
       const index = this.orderProducts.indexOf(prod);
-      // const index2 = this.orderProductsIds.indexOf(prod._id);
       this.orderService.deleteProduct(event._id, prod._id).subscribe((data) => {
         if (index > -1) {
+          // delete the product from displayed products
           this.orderProducts.splice(index, 1);
-          // this.orderProductsIds.splice(index2, 1);
-
+          // refresh the row data orders
           this.orderService.getById(event._id).subscribe((datas) => {
             const date = datas.orderDate.split('T');
             let totalprice = 0;
@@ -132,17 +125,5 @@ export class OrderDetailComponent implements OnInit {
   onSwitch() {
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;
-  }
-
-  openModal() {
-    // this.prodcutService.getMany(this.orderProductsIds).subscribe((data) => {
-    //   this.orderProducts = data.product;
-    // });
-    // this.orderService.getById(this.rowData._id).subscribe((data) => {
-    //   console.log(data);
-    //   this.newVal._id = data._id;
-    // });
-    // document.getElementById('order-detail-modal-' + this.rowData._id).style.setProperty('display' , 'block' , 'important');
-    // console.log(document.getElementById('order-detail-modal-' + this.rowData._id));
   }
 }

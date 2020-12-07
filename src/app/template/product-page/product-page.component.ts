@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-product-page',
@@ -7,18 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductPageComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
-  showSection(e){
-    e.target.classList.toggle("active");
-    var panel = e.target.nextSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
+  showSection(e) {
+    e.target.classList.toggle('active');
+    const panel = e.target.nextSibling;
+    if (panel.style.display === 'block') {
+      panel.style.display = 'none';
     } else {
-      panel.style.display = "block";
+      panel.style.display = 'block';
     }
   }
 
