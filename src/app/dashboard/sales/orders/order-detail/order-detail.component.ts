@@ -2,7 +2,6 @@ import {Component, Input, Output, OnChanges, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {OrderService} from '../../../../_shared/services/order.service';
 import {ProductService} from '../../../../_shared/services/product.service';
-import {Product} from '../../../../_shared/models/product.model';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {EventEmitter} from '@angular/core';
@@ -13,14 +12,12 @@ import {EventEmitter} from '@angular/core';
   styleUrls: ['./order-detail.component.css']
 })
 export class OrderDetailComponent implements OnInit {
-  elements;
   @Output() someEvent = new EventEmitter();
-  @Input() value;
+  @Input() value; // value passed by valuePrepareFunction (in settings orders.component.ts)
   public rowData: any;
   editMode = false;
   displayMode = !this.editMode;
   windowWidth = window.screen.width;
-  orderProductsIds = [];
   orderProducts = [];
   orderProductsQuantity = [];
   newVal = {
@@ -104,7 +101,6 @@ export class OrderDetailComponent implements OnInit {
 
   onDeleteOrder(orderId: string){
     this.orderService.deleteMany([orderId]).subscribe(data => {
-      console.log(data);
     });
     this.modalService.dismissAll();
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
@@ -122,6 +118,7 @@ export class OrderDetailComponent implements OnInit {
     }
   }
 
+  // switch modal mode
   onSwitch() {
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;

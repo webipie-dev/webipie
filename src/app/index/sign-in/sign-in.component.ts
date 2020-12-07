@@ -12,22 +12,22 @@ import {StoreOwner} from '../../_shared/models/store_owner.model';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-
   constructor(private authService: SocialAuthService,
               private auth: AuthService,
               private router: Router,
               private route: ActivatedRoute) {
   }
 
+  invalidForm = false;
+  storeOwner: StoreOwner = new StoreOwner();
+
   ngOnInit(): void {
-    var head = document.getElementById('headerr');
+    const head = document.getElementById('headerr');
     head.className += ' color-blue-header';
   }
 
-  store_owner: StoreOwner = new StoreOwner();
-
   signIn(): void {
-    this.auth.signIn(this.store_owner)
+    this.auth.signIn(this.storeOwner)
       .subscribe(result => {
         if (result) {
           console.log(result['status']);
@@ -35,9 +35,14 @@ export class SignInComponent implements OnInit {
           // let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate(['/after-signin']);
         } else {
+          this.invalidForm = true;
           console.log('error here');
         }
       });
+  }
+
+  onInputFocus() {
+    this.invalidForm = false;
   }
 
   signInWithFB(): void {
@@ -50,7 +55,7 @@ export class SignInComponent implements OnInit {
             console.log(result);
             if (result) {
               localStorage.setItem('token', result['token']);
-              let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+              const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
               this.router.navigate([returnUrl || '/after-signin']);
             } else {
               console.log('error here');
@@ -68,12 +73,12 @@ export class SignInComponent implements OnInit {
             console.log(result);
             if (result) {
               localStorage.setItem('token', result['token']);
-              let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+              const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
               this.router.navigate([returnUrl || '/after-signin']);
             } else {
-              console.log('error here')
+              console.log('error here');
             }
-          })
+          });
       });
   }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ClientDetailComponent} from './client-detail/client-detail.component';
 import {Client} from '../../../_shared/models/client.model';
 import {HttpClient} from '@angular/common/http';
+import {EditProductService} from '../../../_shared/services/edit-product.service';
 import {ClientService} from '../../../_shared/services/client.service';
 
 @Component({
@@ -11,6 +12,7 @@ import {ClientService} from '../../../_shared/services/client.service';
 })
 export class ClientsComponent implements OnInit {
 
+  // settings for the web version of the table
   settings = {
     columns: {
       firstname: {
@@ -29,6 +31,7 @@ export class ClientsComponent implements OnInit {
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
+  // settings for the mobile & tablet version of the table
   settingsMobile = {
     columns: {
       name: {
@@ -50,7 +53,6 @@ export class ClientsComponent implements OnInit {
   };
   clients: Client[] = [];
 
-
   constructor(private http: HttpClient,
               private clientService: ClientService) {
   }
@@ -64,5 +66,4 @@ export class ClientsComponent implements OnInit {
       this.clients = data.clients;
     });
   }
-
 }

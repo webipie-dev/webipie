@@ -9,13 +9,9 @@ import {ProductService} from '../../../_shared/services/product.service';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  // public value;
-  @Input() value: any;
   elements;
   // it contains row elements
   public rowData: any;
-  editMode = false;
-  displayMode = !this.editMode;
   windowWidth = window.screen.width;
   newVal = {
     _id: ''
@@ -60,5 +56,4 @@ export class ProductDetailComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-
 }

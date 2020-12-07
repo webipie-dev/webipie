@@ -1,7 +1,4 @@
-<a data-toggle="modal" (click)="open(content)" data-target="#client-detail-modal-{{rowData._id[rowData._id.length-1]}}"
-   class="button-generic button-white-border-blue detail-button">Details</a>
-
-
+<a data-toggle="modal" (click)="open(content)" class="button-generic button-white-border-blue detail-button">Details</a>
 <ng-template #content let-modal class="order-detail-modal">
   <div class="modal-header">
     <h5 class="modal-title my-auto" id="exampleModalLabel">Client ID: {{rowData._id}} </h5>

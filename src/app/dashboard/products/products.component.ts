@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
+  // settings of the web version table
   settings = {
     selectMode: 'multi',
     columns: {
@@ -52,6 +52,7 @@ export class ProductsComponent implements OnInit {
     },
     noDataMessage: 'Oups, no Data yet !'
   };
+  // settings of the mobile & tablet version table
   settingsMobile = {
     selectMode: 'multi',
     columns: {
@@ -80,22 +81,12 @@ export class ProductsComponent implements OnInit {
   };
   selectedRows = [];
   showDeleteManyButton = false;
-
   products = [];
   productsMobile = [];
 
   constructor(private http: HttpClient,
               private productService: ProductService,
               private router: Router) {
-  }
-
-  onRowSelect(event) {
-    this.selectedRows = event.selected;
-    this.changeShowDeleteManyButton();
-  }
-
-  changeShowDeleteManyButton() {
-    this.showDeleteManyButton = this.selectedRows.length > 0;
   }
 
   ngOnInit(): void {
@@ -106,7 +97,7 @@ export class ProductsComponent implements OnInit {
     this.productService.getAll().subscribe((data) => {
       let quant;
       data.products.forEach((element) => {
-        if (element.quantity > 0){
+        if (element.quantity > 0) {
           quant = element.quantity;
         } else {
           quant = 0;
@@ -114,9 +105,9 @@ export class ProductsComponent implements OnInit {
         const aux = {
           _id: element._id,
           name: '<div class=\'row\'>' +
-        '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
-        '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
-        '</div>',
+            '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
+            '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
+            '</div>',
           description: element.description,
           imgs: element.imgs,
           price: element.price,
@@ -141,10 +132,14 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  onRowSelect(event) {
+    this.selectedRows = event.selected;
+    this.changeShowDeleteManyButton();
+  }
+
   onDeleteOne(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.productService.deleteMany([event.data._id]).subscribe((data) => {
-        console.log(data);
       });
       event.confirm.resolve();
       // delete the product from the displayed products
@@ -159,7 +154,7 @@ export class ProductsComponent implements OnInit {
   }
 
   onEditSelect(event) {
-    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: event.data._id} });
+    this.router.navigate(['dashboard', 'product-edit'], {queryParams: {id: event.data._id}});
   }
 
   onDeleteMany() {
@@ -168,7 +163,7 @@ export class ProductsComponent implements OnInit {
       ids.push(elt._id);
     });
     ids.forEach(elt => {
-      this.products = this.products.filter(prod => prod._id !== elt );
+      this.products = this.products.filter(prod => prod._id !== elt);
     });
     this.productService.deleteMany(ids).subscribe(data => {
       this.selectedRows = [];
@@ -176,4 +171,7 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  changeShowDeleteManyButton() {
+    this.showDeleteManyButton = this.selectedRows.length > 0;
+  }
 }

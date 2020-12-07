@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
-import {Order} from '../../../_shared/models/order.model';
 import {HttpClient} from '@angular/common/http';
-import {ClientService} from '../../../_shared/services/client.service';
 import {OrderService} from '../../../_shared/services/order.service';
 
 @Component({
@@ -12,6 +10,7 @@ import {OrderService} from '../../../_shared/services/order.service';
 })
 export class OrdersComponent implements OnInit {
   windowWidth = window.screen.width;
+  // settings for the web version of the table
   settings = {
     selectMode: 'multi',
     columns: {
@@ -66,6 +65,7 @@ export class OrdersComponent implements OnInit {
     },
     noDataMessage: 'Oups, no Data yet !'
   };
+  // settings for the mobile & tablet version of the table
   settingsMobile = {
     selectMode: 'multi',
     columns: {
@@ -91,7 +91,7 @@ export class OrdersComponent implements OnInit {
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
-
+  // boolean value for the modal: edit or display mode
   edit = false;
   orders = [];
   selectedRows = [];
@@ -102,7 +102,7 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       this.windowWidth = window.screen.width;
     });
     this.getAllOrders();
@@ -113,15 +113,15 @@ export class OrdersComponent implements OnInit {
       data.orders.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');
-          let totalprice = 0;
+          let totalPrice = 0;
           element.products.forEach(product => {
-            totalprice += product.quantity * product.price;
+            totalPrice += product.quantity * product.price;
           });
-          let aux = {
+          const aux = {
             _id: element._id,
-            orderDate: date[0] ,
+            orderDate: date[0],
             orderStatus: element.orderStatus,
-            totalPrice: totalprice,
+            totalPrice,
             paymentMethod: element.paymentMethod,
             products: element.products,
             clientId: element.client._id,
@@ -129,16 +129,21 @@ export class OrdersComponent implements OnInit {
             store: element.store,
           };
           this.orders.push(aux);
+
         }
       });
       this.orders = this.orders.reverse();
     });
   }
 
+  // when selecting multiple rows deleteMany becomes un-disabled
+  changeShowDeleteManyButton() {
+    this.showDeleteManyButton = this.selectedRows.length > 0;
+  }
+
   onDeleteOne(event) {
     if (window.confirm('Are you sure you want to delete?')) {
       this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
-        console.log(data);
       });
       event.confirm.resolve();
       // delete the order from orders displayed
@@ -157,20 +162,15 @@ export class OrdersComponent implements OnInit {
     this.changeShowDeleteManyButton();
   }
 
-  changeShowDeleteManyButton() {
-    this.showDeleteManyButton = this.selectedRows.length > 0;
-  }
-
   onDeleteMany() {
     const ids = [];
     this.selectedRows.forEach(elt => {
       ids.push(elt._id);
     });
     ids.forEach(elt => {
-      this.orders = this.orders.filter(prod => prod._id !== elt );
+      this.orders = this.orders.filter(prod => prod._id !== elt);
     });
     this.orderService.deleteMany(ids).subscribe(data => {
-      console.log(data);
       this.selectedRows = [];
       this.changeShowDeleteManyButton();
     });

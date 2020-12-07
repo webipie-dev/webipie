@@ -13,7 +13,6 @@ export class HeaderComponent implements OnInit {
   }
 
   openDropDown() {
-    document.getElementById("dropdown-profile").parentElement.classList.toggle("active");
-
+    document.getElementById('dropdown-profile').parentElement.classList.toggle('active');
   }
 }

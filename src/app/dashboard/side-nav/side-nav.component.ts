@@ -1,5 +1,6 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {Utils} from "../../_shared/utils";
+import {Utils} from '../../_shared/utils';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -8,7 +9,7 @@ import {Utils} from "../../_shared/utils";
 })
 export class SideNavComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
   }
   windwosWidth;
 
@@ -17,20 +18,24 @@ export class SideNavComponent implements OnInit {
   @HostListener('window:resize') windwosResize() {
     this.windwosWidth = window.innerWidth;
     if (this.windwosWidth < 576) {
-      document.getElementById("sidebar").classList.add("active");
-      document.getElementById("sidebar-non-active2").classList.remove("hidden-sidenav");
+      document.getElementById('sidebar').classList.add('active');
+      document.getElementById('sidebar-non-active2').classList.remove('hidden-sidenav');
     } else if (this.windwosWidth >= 576) {
-      document.getElementById("sidebar").classList.remove("active");
-      document.getElementById("sidebar-non-active2").classList.add("hidden-sidenav");
+      document.getElementById('sidebar').classList.remove('active');
+      document.getElementById('sidebar-non-active2').classList.add('hidden-sidenav');
     }
   }
 
   ngOnInit(): void {
     if (window.screen.width < 576) {
-      document.getElementById("sidebar").classList.toggle("active");
-      document.getElementById("sidebar-non-active2").classList.toggle("hidden-sidenav");
+      document.getElementById('sidebar').classList.toggle('active');
+      document.getElementById('sidebar-non-active2').classList.toggle('hidden-sidenav');
     }
   }
 
+  switchAndToggleS(path) {
+    this.router.navigate([path]);
+    this.toggleS();
+  }
 
 }

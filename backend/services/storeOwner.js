@@ -14,27 +14,27 @@ signToken = user => {
 
 module.exports = {
     signUp : async (req,res) => {
-        const { error } = validatestoreOwner(req.body); 
+        const { error } = validatestoreOwner(req.body);
         if (error) return res.status(400).send(error.details[0].message);
-    
+
         const { email,password } = req.body;
 
         let findstoreOwner = await StoreOwner.find({ "local.email": email }).limit(1);
         findstoreOwner = findstoreOwner[0];
         if (findstoreOwner) return res.status(403).send({ error: 'Email is already in use'});
-        
-        findstoreOwner = await StoreOwner.find({ 
+
+        findstoreOwner = await StoreOwner.find({
             $or: [
               { "google.email": email },
               { "facebook.email": email },
-            ] 
+            ]
           }).limit(1);
           findstoreOwner = findstoreOwner[0];
           if (findstoreOwner) {
             // Let's merge them?
             findstoreOwner.methods.push('local')
             findstoreOwner.local = {
-              email: email, 
+              email: email,
               password: password
             }
             await findstoreOwner.save()
@@ -46,17 +46,17 @@ module.exports = {
             });
             res.status(200).json({ success: true });
         }
-      
 
-        const newstoreOwner = new StoreOwner({ 
+
+        const newstoreOwner = new StoreOwner({
             methods: ['local'],
             local: {
-                email: email, 
+                email: email,
                 password: password
             }
         });
         await newstoreOwner.save();
-    
+
         const token = signToken(newstoreOwner);
         res.cookie('access_token', token, {
             httpOnly: true
@@ -75,7 +75,7 @@ module.exports = {
     },
 
     googleOAuth: async (req, res, next) => {
-        
+
         const token = signToken(req.user);
         res.cookie('access_token', token, {
             httpOnly: true

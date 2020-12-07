@@ -1,6 +1,4 @@
 <app-header></app-header>
-
-
 <div class="container">
     <div class="row col-12 ">
         <div class="card-wrapper col-10 mx-auto py-5">
@@ -18,11 +16,13 @@
                         <!-- <label for="name" class="text-size ml-5 mt-3">Name</label>
                         <input type="text" id="name" class="input" placeholder="Name"> -->
                         <label for="email" class="text-size ml-5 mt-3">Email</label>
-                        <input type="email" id="email" class="input" placeholder="Email" [(ngModel)]="store_owner.email" name="email" >
+                        <input type="email" id="email" class="input" [ngClass]="invalidForm? 'red-border': ''" placeholder="Email" [(ngModel)]="storeOwner.email" name="email" (focus)="onInputFocus()">
+                        <p class="text-size mt-2 red-color" *ngIf="invalidForm">* Email Unregistered</p>
                         <label for="password" class="text-size ml-5 mt-3">Password</label>
-                        <input type="password" id="password" class="input" placeholder="Password"  [(ngModel)]="store_owner.password" name="password">
+                        <input type="password" id="password" class="input" placeholder="Password" [ngClass]="invalidForm? 'red-border': ''" [(ngModel)]="storeOwner.password" name="password" (focus)="onInputFocus()">
+                        <p class="text-size mt-2 red-color" *ngIf="invalidForm">* Wrong Password</p>
                         <div class="text-center mt-3">
-                            <button (click)='signIn()' class="button-generic button-blue small-titles " type='submit'>Navigate to your store</button>
+                            <button (click)='signIn()' class="button-generic button-blue small-titles" type='submit'>Navigate to your store</button>
                         </div>
                     </form>
                     <div class="row text-center text-size d-flex justify-content-center">
