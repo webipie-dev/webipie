@@ -7,19 +7,13 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./client-detail.component.css']
 })
 export class ClientDetailComponent implements OnInit {
-  elements;
-  // it contains row elements
-  @Input() value;
-  public rowData: any;
-  editMode = false;
-  displayMode = !this.editMode;
+  @Input() value; // value passed by valuePrepareFunction in settings of ng2 smart table
+  public rowData: any; // data of the particular row
   windowWidth = window.screen.width;
   newVal = {
     _id: ''
   };
   closeResult;
-
-
   constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -41,10 +35,5 @@ export class ClientDetailComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
-  }
-
-  onSwitch() {
-    this.editMode = !this.editMode;
-    this.displayMode = !this.editMode;
   }
 }

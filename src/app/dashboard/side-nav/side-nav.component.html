@@ -26,16 +26,16 @@
       </a>
       <ul class="collapse list-unstyled" id="pageSubmenu">
         <li>
-          <a routerLink='/dashboard/sales/orders' class="nav-link-sidebar child-elem"><i class="fa fa-list-alt"></i> Orders</a>
+          <a routerLink='sales/orders' class="nav-link-sidebar child-elem"><i class="fa fa-list-alt"></i> Orders</a>
         </li>
         <li>
-          <a routerLink='/dashboard/sales/clients' class="nav-link-sidebar child-elem"><i class="fa fa-users"></i> Clients</a>
+          <a routerLink='sales/clients' class="nav-link-sidebar child-elem"><i class="fa fa-users"></i> Clients</a>
         </li>
       </ul>
-      <a routerLink='/dashboard/products' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a routerLink='products' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
         <i class="fa fa-warehouse"></i> Products
       </a>
-      <a routerLink='/dashboard/mobile-app' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a routerLink='mobile-app' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
         <i class="fa fa-mobile-alt"></i> Mobile Application
       </a>
       <a href="" data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar" disabled="'true'">
@@ -47,7 +47,7 @@
     </li>
     <li class="sidenav-elem ">
       <p class="text-size">Account Management</p>
-      <a routerLink='/dashboard/profile' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a routerLink='profile' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
         <i class="fa fa-id-card"></i> Profile
       </a>
       <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
@@ -59,52 +59,47 @@
     <div class="row">
       <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
       <span (click)="toggleS()" class="col-4">
-                                <i class="fa fa-toggle-on fa-3x  " aria-hidden="true"></i>
-
-              </span>
+        <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
+      </span>
     </div>
   </div>
 
 </nav>
 <div class="only-tablet">
-
-<nav id="sidebar-non-active" class="active">
+  <nav id="sidebar-non-active" class="active">
   <ul class="list-unstyled text-size text-center">
     <li class=" mb-3">
-      <a class="nav-link-sidebar">
+      <a (click)="switchAndToggleS('/store')" class="nav-link-sidebar cursor-pointer">
         <i class="fa fa-edit"></i>
       </a>
     </li>
     <li class="sidenav-elem mb-3">
-      <a class="nav-link-sidebar mt-1">
+      <a (click)="switchAndToggleS('dashboard/social-media')" class="nav-link-sidebar mt-1 cursor-pointer">
         <i class="fa fa-share-alt "></i>
       </a>
     </li>
     <li class="sidenav-elem mb-3">
-      <a data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1">
-        <i class="fa fa-cart-arrow-down"></i>
-      </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a (click)="switchAndToggleS('/dashboard/sales/orders')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
         <i class="fa fa-list-alt"></i>
       </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a (click)="switchAndToggleS('/dashboard/sales/clients')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
         <i class="fa fa-users"></i>
       </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a (click)="switchAndToggleS('/dashboard/products')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
         <i class="fa fa-warehouse"></i>
       </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a (click)="switchAndToggleS('/dashboard/mobile-app')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
         <i class="fa fa-mobile-alt"></i>
       </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar">
         <i class="fa fa-money-check-alt"></i>
       </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar">
         <i class="fa fa-chart-bar"></i>
       </a>
     </li>
     <li class="sidenav-elem ">
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1">
+      <a (click)="switchAndToggleS('/dashboard/profile')" data-toggle="collapse" aria-expanded="false" class="cursor-pointer nav-link-sidebar mt-1">
         <i class="fa fa-id-card"></i>
       </a>
       <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
@@ -120,7 +115,6 @@
     </div>
   </div>
 </nav>
-
 </div>
 <nav>
   <div id="sidebar-non-active2" class="container only-mobile active toggle-sidenav-2 hidden-sidenav">

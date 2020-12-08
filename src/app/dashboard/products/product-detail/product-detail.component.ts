@@ -9,13 +9,9 @@ import {ProductService} from '../../../_shared/services/product.service';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  // public value;
-  @Input() value: any;
   elements;
   // it contains row elements
   public rowData: any;
-  editMode = false;
-  displayMode = !this.editMode;
   windowWidth = window.screen.width;
   newVal = {
     _id: ''
@@ -29,21 +25,14 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  clicked() {
-    console.log('heeeyyy');
-    console.log(this.value);
-  }
-
   onEditSelect() {
     document.getElementById('close-modal').click();
     this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: this.rowData._id} });
   }
 
   onDelete(){
-    console.log(this.rowData);
     document.getElementById('close-modal').click();
     this.productService.deleteMany([this.rowData._id]).subscribe(data => {
-      console.log(data);
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['dashboard/products']);
       });
@@ -51,7 +40,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   open(content) {
-    console.log(this.rowData);
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -68,5 +56,4 @@ export class ProductDetailComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-
 }

@@ -14,16 +14,15 @@
                        (custom)="onDetailSelect($event)"
                        (userRowSelect)="onRowSelect($event)"
       ></ng2-smart-table>
-
     </div>
-  </div>
-  <div *ngIf="windowWidth < 1024">
-    <div class="my-5 px-2 py-3 shadow" >
-      <ng2-smart-table class="text-size text-center"
-                       *ngIf="orders.length > 0"
-                       [settings]="settingsMobile"
-                       [source]="orders">
-      </ng2-smart-table>
+    <div *ngIf="windowWidth < 1024">
+      <div class="my-5 px-2 py-3 shadow" >
+        <ng2-smart-table class="text-size text-center"
+                         *ngIf="orders.length > 0"
+                         [settings]="settingsMobile"
+                         [source]="orders">
+        </ng2-smart-table>
+      </div>
     </div>
   </div>
 </div>
