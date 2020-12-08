@@ -5,7 +5,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../_shared/services/auth.service';
 import {StoreOwner} from '../../_shared/models/store_owner.model';
 
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -29,15 +28,13 @@ export class SignInComponent implements OnInit {
   signIn(): void {
     this.auth.signIn(this.storeOwner)
       .subscribe(result => {
-        if (result) {
           console.log(result['status']);
           localStorage.setItem('token', result['token']);
           // let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate(['/after-signin']);
-        } else {
-          this.invalidForm = true;
-          console.log('error here');
-        }
+      }, error =>{
+        console.log(error);
+        this.invalidForm = true;
       });
   }
 
