@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {Ng2SmartTableModule} from "ng2-smart-table";
-import {ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {StoreEditRoutingModule} from "./store-edit-routing.module";
 import {StoreEditComponent} from "./store-edit.component";
@@ -22,7 +22,8 @@ import {TemplateModule} from '../template/template.module';
         Ng2SmartTableModule,
         ReactiveFormsModule,
         CommonModule,
-        TemplateModule
+        TemplateModule,
+        FormsModule
     ],
     declarations: [
       StoreEditComponent,
