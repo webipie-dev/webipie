@@ -14,6 +14,8 @@
         [style.font-family]='fontType'
         [style.font-weight]='fontWeight'
         [style.text-shadow]= 'textShadow ?"1px 1px "+textShadowColor : ""'
+        [style.text-align]= 'textAlign'
+        [style.font-style]= 'textItalic ? "italic" : ""'
         >
         Lorem ipsum dolor sit amet!
       </p>
@@ -38,7 +40,7 @@
           placeholder="{{fontSize}}"
           min="{{fontSizeMin}}"
           max="{{fontSizeMax}}"
-          (keyup.enter)="sizeChange(size.value)">
+          (change)="sizeChange(size.value)">
       </div>
 
       <div class="row mt-4">
@@ -68,16 +70,29 @@
       <div class="row mt-4">
         <div class="col-6">
           <div class="text-center py-2 px-1 sidenav-input-item">
-            <i class="fa fa-align-center mx-2 fa-2x cursor-pointer"></i>
-            <i class="fa fa-align-left mx-2 fa-2x cursor-pointer"></i>
-            <i class="fa fa-align-right mx-2 fa-2x cursor-pointer"></i>
+            <span (click)="alignChange($event,'center')">
+              <i #center class="fa fa-align-center mx-2 fa-2x cursor-pointer"></i>
+            </span>
+            <span (click)="alignChange($event,'left')">
+              <i #left class="fa fa-align-left mx-2 fa-2x cursor-pointer"></i>
+            </span>
+            <span (click)="alignChange($event,'right')">
+              <i #right class="fa fa-align-right mx-2 fa-2x cursor-pointer"></i>
+            </span>
           </div>
         </div>
+
         <div class="col-6 mt-1">
           <div class="py-2">
-            <span (click)="onSelect()"><i class="fa fa-bold mr-3 fa-2x cursor-pointer" [ngClass] = "{'font-item-selected': selectItem}"></i></span>
-            <i class="fa fa-italic mx-3 fa-2x cursor-pointer"></i>
-            <i class="fa fa-font mx-3 fa-2x cursor-pointer"></i>
+            <span (click)="onSelect($event)">
+              <i class="fa fa-bold mr-3 fa-2x cursor-pointer" [ngClass]="{'font-item-selected': textBold }"></i>
+            </span>
+            <span (click)="onSelect($event,'italic')">
+              <i class="fa fa-italic mx-3 fa-2x cursor-pointer" [ngClass]="{'font-item-selected': textItalic}"></i>
+            </span>
+            <span (click)="onSelect($event)">
+              <i class="fa fa-font mx-3 fa-2x cursor-pointer"></i>
+            </span>
           </div>
         </div>
       </div>
