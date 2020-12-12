@@ -7,15 +7,14 @@ const ExSchema = new Schema({
   name: {type: String, default: ''},
   colorChart: {type: [String], default: []},
   font: {
-    name: String,
-    size: Number,
-    weight: String,
-    alignment: String,
-    bold: Boolean,
-    italic: Boolean,
-    uppercase: Boolean,
-  },
-  store: {type: Schema.Types.ObjectID, ref: "Store", default: '' }
+    name: { type: String, default: '' },
+    size: { type: Number, default: 0 },
+    weight: { type: String, default: '' },
+    alignment: { type: String, default: '' },
+    bold: { type: Boolean, default: false },
+    italic: { type: Boolean, default: false },
+    uppercase: { type: Boolean, default: false },
+  }
 });
 
 module.exports = mongoose.model('Template', ExSchema);

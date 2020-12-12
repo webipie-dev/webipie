@@ -17,9 +17,9 @@ export class TemplatesPageComponent implements OnInit {
 
   onTemplatePick(templateId) {
     if (this.isConnected) {
-      this.router.navigate(['dashboard'], { queryParams: { templateId: 'templateId', storeOwner: this.storeOwnerId }});
+      this.router.navigate(['dashboard'], { queryParams: { templateId, storeOwner: this.storeOwnerId }});
     } else {
-      this.router.navigate(['signup'], { queryParams: {templateId: 'templateId'}});
+      this.router.navigate(['signup'], { queryParams: templateId});
     }
   }
 }
