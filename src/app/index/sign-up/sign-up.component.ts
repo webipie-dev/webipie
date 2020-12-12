@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import {AuthService} from '../../_shared/services/auth.service';
 import {StoreOwner} from '../../_shared/models/store_owner.model';
 
@@ -14,7 +14,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
 
-  invalidForm = false;
+  invalidEmail = false;
+  invalidPassword = false;
+
   constructor(private auth: AuthService,
               private authService: SocialAuthService,
               private router: Router,
@@ -32,20 +34,34 @@ export class SignUpComponent implements OnInit {
     // console.log(JSON.stringify(this.storeOwner));
     this.auth.login(this.storeOwner)
       .subscribe(result => {
-        if (result) {
           console.log(result);
           localStorage.setItem('token', result['token']);
           const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate([returnUrl || '/after-signin']);
-        } else {
-          console.log('error here');
-          this.invalidForm = true;
+      }, error =>{
+        console.log(error);
+        console.log(error['status']);
+        console.log(error['error']);
+        console.log(error['error'].indexOf('email'));
+        if (error['status'] === 400) {
+          if (error['error'].indexOf('email') > -1) { this.invalidEmail =  true; }
+          if (error['error'].indexOf('password') > -1) { this.invalidPassword =  true; }
         }
+
+        console.log(this.invalidEmail);
       });
   }
 
-  onInputFocus() {
-    this.invalidForm = false;
+  onInputFocus(event) {
+    console.log(event.target.id);
+    if(event.target.id === 'email'){
+      this.invalidEmail = false;
+    }
+
+    if(event.target.id === 'password'){
+      this.invalidPassword = false;
+    }
+   
   }
 
   signInWithFB(): void {
