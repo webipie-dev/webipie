@@ -12,7 +12,7 @@ export class ChangeFontComponent implements OnInit {
 
   /*
     general settings to any template
-  */ 
+  */
   fontTypes = [
     'Serif',
     'Sans-serif',
@@ -35,7 +35,7 @@ export class ChangeFontComponent implements OnInit {
   fontSize = 10 ;
   fontWeight = 'normal';
   textShadow = false;
-  textShadowColor = "blue";
+  textShadowColor = 'blue';
 
   constructor() { }
 
@@ -48,7 +48,7 @@ export class ChangeFontComponent implements OnInit {
   }
 
   shadowChange(value){
-    this.textShadow = (value=='1') ? true : false ; 
+    this.textShadow = (value === '1');
   }
 
   onSelect() {

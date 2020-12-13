@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
           localStorage.setItem('token', result['token']);
           // let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate(['/after-signin']);
-      }, error =>{
+      }, error => {
         console.log(error);
         this.invalidForm = true;
       });

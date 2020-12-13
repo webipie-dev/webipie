@@ -22,7 +22,6 @@ mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTte
     console.log('connection failed');
   });
 
-
 app
   .use('/backend/images',express.static('backend/images'))
   .use(bodyParser.urlencoded({extended: true}))
@@ -33,7 +32,7 @@ app
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET, OPTIONS');
     next();
   })
-  .use("/storeOwner", storeOwnerRoutes)
+  .use('/storeOwner', storeOwnerRoutes)
   .use('/product', productsRoutes)
   .use('/client', clientRoutes)
   .use('/order', orderRoutes)
@@ -41,10 +40,6 @@ app
   .use('/template',templateRoutes)
 
 
-// module.exports = app;
+module.exports = app;
 
-app.listen(3000);
-
-
-
-
+// app.listen(3000);
