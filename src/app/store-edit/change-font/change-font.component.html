@@ -84,17 +84,18 @@
 
         <div class="col-6 mt-1">
           <div class="py-2">
-            <span (click)="onSelect($event)">
+            <span (click)="onSelect($event,'bold')">
               <i class="fa fa-bold mr-3 fa-2x cursor-pointer" [ngClass]="{'font-item-selected': textBold }"></i>
             </span>
             <span (click)="onSelect($event,'italic')">
               <i class="fa fa-italic mx-3 fa-2x cursor-pointer" [ngClass]="{'font-item-selected': textItalic}"></i>
             </span>
-            <span (click)="onSelect($event)">
+            <span (click)="onSelect($event,'font-size')">
               <i class="fa fa-font mx-3 fa-2x cursor-pointer"></i>
             </span>
           </div>
         </div>
+
       </div>
     </li>
   </ul>
