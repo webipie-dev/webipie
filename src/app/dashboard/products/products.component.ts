@@ -142,6 +142,7 @@ export class ProductsComponent implements OnInit {
       this.productService.deleteMany([event.data._id]).subscribe((data) => {
       });
       event.confirm.resolve();
+      // delete the product from the displayed products
       const index = this.selectedRows.indexOf(event.data);
       if (index > -1) {
         this.selectedRows.splice(index, 1);
@@ -168,7 +169,6 @@ export class ProductsComponent implements OnInit {
       this.selectedRows = [];
       this.changeShowDeleteManyButton();
     });
-    // use the table selectedRows and take the ids from there
   }
 
   changeShowDeleteManyButton() {

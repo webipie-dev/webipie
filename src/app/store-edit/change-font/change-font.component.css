@@ -79,9 +79,19 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .font-item-selected {
-  color: var(--blue-color) !important;
+  background-color: #03A9F4;
+  border-radius: 2px;
+  border-style: solid;
+  border-width: thin;
 }
 
 .text-shadow{
   width: 20%;
+}
+
+.alignment{
+  background-color: #03A9F4;
+  border-radius: 2px;
+  border-style: solid;
+  border-width: thin;
 }

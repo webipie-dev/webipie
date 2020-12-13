@@ -70,12 +70,11 @@ export class OrderDetailComponent implements OnInit {
   onDeleteProduct(event, prod) {
     if (window.confirm('Are you sure you want to delete?')) {
       const index = this.orderProducts.indexOf(prod);
-      // const index2 = this.orderProductsIds.indexOf(prod._id);
       this.orderService.deleteProduct(event._id, prod._id).subscribe((data) => {
         if (index > -1) {
+          // delete the product from displayed products
           this.orderProducts.splice(index, 1);
-          // this.orderProductsIds.splice(index2, 1);
-
+          // refresh the row data orders
           this.orderService.getById(event._id).subscribe((datas) => {
             const date = datas.orderDate.split('T');
             let totalprice = 0;

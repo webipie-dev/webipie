@@ -18,3 +18,4 @@ export class BannerImageComponent implements OnInit {
   }
 
 }
+

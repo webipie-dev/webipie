@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientDetailComponent} from './client-detail/client-detail.component';
-import {Product} from '../../../_shared/models/product.model';
+import {Client} from '../../../_shared/models/client.model';
 import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../../_shared/services/edit-product.service';
 import {ClientService} from '../../../_shared/services/client.service';
@@ -51,7 +51,7 @@ export class ClientsComponent implements OnInit {
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
-  clients: Product[] = [];
+  clients: Client[] = [];
 
   constructor(private http: HttpClient,
               private clientService: ClientService) {
