@@ -15,7 +15,6 @@ import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/ta
 export class EditProductComponent implements OnInit {
   // array to store the images of the product
   imageObject: Array<object> = [];
-
   productForm: FormGroup;
   postData = new FormData();
   singleProduct: Product = new Product();
@@ -100,7 +99,6 @@ export class EditProductComponent implements OnInit {
     for (let i = 0; i < file.length; i++) {
       this.postData.append('imgs', file[i], file[i].name);
     }
-
   }
 
   addProduct(): void {
