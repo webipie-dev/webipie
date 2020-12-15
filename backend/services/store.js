@@ -107,7 +107,6 @@ exports.deleteAllStores = (req, res, next) => {
 exports.editStore = async (req, res, next) => {
   // separating the ids
   const ids = req.body.ids;
-  console.log(ids)
 
   const edits = {};
   let logo;
@@ -118,11 +117,12 @@ exports.editStore = async (req, res, next) => {
 
   // separating the updates
 
-  for (var key in req.body) {
+  for (const key in req.body) {
     if (key !== 'ids') {
       edits[key] = req.body[key];
 
     }
+
   }
 
   await Store.updateOne({_id: ids}, {$set: edits})
