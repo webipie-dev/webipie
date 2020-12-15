@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {StoreService} from '../../_shared/services/store.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-change-header',
@@ -8,13 +10,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class ChangeHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private storeService: StoreService,
+              private router: Router) { }
+  storeId = '5fd09d461bcaf731b40f95fb';
   headerForm: FormGroup;
   postData = new FormData();
-  title = 'A title here';
-  description = 'A description here';
-  mainButton = 'main button here';
-  imgSrc = '../../../assets/images/dress.jpg';
+  imgSrc = '../../../assets/images/fashion-WPWVGRY.jpg';
 
   ngOnInit(): void {
     this.headerForm = new FormGroup({
@@ -27,26 +28,30 @@ export class ChangeHeaderComponent implements OnInit {
 
   onFileChanged(event) {
     const file = event.target.files[0];
+    this.postData.append('headerImg', file, file.name);
     console.log(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (event) => {
       this.imgSrc = reader.result.toString();
     };
-    this.postData.append('img', file, file.name);
   }
 
   onSubmit() {
     for (const field in this.headerForm.controls) {
-      const control = this.headerForm.get(field);
-      if (control.value) {
-        this.postData.append(field, control.value);
-      } else {
-        if ((field !== 'img')) {
-          this.postData.append(field, '');
+      if (field !== 'img') {
+        const control = this.headerForm.get(field);
+        if (control.value) {
+          const head = 'template.header.' + field;
+          this.postData.append(head, control.value);
         }
       }
     }
-    console.log('heyyyy');
+    this.postData.append('ids', this.storeId);
+    this.storeService.edit(this.postData).subscribe(data => {
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['store/header']);
+      });
+    });
   }
 }

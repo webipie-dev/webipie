@@ -15,7 +15,6 @@ exports.getStores = (req, res) => {
   });
 }
 
-
 exports.getOneStore = (req, res) => {
   //get store id
   const id = req.params._id;
@@ -33,12 +32,12 @@ exports.addStore = async (req, res) => {
   //check if a logo is uploaded
   let logo;
   if (req.file) {
-    logo = req.protocol + "://" + req.get("host") + "/images/logos" + req.file.filename
+    logo = req.protocol + "://" + req.get("host") + "/images/logos/" + req.file.filename
   } else {
     logo = ''
   }
 
-  let getTemplate = await Template.findOne({_id: req.body.template})
+  let getTemplate = Template.findOne({_id: req.body.template})
 
   const store = new Store({
     name: req.body.name,
@@ -51,7 +50,7 @@ exports.addStore = async (req, res) => {
     template: getTemplate
 
   });
-  await store
+  store
     .save()
     .then(doc => {
       res.status(201).json({
@@ -95,7 +94,6 @@ exports.deleteAllStores = (req, res, next) => {
   Store.deleteMany({})
     .exec()
     .then(result => {
-
       res.status(200).json(result);
     })
     .catch(err => {
@@ -104,28 +102,32 @@ exports.deleteAllStores = (req, res, next) => {
     });
 };
 
-exports.editStore = async (req, res, next) => {
-  // separating the ids
+exports.editStore = (req, res, next) => {
+  // getting the id
   const ids = req.body.ids;
-
   const edits = {};
-  let logo;
-  if (req.file) {
-    logo = req.protocol + "://" + req.get("host") + "/images/logos" + req.file.filename
-    edits['logo'] = logo
-  }
-
-  // separating the updates
-
-  for (const key in req.body) {
-    if (key !== 'ids') {
-      edits[key] = req.body[key];
-
+  let logoPath;
+  let headerPath;
+  let file;
+  if (req.files.length !== 0) {
+    file = req.files[0];
+    if(file.fieldname === 'logoImg') {
+      logoPath = req.protocol + "://" + req.get("host") + "/backend/images/logoImgs/" + file.filename
+      edits['logo'] = logoPath
+    } else if(file.fieldname === 'headerImg') {
+      headerPath = req.protocol + "://" + req.get("host") + "/backend/images/headerImgs/" + file.filename
+      edits['template.header.img'] = headerPath
     }
 
   }
 
-  await Store.updateOne({_id: ids}, {$set: edits})
+  // separating the updates
+  for (const key in req.body) {
+    if (key !== 'ids') {
+      edits[key] = req.body[key];
+    }
+  }
+  Store.updateOne({_id: ids}, {$set: edits})
     .exec()
     .then(result => {
       res.status(200).json({
