@@ -11,6 +11,21 @@ const contact = new Schema({
 
 });
 
+const template = new Schema({
+  _id: {type: Schema.Types.ObjectID, ref: "Template"},
+  name: {type: String, default: ''},
+  colorChart: {type: [String], default: []},
+  font: {
+    name: String,
+      size: Number,
+      weight: String,
+      alignment: String,
+      bold: Boolean,
+      italic: Boolean,
+      uppercase: Boolean,
+  }
+});
+
 const ExSchema = new Schema({
   name: {type: String, default: ''},
   logo: {type: String, default: ''},
@@ -21,6 +36,8 @@ const ExSchema = new Schema({
   contact: contact,
   products: [{type: Schema.Types.ObjectID, ref: "Product", default: []}],
   clients: [{type: Schema.Types.ObjectID, ref: "Client", default: []}],
+  template: template
+
 });
 
 module.exports = mongoose.model('Store', ExSchema);

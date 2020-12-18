@@ -15,6 +15,8 @@ export class OrderService extends GenericService<any>{
   }
 
   public deleteProduct(ids: string, product: string) {
+    // ids of the orders
+    // product is the product id to be deleted
     const body = {
       ids,
       product

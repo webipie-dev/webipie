@@ -13,7 +13,7 @@ import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/ta
   styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-
+  // array to store the images of the product
   imageObject: Array<object> = [];
 
   productForm: FormGroup;
@@ -32,13 +32,14 @@ export class EditProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    // check if we're in the edit or add product page
     this.route.queryParams.subscribe(params => {
       if (params.id) {
         this.productId = params.id;
         this.edit = true;
       }
     });
+    // if we're in the edit page
     if (this.edit) {
       this.productForm = new FormGroup({
         ids: new FormControl('', Validators.required),
@@ -62,6 +63,7 @@ export class EditProductComponent implements OnInit {
     }
   }
 
+
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
       this.singleProduct = data.product;
@@ -74,14 +76,23 @@ export class EditProductComponent implements OnInit {
     });
   }
 
+  getAllProducts(): void {
+    this.editProductService.getAll().subscribe(data => {
+      this.allProducts = data.products;
+    });
+  }
+
+  // adding images to the postForm and displaying them
   onImagePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files;
     Object.keys(file).forEach((item) => {
       const reader = new FileReader();
       reader.readAsDataURL(file[item]);
+
       reader.onload = (_event) => {
         this.msg = '';
         this.url = reader.result;
+
         this.imageObject.push({image: this.url, thumbImage: this.url});
       };
     });
@@ -93,6 +104,7 @@ export class EditProductComponent implements OnInit {
   }
 
   addProduct(): void {
+
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
@@ -107,7 +119,6 @@ export class EditProductComponent implements OnInit {
     this.editProductService.addOne(this.postData).subscribe((data) => {
       this.router.navigate(['dashboard/products']);
     });
-
   }
 
   editProduct(id): void {
@@ -121,7 +132,6 @@ export class EditProductComponent implements OnInit {
         } else if (field !== 'imgs') {
           this.postData.append(field, '');
         }
-
       }
     }
     this.editProductService.edit(this.postData).subscribe((data) => {

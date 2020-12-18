@@ -12,7 +12,7 @@
       <!-- here the colors -->
       <div class="mt-3">
         <div class="small-titles my-2">Recommendations</div>
-        <div class="mt-3" *ngFor="let color of defaultColors">
+        <div class="mt-3" *ngFor="let color of defaultColors" (click)="colorChange(color)">
           <div class="ml-3 text-size"> {{color.name}} </div>
           <button class="py-2 row my-2 mx-auto button-generic button-white-color">
             <div *ngFor="let paint of color.colors" [ngStyle]="{'background': paint}"

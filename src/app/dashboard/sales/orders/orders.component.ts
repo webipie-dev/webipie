@@ -146,6 +146,7 @@ export class OrdersComponent implements OnInit {
       this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
       });
       event.confirm.resolve();
+      // delete the order from orders displayed
       const index = this.selectedRows.indexOf(event.data);
       if (index > -1) {
         this.selectedRows.splice(index, 1);
