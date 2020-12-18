@@ -24,6 +24,8 @@ mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTte
 
 app
   .use('/backend/images',express.static('backend/images'))
+  .use('/backend/images/logoImgs',express.static('backend/images/logoImgs'))
+  .use('/backend/images/headerImgs',express.static('backend/images/headerImgs'))
   .use(bodyParser.urlencoded({extended: true}))
   .use(bodyParser.json())
   .use((req, res, next) => {
