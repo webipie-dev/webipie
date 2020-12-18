@@ -22,9 +22,10 @@ mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTte
     console.log('connection failed');
   });
 
-
 app
   .use('/backend/images',express.static('backend/images'))
+  .use('/backend/images/logoImgs',express.static('backend/images/logoImgs'))
+  .use('/backend/images/headerImgs',express.static('backend/images/headerImgs'))
   .use(bodyParser.urlencoded({extended: true}))
   .use(bodyParser.json())
   .use((req, res, next) => {
@@ -33,7 +34,7 @@ app
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET, OPTIONS');
     next();
   })
-  .use("/storeOwner", storeOwnerRoutes)
+  .use('/storeOwner', storeOwnerRoutes)
   .use('/product', productsRoutes)
   .use('/client', clientRoutes)
   .use('/order', orderRoutes)
@@ -42,9 +43,5 @@ app
 
 
 module.exports = app;
-
 // app.listen(3000);
-
-
-
 

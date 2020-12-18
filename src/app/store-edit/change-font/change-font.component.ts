@@ -18,10 +18,10 @@ export class ChangeFontComponent implements OnInit {
   fontSizeMax: number;
   fontWeights: Array<string>;
   // const alignments = ["center", "right", "left"];
-
   /*
     specific settings to user's template
   */
+
   fontType: string;
   fontSize: number;
   fontWeight: string;
@@ -66,7 +66,7 @@ export class ChangeFontComponent implements OnInit {
   }
 
   shadowChange(value){
-    this.textShadow = (value == '1') ? true : false ;
+    this.textShadow = (value === '1');
   }
 
   alignChange(event, value){
@@ -97,7 +97,7 @@ export class ChangeFontComponent implements OnInit {
 
   onSelect(event, value) {
     let target = event.target;
-    if (event.target.tagName == 'path') {
+    if (event.target.tagName === 'path') {
       target = event.target.parentNode;
     }
 

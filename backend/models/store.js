@@ -15,14 +15,20 @@ const template = new Schema({
   _id: {type: Schema.Types.ObjectID, ref: "Template"},
   name: {type: String, default: ''},
   colorChart: {type: [String], default: []},
+  header: {
+    img: { type: String, default: '' },
+    title: { type: String, default: '' },
+    description: { type: String, default: '' },
+    mainButton: { type: String, default: '' }
+  },
   font: {
-    name: String,
-      size: Number,
-      weight: String,
-      alignment: String,
-      bold: Boolean,
-      italic: Boolean,
-      uppercase: Boolean,
+    name: { type: String, default: '' },
+    size: { type: Number, default: 0 },
+    weight: { type: String, default: '' },
+    alignment: { type: String, default: '' },
+    bold: { type: Boolean, default: false },
+    italic: { type: Boolean, default: false },
+    uppercase: { type: Boolean, default: false },
   }
 });
 

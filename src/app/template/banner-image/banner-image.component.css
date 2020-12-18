@@ -23,14 +23,12 @@
 }
 
 .banner-image {
-  background: url('../../../assets/images/fashion-WPWVGRY.jpg') no-repeat;
-  position: absolute;
+  position: relative;
   width:100%;
   top: 0;
   right:0;
   z-index: 5;
   height: 400px;
-  background-size: cover;
 }
 
 #intro{
