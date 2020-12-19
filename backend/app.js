@@ -17,7 +17,7 @@ const storeOwnerRoutes = require('./routes/storeOwner');
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
   swaggerDefinition: {
-    openapi: '3.0.1',
+    openapi: '3.0.3',
     components: {},
     info: {
       version: "1.0.0",
