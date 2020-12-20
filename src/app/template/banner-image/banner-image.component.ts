@@ -17,7 +17,6 @@ export class BannerImageComponent implements OnInit {
   mainButton = 'Visitez';
   ngOnInit(): void {
     this.storeService.getById('5fd09d461bcaf731b40f95fb').subscribe(store => {
-      console.log(store);
       this.title = store.template.header.title;
       this.description = store.template.header.description;
       this.mainButton = store.template.header.mainButton;

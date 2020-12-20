@@ -101,6 +101,11 @@ export class ChangeFontComponent implements OnInit {
       target = event.target.parentNode;
     }
 
+    if(value=='font-size'){
+      this.fontSize += 2;
+      return;
+    }
+
     target.classList.toggle('font-item-selected');
 
     if (value === 'italic'){ this.textItalic = !this.textItalic; }

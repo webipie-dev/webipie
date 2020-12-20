@@ -25,14 +25,120 @@ const storage = multer.diskStorage({
   }
 });
 
-router
-  .get('/', productService.getProducts)
-  .get('/many', productService.getManyProductById)
-  .get('/:id', productService.getOneProduct)
-  .post('/', multer({storage: storage}).any("productImgs", 5), productService.addProduct)
-  .patch('/update', multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
-  .delete('/', productService.deleteManyProducts)
-  .delete('/delete', productService.deleteAllProducts);
+//get all products
+/**
+ * @swagger
+ * /product:
+ *  get:
+ *    description: Use to request all products
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/ArrayOfProduct'    # Reference to object definition
+ * components:
+ *  schemas:
+ *      Product:      # Object definition
+ *          type: object
+ *          properties:
+ *              name:
+ *                  type: string
+ *              description:
+ *                  type: string
+ *              imgs: 
+ *                  type: array
+ *              price:
+ *                  type: number
+ *              store:
+ *                  type: string
+ *                  format: uuid
+ * 
+ *      ArrayOfProducts:
+ *          type: array
+ *          items:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  type: string
+ *                description:
+ *                  type: string
+ *                imgs: 
+ *                  type: array
+ *                price:
+ *                  type: number
+ *                store:
+ *                  type: string
+ *                  format: uuid
+ *     
+ */
+router.get('/', productService.getProducts)
+
+router.get('/many', productService.getManyProductById)
+  
+router.get('/:id', productService.getOneProduct)
+
+// addProduct
+/**
+ * @swagger
+ * /product:
+ *  post:
+ *    description: Use to add one product
+ *    requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/Product'    # Reference to object definition
+ */
+router.post('/', multer({storage: storage}).any("productImgs", 5), productService.addProduct)
+  
+router.patch('/update', multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
+
+// deleteManyProducts
+/**
+ * @swagger
+ * /product:
+ *  delete:
+ *    description: Use to delete one product or many
+ *    requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             ids:
+ *                  type: array
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *              schema:
+ *                oneOf: 
+ *                  - $ref: '#/components/schemas/Product' 
+ *                  - $ref: '#/components/schemas/ArrayOfProducts' 
+ */
+router.delete('/', productService.deleteManyProducts)
+
+//deleteAllProducts
+/**
+ * @swagger
+ * /product/delete:
+ *  delete:
+ *    description: Use to delete all products
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
+ */
+router.delete('/delete', productService.deleteAllProducts);
 
 module.exports = router;
 

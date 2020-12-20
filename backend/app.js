@@ -2,6 +2,9 @@ const express = require('express');
 var cors = require('cors')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
 const productsRoutes = require('./routes/product');
 const clientRoutes = require('./routes/client');
 const orderRoutes = require('./routes/order');
@@ -10,8 +13,28 @@ const templateRoutes = require('./routes/template')
 const app = express();
 const storeOwnerRoutes = require('./routes/storeOwner');
 
+
+// Extended: https://swagger.io/specification/#infoObject
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.3',
+    components: {},
+    info: {
+      version: "1.0.0",
+      title: "Webipie API",
+      description: "Webipie API Information",
+      servers: ["http://localhost:3000"]
+    }
+  },
+  apis: ["app.js","routes/*.js"]
+};
+
 //enable cors
 app.use(cors());
+
+//swagger documentation
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // change the db
 mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTteam?retryWrites=true&w=majority')

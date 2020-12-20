@@ -109,17 +109,19 @@ exports.editStore = (req, res, next) => {
   let logoPath;
   let headerPath;
   let file;
-  if (req.files.length !== 0) {
-    file = req.files[0];
-    if(file.fieldname === 'logoImg') {
-      logoPath = req.protocol + "://" + req.get("host") + "/backend/images/logoImgs/" + file.filename
-      edits['logo'] = logoPath
-    } else if(file.fieldname === 'headerImg') {
-      headerPath = req.protocol + "://" + req.get("host") + "/backend/images/headerImgs/" + file.filename
-      edits['template.header.img'] = headerPath
+  if( req.files ){
+    if (req.files.length !== 0) {
+      file = req.files[0];
+      if(file.fieldname === 'logoImg') {
+        logoPath = req.protocol + "://" + req.get("host") + "/backend/images/logoImgs/" + file.filename
+        edits['logo'] = logoPath
+      } else if(file.fieldname === 'headerImg') {
+        headerPath = req.protocol + "://" + req.get("host") + "/backend/images/headerImgs/" + file.filename
+        edits['template.header.img'] = headerPath
+      }
     }
-
   }
+
 
   // separating the updates
   for (const key in req.body) {
