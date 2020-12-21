@@ -41,8 +41,11 @@ const routes: Routes = [
   },
   {
     path: 'template',
-    loadChildren: () => import('./template/template.module')
-      .then(m => m.TemplateModule),
+    loadChildren: () => { 
+      const templateId = localStorage.getItem('templateId');
+      return import('./template/template.module')
+      .then(m => m.TemplateModule)
+    },
   },
   {
     path: '**',
