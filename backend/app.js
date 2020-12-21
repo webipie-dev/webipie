@@ -26,7 +26,7 @@ const swaggerOptions = {
       servers: ["http://localhost:3000"]
     }
   },
-  apis: ["app.js","routes/*.js"]
+  apis: ["app.js","./routes/*.js"]
 };
 
 //enable cors
@@ -65,6 +65,6 @@ app
   .use('/template',templateRoutes)
 
 
-module.exports = app;
-// app.listen(3000);
+// module.exports = app;
+app.listen(3000);
 
