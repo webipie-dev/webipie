@@ -12,26 +12,26 @@
       <div>
         <div class="row mt-4">
           <i class="far fa-envelope fa-lg circle py-3 px-3 mx-4"></i>
-          <input class='sidenav-input-item text-size px-3 ' placeholder="email here" type="text">
+          <input class='sidenav-input-item text-size px-3 ' placeholder="email here" type="text" [(ngModel)]="defaultEmail">
         </div>
       </div>
       <div>
         <div class="row mt-4">
           <i class="fas fa-phone-alt fa-lg circle py-3 px-3 mx-4"></i>
-          <input class='sidenav-input-item text-size px-3 ' placeholder="+216 99 999 999" type="text">
+          <input class='sidenav-input-item text-size px-3 ' placeholder="+216 99 999 999" type="text" [(ngModel)]="defaultNumber">
         </div>
       </div>
 
       <div>
         <div class="row mt-4">
           <i class="fas fa-map-marker-alt fa-lg circle py-3 px-3 mx-4"></i>
-          <input class='sidenav-input-item text-size px-3' placeholder="location ....." type="text">
+          <input class='sidenav-input-item text-size px-3' placeholder="location ....." type="text" [(ngModel)]="defaultLocation">
         </div>
       </div>
     </li>
   </ul>
   <div class="text-center my-5">
-    <a class="button-generic button-black text-size mr-2">Save</a>
+    <a class="button-generic button-black text-size mr-2" (click)="submit()">Save</a>
     <a class="button-generic button-black text-size">Reset</a>
   </div>
 </div>

@@ -103,6 +103,7 @@ exports.deleteAllStores = (req, res, next) => {
 };
 
 exports.editStore = (req, res, next) => {
+  console.log(req.body)
   // getting the id
   const ids = req.body.ids;
   const edits = {};

@@ -101,7 +101,7 @@ export class ChangeFontComponent implements OnInit {
       target = event.target.parentNode;
     }
 
-    if(value=='font-size'){
+    if (value === 'font-size'){
       this.fontSize += 2;
       return;
     }
