@@ -65,6 +65,6 @@ app
   .use('/template',templateRoutes)
 
 
-// module.exports = app;
+module.exports = app;
 app.listen(3000);
 

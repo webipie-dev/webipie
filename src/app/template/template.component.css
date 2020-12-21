@@ -46,3 +46,19 @@
 :host /deep/ .text-size-template {
   font-size: var(--text-desktop) !important;
 }
+
+
+.button-generic {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 15px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.button-generic:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
