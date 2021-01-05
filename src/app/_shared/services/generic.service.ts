@@ -11,35 +11,40 @@ export class GenericService<T extends GenericModel> {
 
   protected suffix = '';
 
-  protected getUrl() {
+  protected getUrl(): string {
     return Utils.url;
   }
 
-  public getById(id: string) {
+  public getById(id: string): Observable<T> {
     return this.http.get(this.getUrl() + this.suffix + '/' + id) as Observable<T>;
   }
 
-  public getAll() {
-    return this.http.get(this.getUrl() + this.suffix) as Observable<T>;
-  }
-
-  public getMany(orderProducts: string[]) {
+  public getAll(query): Observable<T> {
+    // query is an object of elements you want to filter the documents with
     const httpOptions = {
       headers: { 'Content-Type': 'application/json' },
-      params: { ids: orderProducts}
+      params: query
     };
-    return this.http.get(this.getUrl() + this.suffix + '/many', httpOptions) as Observable<T>;
+    return this.http.get(this.getUrl() + this.suffix, httpOptions) as Observable<T>;
   }
 
-  public addOne(body: T) {
+  public getMany(arrayIds: string[]): Observable<T> {
+    const httpOptions = {
+      headers: { 'Content-Type': 'application/json' },
+      query: { ids: arrayIds}
+    };
+    return this.http.get(this.getUrl() + this.suffix , httpOptions) as Observable<T>;
+  }
+
+  public addOne(body: T): Observable<T> {
     return this.http.post(this.getUrl() + this.suffix, body) as Observable<T>;
   }
 
-  public edit(body: T) {
-    return this.http.patch(this.getUrl() + this.suffix + '/update', body) as Observable<T>;
+  public edit(id: string, body: T): Observable<T> {
+    return this.http.patch(this.getUrl() + this.suffix + '/' + id, body) as Observable<T>;
   }
 
-  public deleteMany(body: T) {
+  public deleteMany(body: {ids: string[]}): Observable<T> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -49,8 +54,8 @@ export class GenericService<T extends GenericModel> {
     return this.http.delete(this.getUrl() + this.suffix, options) as Observable<T>;
   }
 
-  public deleteAll() {
-    return this.http.delete(this.getUrl() + this.suffix) as Observable<T>;
+  public deleteAll(): Observable<T> {
+    return this.http.delete(this.getUrl() + this.suffix + '/delete') as Observable<T>;
   }
 
 }

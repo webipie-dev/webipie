@@ -23,11 +23,10 @@ export class SocialMediaComponent implements OnInit {
 
   submit(): void {
     const postData = {
-      ids: this.storeId,
       'contact.facebookPage': this.defaultFacebook,
       'contact.instagramPage': this.defaultInstagram
     };
-    this.storeService.edit(postData).subscribe(data => {
+    this.storeService.edit(this.storeId, postData).subscribe(data => {
       console.log(data);
     });
   }

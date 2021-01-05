@@ -10,19 +10,25 @@
     <div class="row">
       <div class="col-12">
         <p class="small-titles">Name: </p>
-        <p class="text-size">Shadi Hammami</p>
+        <p class="text-size">{{ rowData.firstname }} {{ rowData.lastname}}</p>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
         <p class="small-titles">Phone Number: </p>
-        <p class="text-size">24681998</p>
+        <p class="text-size">{{ rowData.phoneNumber }}</p>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
         <p class="small-titles">Email: </p>
-        <p class="text-size">Shipped</p>
+        <p class="text-size">{{ rowData.email}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="small-titles">Address: </p>
+        <p class="text-size">{{ fullAddress }}</p>
       </div>
     </div>
 

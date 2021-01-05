@@ -1,135 +1,161 @@
-const Client = require('../models/client')
 
-// getAndFilter
-exports.getClients = (req, res) => {
-  Client.find(req.query)
-    .then((documents) => {
-      res.status(200).json({
-        message: 'clients sent successfully',
-        clients: documents
-      })
-    }).catch(err => {
-    res.status(500).json({error: err})
-  });
+const Client = require('../models/client')
+const Store = require('../models/store')
+const Order = require('../models/order')
+
+// FilterClients
+exports.getClients = async (req, res) => {
+
+  // I THINK CLIENTS NEED TO BE INDEXED BY STORE ID
+  // We need to check if the store id connected is the same store is provided in the requireAuth
+
+  const clients = await Client.find(req.query)
+    .catch((err) => {
+      res.status(400).json({error: err.message});
+    });
+
+  res.status(200).send(clients);
+
 }
 
 //getManyClients
-exports.getManyClientById = (req, res) =>{
-  //get clients ids
-  const clientId = req.query.ids;
-  Client
-    .find({_id: {$in: clientId}})
-    .exec()
-    .then(client => {
-      if(client) {
-        res.status(200).json({
-          message: 'clients fetched successfully',
-          count: client.length,
-          client: client
-        });
-      } else {
-        res.status(404).json({error: 'not found'});
-      }
-    })
-    .catch(err => {
-      res.status(500).json({error: err});
-    });
-}
+// exports.getManyClientById = (req, res) =>{
+//   //get clients ids
+//   const clientId = req.query.ids;
+//   Client
+//     .find({_id: {$in: clientId}})
+//     .exec()
+//     .then(client => {
+//       if(client) {
+//         res.status(200).json({
+//           message: 'clients fetched successfully',
+//           count: client.length,
+//           client: client
+//         });
+//       } else {
+//         res.status(404).json({error: 'not found'});
+//       }
+//     })
+//     .catch(err => {
+//       res.status(500).json({error: err});
+//     });
+// }
 
 //getOneClient
-exports.getOneClient = (req, res) => {
+exports.getOneClient = async (req, res) => {
+
+  // We need to check if the store id connected is the same store is provided in the params
+
   //get client id
-  const id = req.params._id;
-  Client.findById(id)
-    .exec()
-    .then(doc => {
-      res.status(200).json(doc);
-    })
-    .catch(err => {
-      res.status(500).json({error: err})
+  const { id } = req.params;
+
+  const client = await Client.findById(id).populate('order')
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  res.status(200).send(client);
+
 }
 
 //addOneClient
-exports.addClient = (req, res) => {
+exports.addClient = async (req, res) => {
+  const { firstname, lastname, phoneNumber, email, gender, fullAddress, storeId} = req.body
+
+  const store = await Store.findById(storeId)
+
+  if (!store) {
+    throw new Error('Store Not Found')
+  }
+
+
   const client = new Client({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    phoneNumber: req.body.phoneNumber,
-    email: req.body.email,
-    gender: req.body.gender,
-    fullAddress: req.body.fullAddress
+    firstname,
+    lastname,
+    phoneNumber,
+    email,
+    gender,
+    fullAddress,
+    store: storeId
   });
-  client
-    .save()
-    .then(doc => {
-      res.status(201).json({
-        message: 'added with success',
-        client: doc
-      });
-    }).catch(err => {
-    res.status(500).json({error: err});
-  });
+
+  const savedClient = await client.save()
+    .catch((err) => {
+      res.status(400).json({error: err.message});
+    });
+
+  res.status(201).send(savedClient);
+
 }
 
 
 //deleteManyClients
-exports.deleteManyClients = (req, res, next) => {
+exports.deleteManyClients = async (req, res, next) => {
   //get clients ids
-  const ids = req.body;
-  Client.deleteMany({_id: {$in: ids}})
-    .exec()
-    .then(result => {
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err});
+  const { ids } = req.body;
+
+  const deletedClients = await Client.deleteMany({_id: {$in: ids}})
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  if (deletedClients) {
+    if (deletedClients.deletedCount === 0) {
+      throw new Error('No Clients found to delete')
+    }else if (deletedClients.deletedCount < ids.length) {
+      throw new Error(`${ids.length} Client to be deleted but ${deletedClients.deletedCount} are found and deleted`)
+
+    }
+  }
+
+  res.status(200).send(deletedClients);
+
 };
 
 
 //deleteAllClients
-exports.deleteAllClients = (req, res, next) => {
-  Client.deleteMany({})
-    .exec()
-    .then(result => {
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err});
+exports.deleteAllClients = async (req, res, next) => {
+
+  const deletedClients = await Client.deleteMany({})
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  res.status(200).send(deletedClients);
 };
 
 //editManyClients
-exports.editClient = (req, res, next) => {
+exports.editClient = async (req, res, next) => {
   // separating the ids
-  const ids = req.body.ids;
+  const { id } = req.params;
 
   // separating the updates
   const edits = {};
   for(var key in req.body) {
     if(req.body.hasOwnProperty(key)) {
-      if(key !== 'ids'){
+      if(key !== 'id'){
         edits[key] = req.body[key];
       }
     }
   }
 
-  Client.updateMany({_id: {$in :ids}}, { $set: edits })
-    .exec()
-    .then(result => {
-      console.log(result);
-      res.status(200).json({
-        edits: edits,
-        result: result
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({error: err});
+
+  const clients = await Client.updateOne({_id: id}, { $set: edits })
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  if (clients) {
+    if (clients.nModified === 0) {
+      res.send(clients)
+      throw new Error('No Clients modified')
+
+    }
+  }
+
+
+  res.status(200).send(clients);
+
 };
 
 

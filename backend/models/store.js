@@ -40,8 +40,6 @@ const ExSchema = new Schema({
   storeType: {type: String, default: ''},
   creationDate: {type: Date, default: Date.now()},
   contact: contact,
-  products: [{type: Schema.Types.ObjectID, ref: "Product", default: []}],
-  clients: [{type: Schema.Types.ObjectID, ref: "Client", default: []}],
   template: template
 
 });

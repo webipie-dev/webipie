@@ -96,6 +96,8 @@ export class OrdersComponent implements OnInit {
   orders = [];
   selectedRows = [];
   showDeleteManyButton = false;
+  storeId = '5fe9aa02155d77328c78ae70';
+
 
   constructor(private http: HttpClient,
               private orderService: OrderService) {
@@ -105,11 +107,11 @@ export class OrdersComponent implements OnInit {
     window.addEventListener('resize', () => {
       this.windowWidth = window.screen.width;
     });
-    this.getAllOrders();
+    this.getAllOrders(this.storeId);
   }
 
-  getAllOrders(): void {
-    this.orderService.getAll().subscribe((data) => {
+  getAllOrders(store): void {
+    this.orderService.getAll({store}).subscribe((data) => {
       data.orders.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');
@@ -137,11 +139,11 @@ export class OrdersComponent implements OnInit {
   }
 
   // when selecting multiple rows deleteMany becomes un-disabled
-  changeShowDeleteManyButton() {
+  changeShowDeleteManyButton(): void {
     this.showDeleteManyButton = this.selectedRows.length > 0;
   }
 
-  onDeleteOne(event) {
+  onDeleteOne(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
       });
@@ -157,12 +159,12 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  onRowSelect(event) {
+  onRowSelect(event): void {
     this.selectedRows = event.selected;
     this.changeShowDeleteManyButton();
   }
 
-  onDeleteMany() {
+  onDeleteMany(): void {
     const ids = [];
     this.selectedRows.forEach(elt => {
       ids.push(elt._id);
@@ -170,7 +172,7 @@ export class OrdersComponent implements OnInit {
     ids.forEach(elt => {
       this.orders = this.orders.filter(prod => prod._id !== elt);
     });
-    this.orderService.deleteMany(ids).subscribe(data => {
+    this.orderService.deleteMany({ids}).subscribe(data => {
       this.selectedRows = [];
       this.changeShowDeleteManyButton();
     });

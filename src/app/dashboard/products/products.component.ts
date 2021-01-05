@@ -64,6 +64,7 @@ export class ProductsComponent implements OnInit {
       },
       name: {
         title: 'Name',
+        type: 'html',
         width: '60%'
       },
       details: {
@@ -82,7 +83,7 @@ export class ProductsComponent implements OnInit {
   selectedRows = [];
   showDeleteManyButton = false;
   products = [];
-  productsMobile = [];
+  storeId = '5fe9aa02155d77328c78ae70';
 
   constructor(private http: HttpClient,
               private productService: ProductService,
@@ -90,56 +91,39 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllProducts();
+    this.getAllProducts(this.storeId);
   }
 
-  getAllProducts(): void {
-    this.productService.getAll().subscribe((data) => {
+  getAllProducts(store: string): void {
+    this.productService.getAll({store}).subscribe((data) => {
+      console.log(data);
       let quant;
-      data.products.forEach((element) => {
+      let aux;
+      data.forEach((element) => {
         if (element.quantity > 0) {
           quant = element.quantity;
         } else {
           quant = 0;
         }
-        const aux = {
-          _id: element._id,
-          name: '<div class=\'row\'>' +
-            '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
-            '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
-            '</div>',
-          description: element.description,
-          imgs: element.imgs,
-          price: element.price,
-          quantity: quant,
-          store: element.store,
-          productName: element.name
-
-        };
-        const aux2 = {
-          _id: element._id,
-          name: element.name,
-          description: element.description,
-          imgs: element.imgs,
-          price: element.price,
-          quantity: quant,
-          store: element.store,
-          productName: element.name
-        };
+        aux = element;
+        aux.name = '<div class=\'row\'>' +
+          '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
+          '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
+          '</div>';
+        aux.quantity = quant;
         this.products.push(aux);
-        this.productsMobile.push(aux2);
       });
     });
   }
 
-  onRowSelect(event) {
+  onRowSelect(event): void {
     this.selectedRows = event.selected;
     this.changeShowDeleteManyButton();
   }
 
   onDeleteOne(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.productService.deleteMany([event.data._id]).subscribe((data) => {
+      this.productService.deleteMany({ids: [event.data._id]}).subscribe((data) => {
       });
       event.confirm.resolve();
       // delete the product from the displayed products
@@ -153,11 +137,11 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  onEditSelect(event) {
+  onEditSelect(event): void {
     this.router.navigate(['dashboard', 'product-edit'], {queryParams: {id: event.data._id}});
   }
 
-  onDeleteMany() {
+  onDeleteMany(): void {
     const ids = [];
     this.selectedRows.forEach(elt => {
       ids.push(elt._id);
@@ -165,13 +149,13 @@ export class ProductsComponent implements OnInit {
     ids.forEach(elt => {
       this.products = this.products.filter(prod => prod._id !== elt);
     });
-    this.productService.deleteMany(ids).subscribe(data => {
+    this.productService.deleteMany({ids}).subscribe(data => {
       this.selectedRows = [];
       this.changeShowDeleteManyButton();
     });
   }
 
-  changeShowDeleteManyButton() {
+  changeShowDeleteManyButton(): void {
     this.showDeleteManyButton = this.selectedRows.length > 0;
   }
 }

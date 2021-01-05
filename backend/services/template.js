@@ -1,99 +1,101 @@
 const Template = require('../models/template')
 
-// getAndFilter
-exports.getTemplates = (req, res) => {
-  Template.find(req.query)
-    .then((documents) => {
-      res.status(200).json({
-        message: 'Templates sent successfully',
-        templates: documents
-      })
-    }).catch(err => {
-    res.status(500).json({error: err})
-  });
-}
 
+exports.getTemplates = async (req, res) => {
 
-exports.getOneTemplate = (req, res) => {
-  //get store id
-  const id = req.params._id;
-  Template.findById(id)
-    .exec()
-    .then(doc => {
-      res.status(200).json(doc);
-    })
-    .catch(err => {
-      res.status(500).json({error: err})
+  const templates = await Template.find(req.query)
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  res.status(200).send(templates);
 }
 
-exports.addTemplate = (req, res) => {
+
+exports.getOneTemplate = async (req, res) => {
+  //get template id
+  const { id } = req.params;
+
+  const template = await Template.findById(id)
+    .catch((err) => {
+      res.status(400).json({error: err.message});
+    });
+
+  res.status(200).send(template);
+}
+
+exports.addTemplate = async (req, res) => {
+  const { name, header, colorChart, font} = req.body
+
   const template = new Template({
-    name: req.body.name,
-    colorChart: req.body.colorChart,
-    font: req.body.font,
+    name,
+    colorChart,
+    font,
+    header
   });
 
-  template
-    .save()
-    .then(doc => {
-      res.status(201).json({
-        message: 'added with success',
-        template: doc
-      });
-    }).catch(err => {
-    res.status(500).json({error: err});
-  });
+  await template.save();
+  res.status(201).send(template);
+
+
 }
 
-exports.deleteManyTemplates = (req, res, next) => {
+exports.deleteManyTemplates = async (req, res, next) => {
   //get stores ids
-  const ids = req.body.ids;
-  Template.deleteMany({_id: {$in: ids}})
-    .exec()
-    .then(result => {
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      res.status(500).json({ error: err});
+  const { ids } = req.body;
+
+  const deletedTemplates = await Template.deleteMany({_id: {$in: ids}})
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  if (deletedTemplates) {
+    if (deletedTemplates.deletedCount === 0) {
+      throw new Error('No Templates found to delete')
+    }else if (deletedTemplates.deletedCount < ids.length) {
+      throw new Error(`${ids.length} Templates to be deleted but ${deletedTemplates.deletedCount} are found and deleted`)
+
+    }
+  }
+
+  res.status(200).send(deletedTemplates);
 };
 
-exports.deleteAllTemplates = (req, res, next) => {
-  Template.deleteMany({})
-    .exec()
-    .then(result => {
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      res.status(500).json({ error: err});
+exports.deleteAllTemplates = async (req, res, next) => {
+  const deletedTemplates = await Template.deleteMany({})
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  res.status(200).send(deletedTemplates);
 };
 
-exports.editTemplate = (req, res, next) => {
-  // separating the ids
-  const ids = req.body.ids;
+exports.editTemplate = async (req, res, next) => {
+  // separating the id
+  const { id } = req.params;
   // separating the updates
   const edits = {};
   for(var key in req.body) {
     if(req.body.hasOwnProperty(key)) {
-      if(key !== 'ids'){
+      if(key !== 'id'){
         edits[key] = req.body[key];
       }
     }
   }
 
-  Template.updateMany({_id: {$in :ids}}, { $set: edits })
-    .exec()
-    .then(result => {
-      res.status(200).json({
-        edits: edits,
-        result: result
-      });
-    })
-    .catch(err => {
-      res.status(500).json({error: err});
+  const templateEdited = await Template.updateOne({_id: id}, { $set: edits })
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  if (templateEdited){
+    if (templateEdited.nModified === 0) {
+      throw new Error('No Orders modified')
+
+    }
+  }
+
+  res.status(200).send(templateEdited);
 };
 
 

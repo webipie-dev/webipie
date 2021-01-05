@@ -48,7 +48,7 @@ export class ChangeHeaderComponent implements OnInit {
       }
     }
     this.postData.append('ids', this.storeId);
-    this.storeService.edit(this.postData).subscribe(data => {
+    this.storeService.edit(this.storeId, this.postData).subscribe(data => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/header']);
       });

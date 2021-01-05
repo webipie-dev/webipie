@@ -34,7 +34,7 @@ export class ClientsComponent implements OnInit {
   // settings for the mobile & tablet version of the table
   settingsMobile = {
     columns: {
-      name: {
+      firstname: {
         title: 'Name',
         width: '50%'
       },
@@ -52,18 +52,20 @@ export class ClientsComponent implements OnInit {
     noDataMessage: 'Oups, no Data yet !'
   };
   clients: Client[] = [];
+  storeId = '5fe9aa02155d77328c78ae70';
+
 
   constructor(private http: HttpClient,
               private clientService: ClientService) {
   }
 
   ngOnInit(): void {
-    this.getAllClients();
+    this.getAllClients(this.storeId);
   }
 
-  getAllClients(): void {
-    this.clientService.getAll().subscribe((data) => {
-      this.clients = data.clients;
+  getAllClients(store): void {
+    this.clientService.getAll({store}).subscribe((data) => {
+      this.clients = data;
     });
   }
 }

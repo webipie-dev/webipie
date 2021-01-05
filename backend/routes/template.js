@@ -6,7 +6,7 @@ const TemplateService = require('../services/template')
 router.get('', TemplateService.getTemplates)
 
 // getTemplatebyId
-router.get('/:_id', TemplateService.getOneTemplate)
+router.get('/:id', TemplateService.getOneTemplate)
 
 // addTemplate
 router.post('', TemplateService.addTemplate)
@@ -19,6 +19,6 @@ router.delete('', TemplateService.deleteManyTemplates)
 router.delete('/delete', TemplateService.deleteAllTemplates)
 
 //update Templates
-router.patch('/update', TemplateService.editTemplate)
+router.patch('/:id', TemplateService.editTemplate)
 
 module.exports = router;

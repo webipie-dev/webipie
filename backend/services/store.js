@@ -1,31 +1,33 @@
+
 const Store = require('../models/store')
+const Order = require('../models/order')
 const Product = require('../models/store')
 const Template = require('../models/template')
 
 // getAndFilter
-exports.getStores = (req, res) => {
-  Store.find(req.query)
-    .then((documents) => {
-      res.status(200).json({
-        message: 'Stores sent successfully',
-        stores: documents
-      })
-    }).catch(err => {
-    res.status(500).json({error: err})
-  });
+exports.getStores = async (req, res) => {
+  // MUST BE AUTHENTICATED AS THE ADMIN
+
+  const stores = await Store.find(req.query)
+    .catch((err) => {
+      res.status(400).json({error: err.message});
+    });
+
+  res.status(200).send(stores);
+
 }
 
-exports.getOneStore = (req, res) => {
+exports.getOneStore = async (req, res) => {
+  // We need to check if user is authenticated
+
   //get store id
-  const id = req.params._id;
-  Store.findById(id)
-    .exec()
-    .then(doc => {
-      res.status(200).json(doc);
-    })
-    .catch(err => {
-      res.status(500).json({error: err})
+  const { id } = req.params;
+  const store = await Store.findById(id)
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  res.status(200).send(store);
 }
 
 exports.addStore = async (req, res) => {
@@ -37,75 +39,76 @@ exports.addStore = async (req, res) => {
     logo = ''
   }
 
-  let getTemplate = Template.findOne({_id: req.body.template})
+  const { name, description, location, contact, storeType, creationDate, templateId} = req.body
+
+  let getTemplate = Template.findById(templateId)
+
+  if (!getTemplate) {
+    throw new Error('Template not Found')
+  }
 
   const store = new Store({
-    name: req.body.name,
-    logo: logo,
-    description: req.body.description,
-    location: req.body.location,
-    storeType: req.body.storeType,
-    contact: req.body.contact,
-    products: req.body.products,
+    name,
+    logo,
+    description,
+    location,
+    storeType,
+    creationDate,
+    contact,
     template: getTemplate
 
   });
-  store
-    .save()
-    .then(doc => {
-      res.status(201).json({
-        message: 'added with success',
-        store: doc
-      });
-    }).catch(err => {
-    res.status(500).json({error: err});
-  });
+
+  await store.save()
+    .catch((err) => {
+      res.status(400).json({error: err.message});
+    });
+
+  res.status(201).send(store);
+
 }
 
-exports.deleteOneStore = (req, res, next) => {
-  const ids = req.body.ids;
-  Store.find({_id: {$in: ids}})
-    .then((store) => {
-      Store.deleteOne({_id: {$in: ids}})
-        .exec()
-        .then(result => {
-          let bulkQueries = [];
-          store.products.map(product => {
-            bulkQueries.push({
-              deleteOne: {
-                "filter": {_id: product},
-              }
-            })
-          });
-          Product
-            .bulkWrite(bulkQueries, {ordered: false})
-          res.status(200).json({
-            message: 'deleted with success',
-            store: store
-          });
-        })
-        .catch(err => {
-          res.status(500).json({error: err});
-        });
+exports.deleteManyStores = async (req, res, next) => {
+  const { ids } = req.body;
+
+  const deletedStores = await Store.deleteMany({_id: {$in: ids}})
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  if (deletedStores) {
+    if (deletedStores.deletedCount === 0) {
+      throw new Error('No Stores found to delete')
+    }
+    else if (deletedStores.deletedCount < ids.length) {
+      throw new Error(`${ids.length} Stores to be deleted but ${deletedStores.deletedCount} are found and deleted`)
+
+    }
+  }
+
+  Product.deleteMany({store: {$in: ids}})
+  Order.deleteMany({store: {$in: ids}})
+  Client.deleteMany({store: {$in: ids}})
+
+
+  res.status(200).send(deletedStores);
+
 }
 
-exports.deleteAllStores = (req, res, next) => {
-  Store.deleteMany({})
-    .exec()
-    .then(result => {
-      res.status(200).json(result);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err});
+exports.deleteAllStores = async (req, res, next) => {
+  const deletedStores = await Store.deleteMany({})
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  res.status(200).send(deletedStores);
 };
 
-exports.editStore = (req, res, next) => {
-  console.log(req.body)
+
+exports.editStore = async (req, res, next) => {
   // getting the id
-  const ids = req.body.ids;
+  const { id } = req.params;
+
   const edits = {};
   let logoPath;
   let headerPath;
@@ -126,21 +129,25 @@ exports.editStore = (req, res, next) => {
 
   // separating the updates
   for (const key in req.body) {
-    if (key !== 'ids') {
+    if (key !== 'id') {
       edits[key] = req.body[key];
     }
   }
-  Store.updateOne({_id: ids}, {$set: edits})
-    .exec()
-    .then(result => {
-      res.status(200).json({
-        edits: edits,
-        result: result
-      });
-    })
-    .catch(err => {
-      res.status(500).json({error: err});
+
+  const stores = await Store.updateOne({_id: id}, { $set: edits })
+    .catch((err) => {
+      res.status(400).json({error: err.message});
     });
+
+  if (stores){
+    if (stores.nModified === 0) {
+      throw new Error('No Orders modified')
+
+    }
+  }
+
+  res.status(200).send(stores);
+
 };
 
 

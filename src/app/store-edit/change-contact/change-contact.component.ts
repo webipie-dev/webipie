@@ -22,12 +22,11 @@ export class ChangeContactComponent implements OnInit {
 
   submit(): void {
     const postData = {
-      ids: this.storeId,
       'contact.location': this.defaultLocation,
       'contact.email': this.defaultEmail,
       'contact.phoneNumber': this.defaultNumber
     };
-    this.storeService.edit(postData).subscribe(data => {
+    this.storeService.edit(this.storeId, postData).subscribe(data => {
       console.log(data);
     });
   }

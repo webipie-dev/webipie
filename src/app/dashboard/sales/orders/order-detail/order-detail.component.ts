@@ -100,7 +100,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   onDeleteOrder(orderId: string){
-    this.orderService.deleteMany([orderId]).subscribe(data => {
+    this.orderService.deleteMany({ids: [orderId]}).subscribe(data => {
     });
     this.modalService.dismissAll();
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
