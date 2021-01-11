@@ -41,16 +41,16 @@ export class OrdersComponent implements OnInit {
         },
         renderComponent: OrderDetailComponent,
       },
-      edit: {
-        title: '',
-        width: '10%',
-        type: 'custom',
-        valuePrepareFunction: (cell, row) => {
-          this.edit = true;
-          return this.edit;
-        },
-        renderComponent: OrderDetailComponent,
-      },
+      // edit: {
+      //   title: '',
+      //   width: '10%',
+      //   type: 'custom',
+      //   valuePrepareFunction: (cell, row) => {
+      //     this.edit = true;
+      //     return this.edit;
+      //   },
+      //   renderComponent: OrderDetailComponent,
+      // },
 
     },
     actions: {
@@ -112,7 +112,8 @@ export class OrdersComponent implements OnInit {
 
   getAllOrders(store): void {
     this.orderService.getAll({store}).subscribe((data) => {
-      data.orders.forEach((element) => {
+      console.log(data);
+      data.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');
           let totalPrice = 0;
@@ -127,7 +128,7 @@ export class OrdersComponent implements OnInit {
             paymentMethod: element.paymentMethod,
             products: element.products,
             clientId: element.client._id,
-            clientName: element.client.name,
+            clientName: element.client.firstname,
             store: element.store,
           };
           this.orders.push(aux);

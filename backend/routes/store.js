@@ -43,4 +43,5 @@ router.delete('/delete', StoreService.deleteAllStores)
 
 router.patch('/:id',multer({storage: storage}).any(), StoreService.editStore)
 
+
 module.exports = router;

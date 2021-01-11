@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Validators } from '@angular/forms';
-import { AlignmentTypes } from '@swimlane/ngx-charts';
+import {Validators} from '@angular/forms';
+import {AlignmentTypes} from '@swimlane/ngx-charts';
+import {HttpClient} from '@angular/common/http';
+import {StoreService} from '../../_shared/services/store.service';
 
 @Component({
   selector: 'app-change-font',
@@ -31,7 +33,12 @@ export class ChangeFontComponent implements OnInit {
   textBold: boolean;
   textItalic: boolean;
 
-  constructor() { }
+  storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
+
+
+  constructor(private http: HttpClient,
+              private storeService: StoreService) {
+  }
 
   ngOnInit(): void {
     this.fontTypes = [
@@ -51,7 +58,7 @@ export class ChangeFontComponent implements OnInit {
     // const alignments = ["center", "right", "left"];
 
     this.fontType = 'Serif';
-    this.fontSize = 10 ;
+    this.fontSize = 10;
     this.fontWeight = 'normal';
     this.textShadow = false;
     this.textShadowColor = 'blue';
@@ -60,16 +67,16 @@ export class ChangeFontComponent implements OnInit {
     this.textItalic = false;
   }
 
-  sizeChange(value){
+  sizeChange(value): void {
     console.log('the size value is' + value);
     this.fontSize = value;
   }
 
-  shadowChange(value){
+  shadowChange(value): void {
     this.textShadow = (value === '1');
   }
 
-  alignChange(event, value){
+  alignChange(event, value): void {
 
     let target = event.target;
     if (event.target.tagName === 'path') {
@@ -82,10 +89,13 @@ export class ChangeFontComponent implements OnInit {
 
     const icons = document.querySelectorAll('.alignment');
 
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < icons.length; i++) {
 
       // If the icon is the one clicked, skip it
-      if (icons[i] === event.target) { continue; }
+      if (icons[i] === event.target) {
+        continue;
+      }
 
       // Remove the .alignment class
       icons[i].classList.remove('alignment');
@@ -95,20 +105,37 @@ export class ChangeFontComponent implements OnInit {
     this.textAlign = value;
   }
 
-  onSelect(event, value) {
+  onSelect(event, value): void {
     let target = event.target;
     if (event.target.tagName === 'path') {
       target = event.target.parentNode;
     }
 
-    if (value === 'font-size'){
+    if (value === 'font-size') {
       this.fontSize += 2;
       return;
     }
 
     target.classList.toggle('font-item-selected');
 
-    if (value === 'italic'){ this.textItalic = !this.textItalic; }
+    if (value === 'italic') {
+      this.textItalic = !this.textItalic;
+    }
+  }
+
+  submit(): void {
+    const postData = {
+      'template.font.name': this.fontType,
+      'template.font.size': this.fontSize,
+      'template.font.weight': this.fontWeight,
+      'template.font.alignment': this.textAlign,
+      'template.font.bold': this.textBold,
+      'template.font.italic': this.textItalic,
+
+    };
+    this.storeService.edit(this.storeId, postData).subscribe(store => {
+      localStorage.setItem('currentStore', JSON.stringify(store));
+    });
   }
 
 }

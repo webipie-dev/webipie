@@ -10,7 +10,7 @@ exports.getOrders = async (req, res) => {
   // I THINK ORDERS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
-  const orders = await Order.find(req.query)
+  const orders = await Order.find(req.query).populate('client')
     .catch((err) => {
       res.status(400).json({error: err.message});
     });
@@ -49,7 +49,7 @@ exports.getOneOrder = async (req, res) => {
   //get the order id
   const { id } = req.params;
 
-  const order = await Order.findById(id)
+  const order = await Order.findById(id).populate('client')
     .catch((err) => {
       res.status(400).json({error: err.message});
     });
@@ -150,7 +150,7 @@ exports.deleteManyOrders = async (req, res, next) => {
     if (deletedOrders.deletedCount === 0) {
       throw new Error('No Orders found to delete')
     }else if (deletedOrders.deletedCount < ids.length) {
-      throw new Error(`${ids.length} Orders to be deleted but ${deletedOrders.deletedCount} are found and deleted`).status(500)
+      throw new Error(`${ids.length} Orders to be deleted but ${deletedOrders.deletedCount} are found and deleted`)
 
     }
   }

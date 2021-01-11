@@ -8,9 +8,9 @@ import {StoreService} from '../../_shared/services/store.service';
   styleUrls: ['./social-media.component.css']
 })
 export class SocialMediaComponent implements OnInit {
-  defaultFacebook = '';
-  defaultInstagram = '';
-  storeId = '5fd09d461bcaf731b40f95fb';
+  defaultFacebook = JSON.parse(localStorage.getItem('currentStore')).contact.facebookPage;
+  defaultInstagram = JSON.parse(localStorage.getItem('currentStore')).contact.instagramPage;
+  storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService) {
@@ -26,8 +26,8 @@ export class SocialMediaComponent implements OnInit {
       'contact.facebookPage': this.defaultFacebook,
       'contact.instagramPage': this.defaultInstagram
     };
-    this.storeService.edit(this.storeId, postData).subscribe(data => {
-      console.log(data);
+    this.storeService.edit(this.storeId, postData).subscribe(store => {
+      localStorage.setItem('currentStore', JSON.stringify(store));
     });
   }
 

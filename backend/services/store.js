@@ -47,6 +47,8 @@ exports.addStore = async (req, res) => {
     throw new Error('Template not Found')
   }
 
+  // getTemplate._id= templateId
+
   const store = new Store({
     name,
     logo,
@@ -55,9 +57,10 @@ exports.addStore = async (req, res) => {
     storeType,
     creationDate,
     contact,
-    template: getTemplate
+    template: getTemplate,
 
   });
+
 
   await store.save()
     .catch((err) => {
@@ -126,7 +129,6 @@ exports.editStore = async (req, res, next) => {
     }
   }
 
-
   // separating the updates
   for (const key in req.body) {
     if (key !== 'id') {
@@ -134,19 +136,22 @@ exports.editStore = async (req, res, next) => {
     }
   }
 
-  const stores = await Store.updateOne({_id: id}, { $set: edits })
+  const store = await Store.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
       res.status(400).json({error: err.message});
     });
 
-  if (stores){
-    if (stores.nModified === 0) {
-      throw new Error('No Orders modified')
+  if (store){
+    if (store.nModified === 0) {
+      throw new Error('No stores modified')
 
     }
   }
 
-  res.status(200).send(stores);
+  const storeEdited = await Store.findById(id)
+
+
+  res.status(200).send(storeEdited)
 
 };
 

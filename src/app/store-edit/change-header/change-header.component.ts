@@ -26,7 +26,7 @@ export class ChangeHeaderComponent implements OnInit {
     });
   }
 
-  onFileChanged(event) {
+  onFileChanged(event): void {
     const file = event.target.files[0];
     this.postData.append('headerImg', file, file.name);
     console.log(file);
@@ -37,7 +37,7 @@ export class ChangeHeaderComponent implements OnInit {
     };
   }
 
-  onSubmit() {
+  onSubmit(): void {
     for (const field in this.headerForm.controls) {
       if (field !== 'img') {
         const control = this.headerForm.get(field);
