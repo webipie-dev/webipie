@@ -8,6 +8,8 @@ const OrderService = require('../services/order');
  * /order:
  *  get:
  *    description: Use to request all orders
+ *    tags:
+ *      - orders
  *    responses:
  *      '200':
  *        content:  # Response body
@@ -103,6 +105,8 @@ router.get('', OrderService.getOrders)
  * /order/many:
  *  get:
  *    description: Use to request many orders
+ *    tags:
+ *      - orders
  *    parameters:
  *       - in: path
  *         name: ids
@@ -127,6 +131,8 @@ router.get('/many', OrderService.getManyOrderById)
  * /order/{id}:
  *  get:
  *    description: Use to request one order by id
+ *    tags:
+ *      - orders
  *    parameters:
  *       - in: path
  *         name: id
@@ -149,9 +155,11 @@ router.get('/:_id', OrderService.getOneOrder)
 // addOrder
 /**
  * @swagger
- * /client:
+ * /order:
  *  post:
  *    description: Use to add one order
+ *    tags:
+ *      - orders
  *    requestBody:
  *       required: true
  *       content:
@@ -174,6 +182,8 @@ router.post('', OrderService.addOrder)
  * /order:
  *  delete:
  *    description: Use to delete one order or many
+ *    tags:
+ *      - orders
  *    requestBody:
  *       required: true
  *       content:
@@ -201,6 +211,8 @@ router.delete('', OrderService.deleteManyOrders)
  * /order/delete:
  *  delete:
  *    description: Use to delete all orders
+ *    tags:
+ *      - orders
  *    responses:
  *      '200':
  *        content:  # Response body
@@ -216,6 +228,8 @@ router.delete('/delete', OrderService.deleteAllOrders)
  * /order/delete/product:
  *  delete:
  *    description: Use to delete products from order
+ *    tags:
+ *      - orders
  *    requestBody:
  *       required: true
  *       content:

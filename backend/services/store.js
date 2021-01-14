@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const Store = require('../models/store')
 const Product = require('../models/store')
 const Template = require('../models/template')
@@ -21,7 +23,7 @@ exports.getOneStore = (req, res) => {
   Store.findById(id)
     .exec()
     .then(doc => {
-      res.status(200).json(doc);
+      res.status(200).json(_.pick(doc,['_id','name','logo','description','storeType','location','creationDate']));
     })
     .catch(err => {
       res.status(500).json({error: err})

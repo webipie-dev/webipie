@@ -9,12 +9,14 @@ const ClientService = require('../services/client')
  * /client:
  *  get:
  *    description: Use to request all clients
+ *    tags:
+ *      - clients
  *    responses:
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
  *           schema: 
- *             $ref: '#/components/schemas/ArrayOfClient'    # Reference to object definition
+ *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
  * components:
  *  schemas:
  *      Client:      # Object definition
@@ -61,6 +63,8 @@ router.get('', ClientService.getClients)
  * /client/many:
  *  get:
  *    description: Use to request many client
+ *    tags:
+ *      - clients
  *    parameters:
  *       - in: path
  *         name: ids
@@ -86,6 +90,8 @@ router.get('/many', ClientService.getManyClientById)
  * /client/{id}:
  *  get:
  *    description: Use to request one client by id
+ *    tags:
+ *      - clients
  *    parameters:
  *       - in: path
  *         name: id
@@ -108,6 +114,8 @@ router.get('/:_id', ClientService.getOneClient)
  * /client:
  *  post:
  *    description: Use to add one client
+ *    tags: 
+ *      - clients
  *    requestBody:
  *       required: true
  *       content:
@@ -130,6 +138,8 @@ router.post('', ClientService.addClient)
  * /client:
  *  delete:
  *    description: Use to delete one client or many
+ *    tags:
+ *      - clients
  *    requestBody:
  *       required: true
  *       content:
@@ -152,6 +162,8 @@ router.delete('', ClientService.deleteManyClients)
  * /client/delete:
  *  delete:
  *    description: Use to delete all clients
+ *    tags:
+ *      - clients
  *    responses:
  *      '200':
  *        content:  # Response body

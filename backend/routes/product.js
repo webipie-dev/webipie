@@ -31,12 +31,14 @@ const storage = multer.diskStorage({
  * /product:
  *  get:
  *    description: Use to request all products
+ *    tags:
+ *      - products
  *    responses:
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
  *           schema: 
- *             $ref: '#/components/schemas/ArrayOfProduct'    # Reference to object definition
+ *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
  * components:
  *  schemas:
  *      Product:      # Object definition
@@ -74,8 +76,54 @@ const storage = multer.diskStorage({
  */
 router.get('/', productService.getProducts)
 
+//getManyProducts
+/**
+ * @swagger
+ * /product/many:
+ *  get:
+ *    description: Use to request many products
+ *    tags:
+ *      - products
+ *    parameters:
+ *       - in: path
+ *         name: ids
+ *         schema:
+ *           type: array
+ *           items:
+ *              type: string
+ *         required: true
+ *         description: unique IDs of the products to get
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
+ */
 router.get('/many', productService.getManyProductById)
-  
+
+// getProductbyId
+/**
+ * @swagger
+ * /product/{id}:
+ *  get:
+ *    description: Use to request one product by id
+ *    tags:
+ *      - products
+ *    parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: unique ID of the product to get
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/Product'    # Reference to object definition
+ */
 router.get('/:id', productService.getOneProduct)
 
 // addProduct
@@ -84,6 +132,8 @@ router.get('/:id', productService.getOneProduct)
  * /product:
  *  post:
  *    description: Use to add one product
+ *    tags:
+ *      - products
  *    requestBody:
  *       required: true
  *       content:
@@ -107,6 +157,8 @@ router.patch('/update', multer({storage: storage}).any("productImgs", 5), produc
  * /product:
  *  delete:
  *    description: Use to delete one product or many
+ *    tags:
+ *      - products
  *    requestBody:
  *       required: true
  *       content:
@@ -131,6 +183,8 @@ router.delete('/', productService.deleteManyProducts)
  * /product/delete:
  *  delete:
  *    description: Use to delete all products
+ *    tags:
+ *      - products
  *    responses:
  *      '200':
  *        content:  # Response body

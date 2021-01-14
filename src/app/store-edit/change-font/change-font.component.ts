@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Validators } from '@angular/forms';
-import { AlignmentTypes } from '@swimlane/ngx-charts';
+import {StoreService} from '../../_shared/services/store.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-change-font',
@@ -10,6 +10,9 @@ import { AlignmentTypes } from '@swimlane/ngx-charts';
 export class ChangeFontComponent implements OnInit {
   @Input() toggleS: () => void;
 
+  storeId = '5fd09d461bcaf731b40f95fb';
+  postData: Object;
+
   /*
     general settings to any template
   */
@@ -18,6 +21,7 @@ export class ChangeFontComponent implements OnInit {
   fontSizeMax: number;
   fontWeights: Array<string>;
   // const alignments = ["center", "right", "left"];
+
   /*
     specific settings to user's template
   */
@@ -31,7 +35,8 @@ export class ChangeFontComponent implements OnInit {
   textBold: boolean;
   textItalic: boolean;
 
-  constructor() { }
+  constructor(private storeService: StoreService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.fontTypes = [
@@ -109,6 +114,24 @@ export class ChangeFontComponent implements OnInit {
     target.classList.toggle('font-item-selected');
 
     if (value === 'italic'){ this.textItalic = !this.textItalic; }
+  }
+
+  onSubmit() {
+    this.postData = {
+      'ids': this.storeId,
+      'type': this.fontType,
+      'size': this.fontSize,
+      'weight': this.fontWeight,
+      'alignment': this.textAlign,
+      'bold': this.textBold,
+      'italic': this.textItalic,
+
+    }
+    this.storeService.edit(this.postData).subscribe(data => {
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['store/font']);
+      });
+    });
   }
 
 }

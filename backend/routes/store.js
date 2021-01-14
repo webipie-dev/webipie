@@ -31,14 +31,153 @@ const storage = multer.diskStorage({
   }
 });
 
+// getStores
+/**
+ * @swagger
+ * /store:
+ *  get:
+ *    description: Use to request all stores by admin 
+ *    tags:
+ *      - store
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/ArrayOfStores'    # Reference to object definition
+ * components:
+ *  schemas:
+ *      Store:      # Object definition
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: string
+ *              name:
+ *                  type: string
+ *              logo: 
+ *                  type: string
+ *                  format: byte
+ *              description:
+ *                  type: string
+ *              storeType:
+ *                  type: string
+ *              location:
+ *                  type: string
+ *              creationDate:
+ *                  type: string
+ *                  format: date
+ * 
+ *      ArrayOfStores:
+ *          type: array
+ *          items:
+ *              type: object
+ *              properties:
+ *                id:
+ *                  type: string
+ *                name:
+ *                  type: string
+ *                logo: 
+ *                  type: string
+ *                  format: byte
+ *                description:
+ *                  type: string
+ *                storeType:
+ *                  type: string
+ *                location:
+ *                  type: string
+ *                creationDate:
+ *                  type: string
+ *                  format: date
+ *     
+ */
 router.get('', StoreService.getStores)
 
+// getStorebyId
+/**
+ * @swagger
+ * /store/{id}:
+ *  get:
+ *    description: Use to request one store by id
+ *    tags:
+ *      - store
+ *    parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: unique ID of the store to get
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/Store'    # Reference to object definition
+ */
 router.get('/:_id', StoreService.getOneStore)
 
+// addStore
+/**
+ * @swagger
+ * /store:
+ *  post:
+ *    description: Use to add one store once the use is logged in
+ *    tags: 
+ *      - store
+ *    requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Store'
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/Store'    # Reference to object definition
+ */
 router.post('',multer({storage: storage}).single('logoImg'), StoreService.addStore)
 
+// deleteStore
+/**
+ * @swagger
+ * /store/delete/single:
+ *  delete:
+ *    description: Use to delete user's store
+ *    tags:
+ *      - store
+ *    requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             ids:
+ *                  type: string
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *              schema: 
+ *                  $ref: '#/components/schemas/Store' 
+ */
 router.delete('/delete/single', StoreService.deleteOneStore)
 
+// deleteAllStores
+/**
+ * @swagger
+ * /store/delete:
+ *  delete:
+ *    description: Use to delete one all stores by admin
+ *    tags:
+ *      - store
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *              schema: 
+ *                  $ref: '#/components/schemas/Store' 
+ */
 router.delete('/delete', StoreService.deleteAllStores)
 
 router.patch('/update',multer({storage: storage}).any(), StoreService.editStore)
