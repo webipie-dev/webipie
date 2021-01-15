@@ -14,12 +14,22 @@ export class ClientDetailComponent implements OnInit {
     _id: ''
   };
   closeResult;
-  constructor(private modalService: NgbModal) { }
+  fullAddress = '';
 
-  ngOnInit(): void {
+  constructor(private modalService: NgbModal) {
   }
 
-  open(content) {
+  ngOnInit(): void {
+
+  }
+
+  open(content): void {
+    // tslint:disable-next-line:forin
+    for (const key in this.rowData.fullAddress) {
+      if (key !== '_id'){
+        this.fullAddress += this.rowData.fullAddress[key];
+      }
+    }
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

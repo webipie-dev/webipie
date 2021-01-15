@@ -37,8 +37,13 @@ const storage = multer.diskStorage({
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
+<<<<<<< HEAD
  *           schema: 
  *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
+=======
+ *           schema:
+ *             $ref: '#/components/schemas/ArrayOfProduct'    # Reference to object definition
+>>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
  * components:
  *  schemas:
  *      Product:      # Object definition
@@ -48,14 +53,14 @@ const storage = multer.diskStorage({
  *                  type: string
  *              description:
  *                  type: string
- *              imgs: 
+ *              imgs:
  *                  type: array
  *              price:
  *                  type: number
  *              store:
  *                  type: string
  *                  format: uuid
- * 
+ *
  *      ArrayOfProducts:
  *          type: array
  *          items:
@@ -65,16 +70,16 @@ const storage = multer.diskStorage({
  *                  type: string
  *                description:
  *                  type: string
- *                imgs: 
+ *                imgs:
  *                  type: array
  *                price:
  *                  type: number
  *                store:
  *                  type: string
  *                  format: uuid
- *     
+ *
  */
-router.get('/', productService.getProducts)
+router.get('', productService.getProducts)
 
 //getManyProducts
 /**
@@ -102,6 +107,7 @@ router.get('/', productService.getProducts)
  */
 router.get('/many', productService.getManyProductById)
 
+<<<<<<< HEAD
 // getProductbyId
 /**
  * @swagger
@@ -124,6 +130,8 @@ router.get('/many', productService.getManyProductById)
  *           schema: 
  *             $ref: '#/components/schemas/Product'    # Reference to object definition
  */
+=======
+>>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
 router.get('/:id', productService.getOneProduct)
 
 // addProduct
@@ -144,12 +152,11 @@ router.get('/:id', productService.getOneProduct)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Product'    # Reference to object definition
  */
-router.post('/', multer({storage: storage}).any("productImgs", 5), productService.addProduct)
-  
-router.patch('/update', multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
+router.post('', multer({storage: storage}).any("productImgs", 5), productService.addProduct)
+
 
 // deleteManyProducts
 /**
@@ -171,11 +178,11 @@ router.patch('/update', multer({storage: storage}).any("productImgs", 5), produc
  *        content:  # Response body
  *          application/json:  # Media type
  *              schema:
- *                oneOf: 
- *                  - $ref: '#/components/schemas/Product' 
- *                  - $ref: '#/components/schemas/ArrayOfProducts' 
+ *                oneOf:
+ *                  - $ref: '#/components/schemas/Product'
+ *                  - $ref: '#/components/schemas/ArrayOfProducts'
  */
-router.delete('/', productService.deleteManyProducts)
+router.delete('', productService.deleteManyProducts)
 
 //deleteAllProducts
 /**
@@ -189,10 +196,14 @@ router.delete('/', productService.deleteManyProducts)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
  */
 router.delete('/delete', productService.deleteAllProducts);
+
+
+router.patch('/:id', multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
+
 
 module.exports = router;
 

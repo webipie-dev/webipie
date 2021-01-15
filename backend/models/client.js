@@ -13,11 +13,12 @@ const address = new Schema({
 const ExSchema = new Schema({
   firstname: {type: String, default: ''},
   lastname: {type: String, default: ''},
+  // INDEX BY phoneNUMber or STORE ??????
   phoneNumber: {type: String, default: ''},
   email: {type: String, default: ''},
   gender: {type: String, default: ''},
   fullAddress: address,
-  orders: [{ type: Schema.Types.ObjectID, ref: "Order", default: [] }]
+  store: { type: Schema.Types.ObjectID, ref: "Store" }
 
 });
 

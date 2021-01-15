@@ -14,7 +14,7 @@ const OrderService = require('../services/order');
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfOrders'    # Reference to object definition
  * components:
  *  schemas:
@@ -26,7 +26,7 @@ const OrderService = require('../services/order');
  *                  format: date
  *              orderStatus:
  *                  type: string
- *              paymentMethod: 
+ *              paymentMethod:
  *                  type: string
  *              client:
  *                  type: object
@@ -55,7 +55,7 @@ const OrderService = require('../services/order');
  *                          imgs:
  *                              type: string
  *                              format: byte
- * 
+ *
  *      ArrayOfOrders:
  *          type: array
  *          items:
@@ -66,7 +66,7 @@ const OrderService = require('../services/order');
  *                      format: date
  *                  orderStatus:
  *                      type: string
- *                  paymentMethod: 
+ *                  paymentMethod:
  *                      type: string
  *                  client:
  *                      type: object
@@ -95,7 +95,7 @@ const OrderService = require('../services/order');
  *                              imgs:
  *                                  type: string
  *                                  format: byte
- *     
+ *
  */
 router.get('', OrderService.getOrders)
 
@@ -120,10 +120,10 @@ router.get('', OrderService.getOrders)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfOrders'    # Reference to object definition
  */
-router.get('/many', OrderService.getManyOrderById)
+// router.get('/many', OrderService.getManyOrderById)
 
 // getOrderbyId
 /**
@@ -144,10 +144,10 @@ router.get('/many', OrderService.getManyOrderById)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Order'    # Reference to object definition
  */
-router.get('/:_id', OrderService.getOneOrder)
+router.get('/:id', OrderService.getOneOrder)
 
 
 // router.get('/detail/:_id', OrderService.detailOrder)
@@ -170,7 +170,7 @@ router.get('/:_id', OrderService.getOneOrder)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Order'    # Reference to object definition
  */
 router.post('', OrderService.addOrder)
@@ -198,10 +198,10 @@ router.post('', OrderService.addOrder)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *              schema: 
+ *              schema:
  *                  oneOf:
- *                      - $ref: '#/components/schemas/Order' 
- *                      - $ref: '#/components/schemas/ArrayOfOrders' 
+ *                      - $ref: '#/components/schemas/Order'
+ *                      - $ref: '#/components/schemas/ArrayOfOrders'
  */
 router.delete('', OrderService.deleteManyOrders)
 
@@ -217,7 +217,7 @@ router.delete('', OrderService.deleteManyOrders)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfOrders'    # Reference to object definition
  */
 router.delete('/delete', OrderService.deleteAllOrders)
@@ -234,7 +234,7 @@ router.delete('/delete', OrderService.deleteAllOrders)
  *       required: true
  *       content:
  *         application/json:
- *           schema: 
+ *           schema:
  *             id:
  *               type: string
  *             product:
@@ -243,14 +243,14 @@ router.delete('/delete', OrderService.deleteAllOrders)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Order'    # Reference to object definition
  */
 router.delete('/delete/product', OrderService.deleteProductOrder)
 
 
 //edit Orders
-router.patch('/update', OrderService.editOrder)
+router.patch('/:id', OrderService.editOrder)
 
 
 

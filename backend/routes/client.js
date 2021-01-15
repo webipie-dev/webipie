@@ -3,7 +3,7 @@ const Client = require('../models/client');
 const router = express.Router();
 const ClientService = require('../services/client')
 
-// getClients
+// filerClients
 /**
  * @swagger
  * /client:
@@ -15,8 +15,13 @@ const ClientService = require('../services/client')
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
+<<<<<<< HEAD
  *           schema: 
  *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
+=======
+ *           schema:
+ *             $ref: '#/components/schemas/ArrayOfClient'    # Reference to object definition
+>>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
  * components:
  *  schemas:
  *      Client:      # Object definition
@@ -26,7 +31,7 @@ const ClientService = require('../services/client')
  *                  type: string
  *              firstname:
  *                  type: string
- *              lastname: 
+ *              lastname:
  *                  type: string
  *              email:
  *                  type: string
@@ -34,7 +39,7 @@ const ClientService = require('../services/client')
  *                  type: string
  *              fullAddress:
  *                  type: string
- * 
+ *
  *      ArrayOfClients:
  *          type: array
  *          items:
@@ -44,7 +49,7 @@ const ClientService = require('../services/client')
  *                      type: string
  *                  firstname:
  *                      type: string
- *                  lastname: 
+ *                  lastname:
  *                      type: string
  *                  email:
  *                      type: string
@@ -52,7 +57,7 @@ const ClientService = require('../services/client')
  *                      type: string
  *                  fullAddress:
  *                      type: string
- *     
+ *
  */
 router.get('', ClientService.getClients)
 
@@ -78,10 +83,10 @@ router.get('', ClientService.getClients)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
  */
-router.get('/many', ClientService.getManyClientById)
+// router.get('/many', ClientService.getManyClientById)
 
 
 // getClientbyId
@@ -103,10 +108,10 @@ router.get('/many', ClientService.getManyClientById)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-router.get('/:_id', ClientService.getOneClient)
+router.get('/:id', ClientService.getOneClient)
 
 // addClient
 /**
@@ -126,7 +131,7 @@ router.get('/:_id', ClientService.getOneClient)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
 router.post('', ClientService.addClient)
@@ -151,8 +156,8 @@ router.post('', ClientService.addClient)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *              schema: 
- *                  $ref: '#/components/schemas/Client' 
+ *              schema:
+ *                  $ref: '#/components/schemas/Client'
  */
 router.delete('', ClientService.deleteManyClients)
 
@@ -168,12 +173,12 @@ router.delete('', ClientService.deleteManyClients)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
  */
 router.delete('/delete', ClientService.deleteAllClients)
 
 //updateManyClients
-router.patch('/update', ClientService.editClient)
+router.patch('/:id', ClientService.editClient)
 
 module.exports = router;

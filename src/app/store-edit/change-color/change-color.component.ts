@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-change-color',
@@ -10,17 +11,18 @@ import {StoreService} from '../../_shared/services/store.service';
 export class ChangeColorComponent implements OnInit {
 
   constructor(private http: HttpClient,
-              private storeService: StoreService) {
+              private storeService: StoreService,
+              private router: Router) {
   }
 
   defaultColor;
-  storeId = '5fd09d461bcaf731b40f95fb';
+  storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
 
   public show = false;
   public defaultColors = [
     {name: 'chartI', colors: ['#ffffff', '#000105', '#3e6158', '#3f7a89', '#96c582', ]},
     {name: 'chartII', colors: ['#000105', '#ffffff', '#3e6158', '#3f7a89', '#96c582', ]},
-    {name: 'chartIII', colors: ['#ffffff', '#000105', '#3e6158', '#3f7a89', '#96c582', ]},
+    {name: 'chartIII', colors: ['#3e6158', '#ffffff', '#000105', '#3f7a89', '#96c582', ]},
   ];
 
   ngOnInit(): void {
@@ -28,7 +30,6 @@ export class ChangeColorComponent implements OnInit {
 
   public toggleColors(): void {
     this.show = !this.show;
-    console.log('here');
   }
 
   colorChange(color): void {
@@ -37,11 +38,10 @@ export class ChangeColorComponent implements OnInit {
 
   submit(): void {
     const postData = {
-      ids: this.storeId,
       'template.colorChart': this.defaultColor
     };
-    this.storeService.edit(postData).subscribe(data => {
-      console.log(data);
+    this.storeService.edit(this.storeId, postData).subscribe(store => {
+      localStorage.setItem('currentStore', JSON.stringify(store));
     });
   }
 }

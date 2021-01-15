@@ -15,12 +15,14 @@ export class BannerImageComponent implements OnInit {
   description = 'Decouvrez notre derniere collection';
   bannerSrc = '../../../assets/images/fashion-WPWVGRY.jpg';
   mainButton = 'Visitez';
+  storeId = '5fe9aa02155d77328c78ae70';
   ngOnInit(): void {
-    this.storeService.getById('5fd09d461bcaf731b40f95fb').subscribe(store => {
+    this.storeService.getById(this.storeId).subscribe(store => {
       this.title = store.template.header.title;
       this.description = store.template.header.description;
       this.mainButton = store.template.header.mainButton;
       this.bannerSrc = store.template.header.img;
+      localStorage.setItem('currentStore', JSON.stringify(store));
     });
   }
 
