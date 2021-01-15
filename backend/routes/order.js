@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const OrderService = require('../services/order');
 
+const passport = require('passport');
+const passportJWT = passport.authenticate('jwt', { session: false });
+
 // getOrders
 /**
  * @swagger
@@ -97,7 +100,7 @@ const OrderService = require('../services/order');
  *                                  format: byte
  *
  */
-router.get('', OrderService.getOrders)
+router.get('', passportJWT, OrderService.getOrders)
 
 //getManyOrders
 /**
@@ -250,7 +253,7 @@ router.delete('/delete/product', OrderService.deleteProductOrder)
 
 
 //edit Orders
-router.patch('/:id', OrderService.editOrder)
+router.patch('/:id', passportJWT, OrderService.editOrder)
 
 
 

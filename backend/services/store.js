@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-const _ = require('lodash');
-=======
->>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
 
 const Store = require('../models/store')
 const Order = require('../models/order')
@@ -25,21 +21,10 @@ exports.getOneStore = async (req, res) => {
   // We need to check if user is authenticated
 
   //get store id
-<<<<<<< HEAD
-  const id = req.params._id;
-  Store.findById(id)
-    .exec()
-    .then(doc => {
-      res.status(200).json(_.pick(doc,['_id','name','logo','description','storeType','location','creationDate']));
-    })
-    .catch(err => {
-      res.status(500).json({error: err})
-=======
   const { id } = req.params;
   const store = await Store.findById(id)
     .catch((err) => {
       res.status(400).json({error: err.message});
->>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
     });
 
   res.status(200).send(store);
@@ -54,6 +39,9 @@ exports.addStore = async (req, res) => {
     logo = ''
   }
 
+  //get the store id from the request
+  const _id = req.user.storeID;
+
   const { name, description, location, contact, storeType, creationDate, templateId} = req.body
 
   let getTemplate = Template.findById(templateId)
@@ -65,6 +53,7 @@ exports.addStore = async (req, res) => {
   // getTemplate._id= templateId
 
   const store = new Store({
+    _id,
     name,
     logo,
     description,

@@ -1,8 +1,9 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
-const storeOwnerSchema = new mongoose.Schema({
+const storeOwnerSchema = new Schema({
   methods: {
     type: [String],
     required: true,
@@ -35,6 +36,11 @@ const storeOwnerSchema = new mongoose.Schema({
       lowercase: true, default: ''
     }
   },
+  storeID: {
+    type: Schema.Types.ObjectID,
+    ref: "Store", 
+    default: ''
+  }
 });
 
 storeOwnerSchema.pre('save' , async function(next){

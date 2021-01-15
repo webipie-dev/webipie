@@ -2,12 +2,19 @@
 const Client = require('../models/client')
 const Store = require('../models/store')
 const Order = require('../models/order')
+const { validationResult } = require('express-validator')
 
 // FilterClients
 exports.getClients = async (req, res) => {
 
   // I THINK CLIENTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
+
+  // get the store_id from the request
+  const storeID = req.user.storeID;
+
+  // add the store_id to the query 
+  req.query.store = storeID;
 
   const clients = await Client.find(req.query)
     .catch((err) => {
@@ -60,6 +67,11 @@ exports.getOneClient = async (req, res) => {
 
 //addOneClient
 exports.addClient = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { firstname, lastname, phoneNumber, email, gender, fullAddress, storeId} = req.body
 
   const store = await Store.findById(storeId)

@@ -3,6 +3,9 @@ const router = express.Router();
 const StoreService = require('../services/store')
 const multer = require('multer');
 
+const passport = require('passport');
+const passportJWT = passport.authenticate('jwt', { session: false });
+
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -92,7 +95,6 @@ const storage = multer.diskStorage({
  */
 router.get('', StoreService.getStores)
 
-<<<<<<< HEAD
 // getStorebyId
 /**
  * @swagger
@@ -116,9 +118,6 @@ router.get('', StoreService.getStores)
  *             $ref: '#/components/schemas/Store'    # Reference to object definition
  */
 router.get('/:_id', StoreService.getOneStore)
-=======
-router.get('/:id', StoreService.getOneStore)
->>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
 
 // addStore
 /**
@@ -141,9 +140,8 @@ router.get('/:id', StoreService.getOneStore)
  *           schema: 
  *             $ref: '#/components/schemas/Store'    # Reference to object definition
  */
-router.post('',multer({storage: storage}).single('logoImg'), StoreService.addStore)
+router.post('', passportJWT, multer({storage: storage}).single('logoImg'), StoreService.addStore)
 
-<<<<<<< HEAD
 // deleteStore
 /**
  * @swagger
@@ -166,10 +164,7 @@ router.post('',multer({storage: storage}).single('logoImg'), StoreService.addSto
  *              schema: 
  *                  $ref: '#/components/schemas/Store' 
  */
-router.delete('/delete/single', StoreService.deleteOneStore)
-=======
-router.delete('', StoreService.deleteManyStores)
->>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
+// router.delete('/delete/single', StoreService.deleteOneStore);
 
 // deleteAllStores
 /**
@@ -188,7 +183,7 @@ router.delete('', StoreService.deleteManyStores)
  */
 router.delete('/delete', StoreService.deleteAllStores)
 
-router.patch('/:id',multer({storage: storage}).any(), StoreService.editStore)
+router.patch('/:id', passportJWT, multer({storage: storage}).any(), StoreService.editStore)
 
 
 module.exports = router;

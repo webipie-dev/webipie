@@ -1,13 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-<<<<<<< HEAD
-import {StoreService} from '../../_shared/services/store.service';
-import {Router} from '@angular/router';
-=======
 import {Validators} from '@angular/forms';
 import {AlignmentTypes} from '@swimlane/ngx-charts';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
->>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
 
 @Component({
   selector: 'app-change-font',
@@ -42,17 +37,12 @@ export class ChangeFontComponent implements OnInit {
   textBold: boolean;
   textItalic: boolean;
 
-<<<<<<< HEAD
-  constructor(private storeService: StoreService,
-              private router: Router) { }
-=======
   storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
 
 
   constructor(private http: HttpClient,
               private storeService: StoreService) {
   }
->>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
 
   ngOnInit(): void {
     this.fontTypes = [

@@ -67,9 +67,9 @@ app
   .use('/client', clientRoutes)
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
-  .use('/template',templateRoutes)
+  .use('/template',templateRoutes);
 
 
-module.exports = app;
-// app.listen(3000);
+// module.exports = app;
+app.listen(3000);
 

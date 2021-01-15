@@ -1,7 +1,14 @@
 const express = require('express');
-const Client = require('../models/client');
 const router = express.Router();
 const ClientService = require('../services/client')
+
+const passport = require('passport');
+const passportJWT = passport.authenticate('jwt', { session: false });
+
+// validation rules specific to the client
+const clientValidation = require('../middlewares/validation/clientValidator');
+// general validation rules
+const validation = require('../middlewares/validation/validator'); 
 
 // filerClients
 /**
@@ -15,13 +22,8 @@ const ClientService = require('../services/client')
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
-<<<<<<< HEAD
  *           schema: 
  *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
-=======
- *           schema:
- *             $ref: '#/components/schemas/ArrayOfClient'    # Reference to object definition
->>>>>>> 059d40beaddab2d1a32bb029007fbb5908ab75c3
  * components:
  *  schemas:
  *      Client:      # Object definition
@@ -59,7 +61,7 @@ const ClientService = require('../services/client')
  *                      type: string
  *
  */
-router.get('', ClientService.getClients)
+router.get('', passportJWT, ClientService.getClients)
 
 
 //getManyClients
@@ -111,7 +113,7 @@ router.get('', ClientService.getClients)
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-router.get('/:id', ClientService.getOneClient)
+router.get('/:id', passportJWT, ClientService.getOneClient)
 
 // addClient
 /**
@@ -134,7 +136,12 @@ router.get('/:id', ClientService.getOneClient)
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-router.post('', ClientService.addClient)
+router.post('', [
+    clientValidation.firstName, 
+    clientValidation.lastName, 
+    clientValidation.phoneNumber,
+    clientValidation.email], 
+    ClientService.addClient)
 
 
 // deleteManyCLients
@@ -159,7 +166,7 @@ router.post('', ClientService.addClient)
  *              schema:
  *                  $ref: '#/components/schemas/Client'
  */
-router.delete('', ClientService.deleteManyClients)
+router.delete('', passportJWT, ClientService.deleteManyClients)
 
 //deleteAllClients
 /**
@@ -176,7 +183,7 @@ router.delete('', ClientService.deleteManyClients)
  *           schema:
  *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
  */
-router.delete('/delete', ClientService.deleteAllClients)
+router.delete('/delete', passportJWT, ClientService.deleteAllClients)
 
 //updateManyClients
 router.patch('/:id', ClientService.editClient)
