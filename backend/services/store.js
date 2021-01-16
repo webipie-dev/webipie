@@ -47,7 +47,7 @@ exports.addStore = async (req, res) => {
     throw new Error('Template not Found')
   }
 
-  // getTemplate._id= templateId
+  getTemplate._id= templateId
 
   const store = new Store({
     name,

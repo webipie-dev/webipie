@@ -1,7 +1,9 @@
 const express = require('express');
-const Client = require('../models/client');
 const router = express.Router();
-const ClientService = require('../services/client')
+const ClientService = require('../services/client');
+const { body, param } = require('express-validator');
+const mongoose = require('mongoose')
+const validateRequest = require('../middlewares/validate-request')
 
 // filerClients
 /**
@@ -54,32 +56,6 @@ const ClientService = require('../services/client')
  */
 router.get('', ClientService.getClients)
 
-
-//getManyClients
-/**
- * @swagger
- * /client/many:
- *  get:
- *    description: Use to request many client
- *    parameters:
- *       - in: path
- *         name: ids
- *         schema:
- *           type: array
- *           items:
- *              type: string
- *         required: true
- *         description: unique IDs of the clients to get
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
- */
-// router.get('/many', ClientService.getManyClientById)
-
-
 // getClientbyId
 /**
  * @swagger
@@ -100,7 +76,13 @@ router.get('', ClientService.getClients)
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-router.get('/:id', ClientService.getOneClient)
+router.get('/:id',[
+  param('id')
+    .not()
+    .isEmpty()
+    .custom((input) => mongoose.Types.ObjectId.isValid(input))
+    .withMessage('wrong clientId or none has been provided')
+], validateRequest, ClientService.getOneClient)
 
 // addClient
 /**
@@ -121,7 +103,15 @@ router.get('/:id', ClientService.getOneClient)
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-router.post('', ClientService.addClient)
+router.post('', [
+  body('storeId')
+    .not()
+    .isEmpty()
+    .custom((input) => mongoose.Types.ObjectId.isValid(input))
+    .withMessage('wrong storeId or none has been provided'),
+  body('phoneNumber').not().isEmpty().withMessage('Phone Number is required')
+], validateRequest, ClientService.addClient)
+
 
 
 // deleteManyCLients

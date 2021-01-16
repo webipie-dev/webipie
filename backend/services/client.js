@@ -1,11 +1,11 @@
-
+const {validationResult} = require("express-validator");
 const Client = require('../models/client')
 const Store = require('../models/store')
-const Order = require('../models/order')
+const RequestValidationError = require("../errors/request-validation-error");
+const ApiError = require("../errors/api-error");
 
 // FilterClients
-exports.getClients = async (req, res) => {
-
+exports.getClients = async (req, res, next) => {
   // I THINK CLIENTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
@@ -18,54 +18,39 @@ exports.getClients = async (req, res) => {
 
 }
 
-//getManyClients
-// exports.getManyClientById = (req, res) =>{
-//   //get clients ids
-//   const clientId = req.query.ids;
-//   Client
-//     .find({_id: {$in: clientId}})
-//     .exec()
-//     .then(client => {
-//       if(client) {
-//         res.status(200).json({
-//           message: 'clients fetched successfully',
-//           count: client.length,
-//           client: client
-//         });
-//       } else {
-//         res.status(404).json({error: 'not found'});
-//       }
-//     })
-//     .catch(err => {
-//       res.status(500).json({error: err});
-//     });
-// }
 
 //getOneClient
-exports.getOneClient = async (req, res) => {
+exports.getOneClient = async (req, res, next) => {
 
   // We need to check if the store id connected is the same store is provided in the params
 
   //get client id
   const { id } = req.params;
 
-  const client = await Client.findById(id).populate('order')
+  const client = await Client.findById(id)
     .catch((err) => {
       res.status(400).json({error: err.message});
     });
+
+  if (!client) {
+    next(ApiError.NotFound('Client Not Found'));
+    return;
+  }
 
   res.status(200).send(client);
 
 }
 
 //addOneClient
-exports.addClient = async (req, res) => {
+exports.addClient = async (req, res, next) => {
+
   const { firstname, lastname, phoneNumber, email, gender, fullAddress, storeId} = req.body
 
   const store = await Store.findById(storeId)
 
   if (!store) {
-    throw new Error('Store Not Found')
+    next(ApiError.NotFound('Store Not Found'));
+    return
   }
 
 

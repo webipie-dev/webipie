@@ -23,7 +23,7 @@ passport.use(new JwtStrategy({
       if (!storeOwner) {
         return done(null, false);
       }
-  
+
       // Otherwise, return the storeOwner
       req.storeOwner = storeOwner;
       done(null, storeOwner);
@@ -32,7 +32,7 @@ passport.use(new JwtStrategy({
     }
 }));
 
-// GOOGLE OAUTH STRATEGY 
+// GOOGLE OAUTH STRATEGY
 passport.use('googleToken' , new GooglePlusTokenStrategy({
   clientID : '790108924491-t5da8keoe1srskluak4jpi4oue78gcai.apps.googleusercontent.com',
   clientSecret : 'oQwzeTlMcqnoAT96ZsQpZkFQ'
@@ -117,13 +117,13 @@ passport.use(new LocalStrategy({
     // console.log(storeOwner)
     // Check if the password is correct
     const isMatch = await storeOwner.isValidPassword(password);
-  
+
     // console.log(isMatch)
     // If not, handle it
     if (!isMatch) {
       return done(null, false);
     }
-  
+
     // Otherwise, return the storeOwner
     done(null, storeOwner);
   } catch(error) {

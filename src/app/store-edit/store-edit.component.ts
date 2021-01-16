@@ -14,7 +14,8 @@ export class StoreEditComponent implements OnInit {
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
-  storeId = '5fe9aa02155d77328c78ae70';
+  storeId = '600053ca1181b69010315090';
+  currentStore;
 
   constructor(public sanitizer: DomSanitizer,
               private router: Router,
