@@ -10,7 +10,7 @@ const passport = require('passport');
 const passportJWT = passport.authenticate('jwt', { session: false });
 
 // validation rules specific to the client
-const clientValidation = require('../middlewares/validation/clientValidator');
+const clientValidation = require('../middlewares/validation/client-validator');
 // general validation rules
 const validation = require('../middlewares/validation/validator');
 
