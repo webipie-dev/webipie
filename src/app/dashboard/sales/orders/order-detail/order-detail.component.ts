@@ -20,9 +20,6 @@ export class OrderDetailComponent implements OnInit {
   windowWidth = window.screen.width;
   orderProducts = [];
   orderProductsQuantity = [];
-  newVal = {
-    _id: ''
-  };
   closeResult;
 
   constructor(private http: HttpClient,
@@ -37,7 +34,7 @@ export class OrderDetailComponent implements OnInit {
     this.displayMode = !this.editMode;
   }
 
-  open(content) {
+  open(content): void {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -58,7 +55,7 @@ export class OrderDetailComponent implements OnInit {
           paymentMethod: datas.paymentMethod,
           products: datas.products,
           clientId: datas.client._id,
-          clientName: datas.client.name,
+          clientName: datas.client.firstname,
           store: datas.store,
         };
         this.orderProducts = this.rowData.products;
@@ -67,40 +64,9 @@ export class OrderDetailComponent implements OnInit {
 
   }
 
-  onDeleteProduct(event, prod) {
-    if (window.confirm('Are you sure you want to delete?')) {
-      const index = this.orderProducts.indexOf(prod);
-      this.orderService.deleteProduct(event._id, prod._id).subscribe((data) => {
-        if (index > -1) {
-          // delete the product from displayed products
-          this.orderProducts.splice(index, 1);
-          // refresh the row data orders
-          this.orderService.getById(event._id).subscribe((datas) => {
-            const date = datas.orderDate.split('T');
-            let totalprice = 0;
-            datas.products.forEach(product => {
-              totalprice += product.quantity * product.price;
-            });
-            this.rowData = {
-              _id: datas._id,
-              orderDate: date[0] ,
-              orderStatus: datas.orderStatus,
-              totalPrice: totalprice,
-              paymentMethod: datas.paymentMethod,
-              products: datas.products,
-              clientId: datas.client._id,
-              clientName: datas.client.name,
-              store: datas.store,
-            };
-          });
-        }
-      });
 
-    }
-  }
-
-  onDeleteOrder(orderId: string){
-    this.orderService.deleteMany([orderId]).subscribe(data => {
+  onDeleteOrder(orderId: string): void{
+    this.orderService.deleteMany({ids: [orderId]}).subscribe(data => {
     });
     this.modalService.dismissAll();
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
@@ -119,8 +85,41 @@ export class OrderDetailComponent implements OnInit {
   }
 
   // switch modal mode
-  onSwitch() {
+  onSwitch(): void {
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;
   }
 }
+
+
+// onDeleteProduct(event, prod): void {
+//   if (window.confirm('Are you sure you want to delete?')) {
+//     const index = this.orderProducts.indexOf(prod);
+//     this.orderService.deleteProduct(event._id, prod._id).subscribe((data) => {
+//       if (index > -1) {
+//         // delete the product from displayed products
+//         this.orderProducts.splice(index, 1);
+//         // refresh the row data orders
+//         this.orderService.getById(event._id).subscribe((datas) => {
+//           const date = datas.orderDate.split('T');
+//           let totalprice = 0;
+//           datas.products.forEach(product => {
+//             totalprice += product.quantity * product.price;
+//           });
+//           this.rowData = {
+//             _id: datas._id,
+//             orderDate: date[0] ,
+//             orderStatus: datas.orderStatus,
+//             totalPrice: totalprice,
+//             paymentMethod: datas.paymentMethod,
+//             products: datas.products,
+//             clientId: datas.client._id,
+//             clientName: datas.client.name,
+//             store: datas.store,
+//           };
+//         });
+//       }
+//     });
+//
+//   }
+// }

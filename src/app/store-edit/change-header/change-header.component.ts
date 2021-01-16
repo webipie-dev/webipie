@@ -26,7 +26,7 @@ export class ChangeHeaderComponent implements OnInit {
     });
   }
 
-  onFileChanged(event) {
+  onFileChanged(event): void {
     const file = event.target.files[0];
     this.postData.append('headerImg', file, file.name);
     console.log(file);
@@ -37,7 +37,7 @@ export class ChangeHeaderComponent implements OnInit {
     };
   }
 
-  onSubmit() {
+  onSubmit(): void {
     for (const field in this.headerForm.controls) {
       if (field !== 'img') {
         const control = this.headerForm.get(field);
@@ -48,7 +48,7 @@ export class ChangeHeaderComponent implements OnInit {
       }
     }
     this.postData.append('ids', this.storeId);
-    this.storeService.edit(this.postData).subscribe(data => {
+    this.storeService.edit(this.storeId, this.postData).subscribe(data => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/header']);
       });

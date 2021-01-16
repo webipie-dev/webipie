@@ -32,7 +32,7 @@ export class ProductDetailComponent implements OnInit {
 
   onDelete(){
     document.getElementById('close-modal').click();
-    this.productService.deleteMany([this.rowData._id]).subscribe(data => {
+    this.productService.deleteMany({ids: [this.rowData._id]}).subscribe(data => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['dashboard/products']);
       });

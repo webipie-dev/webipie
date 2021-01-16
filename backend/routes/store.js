@@ -33,14 +33,15 @@ const storage = multer.diskStorage({
 
 router.get('', StoreService.getStores)
 
-router.get('/:_id', StoreService.getOneStore)
+router.get('/:id', StoreService.getOneStore)
 
 router.post('',multer({storage: storage}).single('logoImg'), StoreService.addStore)
 
-router.delete('/delete/single', StoreService.deleteOneStore)
+router.delete('', StoreService.deleteManyStores)
 
 router.delete('/delete', StoreService.deleteAllStores)
 
-router.patch('/update',multer({storage: storage}).any(), StoreService.editStore)
+router.patch('/:id',multer({storage: storage}).any(), StoreService.editStore)
+
 
 module.exports = router;

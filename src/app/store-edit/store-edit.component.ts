@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {Router} from '@angular/router';
+import {NavigationExtras, Router} from '@angular/router';
+import {StoreService} from '../_shared/services/store.service';
 
 @Component({
   selector: 'app-store-edit',
@@ -13,7 +14,11 @@ export class StoreEditComponent implements OnInit {
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
-  constructor(public sanitizer: DomSanitizer, private router: Router) { }
+  storeId = '5fe9aa02155d77328c78ae70';
+
+  constructor(public sanitizer: DomSanitizer,
+              private router: Router,
+              private storeService: StoreService) { }
 
   toggleS = (): void =>  {
     document.getElementById('sidebar').classList.toggle('active');
@@ -33,6 +38,10 @@ export class StoreEditComponent implements OnInit {
     document.dispatchEvent(event);
   }
   ngOnInit(): void {
+    this.storeService.getById(this.storeId).subscribe((store) => {
+      this.currentStore = store;
+    });
+
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
     if (document.getElementById('sidebar').classList.contains('active')) {
      this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
@@ -49,8 +58,10 @@ export class StoreEditComponent implements OnInit {
       document.getElementById('iframe').style.width = this.newWidth.toString();
     });
 
+
+
   }
-  switchAndToggleS(path) {
+  switchAndToggleS(path): void {
     this.router.navigate([path]);
     this.toggleS();
   }

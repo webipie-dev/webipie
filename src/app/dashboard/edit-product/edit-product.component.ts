@@ -40,32 +40,23 @@ export class EditProductComponent implements OnInit {
     });
     // if we're in the edit page
     if (this.edit) {
-      this.productForm = new FormGroup({
-        ids: new FormControl('', Validators.required),
-        name: new FormControl('', Validators.required),
-        description: new FormControl('', Validators.required),
-        price: new FormControl('', Validators.required),
-        imgs: new FormControl('', Validators.required),
-        quantity: new FormControl('', Validators.required),
-        store: new FormControl('', Validators.required),
-      });
       this.getProductById(this.productId);
-    } else {
-      this.productForm = new FormGroup({
-        name: new FormControl(null, Validators.required),
-        description: new FormControl(null, Validators.required),
-        price: new FormControl(null, Validators.required),
-        imgs: new FormControl(null, Validators.required),
-        quantity: new FormControl(null, Validators.required),
-        store: new FormControl(null, Validators.required),
-      });
     }
+    this.productForm = new FormGroup({
+      name: new FormControl(null, Validators.required),
+      description: new FormControl(null, Validators.required),
+      price: new FormControl(null, Validators.required),
+      imgs: new FormControl(null, Validators.required),
+      quantity: new FormControl(null, Validators.required),
+      store: new FormControl(null, Validators.required),
+    });
+
   }
 
 
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
-      this.singleProduct = data.product;
+      this.singleProduct = data;
       this.singleProduct.imgs.forEach((elt) => {
         this.imageObject.push({
           image: elt,
@@ -76,9 +67,9 @@ export class EditProductComponent implements OnInit {
   }
 
   getAllProducts(): void {
-    this.editProductService.getAll().subscribe(data => {
-      this.allProducts = data.products;
-    });
+    // this.editProductService.getAll().subscribe(data => {
+    //   this.allProducts = data.products;
+    // });
   }
 
   // adding images to the postForm and displaying them
@@ -88,6 +79,7 @@ export class EditProductComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(file[item]);
 
+      // tslint:disable-next-line:variable-name
       reader.onload = (_event) => {
         this.msg = '';
         this.url = reader.result;
@@ -96,6 +88,7 @@ export class EditProductComponent implements OnInit {
       };
     });
 
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < file.length; i++) {
       this.postData.append('imgs', file[i], file[i].name);
     }
@@ -103,10 +96,15 @@ export class EditProductComponent implements OnInit {
 
   addProduct(): void {
 
+    // tslint:disable-next-line:forin
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
-        this.postData.append(field, control.value);
+        if (field === 'store') {
+          this.postData.append('storeId', control.value);
+        } else {
+          this.postData.append(field, control.value);
+        }
       } else {
         if ((field !== 'imgs')) {
           this.postData.append(field, '');
@@ -120,19 +118,22 @@ export class EditProductComponent implements OnInit {
   }
 
   editProduct(id): void {
+    // tslint:disable-next-line:forin
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
-        this.postData.append(field, control.value);
+        if (field === 'store') {
+          this.postData.append('storeId', control.value);
+        } else {
+          this.postData.append(field, control.value);
+        }
       } else {
-        if (field === 'ids') {
-          this.postData.append(field, id);
-        } else if (field !== 'imgs') {
+        if (field !== 'imgs') {
           this.postData.append(field, '');
         }
       }
     }
-    this.editProductService.edit(this.postData).subscribe((data) => {
+    this.editProductService.edit(id, this.postData).subscribe((data) => {
       this.router.navigate(['dashboard/products']);
     });
   }
