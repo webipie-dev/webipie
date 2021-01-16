@@ -67,7 +67,7 @@ app
   .use('/client', clientRoutes)
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
-  .use('/template',templateRoutes)
+  .use('/template',templateRoutes);
 
 app.all('*', async (req, res, next) => {
   next(ApiError.NotFound('Route Not Found'))

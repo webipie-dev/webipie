@@ -4,6 +4,7 @@ const { ExtractJwt } = require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
 const GooglePlusTokenStrategy = require('passport-google-plus-token');
 const FacebookTokenStrategy = require('passport-facebook-token');
+const mongoose = require('mongoose');
 
 const config = require('../configuration');
 const {StoreOwner} = require('../models/storeOwner');
@@ -55,7 +56,8 @@ passport.use('googleToken' , new GooglePlusTokenStrategy({
       google: {
         id: profile.id,
         email: profile.emails[0].value
-      }
+      },
+      storeID: new mongoose.mongo.ObjectId()
     });
 
     await newStoreOwner.save();
@@ -89,7 +91,8 @@ passport.use('facebookToken' , new FacebookTokenStrategy({
       facebook: {
         id: profile.id,
         email: profile.emails[0].value
-      }
+      },
+      storeID: new mongoose.mongo.ObjectId()
     });
 
     await newStoreOwner.save();

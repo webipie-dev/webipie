@@ -1,11 +1,13 @@
 const JWT = require('jsonwebtoken');
 const {validatestoreOwner , StoreOwner} = require('../models/storeOwner');
 const { JWT_SECRET } = require('../configuration');
+const mongoose = require('mongoose');
 
 signToken = user => {
     return JWT.sign({
         iss: 'NameOfProject',
         sub: user.id,
+        storeID: user.storeID,
         iat: new Date().getTime(),
         exp: new Date().setDate(new Date().getDate() + 1 )
     }, JWT_SECRET );
@@ -18,6 +20,7 @@ module.exports = {
         if (error) return res.status(400).send(error.details[0].message);
 
         const { email,password } = req.body;
+        const storeID = new mongoose.mongo.ObjectId();
 
         let findstoreOwner = await StoreOwner.find({ "local.email": email }).limit(1);
         findstoreOwner = findstoreOwner[0];
@@ -53,7 +56,8 @@ module.exports = {
             local: {
                 email: email,
                 password: password
-            }
+            },
+            storeID
         });
         await newstoreOwner.save();
 
@@ -71,7 +75,7 @@ module.exports = {
         res.cookie('access_token', token, {
             httpOnly: true
         });
-        res.status(200).json({ success: true });
+        res.status(200).json({ token });
     },
 
     googleOAuth: async (req, res, next) => {
@@ -80,7 +84,7 @@ module.exports = {
         res.cookie('access_token', token, {
             httpOnly: true
         });
-        res.status(200).json({ success: true });
+        res.status(200).json({ token });
     },
 
     facebookOAuth: async (req, res, next) => {
@@ -88,7 +92,7 @@ module.exports = {
         res.cookie('access_token', token, {
             httpOnly: true
         });
-        res.status(200).json({success: true});
+        res.status(200).json({ token });
     }
 
 }

@@ -1,9 +1,18 @@
 const express = require('express');
+const Client = require('../models/client');
 const router = express.Router();
 const ClientService = require('../services/client');
 const { body, param } = require('express-validator');
 const mongoose = require('mongoose')
 const validateRequest = require('../middlewares/validate-request')
+
+const passport = require('passport');
+const passportJWT = passport.authenticate('jwt', { session: false });
+
+// validation rules specific to the client
+const clientValidation = require('../middlewares/validation/clientValidator');
+// general validation rules
+const validation = require('../middlewares/validation/validator');
 
 // filerClients
 /**
@@ -11,12 +20,14 @@ const validateRequest = require('../middlewares/validate-request')
  * /client:
  *  get:
  *    description: Use to request all clients
+ *    tags:
+ *      - clients
  *    responses:
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
  *           schema:
- *             $ref: '#/components/schemas/ArrayOfClient'    # Reference to object definition
+ *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
  * components:
  *  schemas:
  *      Client:      # Object definition
@@ -54,7 +65,35 @@ const validateRequest = require('../middlewares/validate-request')
  *                      type: string
  *
  */
-router.get('', ClientService.getClients)
+router.get('', passportJWT, ClientService.getClients)
+
+
+//getManyClients
+/**
+ * @swagger
+ * /client/many:
+ *  get:
+ *    description: Use to request many client
+ *    tags:
+ *      - clients
+ *    parameters:
+ *       - in: path
+ *         name: ids
+ *         schema:
+ *           type: array
+ *           items:
+ *              type: string
+ *         required: true
+ *         description: unique IDs of the clients to get
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema:
+ *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
+ */
+// router.get('/many', ClientService.getManyClientById)
+
 
 // getClientbyId
 /**
@@ -62,6 +101,8 @@ router.get('', ClientService.getClients)
  * /client/{id}:
  *  get:
  *    description: Use to request one client by id
+ *    tags:
+ *      - clients
  *    parameters:
  *       - in: path
  *         name: id
@@ -76,13 +117,7 @@ router.get('', ClientService.getClients)
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-router.get('/:id',[
-  param('id')
-    .not()
-    .isEmpty()
-    .custom((input) => mongoose.Types.ObjectId.isValid(input))
-    .withMessage('wrong clientId or none has been provided')
-], validateRequest, ClientService.getOneClient)
+router.get('/:id', passportJWT, ClientService.getOneClient)
 
 // addClient
 /**
@@ -90,6 +125,8 @@ router.get('/:id',[
  * /client:
  *  post:
  *    description: Use to add one client
+ *    tags:
+ *      - clients
  *    requestBody:
  *       required: true
  *       content:
@@ -104,14 +141,11 @@ router.get('/:id',[
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
 router.post('', [
-  body('storeId')
-    .not()
-    .isEmpty()
-    .custom((input) => mongoose.Types.ObjectId.isValid(input))
-    .withMessage('wrong storeId or none has been provided'),
-  body('phoneNumber').not().isEmpty().withMessage('Phone Number is required')
-], validateRequest, ClientService.addClient)
-
+    clientValidation.firstName,
+    clientValidation.lastName,
+    clientValidation.phoneNumber,
+    clientValidation.email],
+    ClientService.addClient)
 
 
 // deleteManyCLients
@@ -120,6 +154,8 @@ router.post('', [
  * /client:
  *  delete:
  *    description: Use to delete one client or many
+ *    tags:
+ *      - clients
  *    requestBody:
  *       required: true
  *       content:
@@ -134,7 +170,7 @@ router.post('', [
  *              schema:
  *                  $ref: '#/components/schemas/Client'
  */
-router.delete('', ClientService.deleteManyClients)
+router.delete('', passportJWT, ClientService.deleteManyClients)
 
 //deleteAllClients
 /**
@@ -142,6 +178,8 @@ router.delete('', ClientService.deleteManyClients)
  * /client/delete:
  *  delete:
  *    description: Use to delete all clients
+ *    tags:
+ *      - clients
  *    responses:
  *      '200':
  *        content:  # Response body
@@ -149,7 +187,7 @@ router.delete('', ClientService.deleteManyClients)
  *           schema:
  *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
  */
-router.delete('/delete', ClientService.deleteAllClients)
+router.delete('/delete', passportJWT, ClientService.deleteAllClients)
 
 //updateManyClients
 router.patch('/:id', ClientService.editClient)
