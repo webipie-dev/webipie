@@ -1,9 +1,6 @@
 const express = require('express');
-const Client = require('../models/client');
 const router = express.Router();
 const ClientService = require('../services/client');
-const { body, param } = require('express-validator');
-const mongoose = require('mongoose')
 const validateRequest = require('../middlewares/validate-request')
 
 const passport = require('passport');
@@ -90,7 +87,9 @@ router.get('', passportJWT, ClientService.getClients)
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-router.get('/:id', passportJWT, ClientService.getOneClient)
+router.get('/:id', [
+  validation.id
+], validateRequest, passportJWT, ClientService.getOneClient)
 
 // addClient
 /**
@@ -143,7 +142,7 @@ router.post('', [
  *              schema:
  *                  $ref: '#/components/schemas/Client'
  */
-router.delete('', passportJWT, ClientService.deleteManyClients)
+router.delete('', validation.ids, validateRequest, passportJWT, ClientService.deleteManyClients)
 
 //deleteAllClients
 /**

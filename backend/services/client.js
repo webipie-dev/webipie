@@ -53,7 +53,7 @@ exports.addClient = async (req, res, next) => {
 
   if (!store) {
     next(ApiError.NotFound('Store Not Found'));
-    return
+    return;
   }
 
 
@@ -89,13 +89,13 @@ exports.deleteManyClients = async (req, res, next) => {
 
   if (deletedClients) {
     if (deletedClients.deletedCount === 0) {
-      throw new Error('No Clients found to delete')
+      next(ApiError.NotFound('No Clients found to delete'));
+      return;
     }else if (deletedClients.deletedCount < ids.length) {
-      throw new Error(`${ids.length} Client to be deleted but ${deletedClients.deletedCount} are found and deleted`)
-
+      next(ApiError.NotFound(`${ids.length} Client to be deleted but ${deletedClients.deletedCount} are found and deleted`));
+      return;
     }
   }
-
   res.status(200).send(deletedClients);
 
 };
@@ -135,8 +135,9 @@ exports.editClient = async (req, res, next) => {
 
   if (clients) {
     if (clients.nModified === 0) {
-      res.send(clients)
-      throw new Error('No Clients modified')
+
+      next(ApiError.NotFound('No Clients modified'));
+      return;
 
     }
   }
