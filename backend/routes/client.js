@@ -68,33 +68,6 @@ const validation = require('../middlewares/validation/validator');
 router.get('', passportJWT, ClientService.getClients)
 
 
-//getManyClients
-/**
- * @swagger
- * /client/many:
- *  get:
- *    description: Use to request many client
- *    tags:
- *      - clients
- *    parameters:
- *       - in: path
- *         name: ids
- *         schema:
- *           type: array
- *           items:
- *              type: string
- *         required: true
- *         description: unique IDs of the clients to get
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
- */
-// router.get('/many', ClientService.getManyClientById)
-
-
 // getClientbyId
 /**
  * @swagger
@@ -144,8 +117,8 @@ router.post('', [
     clientValidation.firstName,
     clientValidation.lastName,
     clientValidation.phoneNumber,
-    clientValidation.email],
-    ClientService.addClient)
+    clientValidation.email
+  ], validateRequest, ClientService.addClient)
 
 
 // deleteManyCLients
