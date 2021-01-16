@@ -39,6 +39,9 @@ exports.addStore = async (req, res) => {
     logo = ''
   }
 
+  //get the store id from the request
+  const _id = req.user.storeID;
+
   const { name, description, location, contact, storeType, creationDate, templateId} = req.body
 
   let getTemplate = Template.findById(templateId)
@@ -47,9 +50,10 @@ exports.addStore = async (req, res) => {
     throw new Error('Template not Found')
   }
 
-  // getTemplate._id= templateId
+  getTemplate._id= templateId
 
   const store = new Store({
+    _id,
     name,
     logo,
     description,

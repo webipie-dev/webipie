@@ -15,7 +15,7 @@ export class BannerImageComponent implements OnInit {
   description = 'Decouvrez notre derniere collection';
   bannerSrc = '../../../assets/images/fashion-WPWVGRY.jpg';
   mainButton = 'Visitez';
-  storeId = '5fe9aa02155d77328c78ae70';
+  storeId = '600053ca1181b69010315090';
   ngOnInit(): void {
     this.storeService.getById(this.storeId).subscribe(store => {
       this.title = store.template.header.title;

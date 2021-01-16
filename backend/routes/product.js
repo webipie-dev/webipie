@@ -3,6 +3,9 @@ const router = express.Router();
 const productService = require('../services/product');
 const multer = require('multer');
 
+const passport = require('passport');
+const passportJWT = passport.authenticate('jwt', { session: false });
+
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -31,12 +34,14 @@ const storage = multer.diskStorage({
  * /product:
  *  get:
  *    description: Use to request all products
+ *    tags:
+ *      - products
  *    responses:
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/ArrayOfProduct'    # Reference to object definition
+ *           schema: 
+ *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
  * components:
  *  schemas:
  *      Product:      # Object definition
@@ -72,10 +77,56 @@ const storage = multer.diskStorage({
  *                  format: uuid
  *
  */
-router.get('', productService.getProducts)
+router.get('', passportJWT, productService.getProducts)
 
+//getManyProducts
+/**
+ * @swagger
+ * /product/many:
+ *  get:
+ *    description: Use to request many products
+ *    tags:
+ *      - products
+ *    parameters:
+ *       - in: path
+ *         name: ids
+ *         schema:
+ *           type: array
+ *           items:
+ *              type: string
+ *         required: true
+ *         description: unique IDs of the products to get
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
+ */
 router.get('/many', productService.getManyProductById)
 
+// getProductbyId
+/**
+ * @swagger
+ * /product/{id}:
+ *  get:
+ *    description: Use to request one product by id
+ *    tags:
+ *      - products
+ *    parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: unique ID of the product to get
+ *    responses:
+ *      '200':
+ *        content:  # Response body
+ *          application/json:  # Media type
+ *           schema: 
+ *             $ref: '#/components/schemas/Product'    # Reference to object definition
+ */
 router.get('/:id', productService.getOneProduct)
 
 // addProduct
@@ -84,6 +135,8 @@ router.get('/:id', productService.getOneProduct)
  * /product:
  *  post:
  *    description: Use to add one product
+ *    tags:
+ *      - products
  *    requestBody:
  *       required: true
  *       content:
@@ -97,7 +150,7 @@ router.get('/:id', productService.getOneProduct)
  *           schema:
  *             $ref: '#/components/schemas/Product'    # Reference to object definition
  */
-router.post('', multer({storage: storage}).any("productImgs", 5), productService.addProduct)
+router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), productService.addProduct)
 
 
 // deleteManyProducts
@@ -106,6 +159,8 @@ router.post('', multer({storage: storage}).any("productImgs", 5), productService
  * /product:
  *  delete:
  *    description: Use to delete one product or many
+ *    tags:
+ *      - products
  *    requestBody:
  *       required: true
  *       content:
@@ -122,7 +177,7 @@ router.post('', multer({storage: storage}).any("productImgs", 5), productService
  *                  - $ref: '#/components/schemas/Product'
  *                  - $ref: '#/components/schemas/ArrayOfProducts'
  */
-router.delete('', productService.deleteManyProducts)
+router.delete('', passportJWT, productService.deleteManyProducts)
 
 //deleteAllProducts
 /**
@@ -130,6 +185,8 @@ router.delete('', productService.deleteManyProducts)
  * /product/delete:
  *  delete:
  *    description: Use to delete all products
+ *    tags:
+ *      - products
  *    responses:
  *      '200':
  *        content:  # Response body
@@ -137,10 +194,10 @@ router.delete('', productService.deleteManyProducts)
  *           schema:
  *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
  */
-router.delete('/delete', productService.deleteAllProducts);
+router.delete('/delete', passportJWT, productService.deleteAllProducts);
 
 
-router.patch('/:id', multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
+router.patch('/:id', passportJWT, multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
 
 
 module.exports = router;

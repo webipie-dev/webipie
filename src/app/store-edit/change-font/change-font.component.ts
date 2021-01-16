@@ -3,6 +3,7 @@ import {Validators} from '@angular/forms';
 import {AlignmentTypes} from '@swimlane/ngx-charts';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-change-font',
@@ -20,6 +21,7 @@ export class ChangeFontComponent implements OnInit {
   fontSizeMax: number;
   fontWeights: Array<string>;
   // const alignments = ["center", "right", "left"];
+
   /*
     specific settings to user's template
   */
@@ -37,7 +39,8 @@ export class ChangeFontComponent implements OnInit {
 
 
   constructor(private http: HttpClient,
-              private storeService: StoreService) {
+              private storeService: StoreService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -135,6 +138,24 @@ export class ChangeFontComponent implements OnInit {
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
       localStorage.setItem('currentStore', JSON.stringify(store));
+    });
+  }
+
+  onSubmit(): void {
+    const postData = {
+      ids: this.storeId,
+      type: this.fontType,
+      size: this.fontSize,
+      weight: this.fontWeight,
+      alignment: this.textAlign,
+      bold: this.textBold,
+      italic: this.textItalic,
+
+    };
+    this.storeService.edit(this.storeId, postData).subscribe(data => {
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['store/font']);
+      });
     });
   }
 

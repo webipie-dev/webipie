@@ -4,6 +4,7 @@ const { ExtractJwt } = require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
 const GooglePlusTokenStrategy = require('passport-google-plus-token');
 const FacebookTokenStrategy = require('passport-facebook-token');
+const mongoose = require('mongoose');
 
 const config = require('../configuration');
 const {StoreOwner} = require('../models/storeOwner');
@@ -23,7 +24,7 @@ passport.use(new JwtStrategy({
       if (!storeOwner) {
         return done(null, false);
       }
-  
+
       // Otherwise, return the storeOwner
       req.storeOwner = storeOwner;
       done(null, storeOwner);
@@ -32,7 +33,7 @@ passport.use(new JwtStrategy({
     }
 }));
 
-// GOOGLE OAUTH STRATEGY 
+// GOOGLE OAUTH STRATEGY
 passport.use('googleToken' , new GooglePlusTokenStrategy({
   clientID : '790108924491-t5da8keoe1srskluak4jpi4oue78gcai.apps.googleusercontent.com',
   clientSecret : 'oQwzeTlMcqnoAT96ZsQpZkFQ'
@@ -55,7 +56,8 @@ passport.use('googleToken' , new GooglePlusTokenStrategy({
       google: {
         id: profile.id,
         email: profile.emails[0].value
-      }
+      },
+      storeID: new mongoose.mongo.ObjectId()
     });
 
     await newStoreOwner.save();
@@ -89,7 +91,8 @@ passport.use('facebookToken' , new FacebookTokenStrategy({
       facebook: {
         id: profile.id,
         email: profile.emails[0].value
-      }
+      },
+      storeID: new mongoose.mongo.ObjectId()
     });
 
     await newStoreOwner.save();
@@ -117,13 +120,13 @@ passport.use(new LocalStrategy({
     // console.log(storeOwner)
     // Check if the password is correct
     const isMatch = await storeOwner.isValidPassword(password);
-  
+
     // console.log(isMatch)
     // If not, handle it
     if (!isMatch) {
       return done(null, false);
     }
-  
+
     // Otherwise, return the storeOwner
     done(null, storeOwner);
   } catch(error) {

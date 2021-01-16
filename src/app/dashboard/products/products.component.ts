@@ -83,7 +83,7 @@ export class ProductsComponent implements OnInit {
   selectedRows = [];
   showDeleteManyButton = false;
   products = [];
-  storeId = '5fe9aa02155d77328c78ae70';
+  storeId = '600053ca1181b69010315090';
 
   constructor(private http: HttpClient,
               private productService: ProductService,
