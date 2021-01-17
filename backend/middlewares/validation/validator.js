@@ -31,6 +31,11 @@ let validation = {
         .withMessage('ID Must be Valid')
     ),
 
+  /**
+   Must pass the following rules:
+   is not an empty array
+   every element is a mongoose objectId
+   */
     ids: util.promisify(
       check('ids')
         .not().isEmpty().withMessage('No ids provided'),
