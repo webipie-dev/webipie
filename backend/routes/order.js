@@ -135,7 +135,6 @@ router.get('/:id', [
   validation.id
 ], validateRequest, passportJWT, OrderService.getOneOrder)
 
-// router.get('/detail/:_id', OrderService.detailOrder)
 
 // addOrder
 /**
@@ -165,7 +164,7 @@ router.post('', [
   orderValidation.productId,
   orderValidation.clientId,
   validation.storeId
-], validateRequest, OrderService.addOrder)
+], validateRequest, passportJWT, OrderService.addOrder)
 
 
 // deleteManyOrders
