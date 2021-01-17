@@ -24,7 +24,7 @@ module.exports = {
 
         let findstoreOwner = await StoreOwner.find({ "local.email": email }).limit(1);
         findstoreOwner = findstoreOwner[0];
-        if (findstoreOwner) return res.status(403).send({ error: 'Email is already in use'});
+        if (findstoreOwner) return res.status(403).send({ errors: 'Email is already in use'});
 
         findstoreOwner = await StoreOwner.find({
             $or: [

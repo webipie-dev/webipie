@@ -14,7 +14,7 @@ exports.getClients = async (req, res, next) => {
 
   const clients = await Client.find(req.query)
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(clients);
@@ -32,7 +32,7 @@ exports.getOneClient = async (req, res, next) => {
 
   const client = await Client.findById(id)
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (!client) {
@@ -69,7 +69,7 @@ exports.addClient = async (req, res, next) => {
 
   const savedClient = await client.save()
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(201).send(savedClient);
@@ -84,7 +84,7 @@ exports.deleteManyClients = async (req, res, next) => {
 
   const deletedClients = await Client.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (deletedClients) {
@@ -106,7 +106,7 @@ exports.deleteAllClients = async (req, res, next) => {
 
   const deletedClients = await Client.deleteMany({})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(deletedClients);
@@ -119,7 +119,7 @@ exports.editClient = async (req, res, next) => {
 
   // separating the updates
   const edits = {};
-  for(var key in req.body) {
+  for(const key in req.body) {
     if(req.body.hasOwnProperty(key)) {
       if(key !== 'id'){
         edits[key] = req.body[key];
@@ -127,21 +127,18 @@ exports.editClient = async (req, res, next) => {
     }
   }
 
-
   const clients = await Client.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (clients) {
     if (clients.nModified === 0) {
-
       next(ApiError.NotFound('No Clients modified'));
       return;
 
     }
   }
-
 
   res.status(200).send(clients);
 
