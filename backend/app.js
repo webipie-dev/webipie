@@ -79,5 +79,5 @@ app.all('*', async (req, res, next) => {
 app.use(errorHandler);
 
 
-module.exports = app;
-// app.listen(3000);
+// module.exports = app;
+app.listen(3000);

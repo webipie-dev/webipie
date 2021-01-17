@@ -91,7 +91,8 @@ router.get('', passportJWT, ClientService.getClients)
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
 
-router.get('/:id', passportJWT.unless(function(req){
+
+router.get('/:id', [validation.id], validateRequest, passportJWT.unless(function(req){
     if(req.headers['role'] === 'client'){
         return true;
     }
