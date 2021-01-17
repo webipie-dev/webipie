@@ -56,7 +56,7 @@ export class GenericService<T extends GenericModel> {
     let httpOptions: any;
     if ( localStorage.getItem('token') ){
       httpOptions = {
-        headers: { 'Authorization': localStorage.getItem('token') },
+        headers: { Authorization: localStorage.getItem('token') },
       };
     }
     return this.http.patch(this.getUrl() + this.suffix + '/' + id, body, httpOptions) as unknown as Observable<T>;
