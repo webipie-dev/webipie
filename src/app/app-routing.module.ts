@@ -41,10 +41,17 @@ const routes: Routes = [
   },
   {
     path: 'template',
-    loadChildren: () => { 
+    loadChildren: () => {
       const templateId = localStorage.getItem('templateId');
       return import('./template/template.module')
-      .then(m => m.TemplateModule)
+      .then(m => m.TemplateModule);
+    },
+  },
+  {
+    path: 'second-template',
+    loadChildren: () => {
+      return import('./second-template/second-template.module')
+        .then(m => m.SecondTemplateModule);
     },
   },
   {
