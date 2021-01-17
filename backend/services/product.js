@@ -7,7 +7,7 @@ exports.getProducts = async (req, res, next) => {
   const query = filterProducts(req);
   const products = await Product.find(query)
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(products);
@@ -20,7 +20,7 @@ exports.getManyProductById = async (req, res) =>{
 
   const products = await Product.find({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(products);
@@ -33,7 +33,7 @@ exports.getOneProduct = async (req, res, next) => {
 
   const product = await Product.findById(id)
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(product);
@@ -120,7 +120,7 @@ exports.editOneProduct = async (req, res, next) => {
 
   const productEdited = await Product.bulkWrite(bulkQueries, {ordered: false})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (productEdited){
@@ -140,7 +140,7 @@ exports.deleteManyProducts = async (req, res, next) => {
 
   const deletedProducts = await Product.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (deletedProducts) {
@@ -158,7 +158,7 @@ exports.deleteAllProducts = async (req, res, next) => {
 
   const deletedProducts = await Product.deleteMany({})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(deletedProducts);

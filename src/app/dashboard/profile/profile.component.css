@@ -1,3 +1,4 @@
+@import "../dashboard.component.css";
 .upload-icon {
     color: var(--blue-color);
     background-color: white;

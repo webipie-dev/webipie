@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const OrderService = require('../services/order');
 
+// general validation rules
+const validation = require('../middlewares/validation/validator');
+const orderValidation = require('../middlewares/validation/order-validator');
+
+const validateRequest = require("../middlewares/validate-request");
+
+
 const passport = require('passport');
 const passportJWT = passport.authenticate('jwt', { session: false });
 
@@ -102,32 +109,6 @@ const passportJWT = passport.authenticate('jwt', { session: false });
  */
 router.get('', passportJWT, OrderService.getOrders)
 
-//getManyOrders
-/**
- * @swagger
- * /order/many:
- *  get:
- *    description: Use to request many orders
- *    tags:
- *      - orders
- *    parameters:
- *       - in: path
- *         name: ids
- *         schema:
- *           type: array
- *           items:
- *              type: string
- *         required: true
- *         description: unique ID of the order to get
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/ArrayOfOrders'    # Reference to object definition
- */
-// router.get('/many', OrderService.getManyOrderById)
-
 // getOrderbyId
 /**
  * @swagger
@@ -150,8 +131,9 @@ router.get('', passportJWT, OrderService.getOrders)
  *           schema:
  *             $ref: '#/components/schemas/Order'    # Reference to object definition
  */
-router.get('/:id', OrderService.getOneOrder)
-
+router.get('/:id', [
+  validation.id
+], validateRequest, passportJWT, OrderService.getOneOrder)
 
 // router.get('/detail/:_id', OrderService.detailOrder)
 
@@ -176,7 +158,14 @@ router.get('/:id', OrderService.getOneOrder)
  *           schema:
  *             $ref: '#/components/schemas/Order'    # Reference to object definition
  */
-router.post('', OrderService.addOrder)
+router.post('', [
+  orderValidation.orderStatus,
+  orderValidation.ids,
+  orderValidation.productsOrder,
+  orderValidation.productId,
+  orderValidation.clientId,
+  validation.storeId
+], validateRequest, OrderService.addOrder)
 
 
 // deleteManyOrders
@@ -206,7 +195,7 @@ router.post('', OrderService.addOrder)
  *                      - $ref: '#/components/schemas/Order'
  *                      - $ref: '#/components/schemas/ArrayOfOrders'
  */
-router.delete('', OrderService.deleteManyOrders)
+router.delete('', validation.ids, passportJWT, validateRequest, OrderService.deleteManyOrders)
 
 //deleteAllOrders
 /**
@@ -249,12 +238,16 @@ router.delete('/delete', passportJWT, OrderService.deleteAllOrders)
  *           schema:
  *             $ref: '#/components/schemas/Order'    # Reference to object definition
  */
-router.delete('/delete/product', OrderService.deleteProductOrder)
+router.delete('/delete/product', [
+  validation.id,
+  orderValidation.product
+], validateRequest, passportJWT, OrderService.deleteProductOrder)
 
 
 //edit Orders
-router.patch('/:id', passportJWT, OrderService.editOrder)
-
+router.patch('/:id', [
+  validation.id
+], validateRequest, passportJWT, OrderService.editOrder)
 
 
 module.exports = router;

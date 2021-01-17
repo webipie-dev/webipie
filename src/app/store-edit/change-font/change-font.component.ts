@@ -3,6 +3,7 @@ import {Validators} from '@angular/forms';
 import {AlignmentTypes} from '@swimlane/ngx-charts';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-change-font',
@@ -11,9 +12,6 @@ import {StoreService} from '../../_shared/services/store.service';
 })
 export class ChangeFontComponent implements OnInit {
   @Input() toggleS: () => void;
-
-  storeId = '5fd09d461bcaf731b40f95fb';
-  postData: Object;
 
   /*
     general settings to any template
@@ -41,7 +39,8 @@ export class ChangeFontComponent implements OnInit {
 
 
   constructor(private http: HttpClient,
-              private storeService: StoreService) {
+              private storeService: StoreService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -142,18 +141,18 @@ export class ChangeFontComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    this.postData = {
-      'ids': this.storeId,
-      'type': this.fontType,
-      'size': this.fontSize,
-      'weight': this.fontWeight,
-      'alignment': this.textAlign,
-      'bold': this.textBold,
-      'italic': this.textItalic,
+  onSubmit(): void {
+    const postData = {
+      ids: this.storeId,
+      type: this.fontType,
+      size: this.fontSize,
+      weight: this.fontWeight,
+      alignment: this.textAlign,
+      bold: this.textBold,
+      italic: this.textItalic,
 
-    }
-    this.storeService.edit(this.postData).subscribe(data => {
+    };
+    this.storeService.edit(this.storeId, postData).subscribe(data => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/font']);
       });

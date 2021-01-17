@@ -27,7 +27,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {TemplateModule} from './template/template.module';
 import { FooterComponent } from './index/footer/footer.component';
 import { TemplatesPageComponent } from './index/templates-page/templates-page.component';
-import { QuillModule } from 'ngx-quill' ;
+import { QuillModule } from 'ngx-quill';
+import { SecondTemplateComponent } from './second-template/second-template.component' ;
+import {SecondTemplateModule} from "./second-template/second-template.module";
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { QuillModule } from 'ngx-quill' ;
     LoadingSpinnerComponent,
     FooterComponent,
     TemplatesPageComponent,
+    SecondTemplateComponent,
     // FormsModule
   ],
   imports: [
@@ -56,7 +59,8 @@ import { QuillModule } from 'ngx-quill' ;
     SocialLoginModule,
     NgxSpinnerModule,
     NgbModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    SecondTemplateModule
   ],
   providers: [
     {

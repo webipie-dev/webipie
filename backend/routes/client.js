@@ -90,11 +90,17 @@ router.get('', passportJWT, ClientService.getClients)
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
+<<<<<<< HEAD
 router.get('/:id', passportJWT.unless(function(req){
     if(req.headers['role'] === 'client'){
         return true;
     }
 }), ClientService.getOneClient)
+=======
+router.get('/:id', [
+  validation.id
+], validateRequest, passportJWT, ClientService.getOneClient)
+>>>>>>> 529f0702b77eebf0230b3f671d7095c40db21a8d
 
 // addClient
 /**
@@ -147,7 +153,7 @@ router.post('', [
  *              schema:
  *                  $ref: '#/components/schemas/Client'
  */
-router.delete('', passportJWT.unless(function(req){
+router.delete('', validation.ids, validateRequest, passportJWT.unless(function(req){
     if(req.headers['role'] === 'client'){
         return true;
     }
@@ -171,6 +177,8 @@ router.delete('', passportJWT.unless(function(req){
 router.delete('/delete', passportJWT, ClientService.deleteAllClients)
 
 //updateManyClients
-router.patch('/:id', ClientService.editClient)
+router.patch('/:id', [
+  validation.id
+], validateRequest, ClientService.editClient)
 
 module.exports = router;

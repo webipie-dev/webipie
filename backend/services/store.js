@@ -10,7 +10,7 @@ exports.getStores = async (req, res) => {
 
   const stores = await Store.find(req.query)
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(stores);
@@ -24,7 +24,7 @@ exports.getOneStore = async (req, res) => {
   const { id } = req.params;
   const store = await Store.findById(id)
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(store);
@@ -68,7 +68,7 @@ exports.addStore = async (req, res) => {
 
   await store.save()
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(201).send(store);
@@ -80,7 +80,7 @@ exports.deleteManyStores = async (req, res, next) => {
 
   const deletedStores = await Store.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (deletedStores) {
@@ -105,7 +105,7 @@ exports.deleteManyStores = async (req, res, next) => {
 exports.deleteAllStores = async (req, res, next) => {
   const deletedStores = await Store.deleteMany({})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(deletedStores);
@@ -142,7 +142,7 @@ exports.editStore = async (req, res, next) => {
 
   const store = await Store.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (store){

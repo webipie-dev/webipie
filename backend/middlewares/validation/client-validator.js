@@ -1,6 +1,4 @@
 const util = require('util');
-const mongoose = require('mongoose');
-const Client = mongoose.model('Client');
 const { check }  = require('express-validator');
 
 let validation = {
@@ -15,8 +13,7 @@ let validation = {
         check('firstname')
             .not().isEmpty().withMessage('Provide your real name')
             .isAlpha().withMessage('Name must not contain numbers')
-            .isLength({ min: 2 }).withMessage('First name is too short.')
-            .isLength({ max: 30 }).withMessage('First name is too long.')
+            .isLength({ min: 2 ,max :30}).withMessage('First name is too short or too long')
     ),
 
     /**
@@ -30,8 +27,7 @@ let validation = {
         check('lastname')
             .not().isEmpty().withMessage('Provide your real name')
             .isAlpha().withMessage('Name must not contain numbers')
-            .isLength({ min: 2 }).withMessage('Last name is too short.')
-            .isLength({ max: 50 }).withMessage('Last name is too long.')
+            .isLength({ min: 2, max: 50 }).withMessage('Last name is too short or too long')
     ),
 
     /**
@@ -52,19 +48,13 @@ let validation = {
         is not an empty string
         is a valid email address (must contain '@' and address domain suffix (.com, .net ...)
         is under 256 characters long
-        is unique (doesn't exist in the database)
     */
    email: util.promisify(
     check('email')
         .not().isEmpty().withMessage('Email can\'t be empty.')
         .isEmail().withMessage('Invalid e-mail address.')
         .isLength({ max: 256 }).withMessage('Email is too long.')
-        .custom(value => {
-            return Client.findOne({ "email": value }).then(user => {
-                if(user)
-                    return Promise.reject('E-mail already in use');
-            })
-        })
+
 ),
 };
 

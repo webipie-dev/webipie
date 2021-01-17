@@ -5,7 +5,7 @@ exports.getTemplates = async (req, res) => {
 
   const templates = await Template.find(req.query)
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(templates);
@@ -18,7 +18,7 @@ exports.getOneTemplate = async (req, res) => {
 
   const template = await Template.findById(id)
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(template);
@@ -46,7 +46,7 @@ exports.deleteManyTemplates = async (req, res, next) => {
 
   const deletedTemplates = await Template.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (deletedTemplates) {
@@ -64,7 +64,7 @@ exports.deleteManyTemplates = async (req, res, next) => {
 exports.deleteAllTemplates = async (req, res, next) => {
   const deletedTemplates = await Template.deleteMany({})
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   res.status(200).send(deletedTemplates);
@@ -85,7 +85,7 @@ exports.editTemplate = async (req, res, next) => {
 
   const templateEdited = await Template.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
-      res.status(400).json({error: err.message});
+      res.status(400).json({errors: err.message});
     });
 
   if (templateEdited){

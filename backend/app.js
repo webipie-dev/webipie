@@ -1,9 +1,12 @@
 const express = require('express');
-var cors = require('cors')
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const morgan = require('morgan');
+const helmet = require('helmet')
+
 const app = express();
 
 
@@ -32,6 +35,8 @@ const swaggerOptions = {
   apis: ["app.js","./routes/*.js"]
 };
 
+app.use(morgan('common'));
+app.use(helmet());
 //enable cors
 app.use(cors());
 
@@ -74,6 +79,5 @@ app.all('*', async (req, res, next) => {
 app.use(errorHandler);
 
 
-// module.exports = app;
-app.listen(3000);
-
+module.exports = app;
+// app.listen(3000);
