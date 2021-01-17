@@ -17,8 +17,6 @@ const storeOwnerRoutes = require('./routes/storeOwner');
 const errorHandler = require('./middlewares/error-handler')
 const ApiError = require("./errors/api-error");
 
-
-
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
   swaggerDefinition: {
@@ -76,6 +74,6 @@ app.all('*', async (req, res, next) => {
 app.use(errorHandler);
 
 
-module.exports = app;
-// app.listen(3000);
+// module.exports = app;
+app.listen(3000);
 

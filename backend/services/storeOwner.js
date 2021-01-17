@@ -38,7 +38,7 @@ module.exports = {
             findstoreOwner.methods.push('local')
             findstoreOwner.local = {
               email: email,
-              password: password
+              password: password.trim()
             }
             await findstoreOwner.save()
             // Generate the token
@@ -55,7 +55,7 @@ module.exports = {
             methods: ['local'],
             local: {
                 email: email,
-                password: password
+                password: password.trim()
             },
             storeID
         });

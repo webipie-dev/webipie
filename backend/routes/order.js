@@ -223,7 +223,7 @@ router.delete('', OrderService.deleteManyOrders)
  *           schema:
  *             $ref: '#/components/schemas/ArrayOfOrders'    # Reference to object definition
  */
-router.delete('/delete', OrderService.deleteAllOrders)
+router.delete('/delete', passportJWT, OrderService.deleteAllOrders)
 
 //delete Products From an Order
 /**

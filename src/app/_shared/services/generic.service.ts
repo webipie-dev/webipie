@@ -16,13 +16,19 @@ export class GenericService<T extends GenericModel> {
   }
 
   public getById(id: string): Observable<T> {
-    return this.http.get(this.getUrl() + this.suffix + '/' + id) as Observable<T>;
+    let httpOptions: any;
+    if ( localStorage.getItem('token') ){
+      httpOptions = {
+        headers: { Authorization: localStorage.getItem('token') },
+      };
+    }
+    return this.http.get(this.getUrl() + this.suffix + '/' + id, httpOptions) as unknown as Observable<T>;
   }
 
   public getAll(query): Observable<T> {
     // query is an object of elements you want to filter the documents with
     const httpOptions = {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token')},
       params: query
     };
     return this.http.get(this.getUrl() + this.suffix, httpOptions) as Observable<T>;
@@ -37,11 +43,23 @@ export class GenericService<T extends GenericModel> {
   }
 
   public addOne(body: T): Observable<T> {
-    return this.http.post(this.getUrl() + this.suffix, body) as Observable<T>;
+    let httpOptions: any;
+    if ( localStorage.getItem('token') ){
+      httpOptions = {
+        headers: { Authorization: localStorage.getItem('token') },
+      };
+    }
+    return this.http.post(this.getUrl() + this.suffix, body, httpOptions) as unknown as Observable<T>;
   }
 
   public edit(id: string, body: T): Observable<T> {
-    return this.http.patch(this.getUrl() + this.suffix + '/' + id, body) as Observable<T>;
+    let httpOptions: any;
+    if ( localStorage.getItem('token') ){
+      httpOptions = {
+        headers: { Authorization: localStorage.getItem('token') },
+      };
+    }
+    return this.http.patch(this.getUrl() + this.suffix + '/' + id, body, httpOptions) as unknown as Observable<T>;
   }
 
   public deleteMany(body: {ids: string[]}): Observable<T> {
