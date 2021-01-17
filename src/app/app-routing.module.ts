@@ -3,9 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { IndexComponent } from './index/index.component';
 import { SignUpComponent } from './index/sign-up/sign-up.component';
-import {PageNotFoundComponent} from "./index/page-not-found/page-not-found.component";
+import {PageNotFoundComponent} from './index/page-not-found/page-not-found.component';
 import { SignInComponent } from './index/sign-in/sign-in.component';
 import {TemplatesPageComponent} from './index/templates-page/templates-page.component';
+import { AuthGuard } from './_shared/services/auth-guard.service';
 
 
 const routes: Routes = [
@@ -27,22 +28,25 @@ const routes: Routes = [
   },
   {
     path: 'after-signin',
-    component: AfterSigninComponent
+    component: AfterSigninComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module')
       .then(m => m.DashboardModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'store',
     loadChildren: () => import('./store-edit/store-edit.module')
       .then(m => m.StoreEditModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'template',
     loadChildren: () => {
-      const templateId = localStorage.getItem('templateId');
+      // const templateId = localStorage.getItem('templateId');
       return import('./template/template.module')
       .then(m => m.TemplateModule);
     },
