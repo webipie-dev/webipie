@@ -42,7 +42,17 @@ let validation = {
       check('ids.*')
         .custom((input) => mongoose.Types.ObjectId.isValid(input))
         .withMessage('IDS must be valid')
-    )
+    ),
+
+  /**
+   Must pass the following rules:
+   is a mongoose Id
+   */
+  storeId: util.promisify(
+    check('storeId')
+      .custom((input) => mongoose.Types.ObjectId.isValid(input))
+      .withMessage('storeId must be valid')
+  )
 };
 
 

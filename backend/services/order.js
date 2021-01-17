@@ -2,6 +2,7 @@ const Order = require('../models/order')
 const Product = require('../models/product')
 const Client = require('../models/client')
 const Store = require('../models/store')
+const ApiError = require("../errors/api-error");
 
 
 // getAndFilterOrder
@@ -18,28 +19,6 @@ exports.getOrders = async (req, res) => {
   res.status(200).send(orders);
 }
 
-// exports.getManyOrderById = (req, res) =>{
-//   //get orders ids
-//   const orderId = req.query.ids;
-//
-//   Order
-//     .find({_id: {$in: orderId}})
-//     .exec()
-//     .then(order => {
-//       if(order) {
-//         res.status(200).json({
-//           message: 'orders fetched successfully',
-//           count: order.length,
-//           order: order
-//         });
-//       } else {
-//         res.status(404).json({errors: 'not found'});
-//       }
-//     })
-//     .catch(err => {
-//       res.status(500).json({errors: err});
-//     });
-// }
 
 
 exports.getOneOrder = async (req, res) => {
@@ -53,6 +32,11 @@ exports.getOneOrder = async (req, res) => {
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
+
+  if (!order) {
+    next(ApiError.NotFound('Order Not Found'));
+    return;
+  }
 
   res.status(200).send(order);
 }
@@ -86,19 +70,22 @@ exports.addOrder = async (req, res) => {
   const store = await Store.findById(storeId)
 
   if (!store) {
-    throw new Error('Store Not Found')
+    next(ApiError.NotFound('Store Not Found'));
+    return;
   }
 
   const client = await Client.findById(clientId)
 
   if (!client) {
-    throw new Error('Client Not Found')
+    next(ApiError.NotFound('Client Not Found'));
+    return;
   }
 
   const prods = await Product.find({_id: {$in: productsOrder.ids}})
 
   if (prods.length !== productsOrder.ids.length) {
-    throw new Error('Products not found')
+    next(ApiError.NotFound('One or more products Not Found'));
+    return;
   }
 
   let totalPrice = 0
@@ -177,7 +164,7 @@ exports.editOrder = async (req, res, next) => {
 
   // separating the updates
   const edits = {};
-  for(var key in req.body) {
+  for(const key in req.body) {
       if(key !== 'id'){
         edits[key] = req.body[key];
 
@@ -201,7 +188,7 @@ exports.editOrder = async (req, res, next) => {
 };
 
 
-exports.deleteProductOrder = async (req,res) => {
+exports.deleteProductOrder = async (req,res, next) => {
   //get order id
   const { id } = req.body;
 
@@ -212,8 +199,8 @@ exports.deleteProductOrder = async (req,res) => {
 
   if (orderDeleted){
     if (orderDeleted.nModified === 0) {
-      throw new Error('No Orders modified')
-
+      next(ApiError.NotFound('No Orders modified'));
+      return;
     }
   }
 
@@ -221,32 +208,6 @@ exports.deleteProductOrder = async (req,res) => {
 
 
 }
-
-// exports.detailOrder = (req, res) => {
-//   const id = req.params._id;
-//   let prodId = []
-//   let prods = {}
-//   Order.findById(id)
-//     .exec()
-//     .then(doc => {
-//       doc.products.map(elem => {
-//         prodId.push(elem._id)
-//       })
-//       prods["_id"] = prodId
-//       Product.find(prods)
-//         .then((documents) => {
-//           res.status(200).json({
-//             message: 'Products fetched successfully',
-//             order: doc,
-//             products: documents
-//           })
-//         })
-//     })
-//     .catch(err => {
-//       // console.log(err);
-//       res.status(500).json({errors: err})
-//     });
-// }
 
 
 
