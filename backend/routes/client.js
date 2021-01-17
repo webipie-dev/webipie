@@ -90,17 +90,11 @@ router.get('', passportJWT, ClientService.getClients)
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-<<<<<<< HEAD
-router.get('/:id', passportJWT.unless(function(req){
+router.get('/:id', [validation.id], validateRequest, passportJWT.unless(function(req){
     if(req.headers['role'] === 'client'){
         return true;
     }
 }), ClientService.getOneClient)
-=======
-router.get('/:id', [
-  validation.id
-], validateRequest, passportJWT, ClientService.getOneClient)
->>>>>>> 529f0702b77eebf0230b3f671d7095c40db21a8d
 
 // addClient
 /**
