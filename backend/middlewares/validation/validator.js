@@ -31,13 +31,28 @@ let validation = {
         .withMessage('ID Must be Valid')
     ),
 
+  /**
+   Must pass the following rules:
+   is not an empty array
+   every element is a mongoose objectId
+   */
     ids: util.promisify(
       check('ids')
         .not().isEmpty().withMessage('No ids provided'),
       check('ids.*')
         .custom((input) => mongoose.Types.ObjectId.isValid(input))
         .withMessage('IDS must be valid')
-    )
+    ),
+
+  /**
+   Must pass the following rules:
+   is a mongoose Id
+   */
+  storeId: util.promisify(
+    check('storeId')
+      .custom((input) => mongoose.Types.ObjectId.isValid(input))
+      .withMessage('storeId must be valid')
+  )
 };
 
 

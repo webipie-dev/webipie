@@ -162,6 +162,8 @@ router.delete('', validation.ids, validateRequest, passportJWT, ClientService.de
 router.delete('/delete', passportJWT, ClientService.deleteAllClients)
 
 //updateManyClients
-router.patch('/:id', ClientService.editClient)
+router.patch('/:id', [
+  validation.id
+], validateRequest, ClientService.editClient)
 
 module.exports = router;
