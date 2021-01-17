@@ -39,14 +39,14 @@ const storage = multer.diskStorage({
  * @swagger
  * /store:
  *  get:
- *    description: Use to request all stores by admin 
+ *    description: Use to request all stores by admin
  *    tags:
  *      - store
  *    responses:
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfStores'    # Reference to object definition
  * components:
  *  schemas:
@@ -57,7 +57,7 @@ const storage = multer.diskStorage({
  *                  type: string
  *              name:
  *                  type: string
- *              logo: 
+ *              logo:
  *                  type: string
  *                  format: byte
  *              description:
@@ -69,7 +69,7 @@ const storage = multer.diskStorage({
  *              creationDate:
  *                  type: string
  *                  format: date
- * 
+ *
  *      ArrayOfStores:
  *          type: array
  *          items:
@@ -79,7 +79,7 @@ const storage = multer.diskStorage({
  *                  type: string
  *                name:
  *                  type: string
- *                logo: 
+ *                logo:
  *                  type: string
  *                  format: byte
  *                description:
@@ -91,7 +91,7 @@ const storage = multer.diskStorage({
  *                creationDate:
  *                  type: string
  *                  format: date
- *     
+ *
  */
 router.get('', StoreService.getStores)
 
@@ -114,10 +114,10 @@ router.get('', StoreService.getStores)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Store'    # Reference to object definition
  */
-router.get('/:_id', StoreService.getOneStore)
+router.get('/:id', StoreService.getOneStore)
 
 // addStore
 /**
@@ -125,7 +125,7 @@ router.get('/:_id', StoreService.getOneStore)
  * /store:
  *  post:
  *    description: Use to add one store once the use is logged in
- *    tags: 
+ *    tags:
  *      - store
  *    requestBody:
  *       required: true
@@ -137,7 +137,7 @@ router.get('/:_id', StoreService.getOneStore)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Store'    # Reference to object definition
  */
 router.post('', passportJWT, multer({storage: storage}).single('logoImg'), StoreService.addStore)
@@ -161,8 +161,8 @@ router.post('', passportJWT, multer({storage: storage}).single('logoImg'), Store
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *              schema: 
- *                  $ref: '#/components/schemas/Store' 
+ *              schema:
+ *                  $ref: '#/components/schemas/Store'
  */
 // router.delete('/delete/single', StoreService.deleteOneStore);
 
@@ -178,8 +178,8 @@ router.post('', passportJWT, multer({storage: storage}).single('logoImg'), Store
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *              schema: 
- *                  $ref: '#/components/schemas/Store' 
+ *              schema:
+ *                  $ref: '#/components/schemas/Store'
  */
 router.delete('/delete', StoreService.deleteAllStores)
 
