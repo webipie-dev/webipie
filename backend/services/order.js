@@ -135,9 +135,11 @@ exports.deleteManyOrders = async (req, res, next) => {
 
   if (deletedOrders) {
     if (deletedOrders.deletedCount === 0) {
-      throw new Error('No Orders found to delete')
+      next(ApiError.NotFound('No Orders found to delete'));
+      return;
     }else if (deletedOrders.deletedCount < ids.length) {
-      throw new Error(`${ids.length} Orders to be deleted but ${deletedOrders.deletedCount} are found and deleted`)
+      next(ApiError.NotFound(`${ids.length} Orders to be deleted but ${deletedOrders.deletedCount} are found and deleted`));
+      return;
 
     }
   }
@@ -178,7 +180,8 @@ exports.editOrder = async (req, res, next) => {
 
   if (orderEdited){
     if (orderEdited.nModified === 0) {
-      throw new Error('No Orders modified')
+      next(ApiError.NotFound('No Orders modified'));
+      return;
 
     }
   }

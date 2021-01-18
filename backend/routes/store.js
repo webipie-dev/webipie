@@ -4,6 +4,9 @@ const StoreService = require('../services/store')
 const multer = require('multer');
 
 const passport = require('passport');
+const validation = require("../middlewares/validation/validator");
+const validateRequest = require("../middlewares/validate-request");
+const storeValidation = require("../middlewares/validation/store-validator");
 const passportJWT = passport.authenticate('jwt', { session: false });
 
 const MIME_TYPE_MAP = {
@@ -117,7 +120,9 @@ router.get('', StoreService.getStores)
  *           schema:
  *             $ref: '#/components/schemas/Store'    # Reference to object definition
  */
-router.get('/:id', StoreService.getOneStore)
+router.get('/:id', [
+  validation.id
+], validateRequest, StoreService.getOneStore)
 
 // addStore
 /**
@@ -140,7 +145,12 @@ router.get('/:id', StoreService.getOneStore)
  *           schema:
  *             $ref: '#/components/schemas/Store'    # Reference to object definition
  */
-router.post('', passportJWT, multer({storage: storage}).single('logoImg'), StoreService.addStore)
+router.post('', [
+  storeValidation.name,
+  storeValidation.description,
+  storeValidation.templateId,
+  storeValidation.storeType,
+], validateRequest, passportJWT, multer({storage: storage}).single('logoImg'), StoreService.addStore)
 
 // deleteStore
 /**
@@ -183,7 +193,9 @@ router.post('', passportJWT, multer({storage: storage}).single('logoImg'), Store
  */
 router.delete('/delete', StoreService.deleteAllStores)
 
-router.patch('/:id', passportJWT, multer({storage: storage}).any(), StoreService.editStore)
+router.patch('/:id', [
+  validation.id
+], validateRequest, passportJWT, multer({storage: storage}).any(), StoreService.editStore)
 
 
 module.exports = router;

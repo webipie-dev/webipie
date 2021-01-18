@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const Store = require('../models/store');
+const ApiError = require("../errors/api-error");
 
 exports.getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
@@ -54,11 +55,12 @@ exports.addProduct = async (req, res, next) => {
     console.log('no files uploaded')
   }
 
-  const { name, description, price, quantity, storeId} = req.body
+  const { name, description, price, quantity, storeId } = req.body
   const store = await Store.findById(storeId)
 
   if (!store) {
-    throw new Error('Store Not Found')
+    next(ApiError.NotFound('Store Not Found'));
+    return;
   }
 
   const product = new Product({
@@ -81,7 +83,8 @@ exports.editOneProduct = async (req, res, next) => {
 
   const product = await Product.findById(id)
   if (!product) {
-    throw new Error('Product Not Found')
+    next(ApiError.NotFound('Product Not Found'));
+    return;
   }
 
   // separating the updates
@@ -125,8 +128,8 @@ exports.editOneProduct = async (req, res, next) => {
 
   if (productEdited){
     if (productEdited.nModified === 0) {
-      throw new Error('No Products modified')
-
+      next(ApiError.NotFound('No Products modified'));
+      return;
     }
   }
 
@@ -145,9 +148,11 @@ exports.deleteManyProducts = async (req, res, next) => {
 
   if (deletedProducts) {
     if (deletedProducts.deletedCount === 0) {
-      throw new Error('No Products found to delete')
+      next(ApiError.NotFound('No Products found to delete'));
+      return;
     }else if (deletedProducts.deletedCount < ids.length) {
-      throw new Error(`${ids.length} Products to be deleted but ${deletedProducts.deletedCount} are found and deleted`)
+      next(ApiError.NotFound(`${ids.length} Products to be deleted but ${deletedProducts.deletedCount} are found and deleted`));
+      return;
     }
   }
 

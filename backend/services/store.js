@@ -3,6 +3,7 @@ const Store = require('../models/store')
 const Order = require('../models/order')
 const Product = require('../models/store')
 const Template = require('../models/template')
+const ApiError = require("../errors/api-error");
 
 // getAndFilter
 exports.getStores = async (req, res) => {
@@ -30,7 +31,7 @@ exports.getOneStore = async (req, res) => {
   res.status(200).send(store);
 }
 
-exports.addStore = async (req, res) => {
+exports.addStore = async (req, res, next) => {
   //check if a logo is uploaded
   let logo;
   if (req.file) {
@@ -42,12 +43,19 @@ exports.addStore = async (req, res) => {
   //get the store id from the request
   const _id = req.user.storeID;
 
-  const { name, description, location, contact, storeType, creationDate, templateId} = req.body
+  const userStore = Store.findById(_id)
+  if (userStore) {
+    next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
+    return;
+  }
+
+  const { name, description, location, contact, storeType, templateId} = req.body
 
   let getTemplate = Template.findById(templateId)
 
   if (!getTemplate) {
-    throw new Error('Template not Found')
+    next(ApiError.NotFound('Template not Found'));
+    return;
   }
 
   getTemplate._id= templateId
@@ -59,7 +67,6 @@ exports.addStore = async (req, res) => {
     description,
     location,
     storeType,
-    creationDate,
     contact,
     template: getTemplate,
 
@@ -85,17 +92,29 @@ exports.deleteManyStores = async (req, res, next) => {
 
   if (deletedStores) {
     if (deletedStores.deletedCount === 0) {
-      throw new Error('No Stores found to delete')
+      next(ApiError.NotFound('No Stores found to delete'));
+      return;
     }
     else if (deletedStores.deletedCount < ids.length) {
-      throw new Error(`${ids.length} Stores to be deleted but ${deletedStores.deletedCount} are found and deleted`)
-
+      next(ApiError.NotFound(`${ids.length} Stores to be deleted but ${deletedStores.deletedCount} are found and deleted`));
+      return;
     }
   }
 
   Product.deleteMany({store: {$in: ids}})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+
   Order.deleteMany({store: {$in: ids}})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+
   Client.deleteMany({store: {$in: ids}})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
 
 
   res.status(200).send(deletedStores);
@@ -147,13 +166,12 @@ exports.editStore = async (req, res, next) => {
 
   if (store){
     if (store.nModified === 0) {
-      throw new Error('No stores modified')
-
+      next(ApiError.NotFound('No stores modified'));
+      return;
     }
   }
 
   const storeEdited = await Store.findById(id)
-
 
   res.status(200).send(storeEdited)
 

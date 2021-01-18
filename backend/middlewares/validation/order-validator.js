@@ -3,7 +3,7 @@ const { check, body }  = require('express-validator');
 const mongoose = require('mongoose')
 
 
-let validation = {
+let orderValidation = {
   /**
    Must pass the following rules:
    is not an empty string
@@ -71,4 +71,4 @@ let validation = {
 };
 
 
-module.exports = validation;
+module.exports = orderValidation;

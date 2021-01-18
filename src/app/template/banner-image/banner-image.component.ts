@@ -11,10 +11,10 @@ export class BannerImageComponent implements OnInit {
   constructor(private storeService: StoreService) {
   }
   /* These attributes should be brought from the backend */
-  title = 'l\'elegance a deux clics';
-  description = 'Decouvrez notre derniere collection';
-  bannerSrc = '../../../assets/images/fashion-WPWVGRY.jpg';
-  mainButton = 'Visitez';
+  title;
+  description;
+  bannerSrc;
+  mainButton;
   storeId = '600053ca1181b69010315090';
   ngOnInit(): void {
     this.storeService.getById(this.storeId).subscribe(store => {

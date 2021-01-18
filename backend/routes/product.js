@@ -4,6 +4,9 @@ const productService = require('../services/product');
 const multer = require('multer');
 
 const passport = require('passport');
+const validateRequest = require("../middlewares/validate-request");
+const validation = require("../middlewares/validation/validator");
+const productValidator = require("../middlewares/validation/product-validator");
 const passportJWT = passport.authenticate('jwt', { session: false });
 
 const MIME_TYPE_MAP = {
@@ -40,7 +43,7 @@ const storage = multer.diskStorage({
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
  * components:
  *  schemas:
@@ -100,10 +103,10 @@ router.get('', passportJWT, productService.getProducts)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
  */
-router.get('/many', productService.getManyProductById)
+// router.get('/many', productService.getManyProductById)
 
 // getProductbyId
 /**
@@ -124,10 +127,12 @@ router.get('/many', productService.getManyProductById)
  *      '200':
  *        content:  # Response body
  *          application/json:  # Media type
- *           schema: 
+ *           schema:
  *             $ref: '#/components/schemas/Product'    # Reference to object definition
  */
-router.get('/:id', productService.getOneProduct)
+router.get('/:id', [
+  validation.id
+], validateRequest, productService.getOneProduct)
 
 // addProduct
 /**
@@ -150,7 +155,13 @@ router.get('/:id', productService.getOneProduct)
  *           schema:
  *             $ref: '#/components/schemas/Product'    # Reference to object definition
  */
-router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), productService.addProduct)
+router.post('', [
+  validation.storeId,
+  productValidator.price,
+  productValidator.quantity,
+  productValidator.description,
+  productValidator.name,
+], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), productService.addProduct)
 
 
 // deleteManyProducts
@@ -177,7 +188,7 @@ router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), p
  *                  - $ref: '#/components/schemas/Product'
  *                  - $ref: '#/components/schemas/ArrayOfProducts'
  */
-router.delete('', passportJWT, productService.deleteManyProducts)
+router.delete('', validation.ids, passportJWT, productService.deleteManyProducts)
 
 //deleteAllProducts
 /**
@@ -197,7 +208,9 @@ router.delete('', passportJWT, productService.deleteManyProducts)
 router.delete('/delete', passportJWT, productService.deleteAllProducts);
 
 
-router.patch('/:id', passportJWT, multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
+router.patch('/:id', [
+  validation.id
+], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
 
 
 module.exports = router;
