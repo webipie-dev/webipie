@@ -5,3 +5,7 @@
 @import "../../assets/second-template/css/main.css";
 @import "../../assets/second-template/css/style.css";
 @import "../../assets/second-template/css/responsive.css";
+
+.dropdown-toggle::after {
+  display: none;
+}

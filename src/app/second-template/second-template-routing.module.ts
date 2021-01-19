@@ -5,6 +5,8 @@ import {SecondTemplateComponent} from './second-template.component';
 import {HomeSecondTemplateComponent} from './home-second-template/home-second-template.component';
 import {CartSecondTemplateComponent} from './cart-second-template/cart-second-template.component';
 import {CheckoutSecondTemplateComponent} from './checkout-second-template/checkout-second-template.component';
+import {ProductDetailComponent} from './product-detail/product-detail.component';
+
 
 
 const routes: Routes = [{
@@ -26,6 +28,10 @@ const routes: Routes = [{
     {
       path: 'checkout',
       component: CheckoutSecondTemplateComponent
+    },
+    {
+      path: 'product-detail',
+      component: ProductDetailComponent
     }
   ]
 }];
