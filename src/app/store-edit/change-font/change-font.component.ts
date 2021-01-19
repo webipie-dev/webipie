@@ -35,7 +35,9 @@ export class ChangeFontComponent implements OnInit {
   textBold: boolean;
   textItalic: boolean;
 
-  storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
+  // storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
+  storeId = '600053ca1181b69010315090';
+
 
 
   constructor(private http: HttpClient,

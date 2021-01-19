@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {SecondTemplateComponent} from "./second-template.component";
-import {HomeComponent} from "../template/home/home.component";
-import {HomeSecondTemplateComponent} from "./home-second-template/home-second-template.component";
 import {ProductsAllSecondTemplateComponent} from "./products-all-second-template/products-all-second-template.component";
+import {SecondTemplateComponent} from './second-template.component';
+import {HomeSecondTemplateComponent} from './home-second-template/home-second-template.component';
+import {CartSecondTemplateComponent} from './cart-second-template/cart-second-template.component';
 
 
 const routes: Routes = [{
@@ -18,6 +18,10 @@ const routes: Routes = [{
       path: 'products',
       component: ProductsAllSecondTemplateComponent
     },
+    {
+      path: 'cart',
+      component: CartSecondTemplateComponent
+    }
   ]
 }];
 

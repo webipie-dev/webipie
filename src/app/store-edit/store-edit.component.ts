@@ -25,7 +25,6 @@ export class StoreEditComponent implements OnInit {
     document.getElementById('sidebar').classList.toggle('active');
     document.getElementById('sidebar-non-active').classList.toggle('active');
     document.getElementById('sidebar-non-active2').classList.toggle('hidden-sidenav');
-
     document.getElementById('iframe').classList.toggle('margin-iframe');
     document.getElementById('iframe').style.width = this.newWidth.toString();
     if (document.getElementById('sidebar').classList.contains('active')) {
