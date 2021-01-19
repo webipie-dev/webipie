@@ -8,6 +8,8 @@ import { TopSliderComponent } from './top-slider/top-slider.component';
 import { ProductsSectionSecondTemplateComponent } from './products-section-second-template/products-section-second-template.component';
 import { AboutSecondTemplateComponent } from './about-second-template/about-second-template.component';
 import { ProductsAllSecondTemplateComponent } from './products-all-second-template/products-all-second-template.component';
+import { OneProductComponent } from './products-all-second-template/one-product/one-product.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 import { CartSecondTemplateComponent } from './cart-second-template/cart-second-template.component';
 import { CheckoutSecondTemplateComponent } from './checkout-second-template/checkout-second-template.component';
 
@@ -23,7 +25,13 @@ import { CheckoutSecondTemplateComponent } from './checkout-second-template/chec
     AboutSecondTemplateComponent,
     ProductsAllSecondTemplateComponent,
     CartSecondTemplateComponent,
+<<<<<<< HEAD
     CheckoutSecondTemplateComponent
+=======
+    AboutSecondTemplateComponent,
+    ProductsAllSecondTemplateComponent,
+    OneProductComponent
+>>>>>>> 2e66e15045b4f1bece55a7a37673baafefb76bcc
   ],
   exports: [
     HeaderSecondTemplateComponent,
@@ -31,7 +39,8 @@ import { CheckoutSecondTemplateComponent } from './checkout-second-template/chec
   ],
   imports: [
     CommonModule,
-    SecondTemplateRoutingModule
+    SecondTemplateRoutingModule,
+    DragDropModule
   ]
 })
 export class SecondTemplateModule { }
