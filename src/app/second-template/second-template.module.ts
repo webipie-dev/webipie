@@ -11,11 +11,14 @@ import { ProductsAllSecondTemplateComponent } from './products-all-second-templa
 import { OneProductComponent } from './products-all-second-template/one-product/one-product.component';
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import { CartSecondTemplateComponent } from './cart-second-template/cart-second-template.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import {SecondTemplateComponent} from "./second-template.component";
 
 
 
 @NgModule({
   declarations: [
+    SecondTemplateComponent,
     HeaderSecondTemplateComponent,
     FooterSecondTemplateComponent,
     HomeSecondTemplateComponent,
@@ -26,11 +29,8 @@ import { CartSecondTemplateComponent } from './cart-second-template/cart-second-
     CartSecondTemplateComponent,
     AboutSecondTemplateComponent,
     ProductsAllSecondTemplateComponent,
-    OneProductComponent
-  ],
-  exports: [
-    HeaderSecondTemplateComponent,
-    FooterSecondTemplateComponent
+    OneProductComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,
