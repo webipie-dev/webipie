@@ -13,6 +13,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import { CartSecondTemplateComponent } from './cart-second-template/cart-second-template.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import {SecondTemplateComponent} from "./second-template.component";
+import { CheckoutSecondTemplateComponent } from './checkout-second-template/checkout-second-template.component';
 
 
 
@@ -27,10 +28,12 @@ import {SecondTemplateComponent} from "./second-template.component";
     AboutSecondTemplateComponent,
     ProductsAllSecondTemplateComponent,
     CartSecondTemplateComponent,
+    CheckoutSecondTemplateComponent,
     AboutSecondTemplateComponent,
     ProductsAllSecondTemplateComponent,
     OneProductComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    OneProductComponent
   ],
   imports: [
     CommonModule,
