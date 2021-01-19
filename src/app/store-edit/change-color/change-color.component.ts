@@ -16,7 +16,9 @@ export class ChangeColorComponent implements OnInit {
   }
 
   defaultColor;
-  storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
+  // storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
+  storeId = '600053ca1181b69010315090';
+
 
   public show = false;
   public defaultColors = [
