@@ -9,6 +9,7 @@ import { ProductsSectionSecondTemplateComponent } from './products-section-secon
 import { AboutSecondTemplateComponent } from './about-second-template/about-second-template.component';
 import { ProductsAllSecondTemplateComponent } from './products-all-second-template/products-all-second-template.component';
 import { CartSecondTemplateComponent } from './cart-second-template/cart-second-template.component';
+import { CheckoutSecondTemplateComponent } from './checkout-second-template/checkout-second-template.component';
 
 
 
@@ -21,7 +22,8 @@ import { CartSecondTemplateComponent } from './cart-second-template/cart-second-
     ProductsSectionSecondTemplateComponent,
     AboutSecondTemplateComponent,
     ProductsAllSecondTemplateComponent,
-    CartSecondTemplateComponent
+    CartSecondTemplateComponent,
+    CheckoutSecondTemplateComponent
   ],
   exports: [
     HeaderSecondTemplateComponent,
