@@ -25,13 +25,8 @@ import { CheckoutSecondTemplateComponent } from './checkout-second-template/chec
     AboutSecondTemplateComponent,
     ProductsAllSecondTemplateComponent,
     CartSecondTemplateComponent,
-<<<<<<< HEAD
-    CheckoutSecondTemplateComponent
-=======
-    AboutSecondTemplateComponent,
-    ProductsAllSecondTemplateComponent,
+    CheckoutSecondTemplateComponent,
     OneProductComponent
->>>>>>> 2e66e15045b4f1bece55a7a37673baafefb76bcc
   ],
   exports: [
     HeaderSecondTemplateComponent,
