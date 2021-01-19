@@ -8,18 +8,21 @@ import { TopSliderComponent } from './top-slider/top-slider.component';
 import { ProductsSectionSecondTemplateComponent } from './products-section-second-template/products-section-second-template.component';
 import { AboutSecondTemplateComponent } from './about-second-template/about-second-template.component';
 import { ProductsAllSecondTemplateComponent } from './products-all-second-template/products-all-second-template.component';
+import { OneProductComponent } from './products-all-second-template/one-product/one-product.component';
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 
 @NgModule({
-  declarations: [HeaderSecondTemplateComponent, FooterSecondTemplateComponent, HomeSecondTemplateComponent, TopSliderComponent, ProductsSectionSecondTemplateComponent, AboutSecondTemplateComponent, ProductsAllSecondTemplateComponent],
+  declarations: [HeaderSecondTemplateComponent, FooterSecondTemplateComponent, HomeSecondTemplateComponent, TopSliderComponent, ProductsSectionSecondTemplateComponent, AboutSecondTemplateComponent, ProductsAllSecondTemplateComponent, OneProductComponent],
   exports: [
     HeaderSecondTemplateComponent,
     FooterSecondTemplateComponent
   ],
   imports: [
     CommonModule,
-    SecondTemplateRoutingModule
+    SecondTemplateRoutingModule,
+    DragDropModule
   ]
 })
 export class SecondTemplateModule { }
