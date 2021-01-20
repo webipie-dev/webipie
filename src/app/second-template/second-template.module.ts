@@ -29,11 +29,8 @@ import { CheckoutSecondTemplateComponent } from './checkout-second-template/chec
     ProductsAllSecondTemplateComponent,
     CartSecondTemplateComponent,
     CheckoutSecondTemplateComponent,
-    AboutSecondTemplateComponent,
-    ProductsAllSecondTemplateComponent,
     OneProductComponent,
     ProductDetailComponent,
-    OneProductComponent
   ],
   imports: [
     CommonModule,
