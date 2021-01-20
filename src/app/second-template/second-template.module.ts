@@ -14,6 +14,7 @@ import { CartSecondTemplateComponent } from './cart-second-template/cart-second-
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import {SecondTemplateComponent} from "./second-template.component";
 import { CheckoutSecondTemplateComponent } from './checkout-second-template/checkout-second-template.component';
+import {SpinnerModule} from "../spinner/spinner.module";
 
 
 
@@ -35,7 +36,8 @@ import { CheckoutSecondTemplateComponent } from './checkout-second-template/chec
   imports: [
     CommonModule,
     SecondTemplateRoutingModule,
-    DragDropModule
+    DragDropModule,
+    SpinnerModule,
   ]
 })
 export class SecondTemplateModule { }

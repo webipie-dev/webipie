@@ -13,6 +13,7 @@ import {ChangeImgDirective} from './product-card/change-img.directive';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { HomeComponent } from './home/home.component';
+import {SpinnerModule} from "../spinner/spinner.module";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { HomeComponent } from './home/home.component';
         Ng2SmartTableModule,
         ReactiveFormsModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        SpinnerModule,
     ],
     exports: [
         TemplateComponent

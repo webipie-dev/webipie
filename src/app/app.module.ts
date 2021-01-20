@@ -29,6 +29,7 @@ import { FooterComponent } from './index/footer/footer.component';
 import { TemplatesPageComponent } from './index/templates-page/templates-page.component';
 import { QuillModule } from 'ngx-quill';
 import {SecondTemplateModule} from "./second-template/second-template.module";
+import {SpinnerModule} from "./spinner/spinner.module";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {SecondTemplateModule} from "./second-template/second-template.module";
     NgxSpinnerModule,
     NgbModule,
     QuillModule.forRoot(),
-    SecondTemplateModule
+    SecondTemplateModule,
+    SpinnerModule,
   ],
   providers: [
     {
