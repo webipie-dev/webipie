@@ -14,6 +14,11 @@ const routes: Routes = [{
   component: SecondTemplateComponent,
   children: [
     {
+      path: '',
+      redirectTo: '/second-template/home',
+      pathMatch: 'full',
+    },
+    {
       path: 'home',
       component: HomeSecondTemplateComponent
     },

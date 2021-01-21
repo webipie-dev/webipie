@@ -2243,7 +2243,7 @@
 			opt.bannertimeronpause = false;
 		    opt.cd=0;
 		    container.trigger('nulltimer');
-		    container.find('.tp-loader').css({display:"none"});
+		    container.find('.tp-loader').css({display:"block"});
 		    setSize(defimg,opt);
 			setBulPos(container,opt);
 			setSize(defimg,opt);
