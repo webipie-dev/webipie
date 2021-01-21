@@ -160,8 +160,8 @@
 }
 
 :host /deep/ input[type=checkbox] {
-  width: 20px;
-  height: 20px;
+  width: 20px !important;
+  height: 20px !important;
   margin:  auto auto !important;
 }
 

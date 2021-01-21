@@ -14,6 +14,7 @@ import { CartSecondTemplateComponent } from './cart-second-template/cart-second-
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import {SecondTemplateComponent} from "./second-template.component";
 import { CheckoutSecondTemplateComponent } from './checkout-second-template/checkout-second-template.component';
+import { SubHeaderSecondTemplateComponent } from './sub-header-second-template/sub-header-second-template.component';
 
 
 
@@ -31,6 +32,7 @@ import { CheckoutSecondTemplateComponent } from './checkout-second-template/chec
     CheckoutSecondTemplateComponent,
     OneProductComponent,
     ProductDetailComponent,
+    SubHeaderSecondTemplateComponent,
   ],
   imports: [
     CommonModule,

@@ -56,12 +56,6 @@ export class ProductsComponent implements OnInit {
   settingsMobile = {
     selectMode: 'multi',
     columns: {
-      select: {
-        title: '',
-        type: 'html',
-        width: '15%',
-        filter: false
-      },
       name: {
         title: 'Name',
         type: 'html',
@@ -96,16 +90,18 @@ export class ProductsComponent implements OnInit {
 
   getAllProducts(store: string): void {
     this.productService.getAll({store}).subscribe((data) => {
-      console.log(data);
+      console.log('this is the data');
       let quant;
       let aux;
       data.forEach((element) => {
+        console.log(element);
         if (element.quantity > 0) {
           quant = element.quantity;
         } else {
           quant = 0;
         }
         aux = element;
+        aux.productName = element.name;
         aux.name = '<div class=\'row\'>' +
           '<img class=\'img-fluid product-image-table mr-3\' src=\'' + element.imgs[0] + '\'>' +
           '<p class=\'small-titles my-auto\'> ' + element.name + '</p>' +
