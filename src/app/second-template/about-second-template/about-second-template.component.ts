@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StoreService} from '../../_shared/services/store.service';
 
 @Component({
   selector: 'app-about-second-template',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about-second-template.component.css']
 })
 export class AboutSecondTemplateComponent implements OnInit {
-
-  constructor() { }
+  store;
+  constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
+    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
   }
 
 }
