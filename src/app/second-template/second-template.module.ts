@@ -17,7 +17,7 @@ import { CheckoutSecondTemplateComponent } from './checkout-second-template/chec
 import { SubHeaderSecondTemplateComponent } from './sub-header-second-template/sub-header-second-template.component';
 import {SpinnerModule} from '../spinner/spinner.module';
 
-
+// https://docs.google.com/document/d/18aZNjQb-RWodUCqOi0Yzu2EhecNpA94TJXMs8vrbUMc/edit?usp=sharing
 
 
 @NgModule({

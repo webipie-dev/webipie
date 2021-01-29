@@ -8,6 +8,7 @@ const validateRequest = require("../middlewares/validate-request");
 const validation = require("../middlewares/validation/validator");
 const productValidator = require("../middlewares/validation/product-validator");
 const passportJWT = passport.authenticate('jwt', { session: false });
+passportJWT.unless = require('express-unless');
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
@@ -80,7 +81,11 @@ const storage = multer.diskStorage({
  *                  format: uuid
  *
  */
-router.get('', passportJWT, productService.getProducts)
+router.get('', passportJWT.unless(function(req){
+  if(req.headers['role'] === 'client'){
+      return true;
+  }
+}), productService.getProducts)
 
 //getManyProducts
 /**
