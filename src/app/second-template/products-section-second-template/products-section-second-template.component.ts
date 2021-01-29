@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../_shared/models/product.model';
 import { ProductService } from '../../_shared/services/product.service';
+import {StoreService} from '../../_shared/services/store.service';
 
 @Component({
   selector: 'app-products-section-second-template',
@@ -9,13 +10,15 @@ import { ProductService } from '../../_shared/services/product.service';
 })
 export class ProductsSectionSecondTemplateComponent implements OnInit {
 
-  constructor(private productService: ProductService) { }
-
+  constructor(private productService: ProductService,
+              private storeService: StoreService) { }
+  store;
   description: string;
   popularProducts: [];
   storeId = '600053ca1181b69010315090';
 
   ngOnInit(): void {
+    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
     this.description = 'description here';
     this.popularProducts = [];
 
