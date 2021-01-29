@@ -14,8 +14,8 @@
       <div class="item" *ngFor="let product of popularProducts">
         <!-- Item img -->
         <div class="item-img"> 
-          <img class="img-1" [src]="product.imgs[0]" alt="" > 
-          <img class="img-2" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" alt="" >
+          <img class="img-1 fit-image" [src]="product.imgs[0]" alt="" > 
+          <img class="img-2 fit-image" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" alt="" >
           <!-- Overlay -->
           <div class="overlay">
             <div class="position-center-center">
