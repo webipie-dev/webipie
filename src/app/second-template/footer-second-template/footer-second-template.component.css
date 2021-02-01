@@ -1,6 +1,6 @@
 :host {
   --primary-color: #171e27;
-  --bg-font: 'Montserrat';
+  --font-choice: 'Montserrat';
 }
 footer p {
   font-size: 12px;
@@ -18,7 +18,7 @@ footer {
   padding: 120px 0;
   padding-bottom: 60px;
   background-color: var(--primary-color);
-  font-family: var(--bg-font), sans-serif !important;
+  font-family: var(--font-choice), sans-serif !important;
   position: relative;
   z-index: 1;
 }
