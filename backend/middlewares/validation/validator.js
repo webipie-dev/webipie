@@ -1,6 +1,6 @@
 const util = require('util')
 const mongoose = require('mongoose')
-const { check, param } = require('express-validator');
+const { check } = require('express-validator');
 
 
 let validation = {
