@@ -14,7 +14,11 @@
           </div>
 
         </div>
-        <div class=" col-lg-7 col-12 px-5 ">
+        <app-spinner
+          class="mx-auto my-auto"
+          *ngIf="loading">
+        </app-spinner>
+        <div class=" col-lg-7 col-12 px-5 " *ngIf="!loading">
           <div class="text-center big-titles mt-3">Sign Up</div>
           <div class="text-center text-size mt-3">You can configure your store after creating your account.</div>
           <form #f="ngForm">

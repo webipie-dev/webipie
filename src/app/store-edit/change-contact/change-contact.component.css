@@ -82,6 +82,7 @@ input:focus {
 
 .sidenav-input-item {
   background-color: var(--light-black-color);
+  width: 65%;
   border: solid 2px rgba(248,248,248,0.5);
   color: var(--white-color);
   border-radius: 10px;

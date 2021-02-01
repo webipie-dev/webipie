@@ -19,6 +19,7 @@ export class SignInComponent implements OnInit {
 
   invalidForm = false;
   storeOwner: StoreOwner = new StoreOwner();
+  loading = false;
 
   ngOnInit(): void {
     const head = document.getElementById('headerr');
@@ -26,15 +27,18 @@ export class SignInComponent implements OnInit {
   }
 
   signIn(): void {
+    this.loading = true;
     this.auth.signIn(this.storeOwner)
       .subscribe(result => {
-          console.log(result['status']);
-          localStorage.setItem('token', result['token']);
-          // let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
-          this.router.navigate(['/after-signin']);
+        console.log(result['status']);
+        localStorage.setItem('token', result['token']);
+        // let returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
+        this.router.navigate(['/after-signin']);
+        this.loading = false;
       }, error => {
         console.log(error);
         this.invalidForm = true;
+        this.loading = false;
       });
   }
 

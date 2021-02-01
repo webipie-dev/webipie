@@ -23,6 +23,7 @@ import {NgImageSliderModule} from 'ng-image-slider';
 import {ProfileComponent} from './profile/profile.component';
 import {AuthGuard} from '../_shared/services/auth-guard.service';
 import {HeaderComponent} from './header/header.component';
+import {SpinnerModule} from "../spinner/spinner.module";
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import {HeaderComponent} from './header/header.component';
     NgxChartsModule,
     NgImageSliderModule,
     FormsModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    SpinnerModule,
   ],
   declarations: [
     DashboardComponent,

@@ -9,6 +9,8 @@ export class AfterSigninComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
+  loading = false;
+
   ngOnInit(): void {
 
   }

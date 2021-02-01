@@ -18,6 +18,7 @@ export class SignUpComponent implements OnInit {
   emailError = '';
   invalidPassword = false;
   passwordError = '';
+  loading = false;
 
   constructor(private auth: AuthService,
               private authService: SocialAuthService,
@@ -33,6 +34,7 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp() {
+    this.loading = true;
     // console.log(JSON.stringify(this.storeOwner));
     this.auth.login(this.storeOwner)
       .subscribe(result => {
@@ -40,6 +42,7 @@ export class SignUpComponent implements OnInit {
           localStorage.setItem('token', result['token']);
           const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
           this.router.navigate([returnUrl || '/after-signin']);
+          this.loading = false;
       }, error => {
         console.log(error);
         console.log(error.error);
@@ -53,6 +56,7 @@ export class SignUpComponent implements OnInit {
           this.emailError = error.error.error;
         }
         console.log(this.invalidEmail);
+        this.loading = false;
       });
   }
 

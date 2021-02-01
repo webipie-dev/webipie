@@ -10,7 +10,7 @@ import {StoreService} from '../_shared/services/store.service';
 })
 
 export class StoreEditComponent implements OnInit {
-  urlToPreview = 'http://localhost:4200/template/home';
+  urlToPreview = 'http://localhost:4200/second-template/home';
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
