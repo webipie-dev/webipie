@@ -53,3 +53,12 @@
   border: solid 2px #ea3939 !important;
   box-shadow: 0 0 2px #ea3939;
 }
+
+.padding-signin {
+  padding: 0 3rem;
+}
+@media screen and (max-width: 768px){
+  .padding-signin {
+    padding: 0 1rem;
+  }
+}
