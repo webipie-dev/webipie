@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productService = require('../services/product');
 const multer = require('multer');
+const clearCache = require('../middlewares/caching/clearCache');
 
 const passport = require('passport');
 const validateRequest = require("../middlewares/validate-request");
@@ -22,7 +23,7 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    cb(error, "backend/images");
+    cb(error, "images");
   },
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(' ').join('-');
@@ -156,12 +157,12 @@ router.get('/:id', [
  *             $ref: '#/components/schemas/Product'    # Reference to object definition
  */
 router.post('', [
-  validation.storeId,
-  productValidator.price,
-  productValidator.quantity,
-  productValidator.description,
-  productValidator.name,
-], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), productService.addProduct)
+  // validation.storeId,
+  // productValidator.price,
+  // productValidator.quantity,
+  // productValidator.description,
+  // productValidator.name,
+], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), clearCache, productService.addProduct)
 
 
 // deleteManyProducts

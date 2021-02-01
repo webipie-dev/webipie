@@ -19,6 +19,7 @@ const storeOwnerRoutes = require('./routes/storeOwner');
 
 const errorHandler = require('./middlewares/error-handler')
 const ApiError = require("./errors/api-error");
+require('./middlewares/caching/cache')
 
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
@@ -60,7 +61,7 @@ mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTte
   });
 
 app
-  .use('/backend/images',express.static('backend/images'))
+  .use('/backend/images',express.static('images'))
   .use('/backend/images/logoImgs',express.static('backend/images/logoImgs'))
   .use('/backend/images/headerImgs',express.static('backend/images/headerImgs'))
   .use(bodyParser.urlencoded({extended: true}))
