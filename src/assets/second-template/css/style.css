@@ -406,76 +406,7 @@ section {
 /*=======================================================
       SLIDER
 ========================================================*/
-.home-slider .tp-caption small {
-	font-size: 20px !important;
-	display: inline-block;
-	vertical-align: top;
-	font-weight: normal !important;
-	line-height: 30px;
-	margin-top: 15px;
-	margin-right: 5px;
-}
-.simple-head {
-	background: url(../images/slide-bg-3.jpg) no-repeat;
-	background-size: cover;
-	padding-top: 20%;
-	padding-bottom: 100px;
-}
-.simple-head {
-	max-height: 1000px;
-}
-.simple-head .position-center-center {
-	width: 100%;
-	padding: 0 15px;
-	position: relative;
-}
-.simple-head h4 {
-	font-family: 'Playfair Display', serif !important;
-	font-size: 28px;
-	color: #2d3a4b;
-	margin: 30px 0;
-	text-transform: none;
-	letter-spacing: 0px;
-}
-.simple-head .extra-huge-text {
-	font-size: 142px;
-	line-height: 120px;
-	font-weight: bold;
-	color: #2d3a4b;
-	position: relative;
-}
-.simple-head .extra-huge-text:before {
-	content: "";
-	height: 1px;
-	width: 612px;
-	background: #2d3a4b;
-	position: absolute;
-	top: 90px;
-	left: 90px;
-	-webkit-transform: rotate(-45deg);
-	-moz-transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
- filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-}
-.simple-head .price {
-	font-size: 98px;
-	font-weight: bold;
-	z-index: 9;
-	line-height: 60px;
-	color: #e9654c;
-	-webkit-transition: 0.4s ease-in-out;
-	-moz-transition: 0.4s ease-in-out;
-	-ms-transition: 0.4s ease-in-out;
-	-o-transition: 0.4s ease-in-out;
-	transition: 0.4s ease-in-out;
-}
-.simple-head .price small {
-	font-size: 30px;
-	line-height: 20px;
-	display: inline-block;
-	vertical-align: top;
-}
+
 /*=======================================================
       NEW ARRIVAL
 ========================================================*/

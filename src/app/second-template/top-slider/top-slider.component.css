@@ -1,0 +1,27 @@
+:host {
+  --primary-color: #171e27;
+  --font-color: #2d3a4b;
+  --font-hover: #ffe115;
+  --font-choice: 'Montserrat';
+  --primary-color-rgba: rgba(255,255,255,0.95);
+}
+
+.button-color {
+  background: #9B928B !important;
+}
+
+.font {
+  font-family: var(--font-choice) sans-serif !important;
+  color: #fff;
+}
+
+.home-slider .tp-caption small {
+  font-size: 20px !important;
+  display: inline-block;
+  vertical-align: top;
+  font-weight: normal !important;
+  line-height: 30px;
+  margin-top: 15px;
+  margin-right: 5px;
+  font-family: var(--font-choice) sans-serif !important;
+}

@@ -14,7 +14,7 @@ export class FooterSecondTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
-    this.changeTheme();
+    // this.changeTheme();
   }
 
   changeTheme() {
