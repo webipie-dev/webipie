@@ -55,7 +55,7 @@ exports.addProduct = async (req, res, next) => {
     console.log('no files uploaded')
   }
 
-  const { name, description, price, quantity, storeId } = req.body
+  const { name, description, price, quantity, popular, openReview, storeId } = req.body
   const store = await Store.findById(storeId)
 
   if (!store) {
@@ -69,6 +69,8 @@ exports.addProduct = async (req, res, next) => {
     imgs: images,
     price,
     quantity,
+    popular,
+    openReview,
     store
   });
 
@@ -169,12 +171,29 @@ exports.deleteAllProducts = async (req, res, next) => {
   res.status(200).send(deletedProducts);
 };
 
+exports.addReview = async (req,res,next) => {
+  const id = req.id;
+ 
+  const { name, email, review, rating, date } = req.body;
+
+  const review = new Object({
+    name, 
+    email, 
+    review, 
+    rating, 
+    date
+  })
+
+  await Product.findOneAndUpdate({id}, { $push: { reviews: review } });
+  res.status(200).send(review);
+}
+
 
 filterProducts = (req => {
   let query = {};
   for (let propName in req.query) {
     if (req.query.hasOwnProperty(propName)) {
-      if (['name', 'description', 'price', 'quantity', 'store'].includes(propName)) {
+      if (['name', 'description', 'price', 'quantity','popular', 'openReview', 'store'].includes(propName)) {
         query[propName] = req.query[propName];
       } else {
         if (propName === 'minPrice') {

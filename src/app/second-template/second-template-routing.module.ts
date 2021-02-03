@@ -35,7 +35,7 @@ const routes: Routes = [{
       component: CheckoutSecondTemplateComponent
     },
     {
-      path: 'product-detail',
+      path: 'product-detail/:id',
       component: ProductDetailComponent
     }
   ]

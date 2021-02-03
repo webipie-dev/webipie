@@ -215,8 +215,10 @@ router.delete('/delete', passportJWT, productService.deleteAllProducts);
 
 router.patch('/:id', [
   validation.id
-], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
+], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), productService.editOneProduct);
 
+
+router.patch('/:id/review', productService.addReview);
 
 module.exports = router;
 
