@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productService = require('../services/product');
 const multer = require('multer');
+const clearCache = require('../middlewares/caching/clearCache');
 
 const passport = require('passport');
 const validateRequest = require("../middlewares/validate-request");
@@ -23,7 +24,7 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    cb(error, "backend/images");
+    cb(error, "images");
   },
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(' ').join('-');
@@ -160,13 +161,13 @@ router.get('/:id', [
  *           schema:
  *             $ref: '#/components/schemas/Product'    # Reference to object definition
  */
-router.post('', [
+router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
   validation.storeId,
   productValidator.price,
   productValidator.quantity,
   productValidator.description,
   productValidator.name,
-], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), productService.addProduct)
+], validateRequest, clearCache, productService.addProduct)
 
 
 // deleteManyProducts
@@ -193,7 +194,7 @@ router.post('', [
  *                  - $ref: '#/components/schemas/Product'
  *                  - $ref: '#/components/schemas/ArrayOfProducts'
  */
-router.delete('', validation.ids, passportJWT, productService.deleteManyProducts)
+router.delete('', validation.ids, passportJWT, clearCache, productService.deleteManyProducts)
 
 //deleteAllProducts
 /**
@@ -210,13 +211,12 @@ router.delete('', validation.ids, passportJWT, productService.deleteManyProducts
  *           schema:
  *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
  */
-router.delete('/delete', passportJWT, productService.deleteAllProducts);
+router.delete('/delete', passportJWT, clearCache, productService.deleteAllProducts);
 
 
 router.patch('/:id', [
   validation.id
-], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), productService.editOneProduct);
-
+], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), clearCache, productService.editOneProduct)
 
 router.patch('/:id/review', productService.addReview);
 

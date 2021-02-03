@@ -2,11 +2,14 @@ const Product = require('../models/product');
 const Store = require('../models/store');
 const ApiError = require("../errors/api-error");
 
+
 exports.getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
   const query = filterProducts(req);
-  const products = await Product.find(query)
+  const products = await Product.find(query).cache({
+    key: req.query.store
+  })
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
@@ -15,18 +18,19 @@ exports.getProducts = async (req, res, next) => {
 
 };
 
-exports.getManyProductById = async (req, res) =>{
-  //get products ids
-  const { ids } = req.query;
 
-  const products = await Product.find({_id: {$in: ids}})
-    .catch((err) => {
-      res.status(400).json({errors: err.message});
-    });
-
-  res.status(200).send(products);
-
-}
+// exports.getManyProductById = async (req, res) =>{
+//   //get products ids
+//   const { ids } = req.query;
+//
+//   const products = await Product.find({_id: {$in: ids}})
+//     .catch((err) => {
+//       res.status(400).json({errors: err.message});
+//     });
+//
+//   res.status(200).send(products);
+//
+// }
 
 exports.getOneProduct = async (req, res, next) => {
   //get product id

@@ -1,6 +1,6 @@
 const util = require('util')
 const mongoose = require('mongoose')
-const { check, param } = require('express-validator');
+const { check, body } = require('express-validator');
 
 
 let validation = {
@@ -49,7 +49,7 @@ let validation = {
    is a mongoose Id
    */
   storeId: util.promisify(
-    check('storeId')
+    body('storeId')
       .custom((input) => mongoose.Types.ObjectId.isValid(input))
       .withMessage('storeId must be valid')
   )
