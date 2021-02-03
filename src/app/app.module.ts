@@ -30,6 +30,7 @@ import { TemplatesPageComponent } from './index/templates-page/templates-page.co
 import { QuillModule } from 'ngx-quill';
 import {SecondTemplateModule} from './second-template/second-template.module';
 import {SpinnerModule} from './spinner/spinner.module';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {SpinnerModule} from './spinner/spinner.module';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,

@@ -6,17 +6,15 @@
     <!-- Main Heading -->
     <div class="heading text-center">
       <h4>about ecoshop</h4>
-      <p>Phasellus lacinia fermentum bibendum. Interdum et malesuada fames ac ante ipsumien lacus, eu posuere odio luctus non. Nulla lacinia,
-        eros vel fermentum consectetur, risus purus tempc, et iaculis odio dolor in ex. </p>
+      <p>{{store.description}} </p>
     </div>
 
     <!-- Social Icons -->
     <ul class="social_icons">
-      <li><a href="#."><i class="icon-social-facebook"></i></a></li>
-      <li><a href="#."><i class="icon-social-twitter"></i></a></li>
-      <li><a href="#."><i class="icon-social-tumblr"></i></a></li>
-      <li><a href="#."><i class="icon-social-youtube"></i></a></li>
-      <li><a href="#."><i class="icon-social-dribbble"></i></a></li>
+      <li><a [class.disabled]="!store.contact.facebookPage" [href]="store.contact.facebookPage"><i class="icon-social-facebook"></i></a></li>
+      <li><a [class.disabled]="!store.contact.instagramPage" [href]="store.contact.instagramPage"><i class="fab fa-instagram icon-social-instagram"></i></a></li>
+      <li><a [class.disabled]="!store.contact.twitterPage" [href]="store.contact.twitterPage"><i class="icon-social-twitter"></i></a></li>
+      <li><a [class.disabled]="!store.contact.youtubePage" [href]="store.contact.youtubePage"><i class="icon-social-youtube"></i></a></li>
     </ul>
   </div>
 </section>
