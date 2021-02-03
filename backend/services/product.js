@@ -180,7 +180,7 @@ exports.addReview = async (req,res,next) => {
  
   const { name, email, review, rating, date } = req.body;
 
-  const review = new Object({
+  const reviewBody = new Object({
     name, 
     email, 
     review, 
@@ -188,7 +188,7 @@ exports.addReview = async (req,res,next) => {
     date
   })
 
-  await Product.findOneAndUpdate({id}, { $push: { reviews: review } });
+  await Product.findOneAndUpdate({id}, { $push: { reviews: reviewBody } });
   res.status(200).send(review);
 }
 
