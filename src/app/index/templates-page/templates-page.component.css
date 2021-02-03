@@ -71,11 +71,12 @@
   height: 300px;
   background-size: cover;
   background-position: center;
-  border: none;
   border-radius: 25px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 10px 10px rgba(0,0, 0, 0.2);
+  border: 3px solid rgba(0,0,0,0.7);
   background-image: url("../../../assets/images/template1.png");
   background-repeat: no-repeat;
+  margin-top: -50px;
 }
 
 
@@ -98,4 +99,13 @@
 
 .disabled-cursor {
   cursor: not-allowed;
+}
+
+.template-section {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flow-root;
+  box-shadow: 5px 15px 15px rgba(0, 0, 0, 0.17);
+  border-radius: 20px;
+  background-color: white;
 }
