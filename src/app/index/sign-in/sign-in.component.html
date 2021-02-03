@@ -5,9 +5,6 @@
         <div class="card-background-image col-lg-5 col-12 ">
           <div class="text-center big-titles white-colored mt-3">Logo Savvy</div>
           <img src="../../../assets/images/login.svg" alt="" class="img-fluid my-5 img-login d-flex mx-auto ">
-          <div class="text-center text-size white-colored pt-5 " style="cursor: pointer;" routerLink='/signup'>You don't
-            have an account ?
-          </div>
 
         </div>
         <app-spinner
@@ -50,10 +47,12 @@
                    (click)="signInWithGoogle()">
             </div>
           </div>
-          <div class="row pt-3 text-center text-size d-flex justify-content-center">
-            <a routerLink="/signup">create new Account</a>
-          </div>
+
         </div>
       </div>
+      <div class="text-center text-size  pt-4 "  routerLink='/signup'>
+        <span class="dont-have-account">You don'thave an account ?</span>
+      </div>
+
     </div>
 </div>
