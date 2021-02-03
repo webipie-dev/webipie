@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const ClientService = require('../services/client');
 const validateRequest = require('../middlewares/validate-request')
+const clearCache = require('../middlewares/caching/clearCache');
+
 
 const passport = require('passport');
 const passportJWT = passport.authenticate('jwt', { session: false });
@@ -125,7 +127,7 @@ router.post('', [
     clientValidation.lastName,
     clientValidation.phoneNumber,
     clientValidation.email
-  ], validateRequest, ClientService.addClient)
+  ], validateRequest, clearCache, ClientService.addClient)
 
 
 // deleteManyCLients
@@ -154,7 +156,7 @@ router.delete('', validation.ids, validateRequest, passportJWT.unless(function(r
     if(req.headers['role'] === 'client'){
         return true;
     }
-}), ClientService.deleteManyClients)
+}), clearCache, ClientService.deleteManyClients)
 
 //deleteAllClients
 /**
@@ -171,11 +173,11 @@ router.delete('', validation.ids, validateRequest, passportJWT.unless(function(r
  *           schema:
  *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
  */
-router.delete('/delete', passportJWT, ClientService.deleteAllClients)
+router.delete('/delete', passportJWT, clearCache, ClientService.deleteAllClients)
 
 //updateManyClients
 router.patch('/:id', [
   validation.id
-], validateRequest, ClientService.editClient)
+], validateRequest, clearCache, ClientService.editClient)
 
 module.exports = router;
