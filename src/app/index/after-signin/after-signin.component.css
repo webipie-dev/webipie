@@ -27,3 +27,12 @@
     min-height: auto;
   }
 }
+
+.padding-signup {
+  padding: 0 3rem;
+}
+@media screen and (max-width: 768px){
+  .padding-signup {
+    padding: 0 1rem;
+  }
+}

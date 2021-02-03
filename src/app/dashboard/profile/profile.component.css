@@ -1,15 +1,30 @@
 @import "../dashboard.component.css";
+
 .upload-icon {
-    color: var(--blue-color);
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: white !important;
+  background-color: var(--blue-color) !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border: solid 2px var(--blue-color) !important;
+  border-radius: 25px !important;
 }
 
 .white-background {
-    background-color: white;
+  background-color: white;
 }
 
 .border-shadow {
-    border-radius: 20px;
-    box-shadow: 0 3px 19px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 3px 19px rgba(0, 0, 0, 0.1);
+}
+.card-profile {
+  height: 45vh;
+}
+
+@media screen and (max-width: 768px){
+  .card-profile {
+    height: auto;
+  }
+  .fa-2x {
+    font-size: 2em !important;
+  }
 }
