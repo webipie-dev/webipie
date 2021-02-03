@@ -81,7 +81,7 @@ const storage = multer.diskStorage({
  *                  format: uuid
  *
  */
-router.get('', passportJWT, productService.getProducts)
+router.get('', productService.getProducts)
 
 //getManyProducts
 /**
@@ -156,13 +156,13 @@ router.get('/:id', [
  *           schema:
  *             $ref: '#/components/schemas/Product'    # Reference to object definition
  */
-router.post('', [
-  // validation.storeId,
-  // productValidator.price,
-  // productValidator.quantity,
-  // productValidator.description,
-  // productValidator.name,
-], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), clearCache, productService.addProduct)
+router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
+  validation.storeId,
+  productValidator.price,
+  productValidator.quantity,
+  productValidator.description,
+  productValidator.name,
+], validateRequest, clearCache, productService.addProduct)
 
 
 // deleteManyProducts
@@ -189,7 +189,7 @@ router.post('', [
  *                  - $ref: '#/components/schemas/Product'
  *                  - $ref: '#/components/schemas/ArrayOfProducts'
  */
-router.delete('', validation.ids, passportJWT, productService.deleteManyProducts)
+router.delete('', validation.ids, passportJWT, clearCache, productService.deleteManyProducts)
 
 //deleteAllProducts
 /**
@@ -206,12 +206,12 @@ router.delete('', validation.ids, passportJWT, productService.deleteManyProducts
  *           schema:
  *             $ref: '#/components/schemas/ArrayOfProducts'    # Reference to object definition
  */
-router.delete('/delete', passportJWT, productService.deleteAllProducts);
+router.delete('/delete', passportJWT, clearCache, productService.deleteAllProducts);
 
 
 router.patch('/:id', [
   validation.id
-], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), productService.editOneProduct)
+], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), clearCache, productService.editOneProduct)
 
 
 module.exports = router;

@@ -23,7 +23,7 @@ let productValidation = {
   description: util.promisify(
     check('description')
       .not().isEmpty().withMessage('Description not provided')
-      .isLength({ min: 2, max: 50 }).withMessage('Description is too short or too long')
+      .isLength({ min: 2, max: 5000 }).withMessage('Description is too short or too long')
   ),
 
   /**
