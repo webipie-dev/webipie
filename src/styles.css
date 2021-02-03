@@ -193,6 +193,14 @@ hr {
   font-weight: 600;
 }
 
+.button-border-white {
+  background-color:  transparent;
+  color: #ffffff !important;
+  border: 2px white solid;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
 .button-white:hover {
   background-color: var(--dark-blue-color);
   color: var(--white-color) !important;
