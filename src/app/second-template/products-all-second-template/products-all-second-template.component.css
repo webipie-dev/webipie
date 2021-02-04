@@ -277,3 +277,11 @@
 	display: inline-block;
 	vertical-align: top;
 }
+
+.parent-image {
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center;
+  height: 300px;
+  width: 100%;
+}

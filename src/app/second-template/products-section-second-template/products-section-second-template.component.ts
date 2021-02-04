@@ -26,9 +26,9 @@ export class ProductsSectionSecondTemplateComponent implements OnInit, OnChanges
 
     this.productService.getAll({store: this.storeId, popular: true}, 'client').subscribe(data => {
       this.popularProducts.push.apply(this.popularProducts, data) ;
+      console.log(data);
     });
 
-    console.log(this.popularProducts);
 
     this.changeTheme();
   }
