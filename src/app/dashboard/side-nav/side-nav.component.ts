@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor() {
   }
   windwosWidth;
 
@@ -33,9 +33,6 @@ export class SideNavComponent implements OnInit {
     }
   }
 
-  switchAndToggleS(path) {
-    this.router.navigate([path]);
-    this.toggleS();
-  }
+
 
 }

@@ -1,0 +1,44 @@
+<div class="">
+  <nav id="sidebar-non-active" class="active">
+    <ul class="list-unstyled text-size text-center">
+      <li class=" mb-3">
+        <a (click)="switchAndToggleS('/store')" class="nav-link-sidebar cursor-pointer">
+          <i class="fa fa-edit"></i>
+        </a>
+      </li>
+      <li class="sidenav-elem mb-3">
+        <a (click)="switchAndToggleS('dashboard/social-media')" class="nav-link-sidebar mt-1 cursor-pointer">
+          <i class="fa fa-share-alt "></i>
+        </a>
+      </li>
+      <li class="sidenav-elem mb-3">
+        <a (click)="switchAndToggleS('/dashboard/sales/orders')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+          <i class="fa fa-list-alt"></i>
+        </a>
+        <a (click)="switchAndToggleS('/dashboard/sales/clients')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+          <i class="fa fa-users"></i>
+        </a>
+        <a (click)="switchAndToggleS('/dashboard/products')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+          <i class="fa fa-warehouse"></i>
+        </a>
+        <a (click)="switchAndToggleS('/dashboard/mobile-app')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+          <i class="fa fa-mobile-alt"></i>
+        </a>
+        <a data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar">
+          <i class="fa fa-money-check-alt"></i>
+        </a>
+        <a data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar">
+          <i class="fa fa-chart-bar"></i>
+        </a>
+      </li>
+      <li class="sidenav-elem ">
+        <a (click)="switchAndToggleS('/dashboard/profile')" data-toggle="collapse" aria-expanded="false" class="cursor-pointer nav-link-sidebar mt-1">
+          <i class="fa fa-id-card"></i>
+        </a>
+        <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+          <i class="fa fa-sign-out-alt"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
