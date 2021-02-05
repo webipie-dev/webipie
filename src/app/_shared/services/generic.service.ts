@@ -59,7 +59,9 @@ export class GenericService<T extends GenericModel> {
     let httpOptions: any;
     if ( localStorage.getItem('token') ){
       httpOptions = {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: {
+          Authorization: localStorage.getItem('token')
+        },
       };
     }
     return this.http.patch(this.getUrl() + this.suffix + '/' + id, body, httpOptions) as unknown as Observable<T>;
@@ -69,6 +71,7 @@ export class GenericService<T extends GenericModel> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token') || '',
       }),
       body
     };
@@ -76,7 +79,15 @@ export class GenericService<T extends GenericModel> {
   }
 
   public deleteAll(): Observable<T> {
-    return this.http.delete(this.getUrl() + this.suffix + '/delete') as Observable<T>;
+    let httpOptions: any;
+    if ( localStorage.getItem('token') ){
+      httpOptions = {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        },
+      };
+    }
+    return this.http.delete(this.getUrl() + this.suffix + '/delete', httpOptions) as unknown as Observable<T>;
   }
 
 }

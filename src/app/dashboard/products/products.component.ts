@@ -90,11 +90,9 @@ export class ProductsComponent implements OnInit {
 
   getAllProducts(store: string): void {
     this.productService.getAll({store}).subscribe((data) => {
-      console.log('this is the data');
       let quant;
       let aux;
       data.forEach((element) => {
-        console.log(element);
         if (element.quantity > 0) {
           quant = element.quantity;
         } else {

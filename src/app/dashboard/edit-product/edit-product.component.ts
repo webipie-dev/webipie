@@ -100,13 +100,9 @@ export class EditProductComponent implements OnInit {
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
-        if (field === 'store') {
-          this.postData.append('storeId', control.value);
-        } else {
-          this.postData.append(field, control.value);
-        }
+        this.postData.append(field, control.value);
       } else {
-        if ((field !== 'imgs')) {
+        if (field !== 'imgs' && field !== 'store') {
           this.postData.append(field, '');
         }
       }
@@ -122,13 +118,9 @@ export class EditProductComponent implements OnInit {
     for (const field in this.productForm.controls) {
       const control = this.productForm.get(field);
       if (control.value) {
-        if (field === 'store') {
-          this.postData.append('storeId', control.value);
-        } else {
           this.postData.append(field, control.value);
-        }
       } else {
-        if (field !== 'imgs') {
+        if (field !== 'imgs' && field !== 'store') {
           this.postData.append(field, '');
         }
       }
@@ -139,6 +131,8 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const currentStore = JSON.parse(localStorage.getItem('currentStore'))._id;
+    this.postData.append('storeId', currentStore);
     if (this.edit) {
       this.editProduct(this.productId);
     } else {
