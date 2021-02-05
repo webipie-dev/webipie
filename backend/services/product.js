@@ -13,7 +13,6 @@ exports.getProducts = async (req, res, next) => {
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
-
   res.status(200).send(products);
 
 };
@@ -40,7 +39,6 @@ exports.getOneProduct = async (req, res, next) => {
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
-
   res.status(200).send(product);
 
 };
@@ -177,14 +175,14 @@ exports.deleteAllProducts = async (req, res, next) => {
 
 exports.addReview = async (req,res,next) => {
   const id = req.id;
- 
+
   const { name, email, review, rating, date } = req.body;
 
   const reviewBody = new Object({
-    name, 
-    email, 
-    review, 
-    rating, 
+    name,
+    email,
+    review,
+    rating,
     date
   })
 

@@ -31,6 +31,7 @@ import { QuillModule } from 'ngx-quill';
 import {SecondTemplateModule} from './second-template/second-template.module';
 import {SpinnerModule} from './spinner/spinner.module';
 import { CommonModule } from '@angular/common';
+import {KeysPipe} from './_shared/keys.pipe';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { CommonModule } from '@angular/common';
     SignInComponent,
     LoadingSpinnerComponent,
     FooterComponent,
-    TemplatesPageComponent
+    TemplatesPageComponent,
+    KeysPipe
   ],
   imports: [
     BrowserModule,

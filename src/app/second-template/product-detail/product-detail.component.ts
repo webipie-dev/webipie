@@ -28,7 +28,6 @@ export class ProductDetailComponent implements OnInit {
       // this.productID = this.product._id;
       console.log(data);
       console.log(this.counter(this.product.quantity));
-
     });
 
     this.changeTheme();
@@ -57,7 +56,6 @@ export class ProductDetailComponent implements OnInit {
     console.log(this.hexToRGB(this.store.template.colorChart[4], 0.75));
     console.log(this.store.template.font.name);
   }
-
 
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review);

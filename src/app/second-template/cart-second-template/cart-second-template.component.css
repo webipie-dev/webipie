@@ -1,9 +1,9 @@
 :host {
-  --primary-color: #FFF;
+  --bg-color: #FFF;
   --font-color: #2d3a4b;
-  --font-hover: #ffe115;
+  --secondary-color: #ffe115;
   --font-choice: 'montserrat';
-  --primary-color-rgba: rgba(255,255,255,0.95);
+  --bg-color-rgba: rgba(255,255,255,0.95);
 }
 .icon-close {
   color: var(--font-color);
@@ -168,7 +168,7 @@
   color: #2d3a4b;
 }
 .shopping-cart .cart-ship-info .grand-total {
-  border: 3px solid var(--font-hover);
+  border: 3px solid var(--secondary-color);
   padding: 15px 30px;
 }
 .shopping-cart .cart-ship-info .order-detail p {
@@ -216,7 +216,7 @@
   padding: 0px 30px;
 }
 .shopping-cart .btn:hover {
-  background: var(--font-hover) !important;
+  background: var(--secondary-color) !important;
 }
 /*.small-cart .cart-ship-info form {
   background: #eeeeee;

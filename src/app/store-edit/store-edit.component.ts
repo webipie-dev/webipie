@@ -40,6 +40,9 @@ export class StoreEditComponent implements OnInit {
   ngOnInit(): void {
     this.storeService.getById(this.storeId).subscribe((store) => {
       this.currentStore = store;
+      console.log('this is the sottreee');
+      console.log(store);
+      localStorage.setItem('currentStore', JSON.stringify(this.currentStore));
     });
 
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);

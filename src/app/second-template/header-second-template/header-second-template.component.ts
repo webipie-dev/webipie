@@ -8,25 +8,27 @@ import {Store} from '../../_shared/models/store.model';
   styleUrls: ['./header-second-template.component.css']
 })
 export class HeaderSecondTemplateComponent implements OnInit {
-  store: Store;
+  store;
   rgbaColor: string;
   constructor(private storeService: StoreService,
               private el: ElementRef) { }
 
   ngOnInit(): void {
     this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
-    // this.changeTheme();
+    this.changeTheme();
   }
 
   changeTheme() {
     this.rgbaColor = 'rgba('
-      + this.hexToRgb(this.store.template.colorChart[4]).r
-      + ', ' + this.hexToRgb(this.store.template.colorChart[4]).g
-      + ', ' + this.hexToRgb(this.store.template.colorChart[4]).b
+      + this.hexToRgb(this.store.template.colorChart['bg-color']).r
+      + ', ' + this.hexToRgb(this.store.template.colorChart['bg-color']).g
+      + ', ' + this.hexToRgb(this.store.template.colorChart['bg-color']).b
       + ', 0.95)' ;
-    (this.el.nativeElement as HTMLElement).style.setProperty('--primary-color-rgba', this.rgbaColor);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--primary-color', this.store.template.colorChart[4]);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font.name);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.rgbaColor);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
   }
 
   hexToRgb(hex) {

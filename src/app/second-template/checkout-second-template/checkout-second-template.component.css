@@ -1,9 +1,9 @@
 :host {
-  --primary-color: #FFF;
+  --bg-color: #FFF;
   --font-color: #2d3a4b;
-  --font-hover: #ffe115;
+  --secondary-color: #ffe115;
   --font-choice: 'montserrat';
-  --primary-color-rgba: rgba(255,255,255,0.95);
+  --bg-color-rgba: rgba(255,255,255,0.95);
 }
 .chart-page h6 {
   font-family: var(--font-choice), sans-serif !important;
@@ -104,7 +104,7 @@
   margin: 0px;
 }
 .shopping-cart .order-place {
-  border: 3px solid var(--font-hover);
+  border: 3px solid var(--secondary-color);
   padding: 30px;
   display: inline-block;
   width: 100%;
@@ -140,5 +140,5 @@
   padding: 0px 30px;
 }
 .shopping-cart .btn:hover {
-  background: var(--font-hover) !important;
+  background: var(--secondary-color) !important;
 }

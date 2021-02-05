@@ -51,7 +51,7 @@ exports.addStore = async (req, res, next) => {
 
   const { name, description, location, contact, storeType, templateId} = req.body
 
-  let getTemplate = Template.findById(templateId)
+  let getTemplate = await Template.findById(templateId)
 
   if (!getTemplate) {
     next(ApiError.NotFound('Template not Found'));
@@ -130,11 +130,9 @@ exports.deleteAllStores = async (req, res, next) => {
   res.status(200).send(deletedStores);
 };
 
-
 exports.editStore = async (req, res, next) => {
   // getting the id
   const { id } = req.params;
-
   const edits = {};
   let logoPath;
   let headerPath;
@@ -177,5 +175,30 @@ exports.editStore = async (req, res, next) => {
 
 };
 
+exports.changeTemplate = async (req, res, next) => {
+  const { id } = req.params
+  let templateId = req.body.templateId;
+  let template = await Template.findById(templateId)
+  if (!template) {
+    next(ApiError.NotFound('Template not Found'));
+    return;
+  }
+  console.log('i got here')
+  const store = await Store.updateOne({_id: id}, { $set: {
+    template: template
+    } })
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+
+  if (store){
+    if (store.nModified === 0) {
+      next(ApiError.NotFound('No stores modified'));
+      return;
+    }
+  }
+  const storeEdited = await Store.findById(id)
+  res.status(200).send(storeEdited)
+};
 
 

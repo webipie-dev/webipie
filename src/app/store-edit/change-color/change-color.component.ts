@@ -16,18 +16,14 @@ export class ChangeColorComponent implements OnInit {
   }
 
   defaultColor;
-  // storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
-  storeId = '600053ca1181b69010315090';
-
-
+  store = JSON.parse(localStorage.getItem('currentStore'));
   public show = false;
-  public defaultColors = [
-    {name: 'chartI', colors: ['#ffffff', '#000105', '#3e6158', '#3f7a89', '#96c582', ]},
-    {name: 'chartII', colors: ['#000105', '#ffffff', '#3e6158', '#3f7a89', '#96c582', ]},
-    {name: 'chartIII', colors: ['#3e6158', '#ffffff', '#000105', '#3f7a89', '#96c582', ]},
-  ];
+  public defaultColors = [];
 
   ngOnInit(): void {
+    this.defaultColors = this.store.template.colorChartOptions;
+    console.log('these are the options');
+    console.log(this.defaultColors);
   }
 
   public toggleColors(): void {
@@ -35,14 +31,15 @@ export class ChangeColorComponent implements OnInit {
   }
 
   colorChange(color): void {
-    this.defaultColor = color.colors;
+    this.defaultColor = color;
+    this.store.template.colorChart = this.defaultColor;
   }
 
   submit(): void {
     const postData = {
       'template.colorChart': this.defaultColor
     };
-    this.storeService.edit(this.storeId, postData).subscribe(store => {
+    this.storeService.edit(this.store._id, postData).subscribe(store => {
       localStorage.setItem('currentStore', JSON.stringify(store));
     });
   }
