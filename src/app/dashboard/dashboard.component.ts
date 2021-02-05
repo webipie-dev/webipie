@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
     if (this.windwosWidth < 576) {
       this.mode = 'over';
       this.mobileOpen = true;
-      if (this.opened) {
+      if (this.opened && document.getElementById('toggleMobile')) {
         document.getElementById('toggleMobile').click();
       }
 
