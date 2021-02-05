@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {StoreService} from '../../_shared/services/store.service';
+import {Store} from '../../_shared/models/store.model';
 
 @Component({
   selector: 'app-sub-header-second-template',
@@ -9,7 +10,7 @@ import {StoreService} from '../../_shared/services/store.service';
 export class SubHeaderSecondTemplateComponent implements OnInit {
 
   @Input() fromWhere: string;
-  store;
+  store: Store;
   constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {

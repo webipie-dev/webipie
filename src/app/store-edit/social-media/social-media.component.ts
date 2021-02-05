@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
+import {Store} from '../../_shared/models/store.model';
 
 @Component({
   selector: 'app-social-media',
@@ -8,9 +9,9 @@ import {StoreService} from '../../_shared/services/store.service';
   styleUrls: ['./social-media.component.css']
 })
 export class SocialMediaComponent implements OnInit {
-  defaultFacebook = JSON.parse(localStorage.getItem('currentStore')).contact.facebookPage;
-  defaultInstagram = JSON.parse(localStorage.getItem('currentStore')).contact.instagramPage;
-  storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
+  defaultFacebook = JSON.parse(sessionStorage.getItem('store')).contact.facebookPage;
+  defaultInstagram = JSON.parse(sessionStorage.getItem('store')).contact.instagramPage;
+  storeId = JSON.parse(sessionStorage.getItem('store'))._id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService) {
@@ -27,7 +28,7 @@ export class SocialMediaComponent implements OnInit {
       'contact.instagramPage': this.defaultInstagram
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
-      localStorage.setItem('currentStore', JSON.stringify(store));
+      sessionStorage.setItem('store', JSON.stringify(store));
     });
   }
 

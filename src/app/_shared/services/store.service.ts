@@ -14,11 +14,11 @@ export class StoreService extends GenericService<any>{
   }
 
   getStore(id: string) {
-    if (localStorage.getItem('store') === null || JSON.parse(localStorage.getItem('store'))._id !== id) {
+    if (sessionStorage.getItem('store') === null || JSON.parse(sessionStorage.getItem('store'))._id !== id) {
       this.getById(id).subscribe(store => {
-        localStorage.setItem('store', JSON.stringify(store));
+        sessionStorage.setItem('store', JSON.stringify(store));
       });
     }
-    return localStorage.getItem('store');
+    return sessionStorage.getItem('store');
   }
 }

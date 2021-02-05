@@ -9,7 +9,7 @@ import {log} from 'util';
   styleUrls: ['./footer-second-template.component.css']
 })
 export class FooterSecondTemplateComponent implements OnInit {
-  store;
+  store: Store;
   constructor(private storeService: StoreService,
               private el: ElementRef) { }
 

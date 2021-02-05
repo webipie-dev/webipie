@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {StoreService} from '../_shared/services/store.service';
+import {Store} from '../_shared/models/store.model';
 
 @Component({
   selector: 'app-second-template',
@@ -8,7 +9,7 @@ import {StoreService} from '../_shared/services/store.service';
   encapsulation: ViewEncapsulation.None
 })
 export class SecondTemplateComponent implements OnInit {
-  store;
+  store: Store;
   loadAPI: Promise<any>;
 
   constructor(private storeService: StoreService) {

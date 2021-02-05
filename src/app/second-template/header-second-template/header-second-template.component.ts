@@ -8,7 +8,7 @@ import {Store} from '../../_shared/models/store.model';
   styleUrls: ['./header-second-template.component.css']
 })
 export class HeaderSecondTemplateComponent implements OnInit {
-  store;
+  store: Store;
   rgbaColor: string;
   constructor(private storeService: StoreService,
               private el: ElementRef) { }

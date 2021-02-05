@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { ProductService } from 'src/app/_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
+import {Store} from '../../_shared/models/store.model';
 
 @Component({
   selector: 'app-products-all-second-template',
@@ -10,7 +11,7 @@ import {StoreService} from '../../_shared/services/store.service';
 
 })
 export class ProductsAllSecondTemplateComponent implements OnInit {
-  store;
+  store: Store;
   products: [];
   storeId = '600053ca1181b69010315090';
 
@@ -44,9 +45,9 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
 
   changeTheme(): void{
     document.documentElement.style.setProperty('--overlay-color', this.hexToRGB(this.store.template.colorChart[4], 0.75));
-    document.documentElement.style.setProperty('--font-choice', this.store.template.font.name);
+    document.documentElement.style.setProperty('--font-choice', this.store.template.font);
     console.log(this.hexToRGB(this.store.template.colorChart[4], 0.75));
-    console.log(this.store.template.font.name);
+    console.log(this.store.template.font);
   }
 
 }

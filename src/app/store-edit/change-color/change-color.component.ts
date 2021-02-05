@@ -16,14 +16,12 @@ export class ChangeColorComponent implements OnInit {
   }
 
   defaultColor;
-  store = JSON.parse(localStorage.getItem('currentStore'));
+  store = JSON.parse(sessionStorage.getItem('store'));
   public show = false;
   public defaultColors = [];
 
   ngOnInit(): void {
     this.defaultColors = this.store.template.colorChartOptions;
-    console.log('these are the options');
-    console.log(this.defaultColors);
   }
 
   public toggleColors(): void {
@@ -32,7 +30,7 @@ export class ChangeColorComponent implements OnInit {
 
   colorChange(color): void {
     this.defaultColor = color;
-    this.store.template.colorChart = this.defaultColor;
+    this.store.template.colorChart = color;
   }
 
   submit(): void {
@@ -40,7 +38,7 @@ export class ChangeColorComponent implements OnInit {
       'template.colorChart': this.defaultColor
     };
     this.storeService.edit(this.store._id, postData).subscribe(store => {
-      localStorage.setItem('currentStore', JSON.stringify(store));
+      sessionStorage.setItem('store', JSON.stringify(store));
     });
   }
 }

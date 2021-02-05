@@ -9,8 +9,7 @@ import {Store} from '../../_shared/models/store.model';
 })
 export class CartSecondTemplateComponent implements OnInit {
   displayNone = true;
-  store;
-  rgbaColor: string;
+  store: Store;
 
   constructor(private storeService: StoreService,
               private el: ElementRef) {
@@ -22,7 +21,6 @@ export class CartSecondTemplateComponent implements OnInit {
   }
 
   changeTheme() {
-    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.rgbaColor);
     (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
     (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
     (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);

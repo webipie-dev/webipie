@@ -19,6 +19,6 @@ export class TopSliderComponent implements OnInit {
 
   changeTheme() {
     (this.el.nativeElement as HTMLElement).style.setProperty('--primary-color', this.store.template.colorChart[4]);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font.name);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
   }
 }

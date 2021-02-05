@@ -35,10 +35,7 @@ export class ChangeFontComponent implements OnInit {
   textBold: boolean;
   textItalic: boolean;
 
-  // storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
-  storeId = '600053ca1181b69010315090';
-
-
+  storeId = JSON.parse(sessionStorage.getItem('store'))._id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService,
@@ -139,7 +136,7 @@ export class ChangeFontComponent implements OnInit {
 
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
-      localStorage.setItem('currentStore', JSON.stringify(store));
+      sessionStorage.setItem('store', JSON.stringify(store));
     });
   }
 
@@ -154,9 +151,10 @@ export class ChangeFontComponent implements OnInit {
       italic: this.textItalic,
 
     };
-    this.storeService.edit(this.storeId, postData).subscribe(data => {
+    this.storeService.edit(this.storeId, postData).subscribe(store => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/font']);
+        sessionStorage.setItem('store', JSON.stringify(store));
       });
     });
   }
