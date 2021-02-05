@@ -104,7 +104,7 @@ input:focus:-ms-input-placeholder {
 }
 
 :host >>> .ng-sidebar {
-  max-width: 270px;
+  max-width: 280px;
   min-width: 90px;
   overflow-y: hidden;
 }
