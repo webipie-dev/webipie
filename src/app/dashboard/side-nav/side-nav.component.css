@@ -20,9 +20,6 @@
 }
 
 
-#sidebar.active {
-  margin-left: -250px;
-}
 
 #sidebar-non-active.active {
   margin-left: -330px;

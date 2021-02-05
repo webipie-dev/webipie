@@ -10,15 +10,12 @@ export class SideNavMinimizedComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  @Input() toggleS: () => void;
-
   ngOnInit(): void {
   }
 
 
   switchAndToggleS(path): void {
     this.router.navigate([path]);
-    this.toggleS();
   }
 
 }

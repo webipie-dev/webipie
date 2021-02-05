@@ -19,12 +19,6 @@
   display: none;
 }
 
-
-#sidebar.active {
-  margin-left: -250px;
-}
-
-
 #sidebar-non-active {
   top: 0;
   bottom: 0;

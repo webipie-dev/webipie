@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 
 declare var $: any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -9,23 +10,56 @@ declare var $: any;
 
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   public opened = true;
   public minimized = false;
+  public mobileOpen = false;
+  public mode = 'push';
+  public windwosWidth = window.innerWidth;
 
   public _toggleSidebar(): void {
     this.opened = !this.opened;
     this.minimized = !this.minimized;
   }
 
-
-  toggleS = (): void =>  {
-    document.getElementById('sidebar').classList.toggle('active');
-    document.getElementById('sidebar-non-active').classList.toggle('active');
-    document.getElementById('sidebar-non-active2').classList.toggle('hidden-sidenav');
-    document.getElementById('sidebar-next').classList.toggle('sidenav-next');
+  public _toggleMini(): void {
+    this.minimized = false;
   }
+
+  public _toggleBigSidebar(): void {
+    this.opened = !this.opened;
+  }
+
+
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
+    if (this.windwosWidth < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+
+    } else if (this.windwosWidth >= 576) {
+      this.mode = 'push';
+      this.opened = true;
+      this.minimized = false;
+      this.mobileOpen = false;
+
+    }
+  }
+
   ngOnInit(): void {
+    if (window.screen.width < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+      this.opened = false;
+      this.minimized = false;
+    } else {
+      this.mode = 'push';
+      this.mobileOpen = false;
+      this.opened = true;
+      this.minimized = false;
+    }
   }
 }
