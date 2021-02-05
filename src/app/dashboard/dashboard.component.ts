@@ -24,12 +24,12 @@ export class DashboardComponent implements OnInit {
     this.minimized = !this.minimized;
   }
 
-  public _toggleMini(): void {
-    this.minimized = false;
-  }
-
   public _toggleBigSidebar(): void {
     this.opened = !this.opened;
+  }
+
+  public _closeBigSidebar(): void {
+    this.opened = false;
   }
 
 
@@ -39,6 +39,9 @@ export class DashboardComponent implements OnInit {
     if (this.windwosWidth < 576) {
       this.mode = 'over';
       this.mobileOpen = true;
+      if (this.opened) {
+        document.getElementById('toggleMobile').click();
+      }
 
     } else if (this.windwosWidth >= 576) {
       this.mode = 'push';
