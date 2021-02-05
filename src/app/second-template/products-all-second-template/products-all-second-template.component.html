@@ -17,16 +17,16 @@
   </section>
 
   <div id="content">
-    <section class="shop-page padding-top-100 padding-bottom-100">
+    <section class="font shop-page padding-top-100 padding-bottom-100">
       <div class="container">
         <div class="papular-block row">
-          <h3 class="text-center pb-5 col-12">Products</h3>
+          <h3 class="font text-center pb-5 col-12">Products</h3>
           <div *ngFor="let product of products" class="col-md-3">
             <!-- Item -->
             <div class="item">
               <!-- Item img -->
-              <div class="item-img"> 
-                <img class="img-1 fit-image" [src]="product.imgs[0]" alt="" > 
+              <div class="item-img">
+                <img class="img-1 fit-image" [src]="product.imgs[0]" alt="" >
                 <img class="img-2 fit-image" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" alt="" >
                 <!-- Overlay -->
                 <div class="overlay">

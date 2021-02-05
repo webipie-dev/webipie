@@ -1,13 +1,13 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewEncapsulation} from '@angular/core';
 import { ProductService } from 'src/app/_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
+import {log} from 'util';
 
 @Component({
   selector: 'app-products-all-second-template',
   templateUrl: './products-all-second-template.component.html',
   styleUrls: ['./products-all-second-template.component.css'],
-  encapsulation: ViewEncapsulation.None
 
 })
 export class ProductsAllSecondTemplateComponent implements OnInit {
@@ -16,18 +16,16 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
   storeId = '600053ca1181b69010315090';
 
   constructor(private storeService: StoreService,
-              private productService: ProductService) { }
+              private productService: ProductService,
+              private el: ElementRef) { }
 
   ngOnInit(): void {
     this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
-
     this.products = [];
     this.productService.getAll(this.storeId, 'client').subscribe(data => {
       this.products.push.apply(this.products, data) ;
     });
-
     this.changeTheme();
-
   }
 
 
@@ -44,10 +42,11 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
   }
 
   changeTheme(): void{
-    document.documentElement.style.setProperty('--overlay-color', this.hexToRGB(this.store.template.colorChart[4], 0.75));
-    document.documentElement.style.setProperty('--font-choice', this.store.template.font);
-    console.log(this.hexToRGB(this.store.template.colorChart[4], 0.75));
-    console.log(this.store.template.font);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.hexToRGB(this.store.template.colorChart['secondary color'], 0.75));
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
   }
 
 }
