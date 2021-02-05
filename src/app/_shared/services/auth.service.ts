@@ -31,6 +31,10 @@ export class AuthService {
     return this.http.post(this.getUrl() + '/storeOwner/oauth/google', {access_token: credentials});
   }
 
+  logOut(): void{
+    localStorage.removeItem('token');
+  }
+
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
