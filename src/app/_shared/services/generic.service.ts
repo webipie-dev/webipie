@@ -25,10 +25,13 @@ export class GenericService<T extends GenericModel> {
     return this.http.get(this.getUrl() + this.suffix + '/' + id, httpOptions) as unknown as Observable<T>;
   }
 
-  public getAll(query): Observable<T> {
+  public getAll(query, role?): Observable<T> {
     // query is an object of elements you want to filter the documents with
+    if (!role){
+      role = '';
+    }
     const httpOptions = {
-      headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token')},
+      headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token'), role},
       params: query
     };
     return this.http.get(this.getUrl() + this.suffix, httpOptions) as Observable<T>;

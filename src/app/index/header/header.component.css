@@ -255,5 +255,6 @@ nav {
   filter: brightness(10%);
   transition: all 250ms linear;
 }
-
-
+.collapsed {
+  margin-top: 20px;
+}

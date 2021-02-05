@@ -57,9 +57,6 @@ export class StoreEditComponent implements OnInit {
       }
       document.getElementById('iframe').style.width = this.newWidth.toString();
     });
-
-
-
   }
   switchAndToggleS(path): void {
     this.router.navigate([path]);

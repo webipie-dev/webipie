@@ -2,11 +2,14 @@ const Product = require('../models/product');
 const Store = require('../models/store');
 const ApiError = require("../errors/api-error");
 
+
 exports.getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
   const query = filterProducts(req);
-  const products = await Product.find(query)
+  const products = await Product.find(query).cache({
+    key: req.query.store
+  })
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
@@ -15,18 +18,19 @@ exports.getProducts = async (req, res, next) => {
 
 };
 
-exports.getManyProductById = async (req, res) =>{
-  //get products ids
-  const { ids } = req.query;
 
-  const products = await Product.find({_id: {$in: ids}})
-    .catch((err) => {
-      res.status(400).json({errors: err.message});
-    });
-
-  res.status(200).send(products);
-
-}
+// exports.getManyProductById = async (req, res) =>{
+//   //get products ids
+//   const { ids } = req.query;
+//
+//   const products = await Product.find({_id: {$in: ids}})
+//     .catch((err) => {
+//       res.status(400).json({errors: err.message});
+//     });
+//
+//   res.status(200).send(products);
+//
+// }
 
 exports.getOneProduct = async (req, res, next) => {
   //get product id
@@ -55,7 +59,7 @@ exports.addProduct = async (req, res, next) => {
     console.log('no files uploaded')
   }
 
-  const { name, description, price, quantity, storeId } = req.body
+  const { name, description, price, quantity, popular, openReview, storeId } = req.body
   const store = await Store.findById(storeId)
 
   if (!store) {
@@ -69,6 +73,8 @@ exports.addProduct = async (req, res, next) => {
     imgs: images,
     price,
     quantity,
+    popular,
+    openReview,
     store
   });
 
@@ -169,12 +175,29 @@ exports.deleteAllProducts = async (req, res, next) => {
   res.status(200).send(deletedProducts);
 };
 
+exports.addReview = async (req,res,next) => {
+  const id = req.id;
+ 
+  const { name, email, review, rating, date } = req.body;
+
+  const reviewBody = new Object({
+    name, 
+    email, 
+    review, 
+    rating, 
+    date
+  })
+
+  await Product.findOneAndUpdate({id}, { $push: { reviews: reviewBody } });
+  res.status(200).send(review);
+}
+
 
 filterProducts = (req => {
   let query = {};
   for (let propName in req.query) {
     if (req.query.hasOwnProperty(propName)) {
-      if (['name', 'description', 'price', 'quantity', 'store'].includes(propName)) {
+      if (['name', 'description', 'price', 'quantity','popular', 'openReview', 'store'].includes(propName)) {
         query[propName] = req.query[propName];
       } else {
         if (propName === 'minPrice') {

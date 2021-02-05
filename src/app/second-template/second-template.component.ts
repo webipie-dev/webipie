@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {StoreService} from '../_shared/services/store.service';
 
 @Component({
   selector: 'app-second-template',
@@ -7,10 +8,10 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class SecondTemplateComponent implements OnInit {
-
+  store;
   loadAPI: Promise<any>;
 
-  constructor() {
+  constructor(private storeService: StoreService) {
     this.loadAPI = new Promise((resolve) => {
       this.loadScript();
       resolve(true);
@@ -18,6 +19,7 @@ export class SecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
   }
 
   public  loadScript() {

@@ -4,16 +4,15 @@
     <!-- ABOUT Location -->
     <div class="col-md-6 text-center">
       <div class="about-footer"> <img class="margin-bottom-30" src="../../../assets/second-template/images/logo-foot.png" alt="" >
-        <p><i class="icon-pointer"></i> Street No. 12, Newyork 12, <br>
-          MD - 123, USA.</p>
-        <p><i class="icon-call-end"></i> 1.800.123.456789</p>
-        <p><i class="icon-envelope"></i> info@ecoshop.com</p>
+        <p><i class="icon-pointer"></i> {{store.contact.location}} <br></p>
+        <p><i class="icon-call-end"></i> {{store.contact.phoneNumber}}</p>
+        <p><i class="icon-envelope"></i> {{store.contact.email}}</p>
       </div>
     </div>
 
     <!-- HELPFUL LINKS -->
     <div class="col-md-6 text-center">
-      <h6>HELPFUL LINKS</h6>
+      <h6 class="font">HELPFUL LINKS</h6>
       <ul class="link">
         <li><a href="/second-template/home"> Home</a></li>
         <li><a routerLink="/second-template/products"> Products</a></li>

@@ -21,26 +21,27 @@
       <div class="container">
         <div class="papular-block row">
           <h3 class="text-center pb-5 col-12">Products</h3>
-          <div class="col-md-3">
-            <app-one-product></app-one-product>
-          </div>
-          <div class="col-md-3">
-            <app-one-product></app-one-product>
-          </div>
-          <div class="col-md-3">
-            <app-one-product></app-one-product>
-          </div>
-          <div class="col-md-3">
-            <app-one-product></app-one-product>
-          </div>
-          <div class="col-md-3">
-            <app-one-product></app-one-product>
-          </div>
-          <div class="col-md-3">
-            <app-one-product></app-one-product>
-          </div>
-          <div class="col-md-3">
-            <app-one-product></app-one-product>
+          <div *ngFor="let product of products" class="col-md-3">
+            <!-- Item -->
+            <div class="item">
+              <!-- Item img -->
+              <div class="item-img"> 
+                <img class="img-1 fit-image" [src]="product.imgs[0]" alt="" > 
+                <img class="img-2 fit-image" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" alt="" >
+                <!-- Overlay -->
+                <div class="overlay">
+                  <div class="position-center-center">
+                    <div class="inn"><a href="../../../assets/second-template/images/product-2-1.jpg" data-lighter><i class="icon-magnifier"></i></a> <a href="#."><i class="icon-basket"></i></a> <a href="#." ><i class="icon-heart"></i></a></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Item Name -->
+              <div class="item-name"> <a [routerLink]="['/second-template/product-detail/' + product._id]">{{product.name}}</a>
+                <p>{{product.description}}</p>
+              </div>
+              <!-- Price -->
+              <span class="price"><small>dt</small>{{product.price}}</span> </div>
+
           </div>
         </div>
       </div>

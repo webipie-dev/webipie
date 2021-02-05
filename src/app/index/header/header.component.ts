@@ -10,8 +10,9 @@ export class HeaderComponent implements OnInit {
   route = this.router.url;
   changeable = this.route === '/' || this.route.indexOf('/#') !== -1;
   constructor(private router: Router) {}
-
+  token;
   ngOnInit(): void {
+    this.token = localStorage.getItem('token');
     var header = document.getElementById("headerr");
     console.log(header);
     if (this.changeable) {
