@@ -2,6 +2,7 @@ const JWT = require('jsonwebtoken');
 const {validatestoreOwner , StoreOwner} = require('../models/storeOwner');
 const { JWT_SECRET } = require('../configuration');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 signToken = user => {
     return JWT.sign({
@@ -76,6 +77,26 @@ module.exports = {
             httpOnly: true
         });
         res.status(200).json({ token });
+    },
+
+    changePwd: async (req,res) =>{
+        const user = req.user;
+        const { oldPassword, newPassword } = req.body;
+
+        if (!req.user.methods.includes('local')) {
+            return next(ApiError.BadRequest('you are not connected locally'));
+        }
+
+        if(! await bcrypt.compare(oldPassword, req.user.local.password)){
+            return next(ApiError.BadRequest('old password is not correct'));
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const passwordHash = await bcrypt.hash(newPassword, salt);
+
+        await StoreOwner.findOneAndUpdate({"local.email": user.local.email},{"local.password": passwordHash });
+        return res.status(200).json({success})
+
     },
 
     googleOAuth: async (req, res, next) => {

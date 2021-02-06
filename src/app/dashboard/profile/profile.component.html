@@ -1,4 +1,4 @@
-<!-- modify profile -->
+he<!-- modify profile -->
 <div class="text-center">
   <div class="sales-header mt-5 mx-auto">
     <h1 class="big-titles">Edit Your Profile</h1>
@@ -56,29 +56,36 @@
       <div class="margin-top width mx-auto">
         <div class="border-shadow px-5 py-5 white-background card-profile">
           <h3 class="big-titles mb-5">Security infos</h3>
-          <div class="row my-5">
+          <div class="row my-4">
             <div class="col-md-3 col-12">
               <label class="text-size">Old Psssword</label>
             </div>
             <div class="col-md-9 col-12">
-              <input type="password" class="input" placeholder="xxxx">
+              <input type="password" class="input" placeholder="xxxx" [(ngModel)]="oldPassword">
             </div>
           </div>
-          <div class="row my-5">
+          <div class="row my-4">
             <div class="col-md-3 col-12">
               <label class="text-size">New Password</label>
             </div>
             <div class="col-md-9 col-12">
-              <input type="password" class="input" placeholder="xxxx">
+              <input type="password" class="input" placeholder="xxxx" [(ngModel)]="newPassword">
             </div>
           </div>
-          <div class="row my-5">
+          <div class="row my-4">
             <div class="col-md-3 col-12 mb-3">
               <label class="text-size">Confirm Password</label>
             </div>
             <div class="col-md-9 col-12">
-              <input type="password" class="input" placeholder="xxxx">
+              <input type="password" class="input" placeholder="xxxx" (keyup)="checkPwd($event)">
             </div>
+          </div>
+          <div class="row my-4 mx-auto">
+            <button  
+              class="upload-icon border-none shadow-none text-size mx-auto d-flex px-4 py-1"
+              [disabled]="!checked"
+              (click)="changePwd()" 
+              type="submit">Submit new password</button>
           </div>
         </div>
         <div class="password-info"></div>

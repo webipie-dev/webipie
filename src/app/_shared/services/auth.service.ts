@@ -31,6 +31,16 @@ export class AuthService {
     return this.http.post(this.getUrl() + '/storeOwner/oauth/google', {access_token: credentials});
   }
 
+  changePwd(oldPassword, newPassword){
+    let httpOptions: any;
+    if ( localStorage.getItem('token') ){
+      httpOptions = {
+        headers: { Authorization: localStorage.getItem('token') },
+      };
+    }
+    return this.http.post(this.getUrl() + '/storeOwner/changepwd', { oldPassword, newPassword }, httpOptions );
+  }
+
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
