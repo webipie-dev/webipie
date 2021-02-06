@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewEncapsulation} from '@angular/core';
 import { ProductService } from 'src/app/_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
-import {log} from 'util';
+import {Product} from '../../_shared/models/product.model';
 
 @Component({
   selector: 'app-products-all-second-template',
@@ -12,7 +12,7 @@ import {log} from 'util';
 })
 export class ProductsAllSecondTemplateComponent implements OnInit {
   store: Store;
-  products: [];
+  products: Product[];
   storeId = '600053ca1181b69010315090';
 
   constructor(private storeService: StoreService,
