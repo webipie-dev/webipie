@@ -10,12 +10,7 @@
       </a>
       <p
         class=""
-        [style.font-size]='fontSize+"px"'
-        [style.font-family]='fontType'
-        [style.font-weight]='fontWeight'
-        [style.text-shadow]= 'textShadow ?"1px 1px "+textShadowColor : ""'
-        [style.text-align]= 'textAlign'
-        [style.font-style]= 'textItalic ? "italic" : ""'
+        [style.font-family]=fontType
         >
         Lorem ipsum dolor sit amet!
       </p>
@@ -31,75 +26,10 @@
         </select>
       </div>
 
-      <div class="row mt-4">
-        <label class="text-size mt-2 col-4">Size</label>
-        <input
-          #size
-          type="number"
-          class="sidenav-input-item col-7 text-size px-3 py-1"
-          placeholder="{{fontSize}}"
-          min="{{fontSizeMin}}"
-          max="{{fontSizeMax}}"
-          (change)="sizeChange(size.value)">
-      </div>
-
-      <div class="row mt-4">
-        <label class="text-size mt-2 col-4">Weight</label>
-        <select
-          #weights
-          [(ngModel)]="fontWeight"
-          class="sidenav-input-item col-7 text-size px-3 py-1"
-          name="weights"
-          id="font-weight">
-          <option *ngFor="let weight of fontWeights" class="option" value="{{weight}}">{{weight}}</option>
-        </select>
-      </div>
-      <div class="row mt-4">
-        <label class="text-size mt-2 col-4">Shadow</label>
-        <input
-          #shadow
-          type="range"
-          class="text-shadow my-auto mx-auto"
-          min="0"
-          max="1"
-          [value]="textShadow ? '1' : '0'"
-          (click)="shadowChange(shadow.value)">
-      </div>
-
-      <div class="row mt-4">
-        <div class="col-6">
-          <div class="text-center py-2 px-1 sidenav-input-item">
-            <span (click)="alignChange($event,'center')">
-              <i #center class="fa fa-align-center mx-2 fa-2x cursor-pointer"></i>
-            </span>
-            <span (click)="alignChange($event,'left')">
-              <i #left class="fa fa-align-left mx-2 fa-2x cursor-pointer"></i>
-            </span>
-            <span (click)="alignChange($event,'right')">
-              <i #right class="fa fa-align-right mx-2 fa-2x cursor-pointer"></i>
-            </span>
-          </div>
-        </div>
-
-        <div class="col-6 mt-1">
-          <div class="py-2">
-            <span (click)="onSelect($event, 'italic')">
-              <i class="fa fa-bold mr-3 fa-2x cursor-pointer" [ngClass]="{'font-item-selected': textBold }"></i>
-            </span>
-            <span (click)="onSelect($event,'italic')">
-              <i class="fa fa-italic mx-3 fa-2x cursor-pointer" [ngClass]="{'font-item-selected': textItalic}"></i>
-            </span>
-            <span (click)="onSelect($event, 'italic')">
-              <i class="fa fa-font mx-3 fa-2x cursor-pointer"></i>
-            </span>
-          </div>
-        </div>
-
-      </div>
     </li>
   </ul>
   <div class="text-center my-5">
-    <a class="button-generic button-black text-size mr-2" (click)="submit()">Save</a>
+    <a class="button-generic button-black text-size mr-2" (click)="onSubmit()">Save</a>
     <a class="button-generic button-black text-size">Reset</a>
   </div>
 

@@ -51,7 +51,6 @@ export class SecondTemplateComponent implements OnInit {
         node.type = 'text/javascript';
         node.async = false;
         node.charset = 'utf-8';
-        console.log(dynamicScripts);
         document.getElementsByTagName('body')[0].appendChild(node);
       }
     }
