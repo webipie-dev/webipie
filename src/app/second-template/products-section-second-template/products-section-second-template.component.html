@@ -4,7 +4,7 @@
 
     <!-- Main Heading -->
     <div class="heading text-center">
-      <h4>popular products</h4>
+      <h4 class="font">popular products</h4>
       <span>{{ store.template.header.description }}</span> </div>
 
     <!-- Popular Item Slide -->
@@ -13,8 +13,8 @@
       <!-- Item -->
       <div class="item" *ngFor="let product of popularProducts">
         <!-- Item img -->
-        <div class="item-img"> 
-          <img class="img-1 fit-image" [src]="product.imgs[0]" alt="" > 
+        <div class="item-img">
+          <img class="img-1 fit-image" [src]="product.imgs[0]" alt="" >
           <img class="img-2 fit-image" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" alt="" >
           <!-- Overlay -->
           <div class="overlay">
@@ -30,9 +30,9 @@
           <p>{{product.description}}</p>
         </div>
         <!-- Price -->
-        <span class="price"><small>dt</small>{{product.price}}</span> 
+        <span class="price"><small>dt</small>{{product.price}}</span>
       </div>
-      
+
     </div>
   </div>
 </section>

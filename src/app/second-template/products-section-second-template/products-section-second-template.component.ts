@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, HostListener } from '@angular/core';
+import {Component, OnInit, OnChanges, HostListener, ElementRef} from '@angular/core';
 import { Product } from '../../_shared/models/product.model';
 import { ProductService } from '../../_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
@@ -9,17 +9,15 @@ import {Store} from '../../_shared/models/store.model';
   templateUrl: './products-section-second-template.component.html',
   styleUrls: ['./products-section-second-template.component.css']
 })
-export class ProductsSectionSecondTemplateComponent implements OnInit, OnChanges {
+export class ProductsSectionSecondTemplateComponent implements OnInit {
 
   constructor(private productService: ProductService,
-              private storeService: StoreService) { }
+              private storeService: StoreService,
+              private el: ElementRef) { }
   store: Store;
-  popularProducts: [];
+  popularProducts: Product[];
   storeId = '600053ca1181b69010315090';
 
-  ngOnChanges(): void{
-    // this.changeFont();
-  }
 
   ngOnInit(): void {
     this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
@@ -28,9 +26,6 @@ export class ProductsSectionSecondTemplateComponent implements OnInit, OnChanges
     this.productService.getAll({store: this.storeId, popular: true}, 'client').subscribe(data => {
       this.popularProducts.push.apply(this.popularProducts, data) ;
     });
-
-    console.log(this.popularProducts);
-
     this.changeTheme();
   }
 
@@ -47,13 +42,11 @@ export class ProductsSectionSecondTemplateComponent implements OnInit, OnChanges
   }
 
   changeTheme(): void{
-    this.store.template.font = 'cursive';
-    // console.log(this.store.template.font.size + 'px');
-    document.documentElement.style.setProperty('--overlay-color', this.hexToRGB(this.store.template.colorChart[4], 0.75));
-    document.documentElement.style.setProperty('--font-choice', this.store.template.font);
-    console.log(this.hexToRGB(this.store.template.colorChart[4], 0.75));
-    console.log(this.store.template.font);
-    // document.documentElement.style.setProperty('--secondary-color', secondary);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.hexToRGB(this.store.template.colorChart['secondary color'], 0.75));
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
   }
 
 }

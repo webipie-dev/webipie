@@ -23,17 +23,17 @@ export class SecondTemplateComponent implements OnInit {
     this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
   }
 
-  public  loadScript() {
-    var isFound = false;
-    var scripts = document.getElementsByTagName("script");
-    for (var i = 0; i < scripts.length; ++i) {
-      if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes("loader")) {
+  public loadScript() {
+    let isFound = false;
+    const scripts = document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; ++i) {
+      if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes('loader')) {
         isFound = true;
       }
     }
 
     if (!isFound) {
-      var dynamicScripts = [
+      const dynamicScripts = [
         'assets/second-template/js/modernizr.js',
         'assets/second-template/js/jquery-1.11.3.min.js',
         'assets/second-template/js/bootstrap.min.js',
@@ -45,8 +45,8 @@ export class SecondTemplateComponent implements OnInit {
         'assets/second-template/js/main.js',
       ];
 
-      for (var i = 0; i < dynamicScripts.length; i++) {
-        let node = document.createElement('script');
+      for (let i = 0; i < dynamicScripts.length; i++) {
+        const node = document.createElement('script');
         node.src = dynamicScripts [i];
         node.type = 'text/javascript';
         node.async = false;

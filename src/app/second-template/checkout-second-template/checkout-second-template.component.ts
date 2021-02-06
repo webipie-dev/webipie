@@ -9,7 +9,6 @@ import {Store} from '../../_shared/models/store.model';
 })
 export class CheckoutSecondTemplateComponent implements OnInit {
   store: Store;
-  rgbaColor: string;
 
   constructor(private storeService: StoreService,
               private el: ElementRef) {
@@ -20,31 +19,23 @@ export class CheckoutSecondTemplateComponent implements OnInit {
     this.changeTheme();
   }
 
-  changeTheme() {
-    this.rgbaColor = 'rgba('
-      + this.hexToRgb(this.store.template.colorChart['bg-color']).r
-      + ', ' + this.hexToRgb(this.store.template.colorChart['bg-color']).g
-      + ', ' + this.hexToRgb(this.store.template.colorChart['bg-color']).b
-      + ', 0.95)';
-    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.rgbaColor);
+  hexToRGB(hex, alpha?): string {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+
+    if (alpha) {
+      return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
+    } else {
+      return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+    }
+  }
+
+  changeTheme(): void{
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.hexToRGB(this.store.template.colorChart['secondary color'], 0.75));
     (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
     (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
     (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
     (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
-  }
-
-  hexToRgb(hex) {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, (m, r, g, b) => {
-      return r + r + g + g + b + b;
-    });
-
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
   }
 }
