@@ -37,7 +37,7 @@ export class ChangeFontComponent implements OnInit {
   onSubmit(): void {
     const postData = {
       ids: this.storeId,
-      type: this.fontType,
+      'template.font': this.fontType,
 
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
