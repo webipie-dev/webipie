@@ -170,6 +170,11 @@ router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
 ], validateRequest, clearCache, productService.addProduct)
 
 
+router.patch('/:id/review', productService.addReview);
+
+
+// router.patch()
+
 // deleteManyProducts
 /**
  * @swagger
@@ -214,11 +219,10 @@ router.delete('', validation.ids, passportJWT, clearCache, productService.delete
 router.delete('/delete', passportJWT, clearCache, productService.deleteAllProducts);
 
 
-router.patch('/:id', [
+router.patch('/:id', passportJWT, multer({storage: storage}).any("productImgs", 5), [
   validation.id
-], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), clearCache, productService.editOneProduct)
+], validateRequest ,clearCache, productService.editOneProduct)
 
-router.patch('/:id/review', productService.addReview);
 
 module.exports = router;
 

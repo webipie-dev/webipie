@@ -7,9 +7,7 @@ exports.getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
   const query = filterProducts(req);
-  const products = await Product.find(query).cache({
-    key: req.query.store
-  })
+  const products = await Product.find(query)
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
@@ -59,13 +57,18 @@ exports.addProduct = async (req, res, next) => {
     console.log('no files uploaded')
   }
 
-  const { name, description, price, quantity, popular, openReview, storeId } = req.body
+  let { name, description, price, quantity, popular, openReview, storeId } = req.body
   const store = await Store.findById(storeId)
 
   if (!store) {
     next(ApiError.NotFound('Store Not Found'));
     return;
   }
+
+  // convert the values from strings to booleans
+  openReview = openReview === 'true';
+  popular = popular === 'true';
+
 
   const product = new Product({
     name,
@@ -86,7 +89,6 @@ exports.addProduct = async (req, res, next) => {
 exports.editOneProduct = async (req, res, next) => {
   // separating the id
   const { id } = req.params;
-
   const product = await Product.findById(id)
   if (!product) {
     next(ApiError.NotFound('Product Not Found'));
@@ -105,10 +107,12 @@ exports.editOneProduct = async (req, res, next) => {
   const url = req.protocol + '://' +req.get('host');
   let images = [];
   if(req.files){
+    if (req.files.length === 0){
+      console.log('No images uploaded')
+    }
     req.files.map(fileimg => {
       images.push(url + '/backend/images/' + fileimg.filename)
     });
-    // edits['imgs'] = images;
   } else {
     console.log("no files uploaded")
   }
@@ -143,6 +147,37 @@ exports.editOneProduct = async (req, res, next) => {
 };
 
 
+exports.addReview = async (req,res,next) => {
+  const id = req.id;
+
+  const { name, email, review, rating, date } = req.body;
+
+  const reviewBody = new Object({
+    name,
+    email,
+    review,
+    rating,
+    date
+  })
+
+  await Product.findOneAndUpdate({id}, { $push: { reviews: reviewBody } });
+  res.status(200).send(review);
+}
+
+
+exports.deleteImage = async (req, res, next) => {
+  const { id, url } = req.body
+
+  const product = await Product.findById(id)
+  if (!product) {
+    next(ApiError.NotFound('Product Not Found'));
+    return;
+  }
+
+  
+
+}
+
 exports.deleteManyProducts = async (req, res, next) => {
   //get products ids
   const { ids } = req.body;
@@ -175,22 +210,6 @@ exports.deleteAllProducts = async (req, res, next) => {
   res.status(200).send(deletedProducts);
 };
 
-exports.addReview = async (req,res,next) => {
-  const id = req.id;
- 
-  const { name, email, review, rating, date } = req.body;
-
-  const reviewBody = new Object({
-    name, 
-    email, 
-    review, 
-    rating, 
-    date
-  })
-
-  await Product.findOneAndUpdate({id}, { $push: { reviews: reviewBody } });
-  res.status(200).send(review);
-}
 
 
 filterProducts = (req => {
