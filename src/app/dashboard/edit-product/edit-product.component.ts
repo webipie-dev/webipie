@@ -199,4 +199,8 @@ export class EditProductComponent implements OnInit {
   @HostListener('window:resize') windwosResize() {
     this.windwosWidth = window.innerWidth;
   }
+
+  clickAddPhotos() {
+    document.getElementById('hiddenImageInput').click();
+  }
 }

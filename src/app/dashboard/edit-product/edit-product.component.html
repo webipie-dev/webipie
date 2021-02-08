@@ -14,18 +14,37 @@
     <div class="col-12">
       <div class="px-2">
         <div class="d-flex upload-images">
-          <div class="col-5 col-md-2 my-auto">
+          <div class="col-5 col-lg-2 col-md-3">
             <input
               (change)="onImagePicked($event)"
+              id="hiddenImageInput"
               accept="image/*"
-              class="form-control fileInput"
+              class="form-control fileInput" style="display: none"
               multiple
-              name="imgs" type="file">
-            <button class="py-5 px-5 add-photo-button mx-auto text-size"><i
-              class="fa fa-images d-block fa-2x mx-auto mb-3" id="blue-color"></i>add photos
-            </button>
+              name="imgs" type="file"/>
+            <!--            *********************-->
+            <div id="wrapper" class="my-2 mx-1" (click)="clickAddPhotos();">
+              <a class="my-super-cool-btn">
+                <div class="dots-container">
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                </div>
+                <span>
+                 <div class="text-center">
+                   <i class="fas fa-arrow-circle-up fa-2x"></i>
+                    <br>
+                   Upload
+                   <br>
+                   a Photo
+                 </div>
+                </span>
+              </a>
+            </div>
+
           </div>
-          <div class='col-7 col-md-10 pt-2'>
+          <div class='col-7 col-lg-10 col-md-9 pt-2'>
             <ng-image-slider
               [imageSize]="{width: 150, height: 150, space: 4}"
               [images]="imageObject"
@@ -123,7 +142,6 @@
   </div>
 
 </form>
-
 
 
 
