@@ -160,8 +160,45 @@ exports.addReview = async (req,res,next) => {
     date
   })
 
-  await Product.findOneAndUpdate({id}, { $push: { reviews: reviewBody } });
+  const productUpdate = await Product.update({_id: id}, { $push: { reviews: reviewBody } })
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+
+  if (productUpdate){
+    if (productUpdate.nModified === 0) {
+      next(ApiError.NotFound('No Products modified'));
+      return;
+    }
+  }
+
   res.status(200).send(review);
+}
+
+exports.deleteImage = async (req, res, next) => {
+  const { id } = req.params;
+  const { url } = req.body
+
+  const product = await Product.findById(id)
+  if (!product) {
+    next(ApiError.NotFound('Product Not Found'));
+    return;
+  }
+
+  const productUpdate = await Product.update({_id: id}, {$pull: {imgs: url } })
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+
+  if (productUpdate){
+    if (productUpdate.nModified === 0) {
+      next(ApiError.NotFound('No Products modified'));
+      return;
+    }
+  }
+
+  res.status(200).send(productUpdate);
+
 }
 
 
@@ -196,6 +233,7 @@ exports.deleteAllProducts = async (req, res, next) => {
 
   res.status(200).send(deletedProducts);
 };
+
 
 
 
