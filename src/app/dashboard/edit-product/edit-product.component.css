@@ -86,3 +86,23 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.button-delete {
+  background: #9a0017;
+  color: var(--white-color);
+  transition: all 200ms ease-in-out;
+}
+
+#delete-icon {
+  color: var(--white-color);
+}
+
+.button-delete:hover {
+  background: var(--white-color);
+  color: #9a0017;
+  border: solid 1px #9a0017;
+  transition: all 200ms ease-in-out;
+}
+
+.button-delete:hover #delete-icon {
+  color: #9a0017;
+}

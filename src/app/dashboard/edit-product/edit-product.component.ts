@@ -23,6 +23,8 @@ export class EditProductComponent implements OnInit {
   productId = '';
   url;
   msg = '';
+  deletePhotos = false;
+  addIconDelete = false;
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -144,5 +146,33 @@ export class EditProductComponent implements OnInit {
     } else {
       this.addProduct();
     }
+  }
+  deletePhotoOpen(): void {
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    if (!this.addIconDelete) {
+      imagesArray.forEach(item => {
+        console.log(item);
+        const template = document.createElement('div');
+        const htmlString = '<i class="fas fa-minus-circle fa-3x mt-2 ml-2" ' +
+          'style="color: #ffffff; position: relative;"></i>';
+        template.innerHTML = htmlString.trim();
+        item.parentNode.appendChild(template);
+        console.log(item);
+      });
+    }
+    this.addIconDelete = true;
+    console.log(images);
+    this.deletePhotos = true;
+  }
+
+  deletePhoto(e): void {
+    this.imageObject.splice(e, 1);
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    if (imagesArray.length === 1) {
+      imagesArray[0].remove();
+    }
+    console.log(this.imageObject);
   }
 }

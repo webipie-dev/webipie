@@ -2,8 +2,14 @@
 <div class="sales-header mt-3">
   <h1 class="big-titles text-center mb-3">Add Edit One Product</h1>
 </div>
+
 <form (submit)="onSubmit()" [formGroup]="productForm">
   <div class="row">
+    <div class="col-12 text-center my-2">
+      <a class="py-2 button-generic button-delete text-size" (click)="deletePhotoOpen()">
+        <i class="fa fa-trash-alt" id="delete-icon"></i> Delete
+        Photos</a>
+    </div>
     <div class="col-12">
       <div class="px-2">
         <div class="row upload-images">
@@ -22,7 +28,8 @@
             <ng-image-slider
               [imageSize]="{width: 150, height: 150, space: 4}"
               [images]="imageObject"
-              [infinite]="false"></ng-image-slider>
+              [imagePopup]="!deletePhotos"
+              [infinite]="false" (imageClick)=" deletePhotos ? deletePhoto($event) : null"></ng-image-slider>
           </div>
 
         </div>
