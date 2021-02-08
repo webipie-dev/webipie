@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Product} from '../../_shared/models/product.model';
 import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
@@ -25,6 +25,8 @@ export class EditProductComponent implements OnInit {
   msg = '';
   deletePhotos = false;
   addIconDelete = false;
+  public windwosWidth = window.innerWidth;
+
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -190,5 +192,11 @@ export class EditProductComponent implements OnInit {
     console.log(e);
     console.log(this.imageObject);
     this.deletePhotoClose();
+  }
+
+
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
   }
 }

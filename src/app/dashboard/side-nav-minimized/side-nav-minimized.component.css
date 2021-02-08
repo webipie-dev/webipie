@@ -25,7 +25,7 @@
   overflow-y: hidden !important;
   min-width: 80px;
   max-width: 80px;
-  min-height: 50vh;
+  min-height: 90vh;
   height: auto;
   background: var(--light-black-color);
   color: #fff;

@@ -4,15 +4,16 @@
 </div>
 
 <form (submit)="onSubmit()" [formGroup]="productForm">
-  <div class="row">
+  <div>
     <div class="col-12 text-center my-2">
       <a class="py-2 button-generic button-delete text-size" (click)="deletePhotoOpen()">
         <i class="fa fa-trash-alt" id="delete-icon"></i> Delete
         Photos</a>
     </div>
+    <h3 class="mx-auto font-weight-bold my-1" style="color: darkred;" *ngIf="deletePhotos">Clickez maintenant sur l'image que vous voulez supprimer</h3>
     <div class="col-12">
       <div class="px-2">
-        <div class="row upload-images">
+        <div class="d-flex upload-images">
           <div class="col-5 col-md-2 my-auto">
             <input
               (change)="onImagePicked($event)"
@@ -37,7 +38,7 @@
     </div>
   </div>
 
-  <div class="row margin-top">
+  <div class="margin-top" [ngClass]="{'d-flex' : windwosWidth > 767}">
     <div class="col-md-8 col-12 mt-5 mb-5">
       <div class="container upload-images product-description py-5">
         <div class="row">
