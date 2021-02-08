@@ -173,8 +173,6 @@ router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
 router.patch('/:id/review', productService.addReview);
 
 
-// router.patch()
-
 // deleteManyProducts
 /**
  * @swagger

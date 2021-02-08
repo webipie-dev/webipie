@@ -165,19 +165,6 @@ exports.addReview = async (req,res,next) => {
 }
 
 
-exports.deleteImage = async (req, res, next) => {
-  const { id, url } = req.body
-
-  const product = await Product.findById(id)
-  if (!product) {
-    next(ApiError.NotFound('Product Not Found'));
-    return;
-  }
-
-  
-
-}
-
 exports.deleteManyProducts = async (req, res, next) => {
   //get products ids
   const { ids } = req.body;
