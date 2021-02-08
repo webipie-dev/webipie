@@ -151,11 +151,11 @@ export class EditProductComponent implements OnInit {
     const images = document.getElementsByClassName('image');
     const imagesArray = Array.from(images);
     if (!this.addIconDelete) {
-      imagesArray.forEach(item => {
+      imagesArray.forEach((item, i) => {
         console.log(item);
         const template = document.createElement('div');
-        const htmlString = '<i class="fas fa-minus-circle fa-3x mt-2 ml-2" ' +
-          'style="color: #ffffff; position: relative;"></i>';
+        const htmlString = `<i id='delete-${i}' class="fas fa-minus-circle fa-3x mt-2 ml-2"
+                            style="color: #ffffff; position: relative;"></i>`;
         template.innerHTML = htmlString.trim();
         item.parentNode.appendChild(template);
         console.log(item);
@@ -166,13 +166,29 @@ export class EditProductComponent implements OnInit {
     this.deletePhotos = true;
   }
 
-  deletePhoto(e): void {
-    this.imageObject.splice(e, 1);
+  deletePhotoClose(): void {
+    this.addIconDelete = false;
+    this.deletePhotos = false;
     const images = document.getElementsByClassName('image');
     const imagesArray = Array.from(images);
-    if (imagesArray.length === 1) {
-      imagesArray[0].remove();
+    for (let i = 0 ; i < imagesArray.length ; i++) {
+      document.getElementById('delete-' + i).remove();
+    }
+
+  }
+
+  deletePhoto(e): void {
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    if (imagesArray.length === 1 ) {
+      console.log('hhhhhhhhhhhhhhhhhh');
+    } else {
+      this.imageObject.splice(e, 1);
+
     }
     console.log(this.imageObject);
+    console.log(e);
+    console.log(this.imageObject);
+    this.deletePhotoClose();
   }
 }
