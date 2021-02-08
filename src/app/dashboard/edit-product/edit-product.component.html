@@ -22,7 +22,8 @@
             <ng-image-slider
               [imageSize]="{width: 150, height: 150, space: 4}"
               [images]="imageObject"
-              [infinite]="false"></ng-image-slider>
+              [infinite]="false"
+              (imageClick)="remove($event)"></ng-image-slider>
           </div>
 
         </div>

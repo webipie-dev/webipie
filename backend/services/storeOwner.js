@@ -3,6 +3,7 @@ const {validatestoreOwner , StoreOwner} = require('../models/storeOwner');
 const { JWT_SECRET } = require('../configuration');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const ApiError = require("../errors/api-error");
 
 signToken = user => {
     return JWT.sign({
@@ -79,11 +80,11 @@ module.exports = {
         res.status(200).json({ token });
     },
 
-    changePwd: async (req,res) =>{
+    changePwd: async (req,res,next) =>{
         const user = req.user;
         const { oldPassword, newPassword } = req.body;
 
-        if (!req.user.methods.includes('local')) {
+        if (! req.user.methods.includes('local')) {
             return next(ApiError.BadRequest('you are not connected locally'));
         }
 
@@ -94,8 +95,8 @@ module.exports = {
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(newPassword, salt);
 
-        await StoreOwner.findOneAndUpdate({"local.email": user.local.email},{"local.password": passwordHash });
-        return res.status(200).json({success})
+        await StoreOwner.findOneAndUpdate({"local.email": user.local.email},{"local.password": passwordHash }, {new: true, useFindAndModify: false});
+        return res.status(200).json({success: "success"})
 
     },
 

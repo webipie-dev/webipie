@@ -145,4 +145,8 @@ export class EditProductComponent implements OnInit {
       this.addProduct();
     }
   }
+
+  remove(event): void{
+    console.log(event);
+  }
 }

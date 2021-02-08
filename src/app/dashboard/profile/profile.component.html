@@ -1,4 +1,5 @@
-he<!-- modify profile -->
+
+<!-- modify profile -->
 <div class="text-center">
   <div class="sales-header mt-5 mx-auto">
     <h1 class="big-titles">Edit Your Profile</h1>
@@ -12,7 +13,7 @@ he<!-- modify profile -->
       <div class="margin-top width mx-auto mb-5">
         <div class="border-shadow px-5 py-5 white-background card-profile">
           <h3 class="big-titles mb-5">Profile infos</h3>
-          <div class="row my-4">
+          <div class="row my-5">
             <div class="col-md-3 col-12">
               <label class="text-size">Name</label>
             </div>
@@ -20,7 +21,7 @@ he<!-- modify profile -->
               <input type="text" class="input" placeholder="Hackover">
             </div>
           </div>
-          <div class="row my-4">
+          <div class="row my-5">
             <div class="col-md-3 col-12">
               <label class="text-size">Email</label>
             </div>
@@ -28,7 +29,7 @@ he<!-- modify profile -->
               <input type="email" class="input" placeholder="Hackover@gmail.com">
             </div>
           </div>
-          <div class="row my-4">
+          <div class="row my-5">
             <div class="col-md-3 col-12 mb-3">
               <label class="text-size">Store Name</label>
             </div>
@@ -69,7 +70,10 @@ he<!-- modify profile -->
               <label class="text-size">New Password</label>
             </div>
             <div class="col-md-9 col-12">
-              <input type="password" class="input" placeholder="xxxx" [(ngModel)]="newPassword">
+              <input type="password" class="input" placeholder="xxxx" (keyup)="validatePwd($event)" [(ngModel)]="newPassword">
+              <p id="passwordHelpBlock" class="form-text text-muted">
+                Password must contain at least 8 characters, with one digit and at least one uppercase and lower case letter
+              </p>
             </div>
           </div>
           <div class="row my-4">
