@@ -69,6 +69,7 @@ export class GenericService<T extends GenericModel> {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
+        authorization: localStorage.getItem('token')
       }),
       body
     };

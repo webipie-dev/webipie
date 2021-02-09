@@ -57,7 +57,7 @@ module.exports = {
                 email: email,
                 password: password.trim()
             },
-            storeID
+            // storeID
         });
         await newstoreOwner.save();
 

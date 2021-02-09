@@ -38,8 +38,8 @@ const storeOwnerSchema = new Schema({
   },
   storeID: {
     type: Schema.Types.ObjectID,
-    ref: "Store", 
-    default: ''
+    ref: "Store",
+    required: false
   }
 });
 
@@ -94,5 +94,3 @@ function validatestoreOwner(storeOwner) {
 
 module.exports.validatestoreOwner = validatestoreOwner;
 module.exports.StoreOwner = StoreOwner;
-
-
