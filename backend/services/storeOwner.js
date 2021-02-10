@@ -88,14 +88,15 @@ module.exports = {
             return next(ApiError.BadRequest('you are not connected locally'));
         }
 
-        if(! await bcrypt.compare(oldPassword, req.user.local.password)){
+        const password_comp = await bcrypt.compare(oldPassword, req.user.local.password);
+        if(! password_comp){
             return next(ApiError.BadRequest('old password is not correct'));
         }
 
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(newPassword, salt);
 
-        await StoreOwner.findOneAndUpdate({"local.email": user.local.email},{"local.password": passwordHash }, {new: true, useFindAndModify: false});
+        await StoreOwner.update({"local.email": user.local.email},{"local.password": passwordHash });
         return res.status(200).json({success: "success"})
 
     },
