@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
+import { HeaderComponent } from '../../dashboard/header/header.component';
 
 @Component({
   selector: 'app-change-header',
@@ -16,13 +17,15 @@ export class ChangeHeaderComponent implements OnInit {
   headerForm: FormGroup;
   postData = new FormData();
   imgSrc = '../../../assets/images/fashion-WPWVGRY.jpg';
+  store: any;
 
   ngOnInit(): void {
+    this.store = JSON.parse(sessionStorage.getItem('store'));
     this.headerForm = new FormGroup({
-      title: new FormControl(null),
-      description: new FormControl(null),
-      mainButton: new FormControl(null),
-      img: new FormControl(null),
+      title: new FormControl(this.store.template.header.title),
+      description: new FormControl(this.store.template.header.description),
+      mainButton: new FormControl(this.store.template.header.mainButton),
+      img: new FormControl(this.store.template.header.img),
     });
   }
 
