@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../_shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,12 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
   openDropDown() {
     document.getElementById('dropdown-profile').parentElement.classList.toggle('active');
+  }
+
+  logOut(): void{
+    this.authService.logOut();
+    this.router.navigate(['/']);
   }
 }

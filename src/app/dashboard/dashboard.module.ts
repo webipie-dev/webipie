@@ -27,6 +27,7 @@ import {SpinnerModule} from "../spinner/spinner.module";
 import {SidebarModule} from "ng-sidebar";
 import { SideNavMinimizedComponent } from './side-nav-minimized/side-nav-minimized.component';
 
+
 @NgModule({
   imports: [
     DashboardRoutingModule,

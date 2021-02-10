@@ -148,7 +148,7 @@ export class EditProductComponent implements OnInit {
     } else {
       this.addProduct();
     }
-  }
+
   deletePhotoOpen(): void {
     const images = document.getElementsByClassName('image');
     const imagesArray = Array.from(images);
