@@ -31,6 +31,16 @@ exports.getOneStore = async (req, res) => {
   res.status(200).send(store);
 }
 
+exports.getStoreByNameAndLocation = async (req,res) => {
+  const { name,location } = req.params;
+  const store = await Store.find({name, "contact.location": location})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+
+  res.status(200).send(store);
+}
+
 exports.addStore = async (req, res, next) => {
   //check if a logo is uploaded
   let logo;
