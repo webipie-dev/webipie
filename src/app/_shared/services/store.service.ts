@@ -17,8 +17,7 @@ export class StoreService extends GenericService<any>{
   getStore(name: string, location: string) {
 
 
-    if (sessionStorage.getItem('store') === null ||
-     sessionStorage.getItem('store') === 'null' ||
+    if (!sessionStorage.getItem('store') ||
      JSON.parse(sessionStorage.getItem('store')).name !== name ||
      JSON.parse(sessionStorage.getItem('store')).contact.location !== location
      ) {
