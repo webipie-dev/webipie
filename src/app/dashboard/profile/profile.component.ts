@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+
+import {Component, HostListener, OnInit} from '@angular/core';
 import { AuthService } from '../../_shared/services/auth.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
+
 
 @Component({
   selector: 'app-profile',
@@ -10,12 +12,15 @@ import 'sweetalert2/src/sweetalert2.scss';
 })
 export class ProfileComponent implements OnInit {
 
+  public windwosWidth = window.innerWidth;
+
   oldPassword: string;
   newPassword: string;
   checked: boolean;
   validation: boolean;
-
+  
   constructor(private authService: AuthService) { }
+
 
   ngOnInit(): void {
     this.checked = false;
@@ -68,6 +73,11 @@ export class ProfileComponent implements OnInit {
         confirmButtonText: 'Cool'
       });
     });
+  }
+
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
   }
 
 }

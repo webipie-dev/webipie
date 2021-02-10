@@ -4,14 +4,7 @@
     margin-top: 55px !important;
   }
 }
-.dashboard-sidenav {
-  padding-left: 0 !important;
-}
-@media screen and (max-width: 576px){
-  .dashboard-sidenav {
-    padding-right: 0 !important;
-  }
-}
+
 @media screen and (min-width: 992px) and (max-width: 1300px){
   .dashboard-medium-lg {
     padding-left: 100px !important;
@@ -102,4 +95,22 @@ input:focus:-ms-input-placeholder {
 }
 .border-none {
   border: none !important;
+}
+
+
+/***************** New sidebar *********************/
+::ng-deep aside {
+  background-color: #2D3438;
+  padding: 2em 1em;
+}
+
+:host >>> .ng-sidebar {
+  max-width: 280px;
+  min-width: 90px;
+  overflow-y: hidden;
+}
+
+.toggle-mobile {
+  background-color: var(--black-color);
+  color: #ffffff;
 }

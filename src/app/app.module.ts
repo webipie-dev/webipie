@@ -32,6 +32,8 @@ import {SecondTemplateModule} from './second-template/second-template.module';
 import {SpinnerModule} from './spinner/spinner.module';
 import { CommonModule } from '@angular/common';
 
+import { SidebarModule } from 'ng-sidebar';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { CommonModule } from '@angular/common';
     QuillModule.forRoot(),
     SecondTemplateModule,
     SpinnerModule,
+    SidebarModule.forRoot(),
   ],
   providers: [
     {

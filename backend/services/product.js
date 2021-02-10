@@ -7,9 +7,7 @@ exports.getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
   const query = filterProducts(req);
-  const products = await Product.find(query).cache({
-    key: req.query.store
-  })
+  const products = await Product.find(query)
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });

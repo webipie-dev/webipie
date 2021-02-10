@@ -218,6 +218,7 @@
 .shopping-cart .btn:hover {
   background: var(--font-hover) !important;
 }
+
 /*.small-cart .cart-ship-info form {
   background: #eeeeee;
   padding: 50px;

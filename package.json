@@ -38,6 +38,7 @@
     "multer": "^1.4.2",
     "ng-bootstrap-modal": "^1.1.19",
     "ng-image-slider": "^2.6.4",
+    "ng-sidebar": "^9.4.2",
     "ng2-completer": "^9.0.1",
     "ng2-smart-table": "^1.7.0",
     "ngx-font-picker": "^10.0.1",

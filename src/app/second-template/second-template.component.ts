@@ -39,6 +39,8 @@ export class SecondTemplateComponent implements OnInit {
 
     if (!isFound) {
       var dynamicScripts = [
+        'https://code.jquery.com/jquery-3.2.1.slim.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js',
         'assets/second-template/js/modernizr.js',
         'assets/second-template/js/jquery-1.11.3.min.js',
         'assets/second-template/js/bootstrap.min.js',

@@ -23,7 +23,10 @@ import {NgImageSliderModule} from 'ng-image-slider';
 import {ProfileComponent} from './profile/profile.component';
 import {AuthGuard} from '../_shared/services/auth-guard.service';
 import {HeaderComponent} from './header/header.component';
-import {SpinnerModule} from '../spinner/spinner.module';
+import {SpinnerModule} from "../spinner/spinner.module";
+import {SidebarModule} from "ng-sidebar";
+import { SideNavMinimizedComponent } from './side-nav-minimized/side-nav-minimized.component';
+
 
 @NgModule({
   imports: [
@@ -37,6 +40,7 @@ import {SpinnerModule} from '../spinner/spinner.module';
     FormsModule,
     QuillModule.forRoot(),
     SpinnerModule,
+    SidebarModule,
   ],
   declarations: [
     DashboardComponent,
@@ -53,7 +57,8 @@ import {SpinnerModule} from '../spinner/spinner.module';
     ClientDetailComponent,
     StatisticsComponent,
     ProfileComponent,
-    HeaderComponent
+    HeaderComponent,
+    SideNavMinimizedComponent
   ],
   providers: [
     AuthGuard,
