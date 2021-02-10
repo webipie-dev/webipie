@@ -17,7 +17,7 @@
   box-shadow: 0 3px 19px rgba(0, 0, 0, 0.1);
 }
 .card-profile {
-  height: 45vh;
+  height: 55vh;
 }
 
 @media screen and (max-width: 768px){
@@ -27,4 +27,19 @@
   .fa-2x {
     font-size: 2em !important;
   }
+}
+
+.red {
+  border-color: red;
+}
+
+
+.swal-text {
+  background-color: #FEFAE3;
+  padding: 17px;
+  border: 1px solid #F0E1A1;
+  display: block;
+  margin: 22px;
+  text-align: center;
+  color: #61534e;
 }

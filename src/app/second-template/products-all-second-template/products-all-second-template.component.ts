@@ -3,6 +3,8 @@ import { ProductService } from 'src/app/_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
 import {Product} from '../../_shared/models/product.model';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-products-all-second-template',
@@ -11,18 +13,23 @@ import {Product} from '../../_shared/models/product.model';
 
 })
 export class ProductsAllSecondTemplateComponent implements OnInit {
+
   store: Store;
   products: Product[];
-  storeId = '600053ca1181b69010315090';
+  name: string;
+  location: string;
 
   constructor(private storeService: StoreService,
               private productService: ProductService,
+              private activatedRoute: ActivatedRoute,
               private el: ElementRef) { }
 
   ngOnInit(): void {
-    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
+    this.name = this.activatedRoute.snapshot.paramMap.get('name');
+    this.location = this.activatedRoute.snapshot.paramMap.get('location');
+    this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
     this.products = [];
-    this.productService.getAll(this.storeId, 'client').subscribe(data => {
+    this.productService.getAll(this.store._id, 'client').subscribe(data => {
       this.products.push.apply(this.products, data) ;
     });
     this.changeTheme();

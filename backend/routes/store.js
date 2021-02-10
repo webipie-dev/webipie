@@ -122,8 +122,10 @@ router.get('', StoreService.getStores)
  */
 router.get('/:id', [
   validation.id
-], validateRequest, StoreService.getOneStore)
+], validateRequest, StoreService.getOneStore);
 
+
+router.get('/:name/:location', StoreService.getStoreByNameAndLocation);
 // addStore
 /**
  * @swagger

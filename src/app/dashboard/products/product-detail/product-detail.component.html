@@ -23,9 +23,11 @@
         <div class="col-6">
           <p class="small-titles font-weight-lighter">Stock: </p>
           <p>{{rowData.quantity}}</p>
+
         </div>
         <div class="col-6">
           <p class="small-titles font-weight-lighter">Status: </p>
+          <div [innerHTML]="rowData.description"></div>
           <p>Available</p>
         </div>
       </div>

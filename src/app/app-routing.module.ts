@@ -52,7 +52,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'second-template',
+    path: 'second-template/:name/:location',
     loadChildren: () => {
       return import('./second-template/second-template.module')
         .then(m => m.SecondTemplateModule);

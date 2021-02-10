@@ -52,7 +52,6 @@ export class ClientsComponent implements OnInit {
     noDataMessage: 'Oups, no Data yet !'
   };
   clients: Client[] = [];
-  storeId = '600053ca1181b69010315090';
 
 
   constructor(private http: HttpClient,
@@ -60,11 +59,11 @@ export class ClientsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllClients(this.storeId);
+    this.getAllClients();
   }
 
-  getAllClients(store): void {
-    this.clientService.getAll({store}).subscribe((data) => {
+  getAllClients(): void {
+    this.clientService.getAll().subscribe((data) => {
       this.clients = data;
     });
   }

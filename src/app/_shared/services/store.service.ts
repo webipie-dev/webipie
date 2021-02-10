@@ -13,12 +13,22 @@ export class StoreService extends GenericService<any>{
     this.suffix = '/store';
   }
 
-  getStore(id: string) {
-    if (sessionStorage.getItem('store') === null || JSON.parse(sessionStorage.getItem('store'))._id !== id) {
-      this.getById(id).subscribe(store => {
+  // tslint:disable-next-line: typedef
+  getStore(name: string, location: string) {
+
+
+    if (!sessionStorage.getItem('store') ||
+     JSON.parse(sessionStorage.getItem('store')).name !== name ||
+     JSON.parse(sessionStorage.getItem('store')).contact.location !== location
+     ) {
+      const httpOptions = {
+        headers: { 'Content-Type': 'application/json' },
+      };
+      this.http.get(this.getUrl() + this.suffix + '/' + name + '/' + location , httpOptions).subscribe(store => {
         sessionStorage.setItem('store', JSON.stringify(store));
       });
     }
+
     return sessionStorage.getItem('store');
   }
 }

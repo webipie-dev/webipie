@@ -3,29 +3,39 @@ import { Product } from '../../_shared/models/product.model';
 import { ProductService } from '../../_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-products-section-second-template',
   templateUrl: './products-section-second-template.component.html',
   styleUrls: ['./products-section-second-template.component.css']
 })
-export class ProductsSectionSecondTemplateComponent implements OnInit {
+
+export class ProductsSectionSecondTemplateComponent implements OnInit{
 
   constructor(private productService: ProductService,
               private storeService: StoreService,
+              private activatedRoute: ActivatedRoute,
               private el: ElementRef) { }
   store: Store;
   popularProducts: Product[];
-  storeId = '600053ca1181b69010315090';
+  name: string;
+  location: string;
 
 
   ngOnInit(): void {
-    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
+    this.name = this.activatedRoute.snapshot.paramMap.get('name');
+    this.location = this.activatedRoute.snapshot.paramMap.get('location');
+    this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
+
     this.popularProducts = [];
 
-    this.productService.getAll({store: this.storeId, popular: true}, 'client').subscribe(data => {
+    this.productService.getAll({store: this.store._id, popular: true}, 'client').subscribe(data => {
       this.popularProducts.push.apply(this.popularProducts, data) ;
+      console.log(data);
     });
+
     this.changeTheme();
   }
 
@@ -47,6 +57,7 @@ export class ProductsSectionSecondTemplateComponent implements OnInit {
     (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
     (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
     (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
+
   }
 
 }

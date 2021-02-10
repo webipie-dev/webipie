@@ -10,7 +10,6 @@
 # dependencies
 /node_modules
 /backend/node_modules
-/backend/dump.rdb
 
 # profiling files
 chrome-profiler-events*.json
@@ -46,3 +45,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# redis
+dump.rdb
+backend/dump.rdb

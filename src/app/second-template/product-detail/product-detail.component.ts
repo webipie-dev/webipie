@@ -14,22 +14,22 @@ export class ProductDetailComponent implements OnInit {
   store: Store;
   product: any;
   review: Review;
-  loadAPI: Promise<any>;
-  // productID: any;
+
+  name: string;
+  location: string;
 
   constructor(private storeService: StoreService,
               private productService: ProductService,
-              private activatedroute: ActivatedRoute,
+              private activatedRoute: ActivatedRoute,
               private el: ElementRef) { }
 
   ngOnInit(): void {
-    // this.loadAPI = new Promise((resolve) => {
-    //   this.loadScript();
-    //   resolve(true);
-    // });
-    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
+    this.name = this.activatedRoute.snapshot.paramMap.get('name');
+    this.location = this.activatedRoute.snapshot.paramMap.get('location');
+    this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
+
     this.review = new Review();
-    this.productService.getById(this.activatedroute.snapshot.paramMap.get('id')).subscribe( data => {
+    this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
     });
     this.changeTheme();
