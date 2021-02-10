@@ -22,9 +22,9 @@ export class ChangeColorComponent implements OnInit {
 
   public show = false;
   public defaultColors = [
-    {name: 'chartI', colors: ['#ffffff', '#000105', '#3e6158', '#3f7a89', '#96c582', ]},
-    {name: 'chartII', colors: ['#000105', '#ffffff', '#3e6158', '#3f7a89', '#96c582', ]},
-    {name: 'chartIII', colors: ['#3e6158', '#ffffff', '#000105', '#3f7a89', '#96c582', ]},
+    {name: 'Chart 1', colors: ['#ffffff', '#000105', '#3e6158', '#3f7a89', ]},
+    {name: 'Chart 2', colors: ['#000105', '#ffffff', '#3e6158', '#3f7a89',  ]},
+    {name: 'Chart 3', colors: ['#3e6158', '#ffffff', '#000105', '#3f7a89', ]},
   ];
 
   ngOnInit(): void {

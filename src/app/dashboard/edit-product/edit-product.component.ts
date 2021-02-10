@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Product} from '../../_shared/models/product.model';
 import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
@@ -23,8 +23,14 @@ export class EditProductComponent implements OnInit {
   productId = '';
   url;
   msg = '';
+
   isChecked = true;
   isPopular = false;
+
+  deletePhotos = false;
+  addIconDelete = false;
+  public windwosWidth = window.innerWidth;
+
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -153,6 +159,62 @@ export class EditProductComponent implements OnInit {
     } else {
       this.addProduct();
     }
+
     this.postData = new FormData();
+  }
+
+  deletePhotoOpen(): void {
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    if (!this.addIconDelete) {
+      imagesArray.forEach((item, i) => {
+        console.log(item);
+        const template = document.createElement('div');
+        const htmlString = `<i id='delete-${i}' class="fas fa-minus-circle fa-3x mt-2 ml-2"
+                            style="color: #ffffff; position: relative;"></i>`;
+        template.innerHTML = htmlString.trim();
+        item.parentNode.appendChild(template);
+        console.log(item);
+      });
+    }
+    this.addIconDelete = true;
+    console.log(images);
+    this.deletePhotos = true;
+  }
+
+  deletePhotoClose(): void {
+    this.addIconDelete = false;
+    this.deletePhotos = false;
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    for (let i = 0 ; i < imagesArray.length ; i++) {
+      document.getElementById('delete-' + i).remove();
+    }
+
+  }
+
+  deletePhoto(e): void {
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    if (imagesArray.length === 1 ) {
+      console.log('hhhhhhhhhhhhhhhhhh');
+    } else {
+      this.imageObject.splice(e, 1);
+
+    }
+    console.log(this.imageObject);
+    console.log(e);
+    console.log(this.imageObject);
+    this.deletePhotoClose();
+  }
+
+
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
+  }
+
+  clickAddPhotos() {
+    document.getElementById('hiddenImageInput').click();
   }
 }

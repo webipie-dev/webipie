@@ -34,7 +34,7 @@ export class GenericService<T extends GenericModel> {
     return this.http.get(this.getUrl() + this.suffix + '/' + id, httpOptions) as unknown as Observable<T>;
   }
 
-  public getAll(query, role?): Observable<T> {
+  public getAll(query?, role?): Observable<T> {
     // query is an object of elements you want to filter the documents with
     if (!role){
       role = '';

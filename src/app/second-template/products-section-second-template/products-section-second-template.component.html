@@ -1,5 +1,5 @@
 <!-- Popular Products -->
-<section class="padding-top-50 padding-bottom-150">
+<section *ngIf='store' class="padding-top-50 padding-bottom-150">
   <div class="container">
 
     <!-- Main Heading -->
@@ -13,9 +13,11 @@
       <!-- Item -->
       <div class="item" *ngFor="let product of popularProducts">
         <!-- Item img -->
-        <div class="item-img"> 
-          <img class="img-1 fit-image" [src]="product.imgs[0]" alt="" > 
-          <img class="img-2 fit-image" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" alt="" >
+        <div class="item-img">
+          <div class="parent-image">
+            <img class="img-1" [src]="product.imgs[0]" alt="" >
+            <img class="img-2" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" style="top: auto" alt="" >
+          </div>
           <!-- Overlay -->
           <div class="overlay">
             <div class="position-center-center">

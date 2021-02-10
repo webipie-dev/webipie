@@ -36,6 +36,8 @@ import { ErrorsComponent } from './errors/errors.component';
 import {ErrorInterceptor} from './error-interceptor';
 import {MatButtonModule} from '@angular/material/button';
 
+import { SidebarModule } from 'ng-sidebar';
+
 
 @NgModule({
   declarations: [
@@ -75,8 +77,7 @@ import {MatButtonModule} from '@angular/material/button';
     }),
     SecondTemplateModule,
     SpinnerModule,
-    MatDialogModule,
-    MatButtonModule
+    SidebarModule.forRoot(),
   ],
   providers: [
     {
@@ -107,7 +108,6 @@ import {MatButtonModule} from '@angular/material/button';
     JwtHelperService,
   ],
   bootstrap: [AppComponent],
-  // entryComponents: [ErrorsComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {

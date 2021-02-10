@@ -1140,7 +1140,7 @@ select.bs-select-hidden, select.selectpicker {
 	width: auto !important;
 }
 .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
-	width: 110px;
+	width: 50px;
 }
 .bootstrap-select .dropdown-toggle:focus {
 	outline: thin dotted #333333 !important;
@@ -1159,7 +1159,7 @@ select.bs-select-hidden, select.selectpicker {
 	z-index: auto;
 }
 .bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*="col-"] {
-	float: left;
+	float: right;
 	display: inline-block;
 	margin-left: 0;
 }

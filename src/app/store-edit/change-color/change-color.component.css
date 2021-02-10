@@ -76,3 +76,95 @@ a[data-toggle="collapse"] {
 .button-white-color:hover, .button-white-color:focus {
   box-shadow: 0 0 5px rgba(255, 255, 255, 1);
 }
+
+/* COLOR palettes */
+.color-palettes {
+  padding: 1em;
+}
+.color-palettes:before, .color-palettes:after {
+  content: " ";
+  display: table;
+}
+.color-palettes:after {
+  clear: both;
+}
+
+.color-palette {
+  float: left;
+  padding: 0.5em;
+  width: 100%;
+  /* Grapefruit */
+  /* Bittersweet */
+  /* Sunflower */
+  /* Grass */
+  /* Mint */
+  /* Aqua */
+  /* Blue Jeans */
+  /* Lavander */
+  /* Pink Rose */
+  /* Light Gray */
+  /* Medium Gray */
+  /* Dark Gray */
+}
+.color-palette:before, .color-palette:after {
+  content: " ";
+  display: table;
+}
+.color-palette:after {
+  clear: both;
+}
+.color-palette .colors:before, .color-palette .colors:after {
+  content: " ";
+  display: table;
+}
+.color-palette .colors:after {
+  clear: both;
+}
+
+.color-palette .color-labels {
+  color: var(--black-color);
+  font-weight: bold;
+  background-image: linear-gradient(to bottom, #A3BDDC , #ffffff);
+  border-radius: 0 0 0.5em 0.5em;
+  box-shadow: 0 2px 0 #e2e4e7;
+  padding: 0.5em 1.5em;
+}
+.color-palette .color {
+  height: 3em;
+  float: left;
+  width: 25%;
+}
+.color-palette .color:first-of-type {
+  border-radius: 0.5em 0 0 0;
+}
+.color-palette .color:last-of-type {
+  border-radius: 0 0.5em 0 0;
+}
+
+.color-palette .color-ed5565 {
+  background-color: #ed5565;
+}
+.color-palette .color-da4453 {
+  background-color: #da4453;
+}
+.color-button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  text-transform: none;
+}
+
+.choose-button {
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #A9ABAB;
+  color: #A9ABAB;;
+}
+
+.button-black:hover {
+  border: 2px solid #2D3438 !important;
+}

@@ -78,7 +78,6 @@ export class ProductsComponent implements OnInit {
   selectedRows = [];
   showDeleteManyButton = false;
   products = [];
-  storeId = '600053ca1181b69010315090';
 
   constructor(private http: HttpClient,
               private productService: ProductService,
@@ -86,13 +85,12 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllProducts(this.storeId);
+    this.getAllProducts();
   }
 
 
-
-  getAllProducts(store: string): void {
-    this.productService.getAll({store}).subscribe((data) => {
+  getAllProducts(): void {
+    this.productService.getAll().subscribe((data) => {
       let quant;
       let aux;
       data.forEach((element) => {

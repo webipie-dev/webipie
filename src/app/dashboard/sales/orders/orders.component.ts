@@ -97,7 +97,6 @@ export class OrdersComponent implements OnInit {
   orders = [];
   selectedRows = [];
   showDeleteManyButton = false;
-  storeId = '600053ca1181b69010315090';
 
 
   constructor(private http: HttpClient,
@@ -108,11 +107,11 @@ export class OrdersComponent implements OnInit {
     window.addEventListener('resize', () => {
       this.windowWidth = window.screen.width;
     });
-    this.getAllOrders(this.storeId);
+    this.getAllOrders();
   }
 
-  getAllOrders(store): void {
-    this.orderService.getAll({store}).subscribe((data) => {
+  getAllOrders(): void {
+    this.orderService.getAll().subscribe((data) => {
       data.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');

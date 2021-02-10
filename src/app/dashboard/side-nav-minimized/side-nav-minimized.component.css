@@ -8,7 +8,7 @@
   z-index: 5;
   min-width: 250px;
   max-width: 250px;
-  min-height: 90vh;
+  min-height: 50vh;
   height: auto;
   background: var(--light-black-color);
   color: #fff;
@@ -19,12 +19,20 @@
   display: none;
 }
 
-
-
-#sidebar-non-active.active {
-  margin-left: -330px;
-
+#sidebar-non-active {
+  top: 0;
+  bottom: 0;
+  overflow-y: hidden !important;
+  min-width: 80px;
+  max-width: 80px;
+  min-height: 90vh;
+  height: auto;
+  background: var(--light-black-color);
+  color: #fff;
+  transition: all 0.3s;
 }
+
+
 #sidebar .sidebar-header {
   padding: 20px;
   background: var(--light-black-color);
