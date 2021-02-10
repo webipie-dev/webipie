@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {HttpClient} from '@angular/common/http';
 import {OrderService} from '../../../_shared/services/order.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-orders',
@@ -96,7 +97,6 @@ export class OrdersComponent implements OnInit {
   orders = [];
   selectedRows = [];
   showDeleteManyButton = false;
-  storeId = '600053ca1181b69010315090';
 
 
   constructor(private http: HttpClient,
@@ -107,11 +107,12 @@ export class OrdersComponent implements OnInit {
     window.addEventListener('resize', () => {
       this.windowWidth = window.screen.width;
     });
-    this.getAllOrders(this.storeId);
+    this.getAllOrders();
   }
 
-  getAllOrders(store): void {
-    this.orderService.getAll({store}).subscribe((data) => {
+
+  getAllOrders(): void {
+    this.orderService.getAll().subscribe((data) => {
       data.forEach((element) => {
         console.log(element);
         if (element.store) {
@@ -145,19 +146,39 @@ export class OrdersComponent implements OnInit {
   }
 
   onDeleteOne(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
-      });
-      event.confirm.resolve();
-      // delete the order from orders displayed
-      const index = this.selectedRows.indexOf(event.data);
-      if (index > -1) {
-        this.selectedRows.splice(index, 1);
+
+    this.orderService.deleteModal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
+        });
+        event.confirm.resolve();
+        // delete the order from orders displayed
+        const index = this.selectedRows.indexOf(event.data);
+        if (index > -1) {
+          this.selectedRows.splice(index, 1);
+        }
+        this.changeShowDeleteManyButton();
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        this.orderService.deleteModal.fire(
+          'Cancelled',
+          'Deletion Canceled :)',
+          'error'
+        );
       }
-      this.changeShowDeleteManyButton();
-    } else {
-      event.confirm.reject();
-    }
+    });
   }
 
   onRowSelect(event): void {
@@ -166,16 +187,42 @@ export class OrdersComponent implements OnInit {
   }
 
   onDeleteMany(): void {
-    const ids = [];
-    this.selectedRows.forEach(elt => {
-      ids.push(elt._id);
+
+    this.orderService.deleteModal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        const ids = [];
+        this.selectedRows.forEach(elt => {
+          ids.push(elt._id);
+        });
+        ids.forEach(elt => {
+          this.orders = this.orders.filter(prod => prod._id !== elt);
+        });
+        this.orderService.deleteMany({ids}).subscribe(data => {
+          this.selectedRows = [];
+          this.changeShowDeleteManyButton();
+        });
+
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        this.orderService.deleteModal.fire(
+          'Cancelled',
+          'Deletion Canceled :)',
+          'error'
+        );
+      }
     });
-    ids.forEach(elt => {
-      this.orders = this.orders.filter(prod => prod._id !== elt);
-    });
-    this.orderService.deleteMany({ids}).subscribe(data => {
-      this.selectedRows = [];
-      this.changeShowDeleteManyButton();
-    });
+
   }
 }

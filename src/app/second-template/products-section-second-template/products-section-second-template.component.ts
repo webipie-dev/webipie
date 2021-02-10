@@ -2,33 +2,36 @@ import { Component, OnInit, OnChanges, HostListener } from '@angular/core';
 import { Product } from '../../_shared/models/product.model';
 import { ProductService } from '../../_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products-section-second-template',
   templateUrl: './products-section-second-template.component.html',
   styleUrls: ['./products-section-second-template.component.css']
 })
-export class ProductsSectionSecondTemplateComponent implements OnInit, OnChanges {
+export class ProductsSectionSecondTemplateComponent implements OnInit{
 
   constructor(private productService: ProductService,
-              private storeService: StoreService) { }
+              private storeService: StoreService,
+              private activatedRoute: ActivatedRoute) { }
   store;
   popularProducts: [];
-  storeId = '600053ca1181b69010315090';
+  name: string;
+  location: string;
 
-  ngOnChanges(): void{
-    // this.changeFont();
-  }
 
   ngOnInit(): void {
-    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
+    this.name = this.activatedRoute.snapshot.paramMap.get('name');
+    this.location = this.activatedRoute.snapshot.paramMap.get('location');
+    this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
+
     this.popularProducts = [];
 
-    this.productService.getAll({store: this.storeId, popular: true}, 'client').subscribe(data => {
+    this.productService.getAll({store: this.store._id, popular: true}, 'client').subscribe(data => {
       this.popularProducts.push.apply(this.popularProducts, data) ;
+      console.log(data);
     });
 
-    console.log(this.popularProducts);
 
     this.changeTheme();
   }
@@ -46,8 +49,6 @@ export class ProductsSectionSecondTemplateComponent implements OnInit, OnChanges
   }
 
   changeTheme(): void{
-    this.store.template.font.name = 'cursive';
-    // console.log(this.store.template.font.size + 'px');
     document.documentElement.style.setProperty('--overlay-color', this.hexToRGB(this.store.template.colorChart[4], 0.75));
     document.documentElement.style.setProperty('--font-choice', this.store.template.font.name);
     console.log(this.hexToRGB(this.store.template.colorChart[4], 0.75));

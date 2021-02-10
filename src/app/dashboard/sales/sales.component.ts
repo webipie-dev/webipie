@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+
+import {Component, HostListener, OnInit} from '@angular/core';
+import {Utils} from "../../_shared/utils";
+
 
 @Component({
   selector: 'app-sales',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sales.component.css']
 })
 export class SalesComponent implements OnInit {
-
-  constructor() { }
+  public windwosWidth = window.innerWidth;
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
   }
 
 }

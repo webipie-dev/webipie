@@ -1,14 +1,60 @@
-<div class="wrapper">
-    <!--<app-side-nav ></app-side-nav>-->
-    <div class="d-flex">
-      <div class="col-lg-2 col-md-2 col-sm-2 dashboard-sidenav">
-        <app-side-nav [toggleS] = "toggleS"></app-side-nav>
-      </div>
-      <div class="col-lg-10 col-md-10 col-sm-10 col-12 margin-on-mobile px-5 dashboard-medium-lg" style="padding-right: 23px; padding-left: 0px;">
-        <div id="sidebar-next" style="margin-top: -10px">
-          <app-header></app-header>
-          <router-outlet></router-outlet>
-        </div>
+<ng-sidebar-container style="height: 100vh;">
+  <!-- A sidebar -->
+  <ng-sidebar [(opened)]="opened" [mode]="mode" *ngIf="opened">
+    <app-side-nav></app-side-nav>
+    <div class="container sidenav-footer" style="color: #ffffff;">
+      <div class="row ">
+        <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
+        <span class="col-4" (click)="windwosWidth > 576 ? _toggleSidebar() : _toggleBigSidebar()" style="cursor: pointer;">
+        <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
+      </span>
       </div>
     </div>
-</div>
+  </ng-sidebar>
+  <ng-sidebar [(opened)]="minimized" [mode]="mode" *ngIf="minimized">
+<!--    <app-side-nav [toggleS]="_toggleSidebar"></app-side-nav>-->
+    <app-side-nav-minimized></app-side-nav-minimized>
+    <div class="container sidenav-footer " style="color: #ffffff;">
+      <div class="row bottom-float">
+        <span class="col-4" (click)="_toggleSidebar()" style="cursor: pointer;">
+        <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
+      </span>
+      </div>
+    </div>
+<!--      <div id="sidebar-non-active2" class="container only-mobile active  " style="color: #ffffff">-->
+<!--        <div class="row text-center">-->
+<!--      <span class="mx-auto" (click)="_toggleSidebar()">-->
+<!--        <i class="fa fa-toggle-off fa-3x white-colored" aria-hidden="true" ></i>-->
+<!--      </span>-->
+<!--        </div>-->
+<!--      </div>-->
+  </ng-sidebar>
+
+  <!-- Page content -->
+  <div ng-sidebar-content>
+    <div class="text-center toggle-mobile" *ngIf="mobileOpen">
+        <span (click)="_toggleBigSidebar()" style="cursor: pointer;" id="toggleMobile">
+        <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
+      </span>
+    </div>
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+  </div>
+
+</ng-sidebar-container>
+
+
+<!--<div class="wrapper">-->
+<!--    &lt;!&ndash;<app-side-nav ></app-side-nav>&ndash;&gt;-->
+<!--    <div class="d-flex">-->
+<!--      <div class="col-lg-2 col-md-2 col-sm-2 dashboard-sidenav">-->
+<!--        <app-side-nav [toggleS] = "toggleS"></app-side-nav>-->
+<!--      </div>-->
+<!--      <div class="col-lg-10 col-md-10 col-sm-10 col-12 margin-on-mobile px-5 dashboard-medium-lg" style="padding-right: 23px; padding-left: 0px;">-->
+<!--        <div id="sidebar-next" style="margin-top: -10px">-->
+<!--          <app-header></app-header>-->
+<!--          <router-outlet></router-outlet>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--</div>-->
