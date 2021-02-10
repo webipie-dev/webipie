@@ -13,8 +13,6 @@ import {defaultLogger} from '@angular/cdk/schematics/update-tool/logger';
 export class IndexComponent implements OnInit {
 
   private fragment: string;
-  token = null;
-  decodedToken;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -32,22 +30,13 @@ export class IndexComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('token');
-    if (this.token) {
-      try {
-        this.decodedToken = this.decodeJwtService.getDecodedAccessToken(this.token);
-      } catch (e) {
-        console.log(e);
-      }
-    }
   }
 
-
   changeRoute() {
-    if (!this.token || !this.decodedToken.storeID) {
+    if (!this.decodeJwtService.token || !this.decodeJwtService.decodedToken.storeID) {
       this.router.navigate(['/templates'], {relativeTo: this.route}).then(r => console.log(r));
     }
-    else if (this.decodedToken.storeID) {
+    else if (this.decodeJwtService.decodedToken.storeID) {
       this.router.navigate(['/dashboard'], {relativeTo: this.route}).then(r => console.log(r));
     }
   }

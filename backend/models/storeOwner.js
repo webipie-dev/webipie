@@ -58,9 +58,7 @@ storeOwnerSchema.pre('save' , async function(next){
       }
 
       const salt = await bcrypt.genSalt(10);
-      const passwordHash = await bcrypt.hash(this.local.password, salt);
-
-      this.local.password = passwordHash;
+      this.local.password = await bcrypt.hash(this.local.password, salt);
       next();
     } catch (error) {
         next(error);
