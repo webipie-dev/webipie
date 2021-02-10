@@ -15,9 +15,6 @@
 chrome-profiler-events*.json
 speed-measure-plugin*.json
 
-dump.rdb
-./backend/dump.rdb
-
 # IDEs and editors
 /.idea
 .project
