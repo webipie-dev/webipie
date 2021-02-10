@@ -14,10 +14,10 @@
             Add</a>
         </div>
         <div class="col-md-6">
-          <a (click)="onDeleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}"
+          <button (click)="onDeleteMany()" [disabled]="!showDeleteManyButton" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}"
              class="mr-5 float-right py-2 button-generic button-delete text-size">
             <i class="fa fa-trash-alt" id="delete-icon"></i> Delete
-            Selected</a>
+            Selected</button>
         </div>
       </div>
       <div class="my-5 mx-auto px-5 py-3 table-shadow ">
