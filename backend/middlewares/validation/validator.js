@@ -13,7 +13,7 @@ let validation = {
         contains at least one digit
      */
     password: util.promisify(
-        check('user.password')
+        check('newPassword')
             .not().isEmpty().withMessage('Password can\'t be empty.')
             .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/)
             .withMessage('Password must contain at least 8 characters, with one digit and at least one uppercase and lower case letter')
