@@ -1,5 +1,7 @@
+
 import {Component, HostListener, OnInit} from '@angular/core';
 import {Utils} from "../../_shared/utils";
+
 
 @Component({
   selector: 'app-sales',

@@ -12,10 +12,10 @@ import {filter, map} from 'rxjs/operators';
 })
 export class ChangeContactComponent implements OnInit {
 
-  defaultEmail = JSON.parse(localStorage.getItem('currentStore')).contact.email;
-  defaultNumber = JSON.parse(localStorage.getItem('currentStore')).contact.phoneNumber;
-  defaultLocation = JSON.parse(localStorage.getItem('currentStore')).contact.location;
-  storeId = JSON.parse(localStorage.getItem('currentStore'))._id;
+  defaultEmail = JSON.parse(sessionStorage.getItem('store')).contact.email;
+  defaultNumber = JSON.parse(sessionStorage.getItem('store')).contact.phoneNumber;
+  defaultLocation = JSON.parse(sessionStorage.getItem('store')).contact.location;
+  storeId = JSON.parse(sessionStorage.getItem('store'))._id;
 
 
 
@@ -35,7 +35,7 @@ export class ChangeContactComponent implements OnInit {
       'contact.phoneNumber': this.defaultNumber
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
-      localStorage.setItem('currentStore', JSON.stringify(store));
+      sessionStorage.setItem('store', JSON.stringify(store));
     });
   }
 }

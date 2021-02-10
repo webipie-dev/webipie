@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {DecodeJwtService} from '../../_shared/services/decode-jwt.service';
 
 @Component({
   selector: 'app-header',
@@ -9,27 +10,24 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   route = this.router.url;
   changeable = this.route === '/' || this.route.indexOf('/#') !== -1;
-  constructor(private router: Router) {}
   token;
+
+  constructor(private router: Router,
+              private decodeJwtService: DecodeJwtService) {}
+
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
-    var header = document.getElementById("headerr");
-    console.log(header);
+    const header = document.getElementById('headerr');
     if (this.changeable) {
-      window.addEventListener("scroll", function() {
-        var scroll =  window.pageYOffset;
+      window.addEventListener('scroll', () => {
+        const scroll =  window.pageYOffset;
         if (scroll >= 40) {
           header.classList.remove('start-style');
-          // header.classList.add('bg-light');
           header.classList.add('scroll-on');
         } else {
-
           header.classList.remove('scroll-on');
-          // header.classList.remove('bg-light');
           header.classList.add('start-style');
-
         }
-
       });
     }
   }

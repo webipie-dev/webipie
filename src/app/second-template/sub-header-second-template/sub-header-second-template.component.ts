@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {StoreService} from '../../_shared/services/store.service';
+import {Store} from '../../_shared/models/store.model';
 import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-sub-header-second-template',
@@ -10,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class SubHeaderSecondTemplateComponent implements OnInit {
 
   @Input() fromWhere: string;
-  store;
+  store: Store;
   name: string;
   location: string;
 

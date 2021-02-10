@@ -29,7 +29,6 @@ export class StoreService extends GenericService<any>{
       });
     }
 
-    // console.log(sessionStorage.getItem('store'));
     return sessionStorage.getItem('store');
   }
 }

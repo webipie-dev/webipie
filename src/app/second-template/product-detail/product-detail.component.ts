@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
 import { Review } from '../../_shared/models/review.model';
+import {Store} from '../../_shared/models/store.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -10,15 +11,17 @@ import { Review } from '../../_shared/models/review.model';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  store;
+  store: Store;
   product: any;
   review: Review;
+
   name: string;
   location: string;
 
   constructor(private storeService: StoreService,
               private productService: ProductService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private el: ElementRef) { }
 
   ngOnInit(): void {
     this.name = this.activatedRoute.snapshot.paramMap.get('name');
@@ -28,14 +31,8 @@ export class ProductDetailComponent implements OnInit {
     this.review = new Review();
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
-      // this.productID = this.product._id;
-      console.log(data);
-      console.log(this.counter(this.product.quantity));
-
     });
-
     this.changeTheme();
-
   }
 
   hexToRGB(hex, alpha?): string {
@@ -55,14 +52,46 @@ export class ProductDetailComponent implements OnInit {
 }
 
   changeTheme(): void{
-    document.documentElement.style.setProperty('--overlay-color', this.hexToRGB(this.store.template.colorChart[4], 0.75));
-    document.documentElement.style.setProperty('--font-choice', this.store.template.font.name);
-    console.log(this.hexToRGB(this.store.template.colorChart[4], 0.75));
-    console.log(this.store.template.font.name);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
   }
-
 
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review);
+  }
+
+  public loadScript() {
+    let isFound = false;
+    const scripts = document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; ++i) {
+      if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes('loader')) {
+        isFound = true;
+      }
+    }
+
+    if (!isFound) {
+      const dynamicScripts = [
+        'assets/second-template/js/modernizr.js',
+        'assets/second-template/js/jquery-1.11.3.min.js',
+        'assets/second-template/js/bootstrap.min.js',
+        'assets/second-template/js/own-menu.js',
+        'assets/second-template/js/jquery.lighter.js',
+        'assets/second-template/js/owl.carousel.min.js',
+        'assets/second-template/rs-plugin/js/jquery.tp.t.min.js',
+        'assets/second-template/rs-plugin/js/jquery.tp.min.js',
+        'assets/second-template/js/main.js',
+      ];
+
+      for (let i = 0; i < dynamicScripts.length; i++) {
+        const node = document.createElement('script');
+        node.src = dynamicScripts [i];
+        node.type = 'text/javascript';
+        node.async = false;
+        node.charset = 'utf-8';
+        document.getElementsByTagName('body')[0].appendChild(node);
+      }
+    }
   }
 }

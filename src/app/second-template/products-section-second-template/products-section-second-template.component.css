@@ -1,11 +1,44 @@
+:host{
+  --font-choice: 'sans-serif';
+  --secondary-color: #ffe115;
+  --font-color: #2d3a4b;
+  --bg-color: #fff;
+  --bg-color-rgba: rgba(255,255,21,0.75);
+}
+
 .fit-image{
     height: 300px;
     width: 100%;
 }
+.btn {
+  position: absolute;
+  left:0; right: 0;
+  border: none;
+  color: var(--bg-color);
+  display: inline-block;
+  padding: 5px 50px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 0px;
+  font-family: var(--font-choice), sans-serif !important;
+  line-height: 46px;
+  background: var(--font-color);
+  letter-spacing: 1px;
+  z-index: 1;
+  -webkit-transition: 0.4s ease-in-out;
+  -moz-transition: 0.4s ease-in-out;
+  -ms-transition: 0.4s ease-in-out;
+  -o-transition: 0.4s ease-in-out;
+  transition: 0.4s ease-in-out;
+}
+.btn:hover {
+  background: var(--secondary-color);
+  color: var(--font-color);
+}
 
-:root{
-    --font-choice: 12px;
-    --overlay-color: rgba(255,255,21,0.75);
+.btn {
+  display: inline-block;
 }
 /*=======================================================
       PAPULAR ITEM
@@ -35,7 +68,7 @@
 	line-height: 21px;
 }
 .papular-block .overlay {
-	background: var(--overlay-color);
+	background: var(--bg-color-rgba);
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -48,6 +81,10 @@
 	-o-transition: 0.4s ease-in-out;
 	transition: 0.4s ease-in-out;
 }
+.font {
+  color: var(--font-color);
+  font-family: var(--font-choice), sans-serif !important;
+}
 .papular-block .item:hover .overlay {
 	opacity: 1;
 }
@@ -57,9 +94,9 @@
 .papular-block .overlay .inn {
 	display: inline-block;
 	border-radius: 30px;
-	background: #52594a;
+	background: var(--font-color);
 	text-align: center;
-	color: #fff;
+	color: var(--bg-color);
 	height: 45px;
 	margin: 10px 0;
 	padding: 0 20px;
@@ -82,7 +119,7 @@
 .papular-block .overlay .inn a {
 	display: inline-block;
 	font-size: 16px;
-	color: #fff;
+	color: var(--bg-color);
 	margin: 0 8px;
 	line-height: 45px;
 }
@@ -94,7 +131,7 @@
 	width: 100%;
 	text-align: center;
 	margin-top: 20px;
-	color: #2d3a4b;
+	color: var(--font-color);
 	-webkit-transition: 0.4s ease-in-out;
 	-moz-transition: 0.4s ease-in-out;
 	-ms-transition: 0.4s ease-in-out;
@@ -137,6 +174,7 @@
 }
 .papular-block .item-name p {
 	font-family: var(--font-choice) !important;
+  color: var(--font-color);
 	font-size: 14px;
 	margin: 0px;
 	margin-top: 10px;
@@ -145,14 +183,15 @@
 	font-size: 22px;
 	font-weight: bold;
 	letter-spacing: 3px;
-	color: #2d3a4b;
+  font-family: var(--font-choice), sans-serif !important;
+	color: var(--font-color);
 	text-transform: uppercase;
 }
 .papular-block .item-name a:hover {
-	color: var(--overlay-color);
+	color: var(--bg-color-rgba);
 }
 .on-sale {
-	background: var(--overlay-color);
+	background: var(--secondary-color);
 	position: absolute;
 	height: 50px;
 	width: 50px;
@@ -160,7 +199,7 @@
 	right: 0px;
 	z-index: 99;
 	text-align: center;
-	color: #fff;
+	color: var(--bg-color);
 	font-weight: bold;
 	line-height: 16px;
 	font-size: 18px;
@@ -219,9 +258,9 @@
 .shop-items .inn {
 	display: inline-block;
 	border-radius: 30px;
-	background: #2d3a4b;
+	background: var(--font-color);
 	text-align: center;
-	color: #fff;
+	color: var(--bg-color);
 	height: 45px;
 	max-width: 150px;
 	position: absolute;
@@ -242,7 +281,7 @@
 .shop-items .inn a {
 	display: inline-block;
 	font-size: 16px;
-	color: #fff;
+	color: var(--bg-color);
 	margin: 0 8px;
 	line-height: 50px;
 }
@@ -250,14 +289,14 @@
 	font-size: 22px;
 	font-weight: bold;
 	letter-spacing: 3px;
-	color: #2d3a4b;
+	color: var(--font-color);
 	margin-bottom: 10px;
 	text-transform: uppercase;
 }
 .shop-items .item-name p {
 	font-family: var(--font-choice) !important;
 }
-.shop-items .price {
+.price {
 	font-size: 18px;
 	font-weight: bold;
 	z-index: 9;
@@ -265,14 +304,16 @@
 	width: 100%;
 	text-align: center;
 	margin-top: 50px;
-	color: #2d3a4b;
+  font-family: var(--font-choice), sans-serif !important;
+	color: var(--font-color);
 	-webkit-transition: 0.4s ease-in-out;
 	-moz-transition: 0.4s ease-in-out;
 	-ms-transition: 0.4s ease-in-out;
 	-o-transition: 0.4s ease-in-out;
 	transition: 0.4s ease-in-out;
 }
-.shop-items .price small {
+.price small {
+  font-family: var(--font-choice), sans-serif !important;
 	font-size: 12px;
 	display: inline-block;
 	vertical-align: top;
@@ -285,3 +326,4 @@
   height: 300px;
   width: 100%;
 }
+

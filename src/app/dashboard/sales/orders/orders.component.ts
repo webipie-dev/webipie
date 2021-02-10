@@ -110,9 +110,11 @@ export class OrdersComponent implements OnInit {
     this.getAllOrders();
   }
 
+
   getAllOrders(): void {
     this.orderService.getAll().subscribe((data) => {
       data.forEach((element) => {
+        console.log(element);
         if (element.store) {
           const date = element.orderDate.split('T');
           let totalPrice = 0;
@@ -131,9 +133,9 @@ export class OrdersComponent implements OnInit {
             store: element.store,
           };
           this.orders.push(aux);
-
         }
       });
+      console.log(this.orders);
       this.orders = this.orders.reverse();
     });
   }

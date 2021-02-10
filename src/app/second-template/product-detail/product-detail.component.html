@@ -134,10 +134,10 @@
 
             <!-- REVIEW -->
             <div *ngIf='product.openReview' role="tabpanel" class="tab-pane fade in active" id="review">
-              <h6>{{ product.reviews ? product.reviews.length : '0' }} REVIEWS FOR SHIP YOUR IDEA</h6>
+              <h6 class="font">{{ product.reviews ? product.reviews.length : '0' }} REVIEWS FOR SHIP YOUR IDEA</h6>
 
               <!-- REVIEW PEOPLE 1 -->
-              
+
               <div class="media" *ngFor='let oneReview of product.reviews'>
                 <div class="media-left">
                   <!--  Image -->
@@ -146,13 +146,13 @@
                 <!--  Details -->
                 <div class="media-body">
                   <p class="font-playfair">{{oneReview.review}}</p>
-                  <h6> {{oneReview.name}} <span class="pull-right">{{oneReview.date}}</span> </h6>
+                  <h6 class="font"> {{oneReview.name}} <span class="pull-right">{{oneReview.date}}</span> </h6>
                 </div>
               </div>
-              
+
 
               <!-- ADD REVIEW -->
-              <h6 class="margin-t-40">ADD REVIEW</h6>
+              <h6 class="margin-t-40 font">ADD REVIEW</h6>
               <form>
                 <ul class="row">
                   <li class="col-sm-6">
@@ -172,10 +172,10 @@
                   </li>
                   <li class="col-sm-6">
                     <!-- Rating Stars -->
-                    <div class="stars"> <span>YOUR RATING</span> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+                    <div class="stars font"> <span>YOUR RATING</span> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
                   </li>
                   <li class="col-sm-6">
-                    <button type="submit" class="btn btn-dark btn-small pull-right no-margin" [disabled]="!product.openReview" (submit)='sendReview()'>POST REVIEW</button>
+                    <button type="submit" class="btn-font btn btn-dark btn-small pull-right no-margin" [disabled]="!product.openReview" (submit)='sendReview()'>POST REVIEW</button>
                   </li>
                 </ul>
               </form>

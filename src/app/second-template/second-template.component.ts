@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {StoreService} from '../_shared/services/store.service';
+import {Store} from '../_shared/models/store.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class SecondTemplateComponent implements OnInit {
-  store;
+  store: Store;
   loadAPI: Promise<any>;
   name: string;
   location: string;
@@ -28,17 +29,17 @@ export class SecondTemplateComponent implements OnInit {
     this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
   }
 
-  public  loadScript() {
-    var isFound = false;
-    var scripts = document.getElementsByTagName("script");
-    for (var i = 0; i < scripts.length; ++i) {
-      if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes("loader")) {
+  public loadScript() {
+    let isFound = false;
+    const scripts = document.getElementsByTagName('script');
+    for (let i = 0; i < scripts.length; ++i) {
+      if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes('loader')) {
         isFound = true;
       }
     }
 
     if (!isFound) {
-      var dynamicScripts = [
+      const dynamicScripts = [
         'https://code.jquery.com/jquery-3.2.1.slim.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js',
         'assets/second-template/js/modernizr.js',
@@ -52,13 +53,12 @@ export class SecondTemplateComponent implements OnInit {
         'assets/second-template/js/main.js',
       ];
 
-      for (var i = 0; i < dynamicScripts.length; i++) {
-        let node = document.createElement('script');
+      for (let i = 0; i < dynamicScripts.length; i++) {
+        const node = document.createElement('script');
         node.src = dynamicScripts [i];
         node.type = 'text/javascript';
         node.async = false;
         node.charset = 'utf-8';
-        // console.log(dynamicScripts);
         document.getElementsByTagName('body')[0].appendChild(node);
       }
     }

@@ -1,14 +1,21 @@
 :host {
-  --primary-color: #ffffff;
+  --bg-color: #ffffff;
   --font-color: #2d3a4b;
-  --font-hover: #ffe115;
+  --secondary-color: #ffe115;
   --font-choice: 'Montserrat';
-  --primary-color-rgba: rgba(255,255,255,0.95);
+  --bg-color-rgba: rgba(255,255,255,0.95);
+}
+
+.logo {
+  color: var(--font-color);
+  font-family: var(--font-choice), sans-serif !important;
+  font-size: xx-large !important;
+  font-weight: bold;
 }
 header {
   width: 100%;
   z-index: 999;
-  background: var(--primary-color);
+  background: var(--bg-color);
   padding: 30px 0;
   position: relative;
   font-family: var(--font-choice), sans-serif !important;
@@ -36,7 +43,7 @@ header .logo img {
 }
 header .sticky {
   /* background: rgba(255,255,255,0.95); */
-  background: var(--primary-color-rgba);
+  background: var(--bg-color-rgba);
   padding: 10px 0;
   left: 0px;
 }
@@ -83,7 +90,7 @@ header .navbar li a:before {
   left:0px;
   top: 45%;
   z-index: -1;
-  background: var(--font-hover);
+  background: var(--secondary-color);
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -ms-transition: 0.2s ease-in-out;
@@ -102,7 +109,7 @@ header .navbar li.active a:before {
   top: 45%;
   left:0px;
   z-index: -1;
-  background: var(--font-hover);
+  background: var(--secondary-color);
   -webkit-transition: 0.2s ease-in-out;
   -moz-transition: 0.2s ease-in-out;
   -ms-transition: 0.2s ease-in-out;
@@ -243,7 +250,7 @@ header .user-basket .btn {
   border: none;
 }
 header .user-basket .btn:hover {
-  background: var(--font-hover);
+  background: var(--secondary-color);
   color: var(--font-color) !important;
 }
 header .user-basket .media-heading {

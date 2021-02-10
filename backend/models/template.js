@@ -11,16 +11,10 @@ const ExSchema = new Schema({
     description: { type: String, default: '' },
     mainButton: { type: String, default: '' }
   },
-  colorChart: {type: [String], default: []},
-  font: {
-    name: { type: String, default: '' },
-    size: { type: Number, default: 0 },
-    weight: { type: String, default: '' },
-    alignment: { type: String, default: '' },
-    bold: { type: Boolean, default: false },
-    italic: { type: Boolean, default: false },
-    uppercase: { type: Boolean, default: false },
-  }
+  colorChart: {type: {}, default: {}},
+  colorChartOptions: {type: [{}], default: []},
+  font: { type: String, default: ''},
+  fontOptions: { type: [String], default: []}
 });
 
 module.exports = mongoose.model('Template', ExSchema);

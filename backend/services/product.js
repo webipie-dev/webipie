@@ -234,22 +234,7 @@ exports.deleteAllProducts = async (req, res, next) => {
   res.status(200).send(deletedProducts);
 };
 
-exports.addReview = async (req,res,next) => {
-  const {id} = req.params;
 
-  const { name, email, review, rating, date } = req.body;
-
-  const reviewBody = new Object({
-    name,
-    email,
-    review,
-    rating,
-    date
-  })
-
-  await Product.findOneAndUpdate({id}, { $push: { reviews: reviewBody } });
-  res.status(200).send(review);
-}
 
 
 filterProducts = (req => {

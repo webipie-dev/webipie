@@ -35,7 +35,6 @@ export class SignUpComponent implements OnInit {
 
   signUp() {
     this.loading = true;
-    // console.log(JSON.stringify(this.storeOwner));
     this.auth.login(this.storeOwner)
       .subscribe(result => {
           console.log(result);
