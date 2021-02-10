@@ -11,7 +11,6 @@ exports.getProducts = async (req, res, next) => {
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
-
   res.status(200).send(products);
 
 };
@@ -38,7 +37,6 @@ exports.getOneProduct = async (req, res, next) => {
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
-
   res.status(200).send(product);
 
 };
@@ -173,7 +171,7 @@ exports.addReview = async (req,res,next) => {
   }
 
   res.status(200).send(review);
-}
+};
 
 exports.deleteImage = async (req, res, next) => {
   const { id } = req.params;
