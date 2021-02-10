@@ -176,15 +176,15 @@ exports.deleteAllProducts = async (req, res, next) => {
 };
 
 exports.addReview = async (req,res,next) => {
-  const id = req.id;
- 
+  const {id} = req.params;
+
   const { name, email, review, rating, date } = req.body;
 
   const reviewBody = new Object({
-    name, 
-    email, 
-    review, 
-    rating, 
+    name,
+    email,
+    review,
+    rating,
     date
   })
 
