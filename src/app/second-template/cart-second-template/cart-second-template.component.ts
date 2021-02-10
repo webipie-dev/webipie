@@ -11,7 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 export class CartSecondTemplateComponent implements OnInit {
   displayNone = true;
   store: Store;
-  rgbaColor: string;
 
   name: string;
   location: string;
@@ -25,11 +24,13 @@ export class CartSecondTemplateComponent implements OnInit {
     this.name = this.activatedRoute.snapshot.paramMap.get('name');
     this.location = this.activatedRoute.snapshot.paramMap.get('location');
     this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
-    // this.changeTheme();
+    this.changeTheme();
   }
 
-  changeTheme(): void {
-    (this.el.nativeElement as HTMLElement).style.setProperty('--primary-color', this.store.template.colorChart[4]);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font.name);
+  changeTheme() {
+    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
+    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
   }
 }

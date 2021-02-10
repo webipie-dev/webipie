@@ -4,7 +4,8 @@
 
     <!-- Main Heading -->
     <div class="heading text-center">
-      <h4>popular products</h4>
+      <h4 class="font">popular products</h4>
+      <button class="mx-auto btn" routerLink="../products">ALL PRODUCTS</button>
       <span>{{ store.template.header.description }}</span> </div>
 
     <!-- Popular Item Slide -->
@@ -14,10 +15,12 @@
       <div class="item" *ngFor="let product of popularProducts">
         <!-- Item img -->
         <div class="item-img">
+
           <div class="parent-image">
             <img class="img-1" [src]="product.imgs[0]" alt="" >
             <img class="img-2" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" style="top: auto" alt="" >
           </div>
+          
           <!-- Overlay -->
           <div class="overlay">
             <div class="position-center-center">
@@ -32,9 +35,9 @@
           <p>{{product.description}}</p>
         </div>
         <!-- Price -->
-        <span class="price"><small>dt</small>{{product.price}}</span> 
+        <span class="price"><small>dt</small>{{product.price}}</span>
       </div>
-      
+
     </div>
   </div>
 </section>

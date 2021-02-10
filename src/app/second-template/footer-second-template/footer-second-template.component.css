@@ -1,15 +1,15 @@
 :host {
-  --primary-color: #171e27;
+  --font-color: #171e27;
   --font-choice: 'Montserrat';
-  --second-font-color: #fff;
+  --bg-color: #fff;
 }
 footer p {
   font-size: 12px;
   line-height: 26px;
-  color: var(--second-font-color);
+  color: var(--bg-color);
 }
 footer h6 {
-  color: var(--second-font-color);
+  color: var(--bg-color);
   margin-top: 0;
   font-size: 14px;
   margin-bottom: 42px;
@@ -18,7 +18,7 @@ footer h6 {
 footer {
   padding: 120px 0;
   padding-bottom: 60px;
-  background-color: var(--primary-color);
+  background-color: var(--font-color);
   font-family: var(--font-choice), sans-serif !important;
   position: relative;
   z-index: 1;
@@ -35,14 +35,14 @@ footer {
 }
 footer li a {
   font-size: 12px;
-  color: var(--second-font-color);
+  color: var(--bg-color);
   line-height: 26px;
   display: inline-block;
   width: 100%;
   letter-spacing: 0px;
 }
 footer li a:hover {
-  color: var(--second-font-color);
+  color: var(--bg-color);
 }
 .rights .go-up {
   border: 1px solid #454545;
@@ -60,7 +60,7 @@ footer li a:hover {
   display: inline-block;
 }
 .rights .go-up:hover {
-  background: var(--second-font-color);
+  background: var(--bg-color);
   color: #333;
 }
 .rights {
@@ -74,7 +74,7 @@ footer li a:hover {
   margin: 0px;
   font-size: 10px;
   line-height: 26px;
-  color: var(--second-font-color);
+  color: var(--bg-color);
 }
 .light-rights {
   background: #eceaea;

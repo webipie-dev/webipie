@@ -15,7 +15,6 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from 'angularx-social-login';
-import { MatDialogModule } from '@angular/material/dialog';
 
 import {DashboardModule} from './dashboard/dashboard.module';
 import {PageNotFoundComponent} from './index/page-not-found/page-not-found.component';
@@ -34,9 +33,8 @@ import {SpinnerModule} from './spinner/spinner.module';
 import {CommonModule} from '@angular/common';
 import { ErrorsComponent } from './errors/errors.component';
 import {ErrorInterceptor} from './error-interceptor';
-import {MatButtonModule} from '@angular/material/button';
-
 import { SidebarModule } from 'ng-sidebar';
+
 
 
 @NgModule({

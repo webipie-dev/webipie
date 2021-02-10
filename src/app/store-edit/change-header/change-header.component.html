@@ -51,7 +51,7 @@
                 (change)="onFileChanged($event)"
               >
               <button class="img-fluid mb-3 mt-2 img-product">
-                <img alt="" class="image" [src]="imgSrc">
+                <img alt="" class="image" [src]="headerForm.get('img').value">
                 <img alt="" class='ml-6 upload-image ' src="../../../assets/images/upload-image.png">
               </button>
               <label>*Img resolution should be</label>

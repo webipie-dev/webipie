@@ -22,16 +22,10 @@ export class Store extends GenericModel{
       description: string,
       mainButton: string
     },
-    font: {
-      name: string,
-      size: number,
-      weight: string,
-      alignment: string,
-      bold: boolean,
-      italic: boolean,
-      uppercase: boolean
-    },
-    colorChart: string[]
+    font: string,
+    colorChart: {},
+    fontOptions: string[],
+    colorChartOptions: {}[]
   };
   constructor(){
     super();

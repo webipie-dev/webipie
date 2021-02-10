@@ -14,6 +14,17 @@
         <div class="small-titles my-2">Recommendations</div>
 
         <div class="mt-3" *ngFor="let color of defaultColors" (click)="colorChange(color)">
+// nour
+          <button class="py-2 row my-2 mx-auto button-generic button-white-color">
+            <div [ngStyle]="{'background': color['bg-color']}"
+                 class="circle"></div>
+            <div [ngStyle]="{'background': color['font color']}"
+                 class="circle"></div>
+            <div [ngStyle]="{'background': color['secondary color']}"
+                 class="circle"></div>
+          </button>
+
+// yassine
           <div class="color-palettes">
             <div class="color-palette">
               <div class="colors">
@@ -36,6 +47,8 @@
 <!--          </button>-->
         </div>
 
+// fodhoha bin baadhkom
+      
       </div>
 <!--      <div class="my-5">-->
 <!--        <div class="small-titles my-2">Customize</div>-->
@@ -46,7 +59,7 @@
 <!--          <app-color-picker [color]="'white'" [heading]="'Font'"></app-color-picker>-->
 <!--        </div>-->
 <!--      </div>-->
-    </li>hos
+    </li>
   </ul>
   <div class="text-center my-5">
     <a class="button-generic button-black text-size mr-2" (click)="submit()">Save</a>

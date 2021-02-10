@@ -199,5 +199,6 @@ router.patch('/:id', [
   validation.id
 ], validateRequest, passportJWT, multer({storage: storage}).any(), StoreService.editStore)
 
+//router.patch('/change-template/:id', StoreService.changeTemplate)
 
 module.exports = router;
