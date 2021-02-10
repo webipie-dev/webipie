@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-social-media',
@@ -7,10 +7,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SocialMediaComponent implements OnInit {
 
+  public windwosWidth = window.innerWidth;
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
   }
 
 }

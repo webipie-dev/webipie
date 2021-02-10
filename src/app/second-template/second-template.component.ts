@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {StoreService} from '../_shared/services/store.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-second-template',
@@ -10,8 +11,11 @@ import {StoreService} from '../_shared/services/store.service';
 export class SecondTemplateComponent implements OnInit {
   store;
   loadAPI: Promise<any>;
+  name: string;
+  location: string;
 
-  constructor(private storeService: StoreService) {
+  constructor(private storeService: StoreService,
+              private  activatedRoute: ActivatedRoute) {
     this.loadAPI = new Promise((resolve) => {
       this.loadScript();
       resolve(true);
@@ -19,7 +23,9 @@ export class SecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
+    this.name = this.activatedRoute.snapshot.paramMap.get('name');
+    this.location = this.activatedRoute.snapshot.paramMap.get('location');
+    this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
   }
 
   public  loadScript() {
@@ -33,6 +39,8 @@ export class SecondTemplateComponent implements OnInit {
 
     if (!isFound) {
       var dynamicScripts = [
+        'https://code.jquery.com/jquery-3.2.1.slim.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js',
         'assets/second-template/js/modernizr.js',
         'assets/second-template/js/jquery-1.11.3.min.js',
         'assets/second-template/js/bootstrap.min.js',
@@ -50,7 +58,7 @@ export class SecondTemplateComponent implements OnInit {
         node.type = 'text/javascript';
         node.async = false;
         node.charset = 'utf-8';
-        console.log(dynamicScripts);
+        // console.log(dynamicScripts);
         document.getElementsByTagName('body')[0].appendChild(node);
       }
     }

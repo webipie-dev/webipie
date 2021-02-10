@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { ProductService } from 'src/app/_shared/services/product.service';
 import {StoreService} from '../../_shared/services/store.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products-all-second-template',
@@ -12,16 +13,20 @@ import {StoreService} from '../../_shared/services/store.service';
 export class ProductsAllSecondTemplateComponent implements OnInit {
   store;
   products: [];
-  storeId = '600053ca1181b69010315090';
+  name: string;
+  location: string;
 
   constructor(private storeService: StoreService,
-              private productService: ProductService) { }
+              private productService: ProductService,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.store = JSON.parse(this.storeService.getStore('600053ca1181b69010315090'));
+    this.name = this.activatedRoute.snapshot.paramMap.get('name');
+    this.location = this.activatedRoute.snapshot.paramMap.get('location');
+    this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
 
     this.products = [];
-    this.productService.getAll(this.storeId, 'client').subscribe(data => {
+    this.productService.getAll(this.store._id, 'client').subscribe(data => {
       this.products.push.apply(this.products, data) ;
     });
 

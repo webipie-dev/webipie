@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProductService} from '../../../_shared/services/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detail',
@@ -25,21 +26,52 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onEditSelect() {
+  onEditSelect(): void {
     document.getElementById('close-modal').click();
     this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: this.rowData._id} });
   }
 
-  onDelete(){
+  onDelete(): void{
     document.getElementById('close-modal').click();
-    this.productService.deleteMany({ids: [this.rowData._id]}).subscribe(data => {
-      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['dashboard/products']);
-      });
+
+    this.productService.deleteModal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.productService.deleteMany({ids: [this.rowData._id]}).subscribe(data => {
+          this.productService.deleteModal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          );
+          this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['dashboard/products']);
+          });
+        });
+
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        this.productService.deleteModal.fire(
+          'Cancelled',
+          'Deletion Canceled :)',
+          'error'
+        );
+      }
     });
+
   }
 
-  open(content) {
+  open(content): void {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

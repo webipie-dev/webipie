@@ -41,7 +41,7 @@ exports.getOneOrder = async (req, res) => {
   res.status(200).send(order);
 }
 
-exports.addOrder = async (req, res) => {
+exports.addOrder = async (req, res, next) => {
 
   // productsOrders schema :
   // productsOrder = {
@@ -137,10 +137,6 @@ exports.deleteManyOrders = async (req, res, next) => {
     if (deletedOrders.deletedCount === 0) {
       next(ApiError.NotFound('No Orders found to delete'));
       return;
-    }else if (deletedOrders.deletedCount < ids.length) {
-      next(ApiError.NotFound(`${ids.length} Orders to be deleted but ${deletedOrders.deletedCount} are found and deleted`));
-      return;
-
     }
   }
 
