@@ -2,27 +2,54 @@
 <div class="sales-header mt-3">
   <h1 class="big-titles text-center mb-3">Add Edit One Product</h1>
 </div>
+
 <form (submit)="onSubmit()" [formGroup]="productForm">
-  <div class="row">
+  <div>
+    <div class="col-12 text-center my-2">
+      <a class="py-2 button-generic button-delete text-size" (click)="deletePhotoOpen()">
+        <i class="fa fa-trash-alt" id="delete-icon"></i> Delete
+        Photos</a>
+    </div>
+    <h3 class="mx-auto font-weight-bold my-1" style="color: darkred;" *ngIf="deletePhotos">Clickez maintenant sur l'image que vous voulez supprimer</h3>
     <div class="col-12">
       <div class="px-2">
-        <div class="row upload-images">
-          <div class="col-5 col-md-2 my-auto">
+        <div class="d-flex upload-images">
+          <div class="col-5 col-lg-2 col-md-3">
             <input
               (change)="onImagePicked($event)"
+              id="hiddenImageInput"
               accept="image/*"
-              class="form-control fileInput"
+              class="form-control fileInput" style="display: none"
               multiple
-              name="imgs" type="file">
-            <button class="py-5 px-5 add-photo-button mx-auto text-size"><i
-              class="fa fa-images d-block fa-2x mx-auto mb-3" id="blue-color"></i>add photos
-            </button>
+              name="imgs" type="file"/>
+            <!--            *********************-->
+            <div id="wrapper" class="my-2 mx-1" (click)="clickAddPhotos();">
+              <a class="my-super-cool-btn">
+                <div class="dots-container">
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                </div>
+                <span>
+                 <div class="text-center">
+                   <i class="fas fa-arrow-circle-up fa-2x"></i>
+                    <br>
+                   Upload
+                   <br>
+                   a Photo
+                 </div>
+                </span>
+              </a>
+            </div>
+
           </div>
-          <div class='col-7 col-md-10 pt-2'>
+          <div class='col-7 col-lg-10 col-md-9 pt-2'>
             <ng-image-slider
               [imageSize]="{width: 150, height: 150, space: 4}"
               [images]="imageObject"
-              [infinite]="false"></ng-image-slider>
+              [imagePopup]="!deletePhotos"
+              [infinite]="false" (imageClick)=" deletePhotos ? deletePhoto($event) : null"></ng-image-slider>
           </div>
 
         </div>
@@ -30,7 +57,7 @@
     </div>
   </div>
 
-  <div class="row margin-top">
+  <div class="margin-top" [ngClass]="{'d-flex' : windwosWidth > 767}">
     <div class="col-md-8 col-12 mt-5 mb-5">
       <div class="container upload-images product-description py-5">
         <div class="row">
@@ -93,7 +120,26 @@
             <option value="out of stock">Out of stock</option>
           </select>
         </div>
+        <div>ALLOW REVIEWS:</div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" formControlName="openReview" (click)="onReviews($event)" [(ngModel)]="isChecked">
+            </div>
+          </div>
+        </div>
+
+        <div>DISPLAY ON POPULAR PRODUCTS:</div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" formControlName="popular" (click)="onPopular($event)" [(ngModel)]="isPopular">
+            </div>
+          </div>
+        </div>
       </div>
+
+
       <div class="col-12 text-center my-1">
         <button class="button-generic button-blue form-button text-size" type="submit">Save Changes</button>
       </div>
@@ -104,7 +150,6 @@
   </div>
 
 </form>
-
 
 
 

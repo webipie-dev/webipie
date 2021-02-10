@@ -9,12 +9,13 @@ import {HeaderComponent} from './index/header/header.component';
 import {SignUpComponent} from './index/sign-up/sign-up.component';
 import {AfterSigninComponent} from './index/after-signin/after-signin.component';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SocialLoginModule, SocialAuthServiceConfig} from 'angularx-social-login';
 import {
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from 'angularx-social-login';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import {DashboardModule} from './dashboard/dashboard.module';
 import {PageNotFoundComponent} from './index/page-not-found/page-not-found.component';
@@ -31,6 +32,11 @@ import {QuillModule} from 'ngx-quill';
 import {SecondTemplateModule} from './second-template/second-template.module';
 import {SpinnerModule} from './spinner/spinner.module';
 import {CommonModule} from '@angular/common';
+import { ErrorsComponent } from './errors/errors.component';
+import {ErrorInterceptor} from './error-interceptor';
+import {MatButtonModule} from '@angular/material/button';
+
+import { SidebarModule } from 'ng-sidebar';
 
 
 @NgModule({
@@ -45,7 +51,8 @@ import {CommonModule} from '@angular/common';
     SignInComponent,
     LoadingSpinnerComponent,
     FooterComponent,
-    TemplatesPageComponent
+    TemplatesPageComponent,
+    ErrorsComponent
   ],
   imports: [
     BrowserModule,
@@ -70,8 +77,14 @@ import {CommonModule} from '@angular/common';
     }),
     SecondTemplateModule,
     SpinnerModule,
+    SidebarModule.forRoot(),
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -92,7 +105,7 @@ import {CommonModule} from '@angular/common';
     },
 
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
-    JwtHelperService
+    JwtHelperService,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

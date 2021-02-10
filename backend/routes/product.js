@@ -167,8 +167,14 @@ router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
   productValidator.quantity,
   productValidator.description,
   productValidator.name,
-], validateRequest, clearCache, productService.addProduct)
+], validateRequest, clearCache, productService.addProduct);
 
+
+router.patch('/:id/review', productService.addReview);
+
+router.patch('/:id/delete/image', passportJWT, [
+  validation.id
+], validateRequest, productService.deleteImage);
 
 // deleteManyProducts
 /**
@@ -194,7 +200,7 @@ router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
  *                  - $ref: '#/components/schemas/Product'
  *                  - $ref: '#/components/schemas/ArrayOfProducts'
  */
-router.delete('', validation.ids, passportJWT, clearCache, productService.deleteManyProducts)
+router.delete('', validation.ids, passportJWT, clearCache, productService.deleteManyProducts);
 
 //deleteAllProducts
 /**
@@ -214,11 +220,10 @@ router.delete('', validation.ids, passportJWT, clearCache, productService.delete
 router.delete('/delete', passportJWT, clearCache, productService.deleteAllProducts);
 
 
-router.patch('/:id', [
+router.patch('/:id', passportJWT, multer({storage: storage}).any("productImgs", 5), [
   validation.id
-], validateRequest, passportJWT, multer({storage: storage}).any("productImgs", 5), clearCache, productService.editOneProduct)
+], validateRequest ,clearCache, productService.editOneProduct)
 
-router.patch('/:id/review', productService.addReview);
 
 module.exports = router;
 

@@ -5,6 +5,7 @@ import {OrderService} from '../../_shared/services/order.service';
 import {ProductService} from '../../_shared/services/product.service';
 import {Product} from '../../_shared/models/product.model';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
@@ -77,7 +78,6 @@ export class ProductsComponent implements OnInit {
   selectedRows = [];
   showDeleteManyButton = false;
   products = [];
-  storeId = '600053ca1181b69010315090';
 
   constructor(private http: HttpClient,
               private productService: ProductService,
@@ -85,11 +85,12 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllProducts(this.storeId);
+    this.getAllProducts();
   }
 
-  getAllProducts(store: string): void {
-    this.productService.getAll({store}).subscribe((data) => {
+
+  getAllProducts(): void {
+    this.productService.getAll().subscribe((data) => {
       let quant;
       let aux;
       data.forEach((element) => {
@@ -116,19 +117,51 @@ export class ProductsComponent implements OnInit {
   }
 
   onDeleteOne(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this.productService.deleteMany({ids: [event.data._id]}).subscribe((data) => {
-      });
-      event.confirm.resolve();
-      // delete the product from the displayed products
-      const index = this.selectedRows.indexOf(event.data);
-      if (index > -1) {
-        this.selectedRows.splice(index, 1);
+    const deleteModal = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    });
+
+    deleteModal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.productService.deleteMany({ids: [event.data._id]}).subscribe((data) => {
+        });
+        event.confirm.resolve();
+        // delete the product from the displayed products
+        const index = this.selectedRows.indexOf(event.data);
+        if (index > -1) {
+          this.selectedRows.splice(index, 1);
+        }
+        this.changeShowDeleteManyButton();
+
+
+        deleteModal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        );
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        deleteModal.fire(
+          'Cancelled',
+          'Deletion Canceled :)',
+          'error'
+        );
       }
-      this.changeShowDeleteManyButton();
-    } else {
-      event.confirm.reject();
-    }
+    });
   }
 
   onEditSelect(event): void {
@@ -136,17 +169,49 @@ export class ProductsComponent implements OnInit {
   }
 
   onDeleteMany(): void {
-    const ids = [];
-    this.selectedRows.forEach(elt => {
-      ids.push(elt._id);
+
+    this.productService.deleteModal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        // deleting data
+        const ids = [];
+        this.selectedRows.forEach(elt => {
+          ids.push(elt._id);
+        });
+        ids.forEach(elt => {
+          this.products = this.products.filter(prod => prod._id !== elt);
+        });
+        this.productService.deleteMany({ids}).subscribe(data => {
+          this.selectedRows = [];
+          this.changeShowDeleteManyButton();
+        });
+
+        // swol popup
+        this.productService.deleteModal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        );
+      } else if (
+        /* If canceled */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        this.productService.deleteModal.fire(
+          'Cancelled',
+          'Deletion Canceled :)',
+          'error'
+        );
+      }
     });
-    ids.forEach(elt => {
-      this.products = this.products.filter(prod => prod._id !== elt);
-    });
-    this.productService.deleteMany({ids}).subscribe(data => {
-      this.selectedRows = [];
-      this.changeShowDeleteManyButton();
-    });
+
   }
 
   changeShowDeleteManyButton(): void {

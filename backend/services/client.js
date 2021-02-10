@@ -12,9 +12,10 @@ exports.getClients = async (req, res, next) => {
   // add the store_id to the query
   req.query.store = req.user.storeID;
 
-  const clients = await Client.find(req.query).cache({
-    key: req.query.store
-  })
+  const clients = await Client.find(req.query)
+  //   .cache({
+  //   key: req.query.store
+  // })
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Product} from '../../_shared/models/product.model';
 import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
@@ -23,6 +23,14 @@ export class EditProductComponent implements OnInit {
   productId = '';
   url;
   msg = '';
+
+  isChecked = true;
+  isPopular = false;
+
+  deletePhotos = false;
+  addIconDelete = false;
+  public windwosWidth = window.innerWidth;
+
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -49,6 +57,8 @@ export class EditProductComponent implements OnInit {
       imgs: new FormControl(null, Validators.required),
       quantity: new FormControl(null, Validators.required),
       store: new FormControl(null, Validators.required),
+      openReview: new FormControl(null, Validators.required),
+      popular: new FormControl(null, Validators.required)
     });
 
   }
@@ -57,6 +67,8 @@ export class EditProductComponent implements OnInit {
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
       this.singleProduct = data;
+      this.isChecked = data.openReview;
+      this.isPopular = data.popular;
       this.singleProduct.imgs.forEach((elt) => {
         this.imageObject.push({
           image: elt,
@@ -64,12 +76,6 @@ export class EditProductComponent implements OnInit {
         });
       });
     });
-  }
-
-  getAllProducts(): void {
-    // this.editProductService.getAll().subscribe(data => {
-    //   this.allProducts = data.products;
-    // });
   }
 
   // adding images to the postForm and displaying them
@@ -94,20 +100,30 @@ export class EditProductComponent implements OnInit {
     }
   }
 
+  onReviews(event): void {
+    this.isChecked = event.target.checked;
+  }
+
+  onPopular(event): void {
+    this.isPopular = event.target.checked;
+  }
+
   addProduct(): void {
 
     // tslint:disable-next-line:forin
     for (const field in this.productForm.controls) {
-      const control = this.productForm.get(field);
-      if (control.value) {
-        this.postData.append(field, control.value);
-      } else {
-        if (field !== 'imgs' && field !== 'store') {
-          this.postData.append(field, '');
+      if (field !== 'openReview' && field !== 'popular') {
+        const control = this.productForm.get(field);
+        if (control.value) {
+          this.postData.append(field, control.value);
+        } else {
+          if (field !== 'imgs' && field !== 'store') {
+            this.postData.append(field, '');
+          }
         }
       }
     }
-    this.productForm.reset();
+    // this.productForm.reset();
     this.editProductService.addOne(this.postData).subscribe((data) => {
       this.router.navigate(['dashboard/products']);
     });
@@ -116,16 +132,18 @@ export class EditProductComponent implements OnInit {
   editProduct(id): void {
     // tslint:disable-next-line:forin
     for (const field in this.productForm.controls) {
-      const control = this.productForm.get(field);
-      if (control.value) {
+      if (field !== 'openReview' && field !== 'popular') {
+        const control = this.productForm.get(field);
+        if (control.value) {
           this.postData.append(field, control.value);
-      } else {
-        if (field !== 'imgs' && field !== 'store') {
-          this.postData.append(field, '');
+        } else {
+          if (field !== 'imgs' && field !== 'store') {
+            this.postData.append(field, '');
+          }
         }
       }
     }
-    this.editProductService.edit(id, this.postData).subscribe((data) => {
+    this.editProductService.edit(id, this.postData).subscribe(() => {
       this.router.navigate(['dashboard/products']);
     });
   }
@@ -133,10 +151,70 @@ export class EditProductComponent implements OnInit {
   onSubmit(): void {
     const currentStore = JSON.parse(localStorage.getItem('currentStore'))._id;
     this.postData.append('storeId', currentStore);
+    this.postData.append('openReview', this.isChecked.toString());
+    this.postData.append('popular', this.isPopular.toString());
+
     if (this.edit) {
       this.editProduct(this.productId);
     } else {
       this.addProduct();
     }
+
+    this.postData = new FormData();
+  }
+
+  deletePhotoOpen(): void {
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    if (!this.addIconDelete) {
+      imagesArray.forEach((item, i) => {
+        console.log(item);
+        const template = document.createElement('div');
+        const htmlString = `<i id='delete-${i}' class="fas fa-minus-circle fa-3x mt-2 ml-2"
+                            style="color: #ffffff; position: relative;"></i>`;
+        template.innerHTML = htmlString.trim();
+        item.parentNode.appendChild(template);
+        console.log(item);
+      });
+    }
+    this.addIconDelete = true;
+    console.log(images);
+    this.deletePhotos = true;
+  }
+
+  deletePhotoClose(): void {
+    this.addIconDelete = false;
+    this.deletePhotos = false;
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    for (let i = 0 ; i < imagesArray.length ; i++) {
+      document.getElementById('delete-' + i).remove();
+    }
+
+  }
+
+  deletePhoto(e): void {
+    const images = document.getElementsByClassName('image');
+    const imagesArray = Array.from(images);
+    if (imagesArray.length === 1 ) {
+      console.log('hhhhhhhhhhhhhhhhhh');
+    } else {
+      this.imageObject.splice(e, 1);
+
+    }
+    console.log(this.imageObject);
+    console.log(e);
+    console.log(this.imageObject);
+    this.deletePhotoClose();
+  }
+
+
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
+  }
+
+  clickAddPhotos() {
+    document.getElementById('hiddenImageInput').click();
   }
 }
