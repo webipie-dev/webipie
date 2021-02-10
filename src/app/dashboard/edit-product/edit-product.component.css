@@ -86,3 +86,8 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.disabled-element {
+  color: #7a7a7a !important;
+  cursor: not-allowed;
+}

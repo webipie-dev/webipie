@@ -94,10 +94,6 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-  onImageDelete(event): void {
-    console.log(event.target.src);
-  }
-
   onReviews(event): void {
     this.isChecked = event.target.checked;
   }
@@ -121,7 +117,7 @@ export class EditProductComponent implements OnInit {
         }
       }
     }
-    this.productForm.reset();
+    // this.productForm.reset();
     this.editProductService.addOne(this.postData).subscribe((data) => {
       this.router.navigate(['dashboard/products']);
     });

@@ -5,6 +5,7 @@ import {ProductService} from '../../../../_shared/services/product.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {Router} from '@angular/router';
 import {EventEmitter} from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order-detail',
@@ -66,11 +67,35 @@ export class OrderDetailComponent implements OnInit {
 
 
   onDeleteOrder(orderId: string): void{
-    this.orderService.deleteMany({ids: [orderId]}).subscribe(data => {
-    });
-    this.modalService.dismissAll();
-    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['dashboard/sales/orders']);
+
+    this.orderService.deleteModal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.orderService.deleteMany({ids: [orderId]}).subscribe(data => {
+        });
+        this.modalService.dismissAll();
+        this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['dashboard/sales/orders']);
+        });
+
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        this.orderService.deleteModal.fire(
+          'Cancelled',
+          'Deletion Canceled :)',
+          'error'
+        );
+      }
     });
   }
 
