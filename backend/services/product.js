@@ -146,7 +146,7 @@ exports.editOneProduct = async (req, res, next) => {
 
 
 exports.addReview = async (req,res,next) => {
-  const id = req.id;
+  const {id} = req.params;
 
   const { name, email, review, rating, date } = req.body;
 
@@ -171,7 +171,7 @@ exports.addReview = async (req,res,next) => {
   }
 
   res.status(200).send(review);
-}
+};
 
 exports.deleteImage = async (req, res, next) => {
   const { id } = req.params;
@@ -232,18 +232,6 @@ exports.deleteAllProducts = async (req, res, next) => {
   res.status(200).send(deletedProducts);
 };
 
-exports.addReview = async (req,res,next) => {
-  const {id} = req.params;
-
-  const { name, email, review, rating, date } = req.body;
-
-  const reviewBody = new Object({
-    name,
-    email,
-    review,
-    rating,
-    date
-  })
 
 
 filterProducts = (req => {

@@ -33,7 +33,7 @@ exports.getOneStore = async (req, res) => {
 
 exports.getStoreByNameAndLocation = async (req,res) => {
   const { name,location } = req.params;
-  const store = await Store.find({name, "contact.location": location})
+  const store = await Store.findOne({name, "contact.location": location})
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });

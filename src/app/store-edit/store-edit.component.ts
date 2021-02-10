@@ -11,7 +11,7 @@ import {Store} from '../_shared/models/store.model';
 })
 
 export class StoreEditComponent implements OnInit {
-  urlToPreview = 'http://localhost:4200/second-template/home';
+  urlToPreview = 'http://localhost:4200/second-template/default-store/ariana';
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
@@ -23,7 +23,11 @@ export class StoreEditComponent implements OnInit {
               private storeService: StoreService) { }
 
   ngOnInit(): void {
-    this.store = JSON.parse(this.storeService.getStore(this.storeId));
+    this.storeService.getById(this.storeId).subscribe( store => {
+      this.store = store;
+    });
+    // this.store = JSON.parse(this.storeService.getById(this.storeId));
+
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
     if (document.getElementById('sidebar').classList.contains('active')) {
      this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';

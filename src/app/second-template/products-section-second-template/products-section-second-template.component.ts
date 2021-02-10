@@ -29,9 +29,10 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
     this.location = this.activatedRoute.snapshot.paramMap.get('location');
     this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
 
+    console.log(this.store);
     this.popularProducts = [];
 
-    this.productService.getAll({store: this.store._id, popular: true}, 'client').subscribe(data => {
+    this.productService.getAll({store: this.store.id, popular: true}, 'client').subscribe(data => {
       this.popularProducts.push.apply(this.popularProducts, data) ;
       console.log(data);
     });

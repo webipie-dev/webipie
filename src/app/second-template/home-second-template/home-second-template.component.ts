@@ -8,9 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './home-second-template.component.html',
   styleUrls: ['./home-second-template.component.css']
 })
-export class HomeSecondTemplateComponent implements OnInit {  
-  constructor(private storeService: StoreService) { }
-  
+export class HomeSecondTemplateComponent implements OnInit {
+
   store: Store;
   name: string;
   location: string;
