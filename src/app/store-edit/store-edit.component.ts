@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {NavigationExtras, Router} from '@angular/router';
 import {StoreService} from '../_shared/services/store.service';
@@ -18,11 +18,32 @@ export class StoreEditComponent implements OnInit {
   storeId = '600053ca1181b69010315090';
   store: Store;
 
+
+
+  public opened = true;
+  public minimized = false;
+  public mobileOpen = false;
+  public mode = 'push';
+  public windwosWidth = window.innerWidth;
+
+
   constructor(public sanitizer: DomSanitizer,
               private router: Router,
               private storeService: StoreService) { }
 
   ngOnInit(): void {
+    if (window.screen.width < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+      this.opened = false;
+      this.minimized = false;
+    } else {
+      this.mode = 'push';
+      this.mobileOpen = false;
+      this.opened = true;
+      this.minimized = false;
+    }
+
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
     });
@@ -45,9 +66,42 @@ export class StoreEditComponent implements OnInit {
     });
   }
 
+  public _toggleSidebar(): void {
+    this.opened = !this.opened;
+    this.minimized = !this.minimized;
+  }
+
+  public _toggleBigSidebar(): void {
+    this.opened = !this.opened;
+  }
+
+  public _closeBigSidebar(): void {
+    this.opened = false;
+  }
+
+
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
+    if (this.windwosWidth < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+      if (this.opened && document.getElementById('toggleMobile')) {
+        document.getElementById('toggleMobile').click();
+      }
+
+    } else if (this.windwosWidth >= 576) {
+      this.mode = 'push';
+      this.opened = true;
+      this.minimized = false;
+      this.mobileOpen = false;
+
+    }
+  }
+
   switchAndToggleS(path): void {
     this.router.navigate([path]);
-    this.toggleS();
+    this._toggleSidebar();
   }
 
   toggleS = (): void =>  {
