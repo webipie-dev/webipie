@@ -15,8 +15,6 @@ export class StoreService extends GenericService<any>{
 
   // tslint:disable-next-line: typedef
   getStore(name: string, location: string) {
-
-
     if (!sessionStorage.getItem('store') ||
      JSON.parse(sessionStorage.getItem('store')).name !== name ||
      JSON.parse(sessionStorage.getItem('store')).contact.location !== location
@@ -25,6 +23,7 @@ export class StoreService extends GenericService<any>{
         headers: { 'Content-Type': 'application/json' },
       };
       this.http.get(this.getUrl() + this.suffix + '/' + name + '/' + location , httpOptions).subscribe(store => {
+        console.log(store);
         sessionStorage.setItem('store', JSON.stringify(store));
       });
     }

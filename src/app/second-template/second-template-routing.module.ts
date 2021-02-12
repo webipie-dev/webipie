@@ -19,10 +19,6 @@ const routes: Routes = [{
       // pathMatch: 'full',
     },
     {
-      path: 'home',
-      component: HomeSecondTemplateComponent
-    },
-    {
       path: 'products',
       component: ProductsAllSecondTemplateComponent
     },
