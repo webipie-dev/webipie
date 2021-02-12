@@ -20,7 +20,7 @@
             <img class="img-1" [src]="product.imgs[0]" alt="" >
             <img class="img-2" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" style="top: auto" alt="" >
           </div>
-          
+
           <!-- Overlay -->
           <div class="overlay">
             <div class="position-center-center">
@@ -31,8 +31,7 @@
           </div>
         </div>
         <!-- Item Name -->
-        <div class="item-name"> <a href="#.">{{product.name}}</a>
-          <p>{{product.description}}</p>
+        <div class="item-name"> <a [routerLink]="['/second-template/product-detail/' + product._id]">{{product.name}}</a>
         </div>
         <!-- Price -->
         <span class="price"><small>dt</small>{{product.price}}</span>

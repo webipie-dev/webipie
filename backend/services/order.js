@@ -12,9 +12,9 @@ exports.getOrders = async (req, res) => {
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
   const orders = await Order.find(req.query).populate('client')
-    .catch((err) => {
-      res.status(400).json({errors: err.message});
-    });
+    // .catch((err) => {
+    //   res.status(400).json({errors: err.message});
+    // });
 
   res.status(200).send(orders);
 }

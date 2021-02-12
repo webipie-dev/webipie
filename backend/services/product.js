@@ -8,9 +8,9 @@ exports.getProducts = async (req, res, next) => {
   // We need to check if the store id connected is the same store is provided in the requireAuth
   const query = filterProducts(req);
   const products = await Product.find(query)
-    .catch((err) => {
-      res.status(400).json({errors: err.message});
-    });
+    // .catch((err) => {
+    //   res.status(400).json({errors: err.message});
+    // });
   res.status(200).send(products);
 
 };

@@ -19,12 +19,14 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         let errorMessage = 'An unknown error occurred';
 
-        if (error.error.errors) {
+        if (typeof error.error.errors === 'object') {
           errorMessage = error.error.errors[0].message;
-        } else if (error.error) {
+        } else if (typeof error.error.errors === 'string') {
+          errorMessage = error.error.errors;
+        }
+        else if (error.error) {
           errorMessage = error.error;
         }
-
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
