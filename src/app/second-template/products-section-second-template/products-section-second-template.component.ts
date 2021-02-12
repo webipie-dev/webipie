@@ -25,8 +25,8 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.name = this.activatedRoute.snapshot.paramMap.get('name');
-    this.location = this.activatedRoute.snapshot.paramMap.get('location');
+    this.name = this.activatedRoute.snapshot.parent.params.name;
+    this.location = this.activatedRoute.snapshot.parent.params.location;
     this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
 
     console.log(this.store);
