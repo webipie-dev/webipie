@@ -31,6 +31,15 @@ export class EditProductComponent implements OnInit {
   addIconDelete = false;
   public windwosWidth = window.innerWidth;
 
+  config = {
+    toolbar: [
+      ['bold', 'italic', 'underline'],        // toggled buttons
+
+      [{ header: 1 }, { header: 2 }],               // custom button values
+      [{ list: 'ordered'}, { list: 'bullet' }],
+    ]
+  };
+
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
