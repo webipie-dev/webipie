@@ -49,7 +49,7 @@ exports.getOneClient = async (req, res, next) => {
 
 //addOneClient
 exports.addClient = async (req, res, next) => {
-
+  console.log(req.body)
   const { firstname, lastname, phoneNumber, email, gender, fullAddress, storeId} = req.body
 
   const store = await Store.findById(storeId)
@@ -59,6 +59,17 @@ exports.addClient = async (req, res, next) => {
     return;
   }
 
+  // convert string to array
+  const addArray = fullAddress.split(' ,');
+
+  // fill the address object from the array
+  const address = {
+    street: addArray[0],
+    city: addArray[1],
+    state: addArray[2],
+    zipCode: addArray[3]
+  }
+
 
   const client = new Client({
     firstname,
@@ -66,7 +77,7 @@ exports.addClient = async (req, res, next) => {
     phoneNumber,
     email,
     gender,
-    fullAddress,
+    fullAddress: address,
     store: storeId
   });
 

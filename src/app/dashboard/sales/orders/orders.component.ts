@@ -114,7 +114,6 @@ export class OrdersComponent implements OnInit {
   getAllOrders(): void {
     this.orderService.getAll().subscribe((data) => {
       data.forEach((element) => {
-        console.log(element);
         if (element.store) {
           const date = element.orderDate.split('T');
           let totalPrice = 0;
@@ -135,7 +134,6 @@ export class OrdersComponent implements OnInit {
           this.orders.push(aux);
         }
       });
-      console.log(this.orders);
       this.orders = this.orders.reverse();
     });
   }
@@ -159,14 +157,17 @@ export class OrdersComponent implements OnInit {
       if (result.isConfirmed) {
 
         this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
+          // delete the order from orders displayed
+          this.orders = this.orders.filter(prod => prod._id !== event.data._id);
+          event.confirm.resolve();
+
+
         });
-        event.confirm.resolve();
-        // delete the order from orders displayed
-        const index = this.selectedRows.indexOf(event.data);
-        if (index > -1) {
-          this.selectedRows.splice(index, 1);
-        }
-        this.changeShowDeleteManyButton();
+        // const index = this.selectedRows.indexOf(event.data);
+        // if (index > -1) {
+        //   this.selectedRows.splice(index, 1);
+        // }
+        // this.changeShowDeleteManyButton();
 
       } else if (
         /* Read more about handling dismissals below */

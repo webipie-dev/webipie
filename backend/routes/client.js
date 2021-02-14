@@ -1,4 +1,6 @@
 const express = require('express');
+const multer = require('multer');
+
 const router = express.Router();
 const ClientService = require('../services/client');
 const validateRequest = require('../middlewares/validate-request')
@@ -15,6 +17,28 @@ const validation = require('../middlewares/validation/validator');
 
 passportJWT.unless = require('express-unless');
 // passportJWT.use(static.unless({ method: 'OPTIONS' }));
+
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+};
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error('Invalid Mime Type');
+    if (isValid) {
+      error = null;
+    }
+    cb(error, "images");
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    const ext = MIME_TYPE_MAP[file.mimetype];
+    cb(null, name);
+  }
+});
 
 // filerClients
 /**
@@ -122,12 +146,12 @@ router.get('/:id', [validation.id], validateRequest, passportJWT.unless(function
  *           schema:
  *             $ref: '#/components/schemas/Client'    # Reference to object definition
  */
-router.post('', [
+router.post('', multer({storage: storage}).any(), [
     clientValidation.firstName,
     clientValidation.lastName,
     clientValidation.phoneNumber,
-    clientValidation.email
-  ], validateRequest, clearCache, ClientService.addClient)
+    // clientValidation.email
+  ], validateRequest, ClientService.addClient)
 
 
 // deleteManyCLients
@@ -173,11 +197,11 @@ router.delete('', validation.ids, validateRequest, passportJWT.unless(function(r
  *           schema:
  *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
  */
-router.delete('/delete', passportJWT, clearCache, ClientService.deleteAllClients)
+router.delete('/delete', passportJWT, ClientService.deleteAllClients)
 
 //updateManyClients
 router.patch('/:id', [
   validation.id
-], validateRequest, clearCache, ClientService.editClient)
+], validateRequest, ClientService.editClient)
 
 module.exports = router;

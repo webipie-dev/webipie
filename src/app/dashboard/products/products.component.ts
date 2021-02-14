@@ -136,14 +136,14 @@ export class ProductsComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.productService.deleteMany({ids: [event.data._id]}).subscribe((data) => {
+          event.confirm.resolve();
+          // delete the product from the displayed products
+          this.products = this.products.filter(prod => prod._id !== event.data._id);
         });
-        event.confirm.resolve();
-        // delete the product from the displayed products
-        const index = this.selectedRows.indexOf(event.data);
-        if (index > -1) {
-          this.selectedRows.splice(index, 1);
-        }
-        this.changeShowDeleteManyButton();
+        // const index = this.selectedRows.indexOf(event.data);
+        // if (index > -1) {
+        //   this.selectedRows.splice(index, 1);
+        // }
 
 
         deleteModal.fire(
@@ -186,14 +186,14 @@ export class ProductsComponent implements OnInit {
         this.selectedRows.forEach(elt => {
           ids.push(elt._id);
         });
-        ids.forEach(elt => {
-          this.products = this.products.filter(prod => prod._id !== elt);
-        });
         this.productService.deleteMany({ids}).subscribe(data => {
           this.selectedRows = [];
           this.changeShowDeleteManyButton();
         });
 
+        ids.forEach(elt => {
+          this.products = this.products.filter(prod => prod._id !== elt);
+        });
         // swol popup
         this.productService.deleteModal.fire(
           'Deleted!',

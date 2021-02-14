@@ -5,6 +5,8 @@ import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Route, Router} from '@angular/router';
+import uniqueSlug from 'unique-slug';
+
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 
 @Component({
@@ -105,7 +107,7 @@ export class EditProductComponent implements OnInit {
 
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < file.length; i++) {
-      this.postData.append('imgs', file[i], file[i].name);
+      this.postData.append('imgs', file[i], uniqueSlug() + file[i].name);
     }
   }
 
