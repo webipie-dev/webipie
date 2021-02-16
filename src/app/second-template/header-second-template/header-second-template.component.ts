@@ -22,6 +22,7 @@ export class HeaderSecondTemplateComponent implements OnInit {
     this.name = this.activatedRoute.snapshot.parent.params.name;
     this.location = this.activatedRoute.snapshot.parent.params.location;
     this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
+    console.log(this.store);
     this.changeTheme();
   }
 
@@ -38,6 +39,7 @@ export class HeaderSecondTemplateComponent implements OnInit {
   }
 
   changeTheme(): void{
+    console.log('aaa', this.store);
     (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.hexToRGB(this.store.template.colorChart['bg-color'], 0.75));
     (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
     (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);

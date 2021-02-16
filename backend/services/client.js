@@ -1,7 +1,5 @@
-const {validationResult} = require("express-validator");
 const Client = require('../models/client')
 const Store = require('../models/store')
-const RequestValidationError = require("../errors/request-validation-error");
 const ApiError = require("../errors/api-error");
 
 // FilterClients
@@ -17,7 +15,7 @@ exports.getClients = async (req, res, next) => {
   //   key: req.query.store
   // })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(clients);
@@ -35,7 +33,7 @@ exports.getOneClient = async (req, res, next) => {
 
   const client = await Client.findById(id)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (!client) {
@@ -50,7 +48,7 @@ exports.getOneClient = async (req, res, next) => {
 //addOneClient
 exports.addClient = async (req, res, next) => {
   console.log(req.body)
-  const { firstname, lastname, phoneNumber, email, gender, fullAddress, storeId} = req.body
+  const { firstname, lastname, phoneNumber, email, fullAddress, storeId} = req.body
 
   const store = await Store.findById(storeId)
 
@@ -76,14 +74,13 @@ exports.addClient = async (req, res, next) => {
     lastname,
     phoneNumber,
     email,
-    gender,
     fullAddress: address,
     store: storeId
   });
 
   const savedClient = await client.save()
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(201).send(savedClient);
@@ -98,7 +95,7 @@ exports.deleteManyClients = async (req, res, next) => {
 
   const deletedClients = await Client.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (deletedClients) {
@@ -120,7 +117,7 @@ exports.deleteAllClients = async (req, res, next) => {
 
   const deletedClients = await Client.deleteMany({})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(deletedClients);
@@ -135,6 +132,7 @@ exports.editClient = async (req, res, next) => {
   const edits = {};
   for(const key in req.body) {
     if(req.body.hasOwnProperty(key)) {
+      // WE NEED TO FIX THE FULLADDRESS EDIT
       if(key !== 'id'){
         edits[key] = req.body[key];
       }
@@ -143,7 +141,7 @@ exports.editClient = async (req, res, next) => {
 
   const clients = await Client.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (clients) {

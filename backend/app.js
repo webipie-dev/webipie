@@ -33,7 +33,7 @@ const swaggerOptions = {
       servers: ["http://localhost:3000"]
     }
   },
-  apis: ["app.js","./routes/*.js"]
+  apis: ["./swagger-doc/*.js"]
 };
 
 app.use(morgan('common'));

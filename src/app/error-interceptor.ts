@@ -17,15 +17,13 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
+        console.log(error.error);
         let errorMessage = 'An unknown error occurred';
 
         if (typeof error.error.errors === 'object') {
           errorMessage = error.error.errors[0].message;
         } else if (typeof error.error.errors === 'string') {
           errorMessage = error.error.errors;
-        }
-        else if (error.error) {
-          errorMessage = error.error;
         }
         Swal.fire({
           icon: 'error',

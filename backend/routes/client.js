@@ -41,83 +41,10 @@ const storage = multer.diskStorage({
 });
 
 // filerClients
-/**
- * @swagger
- * /client:
- *  get:
- *    description: Use to request all clients
- *    tags:
- *      - clients
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
- * components:
- *  schemas:
- *      Client:      # Object definition
- *          type: object
- *          properties:
- *              id:
- *                  type: string
- *              firstname:
- *                  type: string
- *              lastname:
- *                  type: string
- *              email:
- *                  type: string
- *              gender:
- *                  type: string
- *              fullAddress:
- *                  type: string
- *
- *      ArrayOfClients:
- *          type: array
- *          items:
- *              type: object
- *              properties:
- *                  id:
- *                      type: string
- *                  firstname:
- *                      type: string
- *                  lastname:
- *                      type: string
- *                  email:
- *                      type: string
- *                  gender:
- *                      type: string
- *                  fullAddress:
- *                      type: string
- *
- */
 router.get('', passportJWT, ClientService.getClients)
 
 
 // getClientbyId
-/**
- * @swagger
- * /client/{id}:
- *  get:
- *    description: Use to request one client by id
- *    tags:
- *      - clients
- *    parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: unique ID of the client to get
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/Client'    # Reference to object definition
- */
-
-
 router.get('/:id', [validation.id], validateRequest, passportJWT.unless(function(req){
     if(req.headers['role'] === 'client'){
         return true;
@@ -126,56 +53,15 @@ router.get('/:id', [validation.id], validateRequest, passportJWT.unless(function
 
 
 // addClient
-/**
- * @swagger
- * /client:
- *  post:
- *    description: Use to add one client
- *    tags:
- *      - clients
- *    requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Client'
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/Client'    # Reference to object definition
- */
 router.post('', multer({storage: storage}).any(), [
     clientValidation.firstName,
     clientValidation.lastName,
     clientValidation.phoneNumber,
-    // clientValidation.email
+    validation.storeId,
   ], validateRequest, ClientService.addClient)
 
 
-// deleteManyCLients
-/**
- * @swagger
- * /client:
- *  delete:
- *    description: Use to delete one client or many
- *    tags:
- *      - clients
- *    requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             ids:
- *                  type: array
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *              schema:
- *                  $ref: '#/components/schemas/Client'
- */
+// deleteManyClients
 router.delete('', validation.ids, validateRequest, passportJWT.unless(function(req){
     if(req.headers['role'] === 'client'){
         return true;
@@ -183,20 +69,6 @@ router.delete('', validation.ids, validateRequest, passportJWT.unless(function(r
 }), clearCache, ClientService.deleteManyClients)
 
 //deleteAllClients
-/**
- * @swagger
- * /client/delete:
- *  delete:
- *    description: Use to delete all clients
- *    tags:
- *      - clients
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/ArrayOfClients'    # Reference to object definition
- */
 router.delete('/delete', passportJWT, ClientService.deleteAllClients)
 
 //updateManyClients

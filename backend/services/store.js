@@ -11,7 +11,7 @@ exports.getStores = async (req, res) => {
 
   const stores = await Store.find(req.query)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(stores);
@@ -25,7 +25,7 @@ exports.getOneStore = async (req, res) => {
   const { id } = req.params;
   const store = await Store.findById(id)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(store);
@@ -35,7 +35,7 @@ exports.getStoreByNameAndLocation = async (req,res) => {
   const { name,location } = req.params;
   const store = await Store.findOne({name, "contact.location": location})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(store);
@@ -85,7 +85,7 @@ exports.addStore = async (req, res, next) => {
 
   await store.save()
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(201).send(store);
@@ -97,7 +97,7 @@ exports.deleteManyStores = async (req, res, next) => {
 
   const deletedStores = await Store.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (deletedStores) {
@@ -113,17 +113,17 @@ exports.deleteManyStores = async (req, res, next) => {
 
   Product.deleteMany({store: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   Order.deleteMany({store: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   Client.deleteMany({store: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
 
@@ -134,7 +134,7 @@ exports.deleteManyStores = async (req, res, next) => {
 exports.deleteAllStores = async (req, res, next) => {
   const deletedStores = await Store.deleteMany({})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(deletedStores);
@@ -169,7 +169,7 @@ exports.editStore = async (req, res, next) => {
 
   const store = await Store.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (store){
@@ -193,12 +193,11 @@ exports.changeTemplate = async (req, res, next) => {
     next(ApiError.NotFound('Template not Found'));
     return;
   }
-  console.log('i got here')
   const store = await Store.updateOne({_id: id}, { $set: {
     template: template
     } })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (store){

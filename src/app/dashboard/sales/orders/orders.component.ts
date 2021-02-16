@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {HttpClient} from '@angular/common/http';
 import {OrderService} from '../../../_shared/services/order.service';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-orders',

@@ -127,26 +127,6 @@ router.get('/:id', [
 
 router.get('/:name/:location', StoreService.getStoreByNameAndLocation);
 // addStore
-/**
- * @swagger
- * /store:
- *  post:
- *    description: Use to add one store once the use is logged in
- *    tags:
- *      - store
- *    requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Store'
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *           schema:
- *             $ref: '#/components/schemas/Store'    # Reference to object definition
- */
 router.post('', [
   storeValidation.name,
   storeValidation.description,
@@ -155,44 +135,9 @@ router.post('', [
 ], validateRequest, passportJWT, multer({storage: storage}).single('logoImg'), StoreService.addStore)
 
 // deleteStore
-/**
- * @swagger
- * /store/delete/single:
- *  delete:
- *    description: Use to delete user's store
- *    tags:
- *      - store
- *    requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             ids:
- *                  type: string
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *              schema:
- *                  $ref: '#/components/schemas/Store'
- */
 // router.delete('/delete/single', StoreService.deleteOneStore);
 
 // deleteAllStores
-/**
- * @swagger
- * /store/delete:
- *  delete:
- *    description: Use to delete one all stores by admin
- *    tags:
- *      - store
- *    responses:
- *      '200':
- *        content:  # Response body
- *          application/json:  # Media type
- *              schema:
- *                  $ref: '#/components/schemas/Store'
- */
 router.delete('/delete', StoreService.deleteAllStores)
 
 router.patch('/:id', [
