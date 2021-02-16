@@ -50,7 +50,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "quill": "^1.3.7",
+    "quill": "^1.3.7",navbar-nav
     "rxjs": "~6.5.5",
     "sweetalert2": "^10.14.0",
     "tslib": "^2.0.0",

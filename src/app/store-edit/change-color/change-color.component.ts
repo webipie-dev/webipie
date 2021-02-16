@@ -22,6 +22,7 @@ export class ChangeColorComponent implements OnInit {
 
   ngOnInit(): void {
     this.defaultColors = this.store.template.colorChartOptions;
+    console.log(this.defaultColors);
   }
 
   public toggleColors(): void {
