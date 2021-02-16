@@ -6,13 +6,14 @@ const ApiError = require("../errors/api-error");
 exports.getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
+  console.log('I got here !')
   const query = filterProducts(req);
+  console.log(query)
   const products = await Product.find(query)
     .catch((err) => {
       res.status(400).json({errors: err.message});
     });
   res.status(200).send(products);
-
 };
 
 

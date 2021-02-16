@@ -1,6 +1,9 @@
 import {GenericModel} from './generic.model';
 
 export class Store extends GenericModel{
+  // tslint:disable-next-line:variable-name
+  public _id: string;
+  public url: string;
   public name: string;
   public logo: string;
   public description: string;

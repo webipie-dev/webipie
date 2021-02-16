@@ -1,5 +1,4 @@
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-// import {Utils} from './utils';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {GenericModel} from '../models/generic.model';
 import {Utils} from '../utils';
@@ -40,7 +39,7 @@ export class GenericService<T extends GenericModel> {
       role = '';
     }
     const httpOptions = {
-      headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token'), role},
+      headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token') || '', role},
       params: query
     };
     return this.http.get(this.getUrl() + this.suffix, httpOptions) as Observable<T>;

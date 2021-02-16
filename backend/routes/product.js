@@ -82,11 +82,7 @@ const storage = multer.diskStorage({
  *                  format: uuid
  *
  */
-router.get('', passportJWT.unless(function(req){
-  if(req.headers['role'] === 'client'){
-      return true;
-  }
-}), productService.getProducts)
+router.get('', productService.getProducts)
 
 //getManyProducts
 /**
@@ -168,7 +164,6 @@ router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
   productValidator.description,
   productValidator.name,
 ], validateRequest, clearCache, productService.addProduct);
-
 
 router.patch('/:id/review', productService.addReview);
 
