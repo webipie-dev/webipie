@@ -29,7 +29,7 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
     this.location = this.activatedRoute.snapshot.parent.params.location;
     this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
     this.products = [];
-    this.productService.getAll(this.store.id, 'client').subscribe(data => {
+    this.productService.getAll({storeId: this.store.id}, 'client').subscribe(data => {
       this.products.push.apply(this.products, data) ;
     });
     this.changeTheme();

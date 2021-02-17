@@ -28,13 +28,22 @@ export class AuthService {
   }
 
   loginWithGoogle(credentials){
-    return this.http.post(this.getUrl() + '/storeOwner/oauth/google', {access_token: credentials});
+    // text/plain
+    let httpOptions: any;
+    httpOptions = {
+      headers: {
+        'Content-Type': 'text/plain'
+      },
+      access_token: credentials
+    };
+    return this.http.post(this.getUrl() + '/storeOwner/oauth/google', httpOptions);
   }
 
   logOut(): void{
     localStorage.removeItem('token');
+    localStorage.removeItem('storeID');
   }
-  
+
   changePwd(oldPassword, newPassword){
     let httpOptions: any;
     if ( localStorage.getItem('token') ){

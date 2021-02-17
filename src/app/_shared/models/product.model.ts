@@ -1,6 +1,7 @@
 import { Review } from './review.model';
+import { GenericModel } from './generic.model';
 
-export class Product {
+export class Product extends GenericModel{
   public name: string;
   public description: string;
   public price: string;
@@ -12,5 +13,6 @@ export class Product {
   public reviews: Review[];
 
   constructor() {
+    super();
   }
 }
