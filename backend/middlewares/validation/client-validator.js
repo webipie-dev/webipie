@@ -26,7 +26,7 @@ let validation = {
     lastName: util.promisify(
         check('lastname')
             .not().isEmpty().withMessage('Provide your real name')
-            .isAlpha().withMessage('Name must not contain numbers')
+            .not().isAlpha().withMessage('Name must not contain numbers')
             .isLength({ min: 2, max: 50 }).withMessage('Last name is too short or too long')
     ),
 
@@ -38,7 +38,6 @@ let validation = {
     phoneNumber: util.promisify(
         check('phoneNumber')
             .not().isEmpty().withMessage('phoneNumber can\'t be empty.')
-            .isNumeric()
             .isLength({ min: 8, max: 8})
             .withMessage('PhoneNumber must be a 8 length number')
     ),

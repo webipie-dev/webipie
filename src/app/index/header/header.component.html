@@ -48,7 +48,7 @@
                               </li>
                               <li  *ngIf="token">
                                 <div class="text-center mt-1 mr-5">
-                                  <a routerLink='/signup' class="button-generic button-border-white small-titles py-2 ">Logout</a>
+                                  <a (click)='logOut()' class="button-generic button-border-white small-titles py-2 ">Logout</a>
                                 </div>
                               </li>
                             </ul>

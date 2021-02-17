@@ -39,9 +39,10 @@ export class ProductDetailComponent implements OnInit {
     this.productService.addReview(this.product.id, this.review);
   }
 
-  public loadScript() {
+  public loadScript(): void {
     let isFound = false;
     const scripts = document.getElementsByTagName('script');
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < scripts.length; ++i) {
       if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes('loader')) {
         isFound = true;
@@ -61,6 +62,7 @@ export class ProductDetailComponent implements OnInit {
         'assets/second-template/js/main.js',
       ];
 
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < dynamicScripts.length; i++) {
         const node = document.createElement('script');
         node.src = dynamicScripts [i];

@@ -16,7 +16,7 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
   constructor(private productService: ProductService,
               private storeService: StoreService,
               private el: ElementRef) { }
-  store: Store;
+  store;
   popularProducts: Product[];
 
 
