@@ -120,23 +120,29 @@
             <option value="out of stock">Out of stock</option>
           </select>
         </div>
-        <div>ALLOW REVIEWS:</div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type="checkbox" formControlName="openReview" (click)="onReviews($event)" [(ngModel)]="isChecked">
+          <div class="col-12 mt-3">
+            <div class="tg-list">
+              <div class="tg-list-item">
+                <h4>Allow Reviews</h4>
+                <input class="tgl tgl-ios"
+                       formControlName="openReview" (click)="onReviews($event)" [(ngModel)]="isChecked"
+                       id="allowReviews" type="checkbox"/>
+                <label class="tgl-btn" for="allowReviews"></label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div>DISPLAY ON POPULAR PRODUCTS:</div>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type="checkbox" formControlName="popular" (click)="onPopular($event)" [(ngModel)]="isPopular">
+          <div class="col-12">
+            <div class="tg-list">
+              <div class="tg-list-item">
+                <h4>Display on popular products</h4>
+                <input class="tgl tgl-ios"
+                       formControlName="popular" (click)="onPopular($event)" [(ngModel)]="isPopular"
+                       id="popularProd" type="checkbox"/>
+                <label class="tgl-btn" for="popularProd"></label>
+              </div>
             </div>
           </div>
-        </div>
       </div>
 
 
