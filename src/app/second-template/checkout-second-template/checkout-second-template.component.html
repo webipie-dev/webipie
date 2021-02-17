@@ -1,5 +1,3 @@
-<app-sub-header-second-template [fromWhere]="'checkout'"></app-sub-header-second-template>
-
 <!-- Content -->
 <div id="content">
   <!--======= PAGES INNER =========-->
@@ -16,54 +14,54 @@
             <!-- ESTIMATE SHIPPING & TAX -->
             <div class="col-sm-7">
               <h6>BILLING DETAILS</h6>
-              <form>
+              <form [formGroup]="clientForm"  (submit)="onSubmit()">
                 <ul class="row">
 
                   <!-- NAME -->
                   <li class="col-md-6">
                     <label> *FIRST NAME
-                      <input type="text" name="first-name" value="" placeholder="">
+                      <input type="text" formControlName="firstname"  placeholder="foulen">
                     </label>
                   </li>
                   <!-- LAST NAME -->
                   <li class="col-md-6">
                     <label> *LAST NAME
-                      <input type="text" name="last-name" value="" placeholder="">
+                      <input type="text" formControlName="lastname" value="" placeholder="ben foulen">
                     </label>
                   </li>
                   <!-- PHONE -->
                   <li class="col-md-12">
                     <label> *PHONE
-                      <input type="text" name="postal-code" value="" placeholder="">
+                      <input type="number" formControlName="phoneNumber" value="" placeholder="21234567">
                     </label>
                   </li>
                   <!-- STATE -->
                   <li class="col-md-6">
-                    <label> *STATE
-                      <input type="text" name="first-name" value="" placeholder="">
+                    <label>*STREET
+                      <input type="text" formControlName="street" value="" placeholder="15 rue de liberté">
                     </label>
                   </li>
                   <!-- CITY -->
                   <li class="col-md-6">
                     <label> *CITY
-                      <input type="text" name="last-name" value="" placeholder="">
+                      <input type="text" formControlName="city" value="" placeholder="BJ">
                     </label>
                   </li>
                   <!-- STREET -->
                   <li class="col-md-6">
-                    <label>*STREET
-                      <input type="text" name="town" value="" placeholder="">
+                    <label>*STATE
+                      <input type="text" formControlName="state" value="" placeholder="Ariana">
                     </label>
                   </li>
                   <!-- ZIPCODE -->
                   <li class="col-md-6">
                     <label> ZIPCODE
-                      <input type="text" name="contry-state" value="" placeholder="">
+                      <input type="number" formControlName="zipcode" value="" placeholder="2073">
                     </label>
                   </li>
                   <!-- SUBMIT-->
                   <li class="col-md-12 mx-auto text-center">
-                    <button type="submit" class="btn">SUBMIT</button>
+                    <button type="submit" class="btn" >ORDER</button>
                   </li>
                 </ul>
               </form>

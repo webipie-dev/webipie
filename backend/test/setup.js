@@ -9,7 +9,8 @@ let mongo = new MongoMemoryServer();
 
 beforeAll(async () => {
 
-  const mongoUri = await mongo.getUri();
+  // const mongoUri = await mongo.getUri();
+  const mongoUri = 'mongodb+srv://webipie:webipie@webipie.ziihb.mongodb.net/webipie?retryWrites=true&w=majority'
 
   await mongoose.connect(mongoUri, {
     useNewUrlParser: true,
@@ -19,18 +20,19 @@ beforeAll(async () => {
   });
 });
 
-// beforeEach(async () => {
-//   console.log(mongoose.connection.readyState)
-//   const collections = await mongoose.connection.collections;
+beforeEach(async () => {
+  // console.log(mongoose.connection.readyState)
+  const collections = await mongoose.connection.collections;
+
+  for (const key in collections) {
+    // console.log(key, collections[key])
+    // const collection = collections[key];
+    // await collection.deleteMany();
+  }
+});
 //
-//   for (const key in collections) {
-//     const collection = collections[key];
-//     await collection.deleteMany();
-//   }
-// });
-//
-// afterAll(async () => {
-//   await mongoose.connection.dropDatabase();
-//   await mongoose.connection.close();
-//   await mongo.stop();
-// });
+afterAll(async () => {
+  // await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
+  // await mongo.stop();
+});

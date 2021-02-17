@@ -16,25 +16,12 @@ exports.getProducts = async (req, res, next) => {
   const query = filterProducts(req);
   const products = await Product.find(query)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
   res.status(200).send(products.forEach( obj => renameKey( obj, '_id', 'id' )));
 
 };
 
-
-// exports.getManyProductById = async (req, res) =>{
-//   //get products ids
-//   const { ids } = req.query;
-//
-//   const products = await Product.find({_id: {$in: ids}})
-//     .catch((err) => {
-//       res.status(400).json({errors: err.message});
-//     });
-//
-//   res.status(200).send(products);
-//
-// }
 
 exports.getOneProduct = async (req, res, next) => {
   //get product id
@@ -42,7 +29,7 @@ exports.getOneProduct = async (req, res, next) => {
 
   const product = await Product.findById(id)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
   res.status(200).send(product);
 
@@ -73,7 +60,6 @@ exports.addProduct = async (req, res, next) => {
   // convert the values from strings to booleans
   openReview = openReview === 'true';
   popular = popular === 'true';
-
 
   const product = new Product({
     name,
@@ -138,7 +124,7 @@ exports.editOneProduct = async (req, res, next) => {
 
   const productEdited = await Product.bulkWrite(bulkQueries, {ordered: false})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (productEdited){
@@ -167,7 +153,7 @@ exports.addReview = async (req,res,next) => {
 
   const productUpdate = await Product.update({_id: id}, { $push: { reviews: reviewBody } })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (productUpdate){
@@ -192,7 +178,7 @@ exports.deleteImage = async (req, res, next) => {
 
   const productUpdate = await Product.update({_id: id}, {$pull: {imgs: url } })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (productUpdate){
@@ -213,7 +199,7 @@ exports.deleteManyProducts = async (req, res, next) => {
 
   const deletedProducts = await Product.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (deletedProducts) {
@@ -233,11 +219,12 @@ exports.deleteAllProducts = async (req, res, next) => {
 
   const deletedProducts = await Product.deleteMany({})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(deletedProducts);
 };
+
 
 
 

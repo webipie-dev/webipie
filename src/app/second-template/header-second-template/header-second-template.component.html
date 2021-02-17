@@ -16,13 +16,13 @@
               <a [routerLink]="['/second-template', store.name , store.contact.location ]" >Home</a>
             </li>
             <li routerLinkActive="active">
-              <a [routerLink]="['/second-template', store.name, store.contact.location, 'products' ]">Products</a>
+              <a routerLink="products" routerLinkActive="active">Products</a>
             </li>
             <li  routerLinkActive="active">
-              <a [routerLink]="['/second-template', store.name, store.contact.location, 'cart' ]">Cart</a>
+              <a routerLink="cart">Cart</a>
             </li>
             <li  routerLinkActive="active">
-              <a [routerLink]="['/second-template', store.name, store.contact.location, 'checkout' ]">Checkout</a>
+              <a routerLink="checkout">Checkout</a>
             </li>
           </ul>
         </div>

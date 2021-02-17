@@ -43,9 +43,8 @@
                 </div>
               </div>
               <!-- Item Name -->
-              <div class="item-name"> 
-                <a [routerLink]="['/second-template', store.name , store.contact.location, 'product-detail', product.id ]">{{product.name}}</a>
-                <p>{{product.description}}</p>
+              <div class="item-name"> <a [routerLink]="['../product-detail/' + product._id]">{{product.name}}</a>
+
               </div>
               <!-- Price -->
               <span class="price"><small>dt</small>{{product.price}}</span> </div>

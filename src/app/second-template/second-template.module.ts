@@ -16,7 +16,7 @@ import { CheckoutSecondTemplateComponent } from './checkout-second-template/chec
 import { SubHeaderSecondTemplateComponent } from './sub-header-second-template/sub-header-second-template.component';
 import {SpinnerModule} from '../spinner/spinner.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // https://docs.google.com/document/d/18aZNjQb-RWodUCqOi0Yzu2EhecNpA94TJXMs8vrbUMc/edit?usp=sharing
 
@@ -36,12 +36,13 @@ import { FormsModule } from '@angular/forms';
     ProductDetailComponent,
     SubHeaderSecondTemplateComponent,
   ],
-  imports: [
-    CommonModule,
-    SecondTemplateRoutingModule,
-    DragDropModule,
-    SpinnerModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        SecondTemplateRoutingModule,
+        DragDropModule,
+        SpinnerModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class SecondTemplateModule { }

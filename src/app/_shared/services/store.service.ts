@@ -25,9 +25,11 @@ export class StoreService extends GenericService<any>{
       this.http.get(this.getUrl() + this.suffix + '/' + name + '/' + location , httpOptions).subscribe(store => {
         console.log(store);
         sessionStorage.setItem('store', JSON.stringify(store));
+        return sessionStorage.getItem('store');
+
       });
     }
-
     return sessionStorage.getItem('store');
+
   }
 }

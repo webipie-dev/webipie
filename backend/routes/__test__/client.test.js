@@ -3,9 +3,11 @@ const app = require('../../app')
 const request = require('supertest')
 // const request = supertest(app)
 
-it('reeturn a 200', async () => {
-  return request(app)
-    .get('')
+it('return a 200', async () => {
+
+  const response = await request(app)
+    .get('/product')
     .send({})
-    .expect(200)
+    .expect(200);
+
 })

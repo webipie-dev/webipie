@@ -19,8 +19,8 @@ export class ClientsComponent implements OnInit {
         title: 'Name',
         width: '15%'
       },
-      email: {
-        title: 'Email',
+      fullAddress: {
+        title: 'Address',
         width: '20%'
       },
       phoneNumber: {
@@ -51,7 +51,7 @@ export class ClientsComponent implements OnInit {
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
   };
-  clients: Client[] = [];
+  clients = [];
 
 
   constructor(private http: HttpClient,
@@ -64,7 +64,19 @@ export class ClientsComponent implements OnInit {
 
   getAllClients(): void {
     this.clientService.getAll({store: localStorage.getItem('storeID')}).subscribe((data) => {
-      this.clients = data;
+      let aux;
+      data.forEach((element) => {
+        let fullAddress = '';
+        for (const key in element.fullAddress) {
+          if (key !== '_id'){
+            fullAddress += ' ' + element.fullAddress[key];
+          }
+
+        }
+        aux = element;
+        aux.fullAddress = fullAddress.trim();
+        this.clients.push(aux);
+      });
     });
   }
 }

@@ -6,9 +6,7 @@ const DatabaseConnectionError = require("../errors/request-validation-error");
 const errorHandler = (err, req, res, next) => {
   console.log('something went wrong:', err.message);
   if (err instanceof ApiError) {
-    res.status(err.code).send({errors: [{
-     message: err.message
-    }]})
+    res.status(err.code).send({errors: [{ message: err.message }]})
     return ;
   }
 
