@@ -11,6 +11,9 @@ exports.getOrders = async (req, res) => {
   // I THINK ORDERS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
+  // add the store_id to the query
+  req.query.store = req.params.storeID;
+
   const orders = await Order.find(req.query).populate('client')
     // .catch((err) => {
     //   res.status(400).json({errors: [{ message: err.message }]});

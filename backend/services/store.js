@@ -4,6 +4,7 @@ const Order = require('../models/order')
 const Product = require('../models/store')
 const Template = require('../models/template')
 const ApiError = require("../errors/api-error");
+const { StoreOwner } = require('../models/storeOwner');
 
 // getAndFilter
 exports.getStores = async (req, res) => {
@@ -14,7 +15,7 @@ exports.getStores = async (req, res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(stores);
+  res.status(200).send(stores.forEach( obj => renameKey( obj, '_id', 'id' )));
 
 }
 
@@ -38,7 +39,7 @@ exports.getStoreByNameAndLocation = async (req,res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(store);
+  res.status(200).send(store.forEach( obj => renameKey( obj, '_id', 'id' )));
 }
 
 exports.addStore = async (req, res, next) => {
@@ -51,13 +52,13 @@ exports.addStore = async (req, res, next) => {
   }
 
   //get the store id from the request
-  const _id = req.user.storeID;
+  // const _id = req.user.storeID;
 
-  const userStore = Store.findById(_id)
-  if (userStore) {
-    next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
-    return;
-  }
+  // const userStore = Store.findById(_id)
+  // if (userStore) {
+  //   next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
+  //   return;
+  // }
 
   const { name, description, location, contact, storeType, templateId} = req.body
 
@@ -71,7 +72,7 @@ exports.addStore = async (req, res, next) => {
   getTemplate._id= templateId
 
   const store = new Store({
-    _id,
+    // _id,
     name,
     logo,
     description,
@@ -81,6 +82,11 @@ exports.addStore = async (req, res, next) => {
     template: getTemplate,
 
   });
+
+  // update storeowner with its id
+  if (req.user){
+    const user = await StoreOwner.updateOne({_id: req.user._id}, {storeID: store._id}, {new: true});
+  }
 
 
   await store.save()
@@ -211,3 +217,10 @@ exports.changeTemplate = async (req, res, next) => {
 };
 
 
+function renameKey ( obj, old_key, new_key ) {
+  if (old_key !== new_key) {
+    Object.defineProperty(obj, new_key,
+        Object.getOwnPropertyDescriptor(obj, old_key));
+    delete o[old_key];
+  }
+}
