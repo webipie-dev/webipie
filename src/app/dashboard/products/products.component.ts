@@ -92,6 +92,7 @@ export class ProductsComponent implements OnInit {
 
 
   getAllProducts(): void {
+    console.log(localStorage.getItem('storeID'));
     this.productService.getAll({store: localStorage.getItem('storeID')}).subscribe((data) => {
       let quant;
       let aux;

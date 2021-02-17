@@ -8,7 +8,10 @@ exports.getProducts = async (req, res, next) => {
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
   // add the store_id to the query
-  req.query.store = req.params.storeId; 
+  // req.query.store = req.params.store;
+  
+  
+  console.log(req);
   if(!req.query.store){
     return next(ApiError.BadRequest('you have to pass the storeID'));
   }
@@ -20,7 +23,7 @@ exports.getProducts = async (req, res, next) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(products.forEach( obj => renameKey( obj, '_id', 'id' )));
+  res.status(200).send(products);
 };
 
 
@@ -266,10 +269,10 @@ filterProducts = (req => {
   return query;
 });
 
-function renameKey ( obj, old_key, new_key ) {
-  if (old_key !== new_key) {
-    Object.defineProperty(obj, new_key,
-        Object.getOwnPropertyDescriptor(obj, old_key));
-    delete o[old_key];
-  }
-}
+// function renameKey ( obj, old_key, new_key ) {
+//   if (old_key !== new_key) {
+//     Object.defineProperty(obj, new_key,
+//         Object.getOwnPropertyDescriptor(obj, old_key));
+//     delete o[old_key];
+//   }
+// }
