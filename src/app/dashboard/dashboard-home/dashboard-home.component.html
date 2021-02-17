@@ -6,7 +6,7 @@
       <i class="fas fa-users md-36 fa-2x"></i>
     </div>
     <p class="title">Clients</p>
-    <h1 id="clients-number" class="counter-number mt-1">55</h1>
+    <h1 id="clients-number" class="counter-number mt-1">0</h1>
     <p class="text">Click to see all your clients.</p>
 
   </div>
@@ -18,7 +18,7 @@
       <i class="fas fa-list-alt md-36 fa-2x"></i>
     </div>
     <p class="title">Orders</p>
-    <p id="orders-number" class="counter-number">55</p>
+    <p id="orders-number" class="counter-number">0</p>
 
     <p class="text">Check all your Orders.</p>
 
@@ -31,40 +31,25 @@
       <i class="fas fa-shopping-bag md-36 fa-2x"></i>
     </div>
     <p class="title">Products</p>
-    <p id="products-number" class="counter-number">55</p>
+    <p id="products-number" class="counter-number">0</p>
     <p class="text">Add or change your Products.</p>
 
   </div>
   <!-- end card -->
-
 </div>
-<!--<div id="projectFacts" class="sectionClass">-->
-<!--  <div class="fullWidth eight columns">-->
-<!--    <div class="projectFactsWrap ">-->
-<!--      <div class="item wow fadeInUpBig animated animated" data-number="12" style="visibility: visible;">-->
-<!--        <i class="fa fa-briefcase"></i>-->
-<!--        <p id="number1" class="number">12</p>-->
-<!--        <span></span>-->
-<!--        <p>Projects done</p>-->
-<!--      </div>-->
-<!--      <div class="item wow fadeInUpBig animated animated" data-number="55" style="visibility: visible;">-->
-<!--        <i class="fa fa-smile-o"></i>-->
-<!--        <p id="number2" class="number">55</p>-->
-<!--        <span></span>-->
-<!--        <p>Happy clients</p>-->
-<!--      </div>-->
-<!--      <div class="item wow fadeInUpBig animated animated" data-number="359" style="visibility: visible;">-->
-<!--        <i class="fa fa-coffee"></i>-->
-<!--        <p id="number3" class="number">359</p>-->
-<!--        <span></span>-->
-<!--        <p>Cups of coffee</p>-->
-<!--      </div>-->
-<!--      <div class="item wow fadeInUpBig animated animated" data-number="246" style="visibility: visible;">-->
-<!--        <i class="fa fa-camera"></i>-->
-<!--        <p id="number4" class="number">246</p>-->
-<!--        <span></span>-->
-<!--        <p>Photos taken</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+
+
+<!--********************** Popular Product ********************-->
+
+<div class="content-popular">
+  <div class="card-popular transition-popular" *ngIf="popularProduct">
+    <h2 class="transition-popular">{{popularProduct.name}}</h2>
+    <p>{{popularProduct.description}}</p>
+    <div class="card_circle transition-popular"
+         [ngStyle]="{'background' : 'url(' + popularProduct.imgs[0]+ ') no-repeat center '}"></div>
+    <div class="bought-prod">Most Bought Product</div>
+
+  </div>
+</div>
+
+

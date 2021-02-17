@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {OrderService} from "../../_shared/services/order.service";
+import {ClientService} from "../../_shared/services/client.service";
+import {ProductService} from "../../_shared/services/product.service";
+import {Product} from "../../_shared/models/product.model";
 
 declare var $: any;
 
@@ -9,35 +13,89 @@ declare var $: any;
 })
 export class DashboardHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private orderService: OrderService,
+              private clientService: ClientService,
+              private productService: ProductService)
+  { }
+
+  productLength = 0;
+  ordersLength = 0;
+  clientsLength = 0;
+  popularProduct: Product = new Product();
+  popularProdFreq = 0;
 
   ngOnInit(): void {
-
-    $.fn.jQuerySimpleCounter = function( options ) {
-      const settings = $.extend({
-        start:  0,
-        end:    100,
-        easing: 'swing',
-        duration: 400,
-        complete: ''
-      }, options );
-
-      const thisElement = $(this);
-
-      $({count: settings.start}).animate({count: settings.end}, {
-        duration: settings.duration,
-        easing: settings.easing,
-        step: function() {
-          const mathCount = Math.ceil(this.count);
-          thisElement.text(mathCount);
-        },
-        complete: settings.complete
-      });
-    };
-
-    $('#clients-number').jQuerySimpleCounter({end: 12, duration: 3000});
-    $('#orders-number').jQuerySimpleCounter({end: 55, duration: 3000});
-    $('#products-number').jQuerySimpleCounter({end: 359, duration: 2000});
+    this.getClientsLength();
   }
 
+  getOrderLength(): void {
+    this.orderService.getAll().subscribe((data) => {
+      console.log(data);
+      const prodArray = [];
+      data.forEach(item => {
+        item.products.forEach(prod => {
+          prodArray.push(prod);
+        });
+      });
+      console.log(prodArray);
+
+      let counter = 0;
+      for (let i = 0; i < prodArray.length; i++) {
+        // loop through next elements in array to compare calculate frequency of current element
+        for (let j = i; j < prodArray.length; j++) {
+          if (prodArray[i]._id === prodArray[j]._id) {
+            counter++;   // increment counter if it does
+          }    // see if element occurs again in the array
+          // compare current items frequency with maximum frequency
+          if (this.popularProdFreq < counter) {
+            this.popularProdFreq = counter;      // if m>mf store m in mf for upcoming elements
+            this.popularProduct = prodArray[i];   // store the current element.
+          }
+        }
+        counter = 0;   // make counter 0 for next element.
+      }
+      console.log(this.popularProdFreq);
+      console.log(this.popularProduct);
+      this.ordersLength = data.length;
+      this.getProductsLength();
+    });
+  }
+  getClientsLength(): void {
+    this.clientService.getAll().subscribe((data) => {
+      console.log(data);
+      this.clientsLength = data.length;
+      this.getOrderLength();
+    });
+  }
+  getProductsLength(): void {
+    this.productService.getAll().subscribe((data) => {
+      console.log(data);
+      this.productLength = data.length;
+      $.fn.jQuerySimpleCounter = function( options ) {
+        const settings = $.extend({
+          start:  0,
+          end:    100,
+          easing: 'swing',
+          duration: 400,
+          complete: ''
+        }, options );
+
+        const thisElement = $(this);
+
+        $({count: settings.start}).animate({count: settings.end}, {
+          duration: settings.duration,
+          easing: settings.easing,
+          step: function() {
+            const mathCount = Math.ceil(this.count);
+            thisElement.text(mathCount);
+          },
+          complete: settings.complete
+        });
+      };
+
+      $('#clients-number').jQuerySimpleCounter({end: this.clientsLength, duration: 1500});
+      $('#orders-number').jQuerySimpleCounter({end: this.ordersLength, duration: 1500});
+      $('#products-number').jQuerySimpleCounter({end: this.productLength  , duration: 1500});
+    });
+  }
 }
