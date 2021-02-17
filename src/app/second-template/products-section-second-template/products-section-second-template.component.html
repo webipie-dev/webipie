@@ -24,14 +24,15 @@
           <!-- Overlay -->
           <div class="overlay">
             <div class="position-center-center">
-              <div class="inn"><a href="../../../assets/second-template/images/product-1.jpg" data-lighter>
-                <i class="icon-magnifier"></i>
-              </a> <a href="#." data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="icon-basket"></i></a> <a href="#." data-toggle="tooltip" data-placement="top" title="Add To WishList"><i class="icon-heart"></i></a></div>
+              <div>
+                <!-- to return to previous form add class inn-->       
+              </div>
             </div>
           </div>
         </div>
         <!-- Item Name -->
-        <div class="item-name"> <a href="#.">{{product.name}}</a>
+        <div class="item-name"> 
+          <a [routerLink]="['/second-template', store.name , store.contact.location, 'product-detail', product.id ]">{{product.name}}</a>
           <p>{{product.description}}</p>
         </div>
         <!-- Price -->

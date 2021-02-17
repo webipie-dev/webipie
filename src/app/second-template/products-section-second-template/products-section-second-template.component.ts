@@ -32,7 +32,7 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
     console.log(this.store);
     this.popularProducts = [];
 
-    this.productService.getAll({store: this.store.id, popular: true}, 'client').subscribe(data => {
+    this.productService.getAll({storeId: this.store.id, popular: true}, 'client').subscribe(data => {
       this.popularProducts.push.apply(this.popularProducts, data) ;
       console.log(data);
     });

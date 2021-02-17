@@ -50,7 +50,7 @@
       <a routerLink='profile' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
         <i class="fa fa-id-card"></i> Profile
       </a>
-      <a href="" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+      <a (click)='logOut()' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar" style = "cursor: pointer">
         <i class="fa fa-sign-out-alt"></i> Logout
       </a>
     </li>

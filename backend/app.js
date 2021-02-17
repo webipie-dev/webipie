@@ -39,6 +39,12 @@ const swaggerOptions = {
 app.use(morgan('common'));
 app.use(helmet());
 //enable cors
+// var corsOptions = {
+//   "origin": true,
+//   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   "preflightContinue": true,
+//   "optionsSuccessStatus": 204
+// }
 app.use(cors());
 
 //swagger documentation

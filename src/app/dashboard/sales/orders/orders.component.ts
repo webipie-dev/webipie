@@ -112,7 +112,7 @@ export class OrdersComponent implements OnInit {
 
 
   getAllOrders(): void {
-    this.orderService.getAll().subscribe((data) => {
+    this.orderService.getAll({store: localStorage.getItem('storeID')}).subscribe((data) => {
       data.forEach((element) => {
         console.log(element);
         if (element.store) {
