@@ -1,6 +1,8 @@
 const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
+const mongoose = require('mongoose');
+
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
@@ -36,6 +38,19 @@ const onError = error => {
       throw error;
   }
 };
+
+// change the db
+mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTteam?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+})
+  .then(() => {
+    console.log('everything in place');
+  })
+  .catch(() => {
+    console.log('connection failed');
+  });
 
 const onListening = () => {
   const addr = server.address();

@@ -8,7 +8,7 @@ exports.getClients = async (req, res, next) => {
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
   // add the store_id to the query
-  req.query.store = req.user.storeID;
+  // req.query.store = req.user.storeID;
 
   const clients = await Client.find(req.query)
   //   .cache({

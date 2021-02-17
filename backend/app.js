@@ -19,7 +19,7 @@ const storeOwnerRoutes = require('./routes/storeOwner');
 
 const errorHandler = require('./middlewares/error-handler')
 const ApiError = require("./errors/api-error");
-require('./middlewares/caching/cache')
+// require('./middlewares/caching/cache')
 
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
@@ -44,18 +44,7 @@ app.use(cors());
 //swagger documentation
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-// change the db
-mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTteam?retryWrites=true&w=majority', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-})
-  .then(() => {
-    console.log('everything in place');
-  })
-  .catch(() => {
-    console.log('connection failed');
-  });
+
 
 app
   .use('/backend/images',express.static('images'))

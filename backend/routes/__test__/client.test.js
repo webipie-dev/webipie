@@ -6,8 +6,10 @@ const request = require('supertest')
 it('return a 200', async () => {
 
   const response = await request(app)
-    .get('/product')
+    .get('/client')
     .send({})
     .expect(200);
+
+  // console.log(response)
 
 })
