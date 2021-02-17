@@ -1,7 +1,6 @@
 // import request from 'supertest';
 const app = require('../../app')
 const request = require('supertest')
-// const request = supertest(app)
 
 it('return a 200', async () => {
 
@@ -10,6 +9,6 @@ it('return a 200', async () => {
     .send({})
     .expect(200);
 
-  // console.log(response)
+  console.log(response.body)
 
 })
