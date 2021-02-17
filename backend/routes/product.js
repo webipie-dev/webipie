@@ -40,6 +40,7 @@ router.get('', passportJWT.unless(function(req){
   }
 }), productService.getProducts)
 
+
 //getManyProducts
 // router.get('/many', productService.getManyProductById)
 
@@ -56,7 +57,6 @@ router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
   productValidator.description,
   productValidator.name,
 ], validateRequest, clearCache, productService.addProduct);
-
 
 router.patch('/:id/review', productService.addReview);
 

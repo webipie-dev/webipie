@@ -42,6 +42,15 @@ exports.getStoreByNameAndLocation = async (req,res) => {
   res.status(200).send(store.forEach( obj => renameKey( obj, '_id', 'id' )));
 }
 
+exports.getStoreByUrl = async (req,res) => {
+  const { url } = req.params;
+  const store = await Store.findOne({url})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+  res.status(200).send(store);
+}
+
 exports.addStore = async (req, res, next) => {
   //check if a logo is uploaded
   let logo;

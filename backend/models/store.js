@@ -28,6 +28,7 @@ const template = new Schema({
 });
 
 const ExSchema = new Schema({
+  url: {type: String, required: true},
   name: {type: String, default: ''},
   logo: {type: String, default: ''},
   description: {type: String, default: ''},

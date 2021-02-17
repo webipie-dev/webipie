@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {Injectable, NgModule} from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AfterSigninComponent } from './index/after-signin/after-signin.component';
 import { IndexComponent } from './index/index.component';
@@ -7,7 +7,6 @@ import {PageNotFoundComponent} from './index/page-not-found/page-not-found.compo
 import { SignInComponent } from './index/sign-in/sign-in.component';
 import {TemplatesPageComponent} from './index/templates-page/templates-page.component';
 import { AuthGuard } from './_shared/services/auth-guard.service';
-
 
 const routes: Routes = [
   {
@@ -44,18 +43,24 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'template',
-    loadChildren: () => {
-      // const templateId = localStorage.getItem('templateId');
-      return import('./template/template.module')
-      .then(m => m.TemplateModule);
-    },
+    path: '**',
+    component: PageNotFoundComponent
   },
+];
+
+const templateRoutes: Routes = [
   {
-    path: 'second-template/:name/:location',
+    path: '',
     loadChildren: () => {
-      return import('./second-template/second-template.module')
-        .then(m => m.SecondTemplateModule);
+      const template = JSON.parse(sessionStorage.getItem('store')).template.name;
+      if (template === 'template1') {
+        return import('./second-template/second-template.module')
+          .then(m => m.SecondTemplateModule);
+      }
+      else {
+        return import('./template/template.module')
+          .then(m => m.TemplateModule);
+      }
     },
   },
   {
@@ -64,8 +69,10 @@ const routes: Routes = [
   },
 ];
 
+const isCurrentDomainWebipie = (window.location.hostname === 'webipie.com');
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(isCurrentDomainWebipie ? routes : templateRoutes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

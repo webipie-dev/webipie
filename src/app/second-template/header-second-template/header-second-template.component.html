@@ -12,8 +12,9 @@
         <!-- NAV -->
         <div class="collapse navbar-collapse" id="nav-open-btn">
           <ul class="nav">
-            <li routerLinkActive="active">
-              <a [routerLink]="['/second-template', store.name , store.contact.location ]" >Home</a>
+
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <a routerLink="" >Home</a>
             </li>
             <li routerLinkActive="active">
               <a routerLink="products" routerLinkActive="active">Products</a>

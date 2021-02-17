@@ -12,14 +12,15 @@ exports.getProducts = async (req, res, next) => {
   if(!req.query.store){
     return next(ApiError.BadRequest('you have to pass the storeID'));
   }
-  
+ 
   const query = filterProducts(req);
+  console.log(query)
   const products = await Product.find(query)
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
-  res.status(200).send(products.forEach( obj => renameKey( obj, '_id', 'id' )));
 
+  res.status(200).send(products.forEach( obj => renameKey( obj, '_id', 'id' )));
 };
 
 
