@@ -18,6 +18,15 @@ const ExSchema = new Schema({
   fullAddress: address,
   store: { type: Schema.Types.ObjectID, ref: "Store" }
 
-});
+},
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+      }
+    }
+  });
 
 module.exports = mongoose.model('Client', ExSchema);

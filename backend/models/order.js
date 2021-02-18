@@ -16,7 +16,16 @@ const ExSchema = new Schema({
   totalPrice: {type: Number, default: 0},
   client: {type: Schema.Types.ObjectID, ref: "Client"},
   store: {type: Schema.Types.ObjectID, ref: "Store"}
-});
+},
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+      }
+    }
+  });
 
 
 module.exports = mongoose.model('Order', ExSchema);
