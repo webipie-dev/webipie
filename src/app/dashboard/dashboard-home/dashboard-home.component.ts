@@ -3,6 +3,8 @@ import {OrderService} from "../../_shared/services/order.service";
 import {ClientService} from "../../_shared/services/client.service";
 import {ProductService} from "../../_shared/services/product.service";
 import {Product} from "../../_shared/models/product.model";
+import {StoreService} from "../../_shared/services/store.service";
+import {Store} from "../../_shared/models/store.model";
 
 declare var $: any;
 
@@ -15,7 +17,8 @@ export class DashboardHomeComponent implements OnInit {
 
   constructor(private orderService: OrderService,
               private clientService: ClientService,
-              private productService: ProductService)
+              private productService: ProductService,
+              private storeService: StoreService)
   { }
 
   productLength = 0;
@@ -23,9 +26,17 @@ export class DashboardHomeComponent implements OnInit {
   clientsLength = 0;
   popularProduct: Product = new Product();
   popularProdFreq = 0;
+  store: Store = new Store();
 
   ngOnInit(): void {
     this.getClientsLength();
+    this.getStore();
+  }
+
+  getStore(): void {
+    this.storeService.getById(localStorage.getItem('storeID')).subscribe(data => {
+      this.store = data;
+    });
   }
 
   getOrderLength(): void {

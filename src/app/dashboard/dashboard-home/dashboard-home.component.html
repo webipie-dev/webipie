@@ -50,6 +50,13 @@
     <div class="bought-prod">Most Bought Product</div>
 
   </div>
+  <!--********************** Preview Template ********************-->
+  <div class="card" style="height: 300px; max-width: 592px" *ngIf="popularProduct">
+    <h2 class="transition-popular">{{popularProduct.name}}</h2>
+    <p>{{popularProduct.description}}</p>
+    <div class="bought-prod">Preview Template</div>
+
+  </div>
 </div>
 
 
