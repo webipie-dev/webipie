@@ -20,7 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         console.log(error.error);
         let errorMessage = 'An unknown error occurred';
 
-        if (typeof error.error.errors === 'object') {
+        if (error.error?.errors) {
           errorMessage = error.error.errors[0].message;
         } else if (typeof error.error.errors === 'string') {
           errorMessage = error.error.errors;

@@ -3,6 +3,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
 const GooglePlusTokenStrategy = require('passport-google-plus-token');
+const GoogleTokenStrategy = require('passport-google-oauth').OAuth2Strategy;
 const FacebookTokenStrategy = require('passport-facebook-token');
 const mongoose = require('mongoose');
 
@@ -34,7 +35,7 @@ passport.use(new JwtStrategy({
 }));
 
 // GOOGLE OAUTH STRATEGY
-passport.use('googleToken' , new GooglePlusTokenStrategy({
+passport.use('googleToken' , new GoogleTokenStrategy({
   clientID : '790108924491-t5da8keoe1srskluak4jpi4oue78gcai.apps.googleusercontent.com',
   clientSecret : 'oQwzeTlMcqnoAT96ZsQpZkFQ'
 }, async (accessToken, refreshToken, profile, done) => {
@@ -43,7 +44,7 @@ passport.use('googleToken' , new GooglePlusTokenStrategy({
     console.log('refreshToken ', refreshToken);
     console.log('profile ', profile);
 
-    const existingStoreOwner = await StoreOwner.find({"google.id" : profile.id}).limit(1);
+    const existingStoreOwner = await StoreOwner.findOne({"google.id" : profile.id});
     if (existingStoreOwner){
       console.log('storeOwner already exists in BD');
       return done(null, existingStoreOwner);
@@ -57,7 +58,6 @@ passport.use('googleToken' , new GooglePlusTokenStrategy({
         id: profile.id,
         email: profile.emails[0].value
       },
-      storeID: new mongoose.mongo.ObjectId()
     });
 
     await newStoreOwner.save();
@@ -78,7 +78,7 @@ passport.use('facebookToken' , new FacebookTokenStrategy({
     console.log('refreshToken ', refreshToken);
     console.log('profile ', profile);
 
-    const existingStoreOwner = await StoreOwner.find({"facebook.id" : profile.id}).limit(1);
+    const existingStoreOwner = await StoreOwner.findOne({"facebook.id" : profile.id});
     if (existingStoreOwner){
       console.log('storeOwner already exists in BD');
       return done(null, existingStoreOwner);
@@ -92,7 +92,6 @@ passport.use('facebookToken' , new FacebookTokenStrategy({
         id: profile.id,
         email: profile.emails[0].value
       },
-      storeID: new mongoose.mongo.ObjectId()
     });
 
     await newStoreOwner.save();
@@ -109,8 +108,7 @@ passport.use(new LocalStrategy({
 }, async (email, password, done) => {
   try {
     // Find the storeOwner given the email
-    let storeOwner = await StoreOwner.find({ "local.email": email }).limit(1);
-    storeOwner = storeOwner[0]
+    let storeOwner = await StoreOwner.findOne({ "local.email": email });
 
     // If not, handle it
     if (!storeOwner) {

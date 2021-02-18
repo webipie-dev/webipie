@@ -9,7 +9,6 @@ signToken = user => {
     return JWT.sign({
         iss: 'NameOfProject',
         sub: user.id,
-        storeID: user.storeID,
         iat: new Date().getTime(),
         exp: new Date().setDate(new Date().getDate() + 1 )
     }, JWT_SECRET );
@@ -24,8 +23,7 @@ module.exports = {
         const { email,password } = req.body;
         const storeID = new mongoose.mongo.ObjectId();
 
-        let findstoreOwner = await StoreOwner.find({ "local.email": email }).limit(1);
-        findstoreOwner = findstoreOwner[0];
+        let findstoreOwner = await StoreOwner.findOne({ "local.email": email });
         if (findstoreOwner) return res.status(403).send({ errors: 'Email is already in use'});
 
         findstoreOwner = await StoreOwner.find({
@@ -49,7 +47,7 @@ module.exports = {
             res.cookie('access_token', token, {
               httpOnly: true
             });
-            res.status(200).json({ success: true });
+            res.status(200).json({ token, storeId: findstoreOwner.storeID });
         }
 
 
@@ -59,7 +57,6 @@ module.exports = {
                 email: email,
                 password: password.trim()
             },
-            // storeID
         });
         await newstoreOwner.save();
 
@@ -72,12 +69,14 @@ module.exports = {
 
     signIn: async (req, res, next) => {
         // Generate token
-        console.log(req)
+        // console.log(req)
         const token = signToken(req.user);
         res.cookie('access_token', token, {
             httpOnly: true
         });
-        res.status(200).json({ token });
+        // const storeId = await StoreOwner.findOne({email: req.user.local.email});
+        // console.log(storeId);
+        res.status(200).json({ token, storeId: req.user.storeID });
     },
 
     changePwd: async (req,res,next) =>{
@@ -107,7 +106,7 @@ module.exports = {
         res.cookie('access_token', token, {
             httpOnly: true
         });
-        res.status(200).json({ token });
+        res.status(200).json({ token, storeId: req.user.storeID });
     },
 
     facebookOAuth: async (req, res, next) => {
@@ -115,7 +114,7 @@ module.exports = {
         res.cookie('access_token', token, {
             httpOnly: true
         });
-        res.status(200).json({ token });
+        res.status(200).json({ token, storeId: req.user.storeID });
     }
 
 }

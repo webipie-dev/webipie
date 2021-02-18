@@ -1,9 +1,8 @@
-import {Component, OnInit, OnChanges, HostListener, ElementRef} from '@angular/core';
+import {Component, OnInit, ElementRef} from '@angular/core';
 import { Product } from '../../_shared/models/product.model';
 import { ProductService } from '../../_shared/services/product.service';
-import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
-import { ActivatedRoute } from '@angular/router';
+import {StoreService} from '../../_shared/services/store.service';
 
 
 @Component({
@@ -16,48 +15,19 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
 
   constructor(private productService: ProductService,
               private storeService: StoreService,
-              private activatedRoute: ActivatedRoute,
               private el: ElementRef) { }
   store;
   popularProducts: Product[];
-  name: string;
-  location: string;
 
 
   ngOnInit(): void {
-    this.name = this.activatedRoute.snapshot.parent.params.name;
-    this.location = this.activatedRoute.snapshot.parent.params.location;
-    this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
-
+    this.store = JSON.parse(sessionStorage.getItem('store'));
     this.popularProducts = [];
 
     this.productService.getAll({store: this.store._id, popular: true}, 'client').subscribe(data => {
-      this.popularProducts.push.apply(this.popularProducts, data) ;
-      console.log(data);
+      this.popularProducts.push.apply(this.popularProducts, data);
     });
 
-    this.changeTheme();
+    this.storeService.changeTheme(this.el, this.store);
   }
-
-  hexToRGB(hex, alpha?): string {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-
-    if (alpha) {
-        return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
-    } else {
-        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-    }
-  }
-
-  changeTheme(): void{
-    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.hexToRGB(this.store.template.colorChart['secondary color'], 0.75));
-    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
-
-  }
-
 }

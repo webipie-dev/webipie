@@ -76,7 +76,7 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  @HostListener('window:resize') windwosResize() {
+  @HostListener('window:resize') windwosResize(): void {
     this.windwosWidth = window.innerWidth;
   }
 

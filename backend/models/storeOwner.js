@@ -80,7 +80,7 @@ function validatestoreOwner(storeOwner) {
 
     schemas = {
         authSchema: Joi.object().keys({
-          email: Joi.string().email().required(),
+          email: Joi.string().email({minDomainSegments: 2}).required(),
           password: Joi.string().required().min(5)
         })
     }

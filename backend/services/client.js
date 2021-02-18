@@ -7,8 +7,6 @@ exports.getClients = async (req, res, next) => {
   // I THINK CLIENTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
-  // add the store_id to the query
-  // req.query.store = req.user.storeID;
 
   const clients = await Client.find(req.query)
   //   .cache({

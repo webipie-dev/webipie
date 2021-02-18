@@ -1,28 +1,54 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StoreService } from '../../_shared/services/store.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-after-signin',
   templateUrl: './after-signin.component.html',
   styleUrls: ['./after-signin.component.css']
 })
-export class AfterSigninComponent implements OnInit, AfterViewInit {
+export class AfterSigninComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private storeService: StoreService) { }
 
-  loading = false;
+  loading = true;
+  storeName: string;
+  storeType: string;
 
   ngOnInit(): void {
+    const templateId = this.route.snapshot.queryParamMap.get('templateId');
+    if (!templateId){
+      this.router.navigate(['templates']);
+    }
 
+    $( document ).ready(() => {
+      this.loading = false;
+    });
+
+    // setTimeout(() => {
+    //   this.loading = false;
+    // }, 2000);
   }
 
-  ngAfterViewInit(): void {
-    var head = document.getElementById('headerr');
-    console.log(head);
+  submit(): void {
+    this.route.queryParams.subscribe((params) => {
+      const templateId = params.templateId;
 
-    head.classList.remove('start-style');
-    // header.classList.add('bg-light');
-    head.classList.add('scroll-on');
-    // console.log(head);
+      if ( localStorage.getItem('token') && !localStorage.getItem('storeID') ) {
+        console.log('here to create store!');
+        this.storeService.addOne({ templateId, name: this.storeName, storeType: this.storeType }).subscribe( store => {
+          console.log(store);
+          localStorage.setItem('storeId', store._id);
+        });
+        this.router.navigate(['dashboard']);
+      } else {
+        this.router.navigate(['signup'], { queryParams: { templateId, storeName: this.storeName, storeType: this.storeType }});
+      }
+    });
   }
 
 

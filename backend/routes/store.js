@@ -124,12 +124,14 @@ router.get('/:id', [
   validation.id
 ], validateRequest, StoreService.getOneStore);
 
+router.get('/url/:url', StoreService.getStoreByUrl);
+
 
 router.get('/:name/:location', StoreService.getStoreByNameAndLocation);
 // addStore
 router.post('', [
   storeValidation.name,
-  storeValidation.description,
+  // storeValidation.description,
   storeValidation.templateId,
   storeValidation.storeType,
 ], validateRequest, passportJWT, multer({storage: storage}).single('logoImg'), StoreService.addStore)
