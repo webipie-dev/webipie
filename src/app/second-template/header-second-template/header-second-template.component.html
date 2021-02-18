@@ -12,17 +12,18 @@
         <!-- NAV -->
         <div class="collapse navbar-collapse" id="nav-open-btn">
           <ul class="nav">
-            <li routerLinkActive="active">
-              <a href="/second-template/home" >Home</a>
+
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <a routerLink="" >Home</a>
             </li>
             <li routerLinkActive="active">
-              <a routerLink="/second-template/products" routerLinkActive="active">Products</a>
+              <a routerLink="products" routerLinkActive="active">Products</a>
             </li>
             <li  routerLinkActive="active">
-              <a routerLink="/second-template/cart">Cart</a>
+              <a routerLink="cart">Cart</a>
             </li>
             <li  routerLinkActive="active">
-              <a routerLink="/second-template/checkout">Checkout</a>
+              <a routerLink="checkout">Checkout</a>
             </li>
           </ul>
         </div>

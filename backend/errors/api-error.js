@@ -8,7 +8,14 @@ class ApiError{
 
   static BadRequest(msg) {
     return new ApiError(400, msg)
+  }
 
+  static Unauthorized(msg) {
+    return new ApiError(401, msg)
+  }
+
+  static Forbidden(msg) {
+    return new ApiError(403, msg)
   }
 
   static NotFound(msg) {

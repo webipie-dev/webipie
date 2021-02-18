@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Injector, APP_INITIALIZER} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {IndexComponent} from './index/index.component';
@@ -34,8 +34,10 @@ import {CommonModule} from '@angular/common';
 import { ErrorsComponent } from './errors/errors.component';
 import {ErrorInterceptor} from './error-interceptor';
 import { SidebarModule } from 'ng-sidebar';
+import {StoreService} from './_shared/services/store.service';
 
 
+export let InjectorInstance: Injector;
 
 @NgModule({
   declarations: [
@@ -79,6 +81,12 @@ import { SidebarModule } from 'ng-sidebar';
   ],
   providers: [
     {
+      provide: APP_INITIALIZER,
+      useFactory: (storeService: StoreService) => () => storeService.getStoreByUrl(),
+      deps: [StoreService],
+      multi: true
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true
@@ -109,4 +117,8 @@ import { SidebarModule } from 'ng-sidebar';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {
+  constructor(private injector: Injector)
+  {
+    InjectorInstance = this.injector;
+  }
 }

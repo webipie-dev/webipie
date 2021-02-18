@@ -12,9 +12,9 @@ exports.getOrders = async (req, res) => {
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
   const orders = await Order.find(req.query).populate('client')
-    .catch((err) => {
-      res.status(400).json({errors: err.message});
-    });
+    // .catch((err) => {
+    //   res.status(400).json({errors: [{ message: err.message }]});
+    // });
 
   res.status(200).send(orders);
 }
@@ -30,7 +30,7 @@ exports.getOneOrder = async (req, res) => {
 
   const order = await Order.findById(id).populate('client')
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (!order) {
@@ -116,7 +116,7 @@ exports.addOrder = async (req, res, next) => {
   Product
     .bulkWrite(bulkQueries, {ordered: false})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(201).send(order);
@@ -130,7 +130,7 @@ exports.deleteManyOrders = async (req, res, next) => {
 
   const deletedOrders = await Order.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (deletedOrders) {
@@ -146,7 +146,7 @@ exports.deleteManyOrders = async (req, res, next) => {
 exports.deleteAllOrders = async (req, res, next) => {
   const deletedOrders = await Order.deleteMany({})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(deletedOrders);
@@ -171,7 +171,7 @@ exports.editOrder = async (req, res, next) => {
 
   const orderEdited = await Order.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (orderEdited){
@@ -183,7 +183,7 @@ exports.editOrder = async (req, res, next) => {
   }
 
 
-  res.status(200).send(orders);
+  res.status(200).send(orderEdited);
 };
 
 
@@ -193,7 +193,7 @@ exports.deleteProductOrder = async (req,res, next) => {
 
   const orderDeleted = await Order.updateOne({_id: id}, {$pull: {products: {_id : req.body.product}}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (orderDeleted){

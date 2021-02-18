@@ -32,23 +32,24 @@
                 </li>
                 <li *ngIf="!token">
                   <div class="text-center mt-1 mx-auto ">
-                    <a routerLink='/signin' class="button-generic button-white small-titles py-2 button-navbar">Sign In</a>
+                    <a routerLink='/signin' class="button-generic button-white small-titles py-2 button-navbar">Sign
+                      In</a>
                   </div>
                 </li>
                 <li *ngIf="!token">
                   <div class="text-center mt-1 mx-auto ">
-                    <a routerLink='/signup' class="button-generic button-white small-titles py-2 button-navbar">Sign Up</a>
-                  </div>
-                </li>
-
-                <li *ngIf="token">
-                  <div class="text-center mt-1 mx-auto ">
-                    <a routerLink='/dashboard' class="button-generic button-white small-titles py-2 button-navbar">Dashboard</a>
+                    <a routerLink='/signup' class="button-generic button-white small-titles py-2 button-navbar">Sign
+                      Up</a>
                   </div>
                 </li>
                 <li *ngIf="token">
-                  <div class="text-center mt-1 mx-auto ">
-                    <a routerLink='/signup' class="button-generic button-border-white small-titles py-2 button-navbar">Logout</a>
+                  <div class="text-center mt-1 mx-5">
+                    <a routerLink='/dashboard' class="button-generic button-white small-titles py-2 ">Dashboard</a>
+                  </div>
+                </li>
+                <li *ngIf="token">
+                  <div class="text-center mt-1 mr-5">
+                    <a (click)='logOut()' class="button-generic button-border-white small-titles py-2 ">Logout</a>
                   </div>
                 </li>
               </ul>

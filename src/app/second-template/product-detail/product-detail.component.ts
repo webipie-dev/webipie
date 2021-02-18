@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/_shared/services/product.service';
-import {StoreService} from '../../_shared/services/store.service';
 import { Review } from '../../_shared/models/review.model';
 import {Store} from '../../_shared/models/store.model';
+import {StoreService} from '../../_shared/services/store.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -15,56 +15,34 @@ export class ProductDetailComponent implements OnInit {
   product: any;
   review: Review;
 
-  name: string;
-  location: string;
 
-  constructor(private storeService: StoreService,
-              private productService: ProductService,
+  constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
+              private storeService: StoreService,
               private el: ElementRef) { }
 
   ngOnInit(): void {
-    this.name = this.activatedRoute.snapshot.paramMap.get('name');
-    this.location = this.activatedRoute.snapshot.paramMap.get('location');
-    this.store = JSON.parse(this.storeService.getStore(this.name, this.location));
+    this.store = JSON.parse(sessionStorage.getItem('store'));
 
     this.review = new Review();
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
     });
-    this.changeTheme();
-  }
-
-  hexToRGB(hex, alpha?): string {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-
-    if (alpha) {
-        return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
-    } else {
-        return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-    }
+    this.storeService.changeTheme(this.el, this.store);
   }
 
   counter(i: number): Array<number> {
     return new Array(i);
 }
 
-  changeTheme(): void{
-    (this.el.nativeElement as HTMLElement).style.setProperty('--bg-color', this.store.template.colorChart['bg-color']);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--font-color', this.store.template.colorChart['font color']);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--secondary-color', this.store.template.colorChart['secondary color']);
-    (this.el.nativeElement as HTMLElement).style.setProperty('--font-choice', this.store.template.font);
-  }
-
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review);
   }
 
-  public loadScript() {
+  public loadScript(): void {
     let isFound = false;
     const scripts = document.getElementsByTagName('script');
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < scripts.length; ++i) {
       if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes('loader')) {
         isFound = true;
@@ -84,6 +62,7 @@ export class ProductDetailComponent implements OnInit {
         'assets/second-template/js/main.js',
       ];
 
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < dynamicScripts.length; i++) {
         const node = document.createElement('script');
         node.src = dynamicScripts [i];

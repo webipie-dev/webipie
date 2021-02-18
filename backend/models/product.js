@@ -7,7 +7,7 @@ const review = new Schema({
   email: {type: String, default: ''},
   review: {type: String, default: ''},
   rating: {type: String, default: ''},
-  date: {type: Date, default: ''},
+  date: {type: Date, default: Date.now()},
 });
 
 const productSchema = mongoose.Schema({

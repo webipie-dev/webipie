@@ -4,6 +4,7 @@ const Order = require('../models/order')
 const Product = require('../models/store')
 const Template = require('../models/template')
 const ApiError = require("../errors/api-error");
+const { StoreOwner } = require('../models/storeOwner');
 
 // getAndFilter
 exports.getStores = async (req, res) => {
@@ -11,10 +12,10 @@ exports.getStores = async (req, res) => {
 
   const stores = await Store.find(req.query)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(stores);
+  res.status(200).send(stores.forEach( obj => renameKey( obj, '_id', 'id' )));
 
 }
 
@@ -25,7 +26,7 @@ exports.getOneStore = async (req, res) => {
   const { id } = req.params;
   const store = await Store.findById(id)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(store);
@@ -35,9 +36,18 @@ exports.getStoreByNameAndLocation = async (req,res) => {
   const { name,location } = req.params;
   const store = await Store.findOne({name, "contact.location": location})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
+  res.status(200).send(store.forEach( obj => renameKey( obj, '_id', 'id' )));
+}
+
+exports.getStoreByUrl = async (req,res) => {
+  const { url } = req.params;
+  const store = await Store.findOne({url})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
   res.status(200).send(store);
 }
 
@@ -51,13 +61,13 @@ exports.addStore = async (req, res, next) => {
   }
 
   //get the store id from the request
-  const _id = req.user.storeID;
+  // const _id = req.user.storeID;
 
-  const userStore = Store.findById(_id)
-  if (userStore) {
-    next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
-    return;
-  }
+  // const userStore = Store.findById(_id)
+  // if (userStore) {
+  //   next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
+  //   return;
+  // }
 
   const { name, description, location, contact, storeType, templateId} = req.body
 
@@ -71,7 +81,7 @@ exports.addStore = async (req, res, next) => {
   getTemplate._id= templateId
 
   const store = new Store({
-    _id,
+    // _id,
     name,
     logo,
     description,
@@ -82,10 +92,15 @@ exports.addStore = async (req, res, next) => {
 
   });
 
+  // update storeowner with its id
+  if (req.user){
+    const user = await StoreOwner.updateOne({_id: req.user._id}, {storeID: store._id}, {new: true});
+  }
+
 
   await store.save()
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(201).send(store);
@@ -97,7 +112,7 @@ exports.deleteManyStores = async (req, res, next) => {
 
   const deletedStores = await Store.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (deletedStores) {
@@ -113,17 +128,17 @@ exports.deleteManyStores = async (req, res, next) => {
 
   Product.deleteMany({store: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   Order.deleteMany({store: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   Client.deleteMany({store: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
 
@@ -134,7 +149,7 @@ exports.deleteManyStores = async (req, res, next) => {
 exports.deleteAllStores = async (req, res, next) => {
   const deletedStores = await Store.deleteMany({})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(deletedStores);
@@ -169,7 +184,7 @@ exports.editStore = async (req, res, next) => {
 
   const store = await Store.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (store){
@@ -193,12 +208,11 @@ exports.changeTemplate = async (req, res, next) => {
     next(ApiError.NotFound('Template not Found'));
     return;
   }
-  console.log('i got here')
   const store = await Store.updateOne({_id: id}, { $set: {
     template: template
     } })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (store){
@@ -212,3 +226,10 @@ exports.changeTemplate = async (req, res, next) => {
 };
 
 
+function renameKey ( obj, old_key, new_key ) {
+  if (old_key !== new_key) {
+    Object.defineProperty(obj, new_key,
+        Object.getOwnPropertyDescriptor(obj, old_key));
+    delete o[old_key];
+  }
+}

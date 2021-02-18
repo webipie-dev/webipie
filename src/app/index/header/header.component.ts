@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {DecodeJwtService} from '../../_shared/services/decode-jwt.service';
+import { AuthService } from '../../_shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +12,8 @@ export class HeaderComponent implements OnInit {
   changeable = this.route === '/' || this.route.indexOf('/#') !== -1;
   token;
 
-  constructor(private router: Router,
-              private decodeJwtService: DecodeJwtService) {}
+  constructor(private authService: AuthService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
@@ -30,6 +30,13 @@ export class HeaderComponent implements OnInit {
         }
       });
     }
+  }
+
+  logOut(): void{
+    this.authService.logOut();
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+    });
   }
 
 }

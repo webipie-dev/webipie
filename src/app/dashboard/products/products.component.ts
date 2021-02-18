@@ -6,6 +6,8 @@ import {ProductService} from '../../_shared/services/product.service';
 import {Product} from '../../_shared/models/product.model';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import {log} from 'util';
+import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-products',
@@ -90,7 +92,8 @@ export class ProductsComponent implements OnInit {
 
 
   getAllProducts(): void {
-    this.productService.getAll().subscribe((data) => {
+    console.log(localStorage.getItem('storeID'));
+    this.productService.getAll({store: localStorage.getItem('storeID')}).subscribe((data) => {
       let quant;
       let aux;
       data.forEach((element) => {
@@ -136,14 +139,14 @@ export class ProductsComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.productService.deleteMany({ids: [event.data._id]}).subscribe((data) => {
+          event.confirm.resolve();
+          // delete the product from the displayed products
+          this.products = this.products.filter(prod => prod._id !== event.data._id);
         });
-        event.confirm.resolve();
-        // delete the product from the displayed products
-        const index = this.selectedRows.indexOf(event.data);
-        if (index > -1) {
-          this.selectedRows.splice(index, 1);
-        }
-        this.changeShowDeleteManyButton();
+        // const index = this.selectedRows.indexOf(event.data);
+        // if (index > -1) {
+        //   this.selectedRows.splice(index, 1);
+        // }
 
 
         deleteModal.fire(
@@ -186,14 +189,14 @@ export class ProductsComponent implements OnInit {
         this.selectedRows.forEach(elt => {
           ids.push(elt._id);
         });
-        ids.forEach(elt => {
-          this.products = this.products.filter(prod => prod._id !== elt);
-        });
         this.productService.deleteMany({ids}).subscribe(data => {
           this.selectedRows = [];
           this.changeShowDeleteManyButton();
         });
 
+        ids.forEach(elt => {
+          this.products = this.products.filter(prod => prod._id !== elt);
+        });
         // swol popup
         this.productService.deleteModal.fire(
           'Deleted!',

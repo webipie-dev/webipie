@@ -25,6 +25,8 @@ export class ChangeFontComponent implements OnInit {
 
   storeId = JSON.parse(sessionStorage.getItem('store'))._id;
 
+  currentFont = JSON.parse(sessionStorage.getItem('store')).template.font;
+
   constructor(private http: HttpClient,
               private storeService: StoreService,
               private router: Router) {

@@ -5,7 +5,7 @@ exports.getTemplates = async (req, res) => {
 
   const templates = await Template.find(req.query)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(templates);
@@ -18,19 +18,21 @@ exports.getOneTemplate = async (req, res) => {
 
   const template = await Template.findById(id)
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(template);
 }
 
 exports.addTemplate = async (req, res) => {
-  const { name, header, colorChart, font} = req.body
+  const { name, header, colorChart, colorChartOptions, font, fontOptions} = req.body
 
   const template = new Template({
     name,
-    colorChart,
-    font,
+    colorChartOptions,
+    colorChart: colorChartOptions[0],
+    fontOptions,
+    font: fontOptions[0],
     header
   });
 
@@ -46,7 +48,7 @@ exports.deleteManyTemplates = async (req, res, next) => {
 
   const deletedTemplates = await Template.deleteMany({_id: {$in: ids}})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (deletedTemplates) {
@@ -64,7 +66,7 @@ exports.deleteManyTemplates = async (req, res, next) => {
 exports.deleteAllTemplates = async (req, res, next) => {
   const deletedTemplates = await Template.deleteMany({})
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   res.status(200).send(deletedTemplates);
@@ -75,7 +77,7 @@ exports.editTemplate = async (req, res, next) => {
   const { id } = req.params;
   // separating the updates
   const edits = {};
-  for(var key in req.body) {
+  for(const key in req.body) {
     if(req.body.hasOwnProperty(key)) {
       if(key !== 'id'){
         edits[key] = req.body[key];
@@ -85,7 +87,7 @@ exports.editTemplate = async (req, res, next) => {
 
   const templateEdited = await Template.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
-      res.status(400).json({errors: err.message});
+      res.status(400).json({errors: [{ message: err.message }]});
     });
 
   if (templateEdited){

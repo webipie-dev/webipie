@@ -84,6 +84,19 @@
                 min="0" type="number">
             </div>
           </div>
+
+          <div class="col-md-3 col-6">
+            <div class="col-12">
+              <label class="text-size pl-2">Price</label>
+            </div>
+            <div class="col-12">
+              <input
+                [ngModel]="singleProduct.price"
+                class="text-size product-input"
+                formControlName="price"
+                min="0" type="number">
+            </div>
+          </div>
           <div class="col-12 mt-3">
             <div class="col-12">
               <label class="text-size pl-2">Description</label>
@@ -91,7 +104,7 @@
             <div class="col-12">
               <!-- <textarea class="description-area"
                         formControlName="description" [ngModel]="singleProduct.description"></textarea> -->
-              <quill-editor formControlName="description" [ngModel]="singleProduct.description"></quill-editor>
+              <quill-editor formControlName="description" [modules]="config" [ngModel]="singleProduct.description"></quill-editor>
             </div>
           </div>
         </div>
@@ -100,16 +113,7 @@
 
     <div class="col-md-4 col-12 mt-5 mb-5">
       <div class="row upload-images mr-1 px-3 py-4 mx-auto mb-3">
-        <div class="col-12">
-          <label class="text-size pl-2">Price</label>
-        </div>
-        <div class="col-12">
-          <input
-            [ngModel]="singleProduct.price"
-            class="text-size product-input"
-            formControlName="price"
-            min="0" type="number">
-        </div>
+
         <div class="col-12 mt-5">
           <label class="text-size pl-2">Status</label>
         </div>
