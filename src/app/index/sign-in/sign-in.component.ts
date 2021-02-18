@@ -186,4 +186,5 @@ export class SignInComponent implements OnInit {
     const storeType = this.route.snapshot.queryParamMap.get('storeType');
     this.router.navigate(['signup'], { queryParams: { templateId, storeName, storeType }});
   }
+
 }

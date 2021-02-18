@@ -3,6 +3,7 @@ import { Product } from '../../_shared/models/product.model';
 import { ProductService } from '../../_shared/services/product.service';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
 
   constructor(private productService: ProductService,
               private storeService: StoreService,
+              private activatedRoute: ActivatedRoute,
               private el: ElementRef) { }
   store;
   popularProducts: Product[];
