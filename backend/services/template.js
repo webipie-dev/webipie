@@ -25,7 +25,7 @@ exports.getOneTemplate = async (req, res) => {
 }
 
 exports.addTemplate = async (req, res) => {
-  const { name, header, colorChart, colorChartOptions, font, fontOptions} = req.body
+  const { name, header, colorChartOptions, fontOptions} = req.body
 
   const template = new Template({
     name,
