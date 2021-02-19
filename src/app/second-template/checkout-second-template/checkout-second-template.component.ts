@@ -66,7 +66,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
     }
 
     postData.append('fullAddress', fullAddress.trim());
-    postData.append('storeId', this.store._id);
+    postData.append('storeId', this.store.id);
 
     this.clientService.addOne(postData).subscribe((data) => {
       console.log(data);

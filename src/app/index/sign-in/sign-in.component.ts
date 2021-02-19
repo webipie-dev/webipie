@@ -58,7 +58,7 @@ export class SignInComponent implements OnInit {
         // create store and redirect to dashboard
         else if (templateId && storeName && storeType){
           this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-            localStorage.setItem('storeID', store._id);
+            localStorage.setItem('storeID', store.id);
           });
           this.router.navigate(['dashboard']);
         }
@@ -130,7 +130,7 @@ export class SignInComponent implements OnInit {
             // create store and redirect to dashboard
             else if (templateId && storeName && storeType){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                localStorage.setItem('storeID', store._id);
+                localStorage.setItem('storeID', store.id);
               });
               this.router.navigate(['dashboard']);
             }
@@ -166,7 +166,7 @@ export class SignInComponent implements OnInit {
             // create store and redirect to dashboard
             else if (templateId && storeName && storeType){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                localStorage.setItem('storeID', store._id);
+                localStorage.setItem('storeID', store.id);
               });
               this.router.navigate(['dashboard']);
             }

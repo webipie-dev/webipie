@@ -37,7 +37,7 @@ export class ChangeColorComponent implements OnInit {
     const postData = {
       'template.colorChart': this.defaultColor
     };
-    this.storeService.edit(this.store._id, postData).subscribe(store => {
+    this.storeService.edit(this.store.id, postData).subscribe(store => {
       sessionStorage.setItem('store', JSON.stringify(store));
     });
   }

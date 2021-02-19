@@ -62,7 +62,7 @@ export class SignUpComponent implements OnInit {
           const storeType = this.route.snapshot.queryParamMap.get('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-              localStorage.setItem('storeID', store._id);
+              localStorage.setItem('storeID', store.id);
             });
             this.router.navigate(['dashboard']);
             return;

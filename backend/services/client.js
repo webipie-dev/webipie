@@ -91,7 +91,7 @@ exports.deleteManyClients = async (req, res, next) => {
   //get clients ids
   const { ids } = req.body;
 
-  const deletedClients = await Client.deleteMany({id: {$in: ids}})
+  const deletedClients = await Client.deleteMany({_id: {$in: ids}})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -137,7 +137,7 @@ exports.editClient = async (req, res, next) => {
     }
   }
 
-  const clients = await Client.updateOne({id: id}, { $set: edits })
+  const clients = await Client.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });

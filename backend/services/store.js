@@ -103,7 +103,7 @@ exports.addStore = async (req, res, next) => {
 
   // update storeowner with its id
   if (req.user){
-    const user = await StoreOwner.updateOne({id: req.user.id}, {storeID: store.id}, {new: true});
+    const user = await StoreOwner.updateOne({_id: req.user.id}, {storeID: store.id}, {new: true});
   }
 
 
@@ -119,7 +119,7 @@ exports.addStore = async (req, res, next) => {
 exports.deleteManyStores = async (req, res, next) => {
   const { ids } = req.body;
 
-  const deletedStores = await Store.deleteMany({id: {$in: ids}})
+  const deletedStores = await Store.deleteMany({_id: {$in: ids}})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -191,7 +191,7 @@ exports.editStore = async (req, res, next) => {
     }
   }
 
-  const store = await Store.updateOne({id: id}, { $set: edits })
+  const store = await Store.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -217,7 +217,7 @@ exports.changeTemplate = async (req, res, next) => {
     next(ApiError.NotFound('Template not Found'));
     return;
   }
-  const store = await Store.updateOne({id: id}, { $set: {
+  const store = await Store.updateOne({_id: id}, { $set: {
     template: template
     } })
     .catch((err) => {
@@ -234,18 +234,3 @@ exports.changeTemplate = async (req, res, next) => {
   res.status(200).send(storeEdited)
 };
 
-
-function renameKey ( obj, old_key, new_key ) {
-  if (old_key !== new_key) {
-    Object.defineProperty(obj, new_key,
-        Object.getOwnPropertyDescriptor(obj, old_key));
-    delete o[old_key];
-  }
-}
-function renameKey ( obj, old_key, new_key ) {
-  if (old_key !== new_key) {
-    Object.defineProperty(obj, new_key,
-        Object.getOwnPropertyDescriptor(obj, old_key));
-    delete o[old_key];
-  }
-}

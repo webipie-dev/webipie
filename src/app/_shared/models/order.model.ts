@@ -5,12 +5,12 @@ export class Order {
   public paymentMethod: string;
   public products: [
     {
-      _id: string,
+      id: string,
       quantity: string
     }
   ];
   client: {
-    _id: string,
+    id: string,
     name: string
   };
   store: string;

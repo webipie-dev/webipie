@@ -11,7 +11,7 @@ import {Store} from '../../_shared/models/store.model';
 export class SocialMediaComponent implements OnInit {
   defaultFacebook = JSON.parse(sessionStorage.getItem('store')).contact.facebookPage;
   defaultInstagram = JSON.parse(sessionStorage.getItem('store')).contact.instagramPage;
-  storeId = JSON.parse(sessionStorage.getItem('store'))._id;
+  storeId = JSON.parse(sessionStorage.getItem('store')).id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService) {

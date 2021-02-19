@@ -15,7 +15,7 @@ export class ChangeContactComponent implements OnInit {
   defaultEmail = JSON.parse(sessionStorage.getItem('store')).contact.email;
   defaultNumber = JSON.parse(sessionStorage.getItem('store')).contact.phoneNumber;
   defaultLocation = JSON.parse(sessionStorage.getItem('store')).contact.location;
-  storeId = JSON.parse(sessionStorage.getItem('store'))._id;
+  storeId = JSON.parse(sessionStorage.getItem('store')).id;
 
 
 

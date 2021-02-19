@@ -23,7 +23,7 @@ export class ChangeFontComponent implements OnInit {
 
   fontType = JSON.parse(sessionStorage.getItem('store')).template.font;
 
-  storeId = JSON.parse(sessionStorage.getItem('store'))._id;
+  storeId = JSON.parse(sessionStorage.getItem('store')).id;
 
   currentFont = JSON.parse(sessionStorage.getItem('store')).template.font;
 

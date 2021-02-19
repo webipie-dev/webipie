@@ -11,7 +11,7 @@ import {Store} from '../_shared/models/store.model';
 })
 
 export class StoreEditComponent implements OnInit {
-  urlToPreview = 'http://localhost:4200/second-template/default-store/ariana';
+  urlToPreview = 'http://store.webipie.com:4200';
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
@@ -25,8 +25,8 @@ export class StoreEditComponent implements OnInit {
   ngOnInit(): void {
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
+      sessionStorage.setItem('store', JSON.stringify(this.store));
     });
-    // this.store = JSON.parse(this.storeService.getById(this.storeId));
 
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
     if (document.getElementById('sidebar').classList.contains('active')) {

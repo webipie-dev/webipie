@@ -26,7 +26,7 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
     this.store = JSON.parse(sessionStorage.getItem('store'));
     this.popularProducts = [];
 
-    this.productService.getAll({store: this.store._id, popular: true}, 'client').subscribe(data => {
+    this.productService.getAll({store: this.store.id, popular: true}, 'client').subscribe(data => {
       this.popularProducts.push.apply(this.popularProducts, data);
     });
 

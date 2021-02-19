@@ -59,6 +59,7 @@ export class EditProductComponent implements OnInit {
     });
     // if we're in the edit page
     if (this.edit) {
+      console.log('aaaaaa');
       this.getProductById(this.productId);
     }
     this.productForm = new FormGroup({
@@ -160,7 +161,7 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const currentStore = JSON.parse(localStorage.getItem('currentStore'))._id;
+    const currentStore = localStorage.getItem('storeID');
     this.postData.append('storeId', currentStore);
     this.postData.append('openReview', this.isChecked.toString());
     this.postData.append('popular', this.isPopular.toString());

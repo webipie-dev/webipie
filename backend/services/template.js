@@ -46,7 +46,7 @@ exports.deleteManyTemplates = async (req, res, next) => {
   //get stores ids
   const { ids } = req.body;
 
-  const deletedTemplates = await Template.deleteMany({id: {$in: ids}})
+  const deletedTemplates = await Template.deleteMany({_id: {$in: ids}})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -85,7 +85,7 @@ exports.editTemplate = async (req, res, next) => {
     }
   }
 
-  const templateEdited = await Template.updateOne({id: id}, { $set: edits })
+  const templateEdited = await Template.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });

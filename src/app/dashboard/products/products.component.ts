@@ -136,10 +136,10 @@ export class ProductsComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.productService.deleteMany({ids: [event.data._id]}).subscribe((data) => {
+        this.productService.deleteMany({ids: [event.data.id]}).subscribe((data) => {
           event.confirm.resolve();
           // delete the product from the displayed products
-          this.products = this.products.filter(prod => prod._id !== event.data._id);
+          this.products = this.products.filter(prod => prod.id !== event.data.id);
         });
         // const index = this.selectedRows.indexOf(event.data);
         // if (index > -1) {
@@ -166,7 +166,7 @@ export class ProductsComponent implements OnInit {
   }
 
   onEditSelect(event): void {
-    this.router.navigate(['dashboard', 'product-edit'], {queryParams: {id: event.data._id}});
+    this.router.navigate(['dashboard', 'product-edit'], {queryParams: {id: event.data.id}});
   }
 
   onDeleteMany(): void {
@@ -185,7 +185,7 @@ export class ProductsComponent implements OnInit {
         // deleting data
         const ids = [];
         this.selectedRows.forEach(elt => {
-          ids.push(elt._id);
+          ids.push(elt.id);
         });
         this.productService.deleteMany({ids}).subscribe(data => {
           this.selectedRows = [];
@@ -193,7 +193,7 @@ export class ProductsComponent implements OnInit {
         });
 
         ids.forEach(elt => {
-          this.products = this.products.filter(prod => prod._id !== elt);
+          this.products = this.products.filter(prod => prod.id !== elt);
         });
         // swol popup
         this.productService.deleteModal.fire(

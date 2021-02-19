@@ -42,7 +42,7 @@ export class AfterSigninComponent implements OnInit {
         console.log('here to create store!');
         this.storeService.addOne({ templateId, name: this.storeName, storeType: this.storeType }).subscribe( store => {
           console.log(store);
-          localStorage.setItem('storeId', store._id);
+          localStorage.setItem('storeId', store.id);
         });
         this.router.navigate(['dashboard']);
       } else {

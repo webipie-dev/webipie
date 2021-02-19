@@ -121,13 +121,13 @@ export class OrdersComponent implements OnInit {
             totalPrice += product.quantity * product.price;
           });
           const aux = {
-            _id: element._id,
+            id: element.id,
             orderDate: date[0],
             orderStatus: element.orderStatus,
             totalPrice,
             paymentMethod: element.paymentMethod,
             products: element.products,
-            clientId: element.client._id,
+            clientId: element.client.id,
             clientName: element.client.firstname,
             store: element.store,
           };
@@ -156,9 +156,9 @@ export class OrdersComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
+        this.orderService.deleteMany({ids: event.data.id}).subscribe((data) => {
           // delete the order from orders displayed
-          this.orders = this.orders.filter(prod => prod._id !== event.data._id);
+          this.orders = this.orders.filter(prod => prod.id !== event.data.id);
           event.confirm.resolve();
 
 
@@ -202,10 +202,10 @@ export class OrdersComponent implements OnInit {
 
         const ids = [];
         this.selectedRows.forEach(elt => {
-          ids.push(elt._id);
+          ids.push(elt.id);
         });
         ids.forEach(elt => {
-          this.orders = this.orders.filter(prod => prod._id !== elt);
+          this.orders = this.orders.filter(prod => prod.id !== elt);
         });
         this.orderService.deleteMany({ids}).subscribe(data => {
           this.selectedRows = [];
