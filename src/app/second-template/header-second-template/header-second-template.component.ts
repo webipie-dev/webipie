@@ -16,8 +16,8 @@ export class HeaderSecondTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     this.store = JSON.parse(sessionStorage.getItem('store'));
-    this.storeService.changeTheme(this.el, this.store);  
+    this.storeService.changeTheme(this.el, this.store);
   }
 
-  
+
 }
