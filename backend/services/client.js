@@ -45,7 +45,6 @@ exports.getOneClient = async (req, res, next) => {
 
 //addOneClient
 exports.addClient = async (req, res, next) => {
-  console.log(req.body)
   const { firstname, lastname, phoneNumber, email, fullAddress, storeId} = req.body
 
   const store = await Store.findById(storeId)

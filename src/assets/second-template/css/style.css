@@ -187,7 +187,7 @@ a:hover, a:focus {
 	transform: translate(-50%, -50%);
 }
 .font-playfair {
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', sans-serif !important;
 }
 .font-montserrat {
 	font-family: 'Montserrat', sans-serif !important;
@@ -361,7 +361,7 @@ section {
 	line-height: 24px;
 	letter-spacing: 0.1px;
 	color: #666666;
-	font-family: 'Playfair Display', serif;
+	font-family: 'Montserrat', serif;
 }
 .heading.light-head h3 {
 	color: #fff;
@@ -514,7 +514,7 @@ section {
  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=0 ); /* IE6-9 */
 }
 .arrival-block .item-name p {
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 	font-size: 14px;
 	margin: 0px;
 }
@@ -595,7 +595,7 @@ section {
 	width: 100%;
 }
 .top-shop-feature p {
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 }
 /*=======================================================
       NEW ARRIVAL LIST
@@ -731,7 +731,7 @@ section {
 }
 .tooltip-inner {
 	padding: 4px 14px;
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 }
 .tooltip.top .tooltip-arrow {
 	bottom: 1px;
@@ -797,7 +797,7 @@ section {
 	z-index: 9;
 }
 .papular-block .item-name p {
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 	font-size: 14px;
 	margin: 0px;
 	margin-top: 10px;
@@ -916,7 +916,7 @@ section {
 	text-transform: uppercase;
 }
 .shop-items .item-name p {
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 }
 .shop-items .price {
 	font-size: 18px;
@@ -1033,7 +1033,7 @@ section {
 	border-bottom: 1px solid #d1d5db;
 }
 .tweet p {
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 }
 .tweet i {
 	font-size: 30px;
@@ -1122,7 +1122,7 @@ section {
 	font-weight: bold;
 }
 .knowledge-share p {
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 	max-width: 400px;
 }
 .knowledge-share a {
@@ -1321,7 +1321,7 @@ section {
 	margin-top: 20px;
 }
 .testimonial p {
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 	max-width: 400px;
 	margin-top: 40px;
 	color: #4d4d4d;
@@ -1424,7 +1424,7 @@ section {
 .sub-bnr p {
 	color: #666666;
 	letter-spacing: 0px;
-	font-family: 'Playfair Display', serif !important;
+	font-family: 'Montserrat', serif !important;
 	font-size: 14px;
 	margin-top: 20px;
 	max-width: 590px;

@@ -9,15 +9,15 @@ exports.getProducts = async (req, res, next) => {
 
   // add the store_id to the query
   // req.query.store = req.params.store;
-  
-  
-  console.log(req);
+
+
+
   if(!req.query.store){
     return next(ApiError.BadRequest('you have to pass the storeID'));
   }
- 
+
   const query = filterProducts(req);
-  console.log(query)
+
   const products = await Product.find(query)
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});

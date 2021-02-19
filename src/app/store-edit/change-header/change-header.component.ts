@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
-import { HeaderComponent } from '../../dashboard/header/header.component';
+import {Store} from '../../_shared/models/store.model';
 
 @Component({
   selector: 'app-change-header',
@@ -13,11 +13,11 @@ export class ChangeHeaderComponent implements OnInit {
 
   constructor(private storeService: StoreService,
               private router: Router) { }
-  storeId = '5fd09d461bcaf731b40f95fb';
+  storeId = localStorage.getItem('storeID');
   headerForm: FormGroup;
   postData = new FormData();
-  imgSrc = '../../../assets/images/fashion-WPWVGRY.jpg';
-  store: any;
+  imgSrc = JSON.parse(sessionStorage.getItem('store')).template.header.img;
+  store: Store;
 
   ngOnInit(): void {
     this.store = JSON.parse(sessionStorage.getItem('store'));
@@ -27,15 +27,15 @@ export class ChangeHeaderComponent implements OnInit {
       mainButton: new FormControl(this.store.template.header.mainButton),
       img: new FormControl(this.store.template.header.img),
     });
+    console.log(this.headerForm.get('img').value);
   }
 
   onFileChanged(event): void {
     const file = event.target.files[0];
-    this.postData.append('headerImg', file, file.name);
-    console.log(file);
+    this.postData.append('img', file, file.name);
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (event) => {
+    reader.onload = (events) => {
       this.imgSrc = reader.result.toString();
     };
   }

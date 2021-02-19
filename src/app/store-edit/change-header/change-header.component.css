@@ -44,6 +44,7 @@ a[data-toggle="collapse"] {
   margin-top: -5px
 }
 
+
 .child-elem {
   padding-left: 60px !important;
 }
@@ -105,7 +106,7 @@ button {
 .image{
     position: sticky;
     border-radius: 8px;
-    width: 100%; 
+    width: 100%;
     filter: blur(1px);
     -webkit-filter: blur(1px);
     z-index: 1;

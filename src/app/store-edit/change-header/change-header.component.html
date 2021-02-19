@@ -19,6 +19,7 @@
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               type='text'
               formControlName="title"
+              value="{{store.template.header.title}}"
             >
           </div>
           <div class="my-3">
@@ -29,6 +30,7 @@
               style="height: 100px;"
               type='text'
               formControlName="description"
+              value="{{store.template.header.description}}"
             >
           </div>
           <div class="my-3">
@@ -38,6 +40,7 @@
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               type='text'
               formControlName="mainButton"
+              value="{{store.template.header.mainButton}}"
             >
           </div>
           <div class="my-3">
@@ -51,12 +54,15 @@
                 (change)="onFileChanged($event)"
               >
               <button class="img-fluid mb-3 mt-2 img-product">
-                <img alt="" class="image" [src]="headerForm.get('img').value">
+                <img alt="" class="image" [src]="imgSrc">
                 <img alt="" class='ml-6 upload-image ' src="../../../assets/images/upload-image.png">
               </button>
-              <label>*Img resolution should be</label>
-              <label><b>  1919 * 1055</b></label>
             </div>
+            <label>*Img resolution should be <b>1919 * 1055</b></label>
+            <small><a class="nav-link-sidebar" href="https://pixabay.com/fr/photos/search/nature/?min_width=1919&min_height=1055&orientation=horizontal#" target="_blank">choose from here</a></small>
+            <small><a class="nav-link-sidebar" href="https://www.canva.com/photos/free/" target="_blank">or from here</a></small>
+            <small><a class="nav-link-sidebar" href="https://unsplash.com/s/photos/picture?orientation=landscape" target="_blank">or from here</a></small>
+            <small><a class="nav-link-sidebar" href="https://fr.freepik.com/search?dates=any&format=search&page=1&selection=1&sort=popular&type=photo" target="_blank">or from here</a></small>
           </div>
         </div>
       </li>

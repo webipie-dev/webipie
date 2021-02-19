@@ -9,6 +9,9 @@ import {StoreService} from '../../_shared/services/store.service';
 })
 export class TopSliderComponent implements OnInit {
   store: Store;
+  title: string[];
+  partOne: string;
+  partTwo: string;
 
   constructor(private el: ElementRef,
               private storeService: StoreService) { }
@@ -16,5 +19,10 @@ export class TopSliderComponent implements OnInit {
   ngOnInit(): void {
     this.store = JSON.parse(sessionStorage.getItem('store'));
     this.storeService.changeTheme(this.el, this.store);
+    this.title = this.store.template.header.title.split(' ');
+    if (this.title.length > 1) {
+      this.partOne = this.title.splice(0, this.title.length / 2).join(' ');
+      this.partTwo = this.title.join(' ');
+    }
   }
 }

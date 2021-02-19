@@ -11,7 +11,7 @@ import {Store} from '../_shared/models/store.model';
 })
 
 export class StoreEditComponent implements OnInit {
-  urlToPreview = 'http://store.webipie.com:4200';
+  urlToPreview: string;
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
@@ -26,9 +26,9 @@ export class StoreEditComponent implements OnInit {
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
       this.urlToPreview = 'http://' + this.store.url + ':4200';
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
       sessionStorage.setItem('store', JSON.stringify(this.store));
     });
-    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
     if (document.getElementById('sidebar').classList.contains('active')) {
      this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
     } else {
