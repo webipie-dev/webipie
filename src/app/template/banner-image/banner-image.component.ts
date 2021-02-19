@@ -17,13 +17,6 @@ export class BannerImageComponent implements OnInit {
   mainButton;
   storeId = '600053ca1181b69010315090';
   ngOnInit(): void {
-    this.storeService.getById(this.storeId).subscribe(store => {
-      this.title = store.template.header.title;
-      this.description = store.template.header.description;
-      this.mainButton = store.template.header.mainButton;
-      this.bannerSrc = store.template.header.img;
-      localStorage.setItem('currentStore', JSON.stringify(store));
-    });
   }
 
 }
