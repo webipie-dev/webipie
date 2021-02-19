@@ -6,8 +6,6 @@ import {ProductService} from '../../_shared/services/product.service';
 import {Product} from '../../_shared/models/product.model';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import {log} from 'util';
-import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 @Component({
   selector: 'app-products',

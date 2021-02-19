@@ -48,7 +48,7 @@ exports.addOrder = async (req, res, next) => {
   //   ids: ['444444',555555],
   //   products : [
   //     {
-  //       _id: '44444',
+  //       id: '44444',
   //       quantity: 1,
   //       name,
   //       imgs,
@@ -56,7 +56,7 @@ exports.addOrder = async (req, res, next) => {
   //
   //     },
   //     {
-  //       _id: '555555',
+  //       id: '555555',
   //       quantity: 1
   //       name,
   //       imgs,
@@ -81,7 +81,7 @@ exports.addOrder = async (req, res, next) => {
     return;
   }
 
-  const prods = await Product.find({_id: {$in: productsOrder.ids}})
+  const prods = await Product.find({id: {$in: productsOrder.ids}})
 
   if (prods.length !== productsOrder.ids.length) {
     next(ApiError.NotFound('One or more products Not Found'));
@@ -108,7 +108,7 @@ exports.addOrder = async (req, res, next) => {
   productsOrder.products.map(product => {
     bulkQueries.push({
       updateOne: {
-        "filter": { _id: product._id},
+        "filter": { id: product.id},
         "update":{$inc: {quantity: -product.quantity}}
       }
     })
@@ -128,7 +128,7 @@ exports.deleteManyOrders = async (req, res, next) => {
   //get orders ids
   const { ids } = req.body;
 
-  const deletedOrders = await Order.deleteMany({_id: {$in: ids}})
+  const deletedOrders = await Order.deleteMany({id: {$in: ids}})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -169,7 +169,7 @@ exports.editOrder = async (req, res, next) => {
       }
   }
 
-  const orderEdited = await Order.updateOne({_id: id}, { $set: edits })
+  const orderEdited = await Order.updateOne({id: id}, { $set: edits })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -191,7 +191,7 @@ exports.deleteProductOrder = async (req,res, next) => {
   //get order id
   const { id } = req.body;
 
-  const orderDeleted = await Order.updateOne({_id: id}, {$pull: {products: {_id : req.body.product}}})
+  const orderDeleted = await Order.updateOne({id: id}, {$pull: {products: {id : req.body.product}}})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });

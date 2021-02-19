@@ -35,6 +35,7 @@ export class SignInComponent implements OnInit {
 
     const head = document.getElementById('headerr');
     head.className += ' color-blue-header';
+
   }
 
   signIn(): void {

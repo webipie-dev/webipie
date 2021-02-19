@@ -7,15 +7,15 @@ exports.getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
-  // add the store_id to the query
+  // add the storeid to the query
   // req.query.store = req.params.store;
-  
-  
+
+
   console.log(req);
   if(!req.query.store){
     return next(ApiError.BadRequest('you have to pass the storeID'));
   }
- 
+
   const query = filterProducts(req);
   console.log(query)
   const products = await Product.find(query)
@@ -115,13 +115,13 @@ exports.editOneProduct = async (req, res, next) => {
   let bulkQueries = [];
     await bulkQueries.push({
       updateOne: {
-        "filter": { _id: id},
+        "filter": { id: id},
         "update":{ $set: edits }
       }
     })
    await bulkQueries.push({
       updateOne: {
-        "filter": { _id: id},
+        "filter": { id: id},
         "update": { $addToSet: {imgs: {$each: images} } }
       }
     })
@@ -155,7 +155,7 @@ exports.addReview = async (req,res,next) => {
     date
   })
 
-  const productUpdate = await Product.update({_id: id}, { $push: { reviews: reviewBody } })
+  const productUpdate = await Product.update({id: id}, { $push: { reviews: reviewBody } })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -180,7 +180,7 @@ exports.deleteImage = async (req, res, next) => {
     return;
   }
 
-  const productUpdate = await Product.update({_id: id}, {$pull: {imgs: url } })
+  const productUpdate = await Product.update({id: id}, {$pull: {imgs: url } })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -201,7 +201,7 @@ exports.deleteManyProducts = async (req, res, next) => {
   //get products ids
   const { ids } = req.body;
 
-  const deletedProducts = await Product.deleteMany({_id: {$in: ids}})
+  const deletedProducts = await Product.deleteMany({id: {$in: ids}})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });

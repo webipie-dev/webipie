@@ -15,7 +15,7 @@ exports.getStores = async (req, res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(stores.forEach( obj => renameKey( obj, '_id', 'id' )));
+  res.status(200).send(stores);
 
 }
 
@@ -29,7 +29,7 @@ exports.getOneStore = async (req, res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(store.forEach( obj => renameKey( obj, '_id', 'id' )));
+  res.status(200).send(store);
 }
 
 exports.getStoreByUrl = async (req,res) => {
@@ -48,7 +48,7 @@ exports.getStoreByNameAndLocation = async (req,res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(store.forEach( obj => renameKey( obj, '_id', 'id' )));
+  res.status(200).send(store);
 }
 
 exports.getStoreByUrl = async (req,res) => {
@@ -70,9 +70,9 @@ exports.addStore = async (req, res, next) => {
   }
 
   //get the store id from the request
-  // const _id = req.user.storeID;
+  // const id = req.user.storeID;
 
-  // const userStore = Store.findById(_id)
+  // const userStore = Store.findById(id)
   // if (userStore) {
   //   next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
   //   return;
@@ -87,10 +87,10 @@ exports.addStore = async (req, res, next) => {
     return;
   }
 
-  getTemplate._id= templateId
+  getTemplate.id= templateId
 
   const store = new Store({
-    // _id,
+    // id,
     name,
     logo,
     description,
@@ -103,7 +103,7 @@ exports.addStore = async (req, res, next) => {
 
   // update storeowner with its id
   if (req.user){
-    const user = await StoreOwner.updateOne({_id: req.user._id}, {storeID: store._id}, {new: true});
+    const user = await StoreOwner.updateOne({id: req.user.id}, {storeID: store.id}, {new: true});
   }
 
 
@@ -119,7 +119,7 @@ exports.addStore = async (req, res, next) => {
 exports.deleteManyStores = async (req, res, next) => {
   const { ids } = req.body;
 
-  const deletedStores = await Store.deleteMany({_id: {$in: ids}})
+  const deletedStores = await Store.deleteMany({id: {$in: ids}})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -191,7 +191,7 @@ exports.editStore = async (req, res, next) => {
     }
   }
 
-  const store = await Store.updateOne({_id: id}, { $set: edits })
+  const store = await Store.updateOne({id: id}, { $set: edits })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -217,7 +217,7 @@ exports.changeTemplate = async (req, res, next) => {
     next(ApiError.NotFound('Template not Found'));
     return;
   }
-  const store = await Store.updateOne({_id: id}, { $set: {
+  const store = await Store.updateOne({id: id}, { $set: {
     template: template
     } })
     .catch((err) => {
