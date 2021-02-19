@@ -42,19 +42,20 @@
 <!--********************** Popular Product ********************-->
 
 <div class="content-popular">
-  <div class="card-popular transition-popular" *ngIf="popularProduct">
+  <div class="card-popular transition-popular" *ngIf="!isLoading">
     <h2 class="transition-popular">{{popularProduct.name}}</h2>
     <p>{{popularProduct.description}}</p>
     <div class="card_circle transition-popular"
-         [ngStyle]="{'background' : 'url(' + popularProduct.imgs[0]+ ') no-repeat center '}"></div>
+         [ngStyle]="{'background' : popularProduct ? 'url(' + popularProduct.imgs[0]+ ') no-repeat center ' : null}"></div>
     <div class="bought-prod">Most Bought Product</div>
 
   </div>
   <!--********************** Preview Template ********************-->
-  <div class="card" style="height: 300px; max-width: 592px" *ngIf="popularProduct">
-    <h2 class="transition-popular">{{popularProduct.name}}</h2>
-    <p>{{popularProduct.description}}</p>
-    <div class="bought-prod">Preview Template</div>
+  <div class="card" style="height: 300px; max-width: 592px" *ngIf="!isLoading">
+    <iframe src="http://store.webipie.com:4200/"
+            class="iframe-home"
+            frameborder="0" width="550px" height="250px"></iframe>
+    <div class="bought-prod" routerLink="/store">edit store</div>
 
   </div>
 </div>

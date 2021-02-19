@@ -27,6 +27,7 @@ export class DashboardHomeComponent implements OnInit {
   popularProduct: Product = new Product();
   popularProdFreq = 0;
   store: Store = new Store();
+  isLoading = false;
 
   ngOnInit(): void {
     this.getClientsLength();
@@ -40,7 +41,8 @@ export class DashboardHomeComponent implements OnInit {
   }
 
   getOrderLength(): void {
-    this.orderService.getAll().subscribe((data) => {
+    const store = localStorage.getItem('storeID');
+    this.orderService.getAll({store}).subscribe((data) => {
       console.log(data);
       const prodArray = [];
       data.forEach(item => {
@@ -72,14 +74,18 @@ export class DashboardHomeComponent implements OnInit {
     });
   }
   getClientsLength(): void {
-    this.clientService.getAll().subscribe((data) => {
+    this.isLoading = true;
+    const store = localStorage.getItem('storeID');
+    this.clientService.getAll({store}).subscribe((data) => {
       console.log(data);
       this.clientsLength = data.length;
       this.getOrderLength();
     });
   }
   getProductsLength(): void {
-    this.productService.getAll().subscribe((data) => {
+    const store = localStorage.getItem('storeID');
+    console.log(store);
+    this.productService.getAll({store}).subscribe((data) => {
       console.log(data);
       this.productLength = data.length;
       $.fn.jQuerySimpleCounter = function( options ) {
@@ -107,6 +113,7 @@ export class DashboardHomeComponent implements OnInit {
       $('#clients-number').jQuerySimpleCounter({end: this.clientsLength, duration: 1500});
       $('#orders-number').jQuerySimpleCounter({end: this.ordersLength, duration: 1500});
       $('#products-number').jQuerySimpleCounter({end: this.productLength  , duration: 1500});
+      this.isLoading = false;
     });
   }
 }

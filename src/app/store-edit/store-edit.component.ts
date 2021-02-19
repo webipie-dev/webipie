@@ -50,20 +50,20 @@ export class StoreEditComponent implements OnInit {
     // this.store = JSON.parse(this.storeService.getById(this.storeId));
 
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
-    if (document.getElementById('sidebar').classList.contains('active')) {
-     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    } else {
-      this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    }
-    document.getElementById('iframe').style.width = this.newWidth.toString();
-    window.addEventListener('resize', () => {
-      if (document.getElementById('sidebar').classList.contains('active')) {
-        this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-      } else {
-        this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-      }
-      document.getElementById('iframe').style.width = this.newWidth.toString();
-    });
+    // if (document.getElementById('sidebar').classList.contains('active')) {
+    //  this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
+    // } else {
+    //   this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
+    // }
+    // document.getElementById('iframe').style.width = this.newWidth.toString();
+    // window.addEventListener('resize', () => {
+    //   if (document.getElementById('sidebar').classList.contains('active')) {
+    //     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
+    //   } else {
+    //     this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
+    //   }
+    //   document.getElementById('iframe').style.width = this.newWidth.toString();
+    // });
   }
 
   public _toggleSidebar(): void {
