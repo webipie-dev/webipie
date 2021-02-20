@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {StoreOwner} from '../../_shared/models/store_owner.model';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 declare var $: any;
 
@@ -23,9 +24,9 @@ export class TemplatesPageComponent implements OnInit {
   }
 
   onTemplatePick(templateId): void {
-    if ((localStorage.getItem('token') && !localStorage.getItem('storeID')) || !localStorage.getItem('token')) {
+    if ((localStorage.getItem('token') && !encryptLocalStorage.getItem('storeID')) || !localStorage.getItem('token')) {
       this.router.navigate(['after-signin'], { queryParams: { templateId }});
-    } else if (localStorage.getItem('token') && localStorage.getItem('storeID')){
+    } else if (localStorage.getItem('token') && encryptLocalStorage.getItem('storeID')){
       this.router.navigate(['dashboard'], { queryParams: { templateId }});
     }
   }

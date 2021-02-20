@@ -3,6 +3,7 @@ import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {HttpClient} from '@angular/common/http';
 import {OrderService} from '../../../_shared/services/order.service';
 import Swal from 'sweetalert2';
+import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-orders',
@@ -112,7 +113,7 @@ export class OrdersComponent implements OnInit {
 
 
   getAllOrders(): void {
-    this.orderService.getAll({store: localStorage.getItem('storeID')}).subscribe((data) => {
+    this.orderService.getAll({store: encryptLocalStorage.getItem('storeID')}).subscribe((data) => {
       data.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');

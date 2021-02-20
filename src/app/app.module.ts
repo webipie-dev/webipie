@@ -77,7 +77,7 @@ export let InjectorInstance: Injector;
     }),
     SecondTemplateModule,
     SpinnerModule,
-    SidebarModule.forRoot(),
+    SidebarModule.forRoot()
   ],
   providers: [
     {

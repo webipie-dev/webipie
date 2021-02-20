@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
-
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {StoreService} from '../../_shared/services/store.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../_shared/services/client.service';
@@ -12,7 +12,7 @@ import {ClientService} from '../../_shared/services/client.service';
   styleUrls: ['./checkout-second-template.component.css']
 })
 export class CheckoutSecondTemplateComponent implements OnInit {
-  store;
+  store: Store;
   clientForm: FormGroup;
 
 
@@ -22,7 +22,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
+    this.store = encryptStorage.getItem('store');
     console.log(this.store);
 
     this.clientForm = new FormGroup({

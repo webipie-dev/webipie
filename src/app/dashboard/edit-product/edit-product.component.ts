@@ -8,6 +8,7 @@ import {ActivatedRoute, Route, Router} from '@angular/router';
 import uniqueSlug from 'unique-slug';
 
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-edit-product',
@@ -160,7 +161,7 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const currentStore = JSON.parse(localStorage.getItem('currentStore'))._id;
+    const currentStore = encryptLocalStorage.getItem('storeID').id;
     this.postData.append('storeId', currentStore);
     this.postData.append('openReview', this.isChecked.toString());
     this.postData.append('popular', this.isPopular.toString());

@@ -6,6 +6,7 @@ import {SocialAuthService} from 'angularx-social-login';
 import {FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
 import {ActivatedRoute, Router} from '@angular/router';
 import { StoreService } from '../../_shared/services/store.service';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 declare var $: any;
 
@@ -62,7 +63,7 @@ export class SignUpComponent implements OnInit {
           const storeType = this.route.snapshot.queryParamMap.get('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-              localStorage.setItem('storeID', store._id);
+              encryptLocalStorage.setItem('storeID', store.id);
             });
             this.router.navigate(['dashboard']);
             return;
@@ -131,7 +132,7 @@ export class SignUpComponent implements OnInit {
           const storeType = this.route.snapshot.queryParamMap.get('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-              localStorage.setItem('storeID', store.id);
+              encryptLocalStorage.setItem('storeID', store.id);
             });
             this.router.navigate(['dashboard']);
             return;
@@ -161,7 +162,7 @@ export class SignUpComponent implements OnInit {
             const storeType = this.route.snapshot.queryParamMap.get('storeType');
             if (templateId && storeType && storeName){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                localStorage.setItem('storeID', store.id);
+                encryptLocalStorage.setItem('storeID', store.id);
               });
               this.router.navigate(['dashboard']);
               return;

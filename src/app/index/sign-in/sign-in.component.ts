@@ -6,6 +6,7 @@ import {AuthService} from '../../_shared/services/auth.service';
 import {StoreOwner} from '../../_shared/models/store_owner.model';
 import Swal from 'sweetalert2';
 import { StoreService } from '../../_shared/services/store.service';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-sign-in',
@@ -51,13 +52,13 @@ export class SignInComponent implements OnInit {
 
         // redirect to dashboard in case of storeID
         if (result['storeId']){
-          localStorage.setItem('storeID', result['storeId']);
+          encryptLocalStorage.setItem('storeID', result['storeId']);
           this.router.navigate([returnUrl || 'dashboard']);
         }
         // create store and redirect to dashboard
         else if (templateId && storeName && storeType){
           this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-            localStorage.setItem('storeID', store._id);
+            encryptLocalStorage.setItem('storeID', store._id);
           });
           this.router.navigate(['dashboard']);
         }
@@ -123,13 +124,13 @@ export class SignInComponent implements OnInit {
 
             // redirect to dashboard in case of storeID
             if (result['storeID']){
-              localStorage.setItem('storeID', result['storeId']);
+              encryptLocalStorage.setItem('storeID', result['storeId']);
               this.router.navigate([returnUrl || 'dashboard']);
             }
             // create store and redirect to dashboard
             else if (templateId && storeName && storeType){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                localStorage.setItem('storeID', store._id);
+                encryptLocalStorage.setItem('storeID', store.id);
               });
               this.router.navigate(['dashboard']);
             }
@@ -150,7 +151,7 @@ export class SignInComponent implements OnInit {
         // console.log(x['authToken']);
         this.auth.loginWithGoogle(x['authToken'])
           .subscribe(result => {
-            localStorage.setItem('token', result['token']);
+            encryptLocalStorage.setItem('token', result['token']);
             const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
             // params in route
             const templateId = this.route.snapshot.queryParamMap.get('templateId');
@@ -159,13 +160,13 @@ export class SignInComponent implements OnInit {
 
             // redirect to dashboard in case of storeID
             if (result['storeID']){
-              localStorage.setItem('storeId', result['storeId']);
+              encryptLocalStorage.setItem('storeId', result['storeId']);
               this.router.navigate([returnUrl || 'dashboard']);
             }
             // create store and redirect to dashboard
             else if (templateId && storeName && storeType){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                localStorage.setItem('storeID', store._id);
+                encryptLocalStorage.setItem('storeID', store.id);
               });
               this.router.navigate(['dashboard']);
             }

@@ -3,6 +3,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {ViewportScroller} from '@angular/common';
 import {log} from 'util';
 import {defaultLogger} from '@angular/cdk/schematics/update-tool/logger';
+import {encryptLocalStorage} from '../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-index',
@@ -31,10 +32,10 @@ export class IndexComponent implements OnInit {
   }
 
   changeRoute(): void {
-    if (!localStorage.getItem('token') || !localStorage.getItem('storeID')) {
+    if (!localStorage.getItem('token') || !encryptLocalStorage.getItem('storeID')) {
       this.router.navigate(['/templates'], {relativeTo: this.route}).then(r => console.log(r));
     }
-    else if (localStorage.getItem('token') && localStorage.getItem('storeID')) {
+    else if (localStorage.getItem('token') && encryptLocalStorage.getItem('storeID')) {
       this.router.navigate(['/dashboard'], {relativeTo: this.route}).then(r => console.log(r));
     }
   }
