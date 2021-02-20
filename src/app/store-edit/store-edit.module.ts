@@ -13,6 +13,7 @@ import {ColorPickerComponent} from './change-color/color-picker/color-picker.com
 import {SocialMediaComponent} from './social-media/social-media.component';
 import {SidenavMenuComponent} from './sidenav-menu/sidenav-menu.component';
 import {TemplateModule} from '../template/template.module';
+import {SidebarModule} from "ng-sidebar";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {TemplateModule} from '../template/template.module';
     ReactiveFormsModule,
     CommonModule,
     TemplateModule,
-    FormsModule
+    FormsModule,
+    SidebarModule
   ],
   declarations: [
     StoreEditComponent,

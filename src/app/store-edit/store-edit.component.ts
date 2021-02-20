@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {NavigationExtras, Router} from '@angular/router';
 import {StoreService} from '../_shared/services/store.service';
@@ -18,11 +18,32 @@ export class StoreEditComponent implements OnInit {
   storeId = localStorage.getItem('storeID');
   store: Store;
 
+
+
+  public opened = true;
+  public minimized = false;
+  public mobileOpen = false;
+  public mode = 'push';
+  public windwosWidth = window.innerWidth;
+
+
   constructor(public sanitizer: DomSanitizer,
               private router: Router,
               private storeService: StoreService) { }
 
   ngOnInit(): void {
+    if (window.screen.width < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+      this.opened = false;
+      this.minimized = false;
+    } else {
+      this.mode = 'push';
+      this.mobileOpen = false;
+      this.opened = true;
+      this.minimized = false;
+    }
+
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
       this.urlToPreview = 'http://' + this.store.url + ':4200';
@@ -41,13 +62,19 @@ export class StoreEditComponent implements OnInit {
       } else {
         this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
       }
-      document.getElementById('iframe').style.width = this.newWidth.toString();
-    });
+
+    } else if (this.windwosWidth >= 576) {
+      this.mode = 'push';
+      this.opened = true;
+      this.minimized = false;
+      this.mobileOpen = false;
+
+    }
   }
 
   switchAndToggleS(path): void {
     this.router.navigate([path]);
-    this.toggleS();
+    this._toggleSidebar();
   }
 
   toggleS = (): void =>  {

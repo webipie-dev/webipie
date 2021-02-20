@@ -36,7 +36,7 @@ const templateRoutes: Routes = [
   {
     path: '',
     loadChildren: () => {
-      const template = JSON.parse(sessionStorage.getItem('store')).template.name;
+      const template = JSON.parse(localStorage.getItem('storeID')).template.name;
       if (template === 'template1') {
         return import('./second-template/second-template.module')
           .then(m => m.SecondTemplateModule);

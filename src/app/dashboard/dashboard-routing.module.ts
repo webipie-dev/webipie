@@ -11,11 +11,17 @@ import { MobileAppPageComponent } from './mobile-app-page/mobile-app-page.compon
 import {StatisticsComponent} from './statistics/statistics.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from '../_shared/services/auth-guard.service';
+import {DashboardHomeComponent} from "./dashboard-home/dashboard-home.component";
 
 const routes: Routes = [{
   path: '',
   component: DashboardComponent,
   children: [
+    {
+      path: '',
+      component: DashboardHomeComponent,
+      /*canActivate: [AuthGuard]*/
+    },
     {
       path: 'social-media',
       component: SocialMediaComponent,

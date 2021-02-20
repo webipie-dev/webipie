@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<div id="sidebar-color">
+<div id="sidebar-color" style="color: #ffffff;">
   <ul class="list-unstyled components text-size">
     <li class="sidenav-elem">
       <a class="my-4 py-3 px-1 back-button nav-link-sidebar cursor-pointer" routerLink="/store">
@@ -14,51 +14,56 @@
         <div class="small-titles my-2">Recommendations</div>
 
         <div class="mt-3" *ngFor="let color of defaultColors" (click)="colorChange(color)">
-// nour
-          <button class="py-2 row my-2 mx-auto button-generic button-white-color">
-            <div [ngStyle]="{'background': color['bg-color']}"
-                 class="circle"></div>
-            <div [ngStyle]="{'background': color['font color']}"
-                 class="circle"></div>
-            <div [ngStyle]="{'background': color['secondary color']}"
-                 class="circle"></div>
-          </button>
+<!--          <button class="py-2 row my-2 mx-auto button-generic button-white-color">-->
+<!--            <div [ngStyle]="{'background': color['bg-color']}"-->
+<!--                 class="circle"></div>-->
+<!--            <div [ngStyle]="{'background': color['font color']}"-->
+<!--                 class="circle"></div>-->
+<!--            <div [ngStyle]="{'background': color['secondary color']}"-->
+<!--                 class="circle"></div>-->
+<!--          </button>-->
 
-// yassine
           <div class="color-palettes">
             <div class="color-palette">
               <div class="colors">
 
-                <button *ngFor="let paint of color.colors"
-                        class="color-button color"
-                        [ngStyle]="{'background': paint}">
+                <button
+                  class="color-button color"
+                  [ngStyle]="{'background': color['bg-color']}">
+                </button>
+
+                <button
+                  class="color-button color"
+                  [ngStyle]="{'background': color['font color']}">
+                </button>
+
+                <button
+                  class="color-button color"
+                  [ngStyle]="{'background': color['secondary color']}">
                 </button>
 
               </div>
               <div class="color-labels text-center">
                 <h3>{{color.name}}</h3>
-                <button class="button-generic button-black text-size">Choose</button>
+                <button class="button-generic button-black text-size"  (click)="colorChange(color)">Choose</button>
               </div>
             </div>
           </div>
-<!--          <button class="py-2 row my-2 mx-auto button-generic button-white-color">-->
-<!--            <div *ngFor="let paint of color.colors" [ngStyle]="{'background': paint}"-->
-<!--                 class="circle"></div>-->
-<!--          </button>-->
+          <!--          <button class="py-2 row my-2 mx-auto button-generic button-white-color">-->
+          <!--            <div *ngFor="let paint of color.colors" [ngStyle]="{'background': paint}"-->
+          <!--                 class="circle"></div>-->
+          <!--          </button>-->
         </div>
-
-// fodhoha bin baadhkom
-
       </div>
-<!--      <div class="my-5">-->
-<!--        <div class="small-titles my-2">Customize</div>-->
-<!--        <div class="mt-2">-->
-<!--          <app-color-picker [color]="'blue'" [heading]="'Background'"></app-color-picker>-->
-<!--        </div>-->
-<!--        <div class="mt-3">-->
-<!--          <app-color-picker [color]="'white'" [heading]="'Font'"></app-color-picker>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="my-5">-->
+      <!--        <div class="small-titles my-2">Customize</div>-->
+      <!--        <div class="mt-2">-->
+      <!--          <app-color-picker [color]="'blue'" [heading]="'Background'"></app-color-picker>-->
+      <!--        </div>-->
+      <!--        <div class="mt-3">-->
+      <!--          <app-color-picker [color]="'white'" [heading]="'Font'"></app-color-picker>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </li>
   </ul>
   <div class="text-center my-5">
