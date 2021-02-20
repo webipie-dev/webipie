@@ -36,6 +36,9 @@ export class StoreService extends GenericService<any>{
 
   getStoreByUrl() {
     return new Promise(resolve => {
+      if (JSON.parse(sessionStorage.getItem('store'))?.url === window.location.hostname || window.location.hostname === 'webipie.com') {
+        resolve(true);
+      }
       this.http.get<Store>(this.getUrl() + this.suffix + '/url/' + window.location.hostname).subscribe( store => {
         if (store){
           sessionStorage.setItem('store', JSON.stringify(store));
