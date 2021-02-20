@@ -32,7 +32,6 @@ export class ChangeHeaderComponent implements OnInit {
   onFileChanged(event): void {
     const file = event.target.files[0];
     this.postData.append('headerImg', file, file.name);
-    console.log(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (events) => {

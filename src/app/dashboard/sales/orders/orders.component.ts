@@ -113,7 +113,7 @@ export class OrdersComponent implements OnInit {
 
 
   getAllOrders(): void {
-    this.orderService.getAll({store: encryptLocalStorage.getItem('storeID')}).subscribe((data) => {
+    this.orderService.getAll({store: encryptLocalStorage.decryptString(localStorage.getItem('storeID'))}).subscribe((data) => {
       data.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');

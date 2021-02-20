@@ -42,7 +42,7 @@ export class AuthService {
 
   logOut(): void{
     localStorage.removeItem('token');
-    encryptLocalStorage.removeItem('storeID');
+    localStorage.removeItem('storeID');
   }
 
   changePwd(oldPassword, newPassword){

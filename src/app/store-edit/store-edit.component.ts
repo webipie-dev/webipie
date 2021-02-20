@@ -16,7 +16,7 @@ export class StoreEditComponent implements OnInit {
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
-  storeId = encryptLocalStorage.getItem('storeID');
+  storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
   store: Store;
 
   constructor(public sanitizer: DomSanitizer,

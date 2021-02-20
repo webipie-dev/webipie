@@ -53,7 +53,6 @@ export class SignUpComponent implements OnInit {
     this.loading = true;
     this.auth.login(this.storeOwner)
       .subscribe(result => {
-          // console.log(result);
           // set token in localStorage
           localStorage.setItem('token', result['token']);
 
@@ -63,7 +62,7 @@ export class SignUpComponent implements OnInit {
           const storeType = this.route.snapshot.queryParamMap.get('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-              encryptLocalStorage.setItem('storeID', store.id);
+              localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
             });
             this.router.navigate(['dashboard']);
             return;
@@ -84,7 +83,6 @@ export class SignUpComponent implements OnInit {
           this.invalidEmail = true;
           this.emailError = error.error.error;
         }
-        console.log(this.invalidEmail);
         this.loading = false;
       });
   }
@@ -118,11 +116,8 @@ export class SignUpComponent implements OnInit {
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
       .then(x => {
-        // let credentials = {"acces_token": x};
-        // console.log(x['authToken']);
         this.auth.loginWithFb(x['authToken'])
           .subscribe(result => {
-            // console.log(result);
           // set token in localStorage
           localStorage.setItem('token', result['token']);
 
@@ -132,7 +127,7 @@ export class SignUpComponent implements OnInit {
           const storeType = this.route.snapshot.queryParamMap.get('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-              encryptLocalStorage.setItem('storeID', store.id);
+              localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
             });
             this.router.navigate(['dashboard']);
             return;
@@ -149,10 +144,8 @@ export class SignUpComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(x => {
-        // console.log(x['authToken']);
         this.auth.loginWithGoogle(x['authToken'])
           .subscribe(result => {
-            // console.log(result);
             // set token in localStorage
             localStorage.setItem('token', result['token']);
 
@@ -162,7 +155,7 @@ export class SignUpComponent implements OnInit {
             const storeType = this.route.snapshot.queryParamMap.get('storeType');
             if (templateId && storeType && storeName){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                encryptLocalStorage.setItem('storeID', store.id);
+                localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
               });
               this.router.navigate(['dashboard']);
               return;

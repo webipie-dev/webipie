@@ -69,13 +69,11 @@ module.exports = {
 
     signIn: async (req, res, next) => {
         // Generate token
-        // console.log(req)
         const token = signToken(req.user);
         res.cookie('access_token', token, {
             httpOnly: true
         });
         // const storeId = await StoreOwner.findOne({email: req.user.local.email});
-        // console.log(storeId);
         res.status(200).json({ token, storeId: req.user.storeID });
     },
 

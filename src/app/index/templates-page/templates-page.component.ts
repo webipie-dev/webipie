@@ -24,9 +24,9 @@ export class TemplatesPageComponent implements OnInit {
   }
 
   onTemplatePick(templateId): void {
-    if ((localStorage.getItem('token') && !encryptLocalStorage.getItem('storeID')) || !localStorage.getItem('token')) {
+    if ((localStorage.getItem('token') && !localStorage.getItem('storeID')) || !localStorage.getItem('token')) {
       this.router.navigate(['after-signin'], { queryParams: { templateId }});
-    } else if (localStorage.getItem('token') && encryptLocalStorage.getItem('storeID')){
+    } else if (localStorage.getItem('token') && localStorage.getItem('storeID')){
       this.router.navigate(['dashboard'], { queryParams: { templateId }});
     }
   }

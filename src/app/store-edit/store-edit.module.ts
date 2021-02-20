@@ -13,18 +13,20 @@ import {ColorPickerComponent} from './change-color/color-picker/color-picker.com
 import {SocialMediaComponent} from './social-media/social-media.component';
 import {SidenavMenuComponent} from './sidenav-menu/sidenav-menu.component';
 import {TemplateModule} from '../template/template.module';
+import {SecondTemplateModule} from '../second-template/second-template.module';
 
 
 @NgModule({
-  imports: [
-    StoreEditRoutingModule,
-    HttpClientModule,
-    Ng2SmartTableModule,
-    ReactiveFormsModule,
-    CommonModule,
-    TemplateModule,
-    FormsModule
-  ],
+    imports: [
+        StoreEditRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
+        TemplateModule,
+        FormsModule,
+        SecondTemplateModule
+    ],
   declarations: [
     StoreEditComponent,
     ChangeFontComponent,

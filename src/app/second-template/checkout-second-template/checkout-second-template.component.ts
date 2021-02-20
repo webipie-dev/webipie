@@ -23,7 +23,6 @@ export class CheckoutSecondTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     this.store = encryptStorage.getItem('store');
-    console.log(this.store);
 
     this.clientForm = new FormGroup({
       firstname: new FormControl(null, Validators.required),
@@ -52,7 +51,6 @@ export class CheckoutSecondTemplateComponent implements OnInit {
       if (!['street', 'city', 'state', 'zipcode'].includes(field)) {
         if (control) {
           postData.append(field, control);
-          console.log(postData.get(field));
         }
       }
       else {
@@ -69,7 +67,6 @@ export class CheckoutSecondTemplateComponent implements OnInit {
     postData.append('storeId', this.store._id);
 
     this.clientService.addOne(postData).subscribe((data) => {
-      console.log(data);
     });
 
 

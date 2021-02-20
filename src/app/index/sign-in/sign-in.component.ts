@@ -52,13 +52,13 @@ export class SignInComponent implements OnInit {
 
         // redirect to dashboard in case of storeID
         if (result['storeId']){
-          encryptLocalStorage.setItem('storeID', result['storeId']);
+          localStorage.setItem('storeID', encryptLocalStorage.encryptString(result['storeId']));
           this.router.navigate([returnUrl || 'dashboard']);
         }
         // create store and redirect to dashboard
         else if (templateId && storeName && storeType){
           this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-            encryptLocalStorage.setItem('storeID', store._id);
+            localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
           });
           this.router.navigate(['dashboard']);
         }
@@ -110,8 +110,6 @@ export class SignInComponent implements OnInit {
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
       .then(x => {
-        // let credentials = {"acces_token": x};
-        // console.log(x['authToken']);
         this.auth.loginWithFb(x['authToken'])
           .subscribe(result => {
             localStorage.setItem('token', result['token']);
@@ -124,13 +122,13 @@ export class SignInComponent implements OnInit {
 
             // redirect to dashboard in case of storeID
             if (result['storeID']){
-              encryptLocalStorage.setItem('storeID', result['storeId']);
+              localStorage.setItem('storeID', encryptLocalStorage.encryptString(result['storeId']));
               this.router.navigate([returnUrl || 'dashboard']);
             }
             // create store and redirect to dashboard
             else if (templateId && storeName && storeType){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                encryptLocalStorage.setItem('storeID', store.id);
+                localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
               });
               this.router.navigate(['dashboard']);
             }
@@ -148,10 +146,9 @@ export class SignInComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(x => {
-        // console.log(x['authToken']);
         this.auth.loginWithGoogle(x['authToken'])
           .subscribe(result => {
-            encryptLocalStorage.setItem('token', result['token']);
+            localStorage.setItem('token', result['token']);
             const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
             // params in route
             const templateId = this.route.snapshot.queryParamMap.get('templateId');
@@ -160,13 +157,13 @@ export class SignInComponent implements OnInit {
 
             // redirect to dashboard in case of storeID
             if (result['storeID']){
-              encryptLocalStorage.setItem('storeId', result['storeId']);
+              localStorage.setItem('storeId', encryptLocalStorage.encryptString(result['storeId']));
               this.router.navigate([returnUrl || 'dashboard']);
             }
             // create store and redirect to dashboard
             else if (templateId && storeName && storeType){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                encryptLocalStorage.setItem('storeID', store.id);
+                localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
               });
               this.router.navigate(['dashboard']);
             }

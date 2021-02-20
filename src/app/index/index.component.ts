@@ -32,10 +32,10 @@ export class IndexComponent implements OnInit {
   }
 
   changeRoute(): void {
-    if (!localStorage.getItem('token') || !encryptLocalStorage.getItem('storeID')) {
+    if (!localStorage.getItem('token') || !localStorage.getItem('storeID')) {
       this.router.navigate(['/templates'], {relativeTo: this.route}).then(r => console.log(r));
     }
-    else if (localStorage.getItem('token') && encryptLocalStorage.getItem('storeID')) {
+    else if (localStorage.getItem('token') && localStorage.getItem('storeID')) {
       this.router.navigate(['/dashboard'], {relativeTo: this.route}).then(r => console.log(r));
     }
   }

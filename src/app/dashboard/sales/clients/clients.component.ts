@@ -64,7 +64,7 @@ export class ClientsComponent implements OnInit {
   }
 
   getAllClients(): void {
-    this.clientService.getAll({store: encryptLocalStorage.getItem('storeID')}).subscribe((data) => {
+    this.clientService.getAll({store: encryptLocalStorage.decryptString(localStorage.getItem('storeID'))}).subscribe((data) => {
       let aux;
       data.forEach((element) => {
         let fullAddress = '';
