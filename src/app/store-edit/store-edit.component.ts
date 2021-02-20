@@ -31,6 +31,7 @@ export class StoreEditComponent implements OnInit {
               private router: Router,
               private storeService: StoreService) { }
 
+
   ngOnInit(): void {
     if (window.screen.width < 576) {
       this.mode = 'over';
@@ -46,21 +47,46 @@ export class StoreEditComponent implements OnInit {
 
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
-      this.urlToPreview = 'http://' + this.store.url + ':4200';
-      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
-      sessionStorage.setItem('store', JSON.stringify(this.store));
     });
-    if (document.getElementById('sidebar').classList.contains('active')) {
-     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    } else {
-      this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    }
-    document.getElementById('iframe').style.width = this.newWidth.toString();
-    window.addEventListener('resize', () => {
-      if (document.getElementById('sidebar').classList.contains('active')) {
-        this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-      } else {
-        this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
+    // this.store = JSON.parse(this.storeService.getById(this.storeId));
+
+    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
+    // if (document.getElementById('sidebar').classList.contains('active')) {
+    //  this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
+    // } else {
+    //   this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
+    // }
+    // document.getElementById('iframe').style.width = this.newWidth.toString();
+    // window.addEventListener('resize', () => {
+    //   if (document.getElementById('sidebar').classList.contains('active')) {
+    //     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
+    //   } else {
+    //     this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
+    //   }
+    //   document.getElementById('iframe').style.width = this.newWidth.toString();
+    // });
+  }
+
+  public _toggleSidebar(): void {
+    this.opened = !this.opened;
+    this.minimized = !this.minimized;
+  }
+
+  public _toggleBigSidebar(): void {
+    this.opened = !this.opened;
+  }
+
+  public _closeBigSidebar(): void {
+    this.opened = false;
+  }
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
+    if (this.windwosWidth < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+      if (this.opened && document.getElementById('toggleMobile')) {
+        document.getElementById('toggleMobile').click();
       }
 
     } else if (this.windwosWidth >= 576) {
@@ -71,6 +97,7 @@ export class StoreEditComponent implements OnInit {
 
     }
   }
+
 
   switchAndToggleS(path): void {
     this.router.navigate([path]);
