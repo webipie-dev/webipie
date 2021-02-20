@@ -21,8 +21,6 @@ module.exports = {
         if (error) return res.status(400).send(error.details[0].message);
 
         const { email,password } = req.body;
-        const storeID = new mongoose.mongo.ObjectId();
-
         let findstoreOwner = await StoreOwner.findOne({ "local.email": email });
         if (findstoreOwner) return res.status(403).send({ errors: 'Email is already in use'});
 
