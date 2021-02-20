@@ -11,24 +11,8 @@ import { AuthGuard } from './_shared/services/auth-guard.service';
 const routes: Routes = [
   {
     path: '',
-    component: IndexComponent,
-  },
-  {
-    path: 'templates',
-    component: TemplatesPageComponent
-  },
-  {
-    path: 'signup',
-    component: SignUpComponent
-  },
-  {
-    path: 'signin',
-    component: SignInComponent
-  },
-  {
-    path: 'after-signin',
-    component: AfterSigninComponent,
-    // canActivate: [AuthGuard]
+    loadChildren: () => import('./index/index.module')
+      .then(m => m.IndexModule),
   },
   {
     path: 'dashboard',
