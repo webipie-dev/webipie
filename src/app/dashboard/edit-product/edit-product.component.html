@@ -4,14 +4,14 @@
 </div>
 
 <form (submit)="onSubmit()" [formGroup]="productForm">
-  <div>
-    <div class="col-12 text-center my-2">
-      <a class="py-2 button-generic button-delete text-size" (click)="deletePhotoOpen()">
-        <i class="fa fa-trash-alt" id="delete-icon"></i> Delete
-        Photos</a>
-    </div>
-    <h3 class="mx-auto font-weight-bold my-1" style="color: darkred;" *ngIf="deletePhotos">Clickez maintenant sur l'image que vous voulez supprimer</h3>
-  </div>
+<!--  <div>-->
+<!--    <div class="col-12 text-center my-2">-->
+<!--      <a class="py-2 button-generic button-delete text-size" (click)="deletePhotoOpen()">-->
+<!--        <i class="fa fa-trash-alt" id="delete-icon"></i> Delete-->
+<!--        Photos</a>-->
+<!--    </div>-->
+<!--    <h3 class="mx-auto font-weight-bold my-1" style="color: darkred;" *ngIf="deletePhotos">Clickez maintenant sur l'image que vous voulez supprimer</h3>-->
+<!--  </div>-->
 
   <div class="margin-top" [ngClass]="{'d-flex' : windwosWidth > 990}">
     <div class="col-lg-8 col-12 mt-5 mb-5">
@@ -49,12 +49,68 @@
                 </div>
 
               </div>
-              <div class='col-8'>
-                <ng-image-slider
-                  [imageSize]="{width: 150, height: 150, space: 4}"
-                  [images]="imageObject"
-                  [imagePopup]="!deletePhotos"
-                  [infinite]="false" (imageClick)=" deletePhotos ? deletePhoto($event) : null"></ng-image-slider>
+              <div class='col-md-9 col-8 mt-3'>
+                <!--Carousel Wrapper-->
+                <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+                  <!--Slides-->
+                  <div class="carousel-inner" role="listbox">
+                    <div >
+                      <!--First slide-->
+                      <div *ngFor="let image of imageObject; let i = index;"
+                           [ngClass]="{'active' : i === 0}"
+                           class="carousel-item " [id]="'carousel-' + i">
+
+                        <div class="row">
+                          <div class="col-lg-4" *ngIf="imageObject[i]">
+                            <div class="card mb-2">
+                              <img class="card-img-top" [src]="imageObject[i].image"
+                                   alt="Card image cap">
+                              <div class="card-body">
+                                <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 1]">
+                            <div class="card mb-2">
+                              <img class="card-img-top" [src]="imageObject[i+1].image" *ngIf="i + 1 < imageObject.length"
+                                   alt="Card image cap">
+                              <div class="card-body">
+                                <a class="btn button-delete" (click)="deletePhoto(i+1)">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 2]">
+                            <div class="card mb-2">
+                              <img class="card-img-top" [src]="imageObject[i+2].image" *ngIf="i + 2 < imageObject.length"
+                                   alt="Card image cap">
+                              <div class="card-body">
+                                <a class="btn button-delete" (click)="deletePhoto(i+2)">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <!--/.First slide-->
+
+                    </div>
+                  </div>
+                  <!--/.Slides-->
+                  <div class="controls-top">
+                    <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-circle-left fa-3x mx-4 my-2"></i></a>
+                    <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-circle-right fa-3x mx-4 my-2"></i></a>
+                  </div>
+                  <!--/.Controls-->
+                </div>
+                <!--/.Carousel Wrapper-->
+
+<!--                <ng-image-slider-->
+<!--                  [imageSize]="{width: 150, height: 150, space: 4}"-->
+<!--                  [images]="imageObject"-->
+<!--                  [imagePopup]="!deletePhotos"-->
+<!--                  [infinite]="false" (imageClick)=" deletePhotos ? deletePhoto($event) : null"></ng-image-slider>-->
               </div>
 
             </div>

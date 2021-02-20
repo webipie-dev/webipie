@@ -86,6 +86,20 @@ export class EditProductComponent implements OnInit {
           thumbImage: elt,
         });
       });
+      // this.imageObject = this.imageObject.concat(this.imageObject);
+      // this.imageObject = this.imageObject.concat(this.imageObject);
+      // this.imageObject = this.imageObject.concat(this.imageObject);
+      // this.imageObject = this.imageObject.concat(this.imageObject);
+      const images = document.getElementsByClassName('carousel-item');
+      // const img = Array.prototype.slice.call(images.item(0));
+      setTimeout(() => {
+        for (let i = 0 ; i < this.imageObject.length; i++) {
+          if (i % 3) {
+            document.getElementById(`carousel-${i}`).remove();
+            console.log(i);
+          }
+        }
+      }, 400);
     });
   }
 
@@ -100,8 +114,14 @@ export class EditProductComponent implements OnInit {
       reader.onload = (_event) => {
         this.msg = '';
         this.url = reader.result;
-
+        const imgLength = this.imageObject.length;
         this.imageObject.push({image: this.url, thumbImage: this.url});
+        for (let i = imgLength ; i < this.imageObject.length; i++) {
+          if (i % 3) {
+            document.getElementById(`carousel-${i}`).remove();
+            console.log(i);
+          }
+        }
       };
     });
 
@@ -204,19 +224,20 @@ export class EditProductComponent implements OnInit {
 
   }
 
-  deletePhoto(e): void {
-    const images = document.getElementsByClassName('image');
-    const imagesArray = Array.from(images);
-    if (imagesArray.length === 1 ) {
-      console.log('hhhhhhhhhhhhhhhhhh');
-    } else {
-      this.imageObject.splice(e, 1);
-
-    }
+  deletePhoto(i): void {
+    this.imageObject.splice(i, 1);
+    // const images = document.getElementsByClassName('image');
+    // const imagesArray = Array.from(images);
+    // if (imagesArray.length === 1 ) {
+    //   console.log('hhhhhhhhhhhhhhhhhh');
+    // } else {
+    //   this.imageObject.splice(e, 1);
+    //
+    // }
     console.log(this.imageObject);
-    console.log(e);
+    console.log(i);
     console.log(this.imageObject);
-    this.deletePhotoClose();
+    // this.deletePhotoClose();
   }
 
 

@@ -467,3 +467,24 @@ input[type=number] {
 .tgl-ios:checked + .tgl-btn:active:after {
   margin-left: -0.8em;
 }
+.card {
+  min-height: 200px;
+}
+.card-body {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: block;
+}
+.card-img-top {
+  max-height: 155px;
+}
+
+@media  screen and (max-width: 768px) {
+
+  .card-img-top {
+    max-height: initial;
+  }
+}
+
