@@ -1,9 +1,12 @@
 /*********** Add / Edit Product *************/
 .upload-images {
   border-radius: 10px;
+  border: 2px solid #2265B2;
   box-shadow: 0 3px 19px rgba(0, 0, 0, 0.1);
   /* display: flex; */
   background: white;
+  align-items: center;
+  justify-content: center;
 }
 
 .img-product {
@@ -136,20 +139,20 @@ input[type=number] {
   display:flex;
   align-items:center;
   justify-content:center;
-  width:140px;
-  height:140px;
+  width:100px;
+  height:100px;
 }
 
 @media screen and (max-width: 990px){
   .my-super-cool-btn span{
-    width:130px;
-    height:130px;
+    width:90px;
+    height:90px;
   }
 }
 @media screen and (max-width: 560px){
   .my-super-cool-btn span{
-    width:140px;
-    height:140px;
+    width:90px;
+    height:90px;
   }
 }
 .my-super-cool-btn span:before{
@@ -159,10 +162,10 @@ input[type=number] {
   display:block;
   position:absolute;
   border-radius:100%;
-  border:7px solid #2265B2;
+  /*border:2px solid #2265B2;*/
   box-sizing:border-box;
   transition: all .85s cubic-bezier(0.25, 1, 0.33, 1);
-  box-shadow: 0 30px 85px rgba(0,0,0,0.14), 0 15px 35px rgba(0,0,0,0.14);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.14), 0 15px 35px rgba(0,0,0,0.14);
 }
 .my-super-cool-btn:hover{
   font-size:1rem;

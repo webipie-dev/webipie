@@ -11,27 +11,32 @@
         Photos</a>
     </div>
     <h3 class="mx-auto font-weight-bold my-1" style="color: darkred;" *ngIf="deletePhotos">Clickez maintenant sur l'image que vous voulez supprimer</h3>
-    <div class="col-12">
-      <div class="px-2">
-        <div class="d-flex upload-images">
-          <div class="col-5 col-lg-2 col-md-3">
-            <input
-              (change)="onImagePicked($event)"
-              id="hiddenImageInput"
-              accept="image/*"
-              class="form-control fileInput" style="display: none"
-              multiple
-              name="imgs" type="file"/>
-            <!--            *********************-->
-            <div id="wrapper" class="my-2 mx-1" (click)="clickAddPhotos();">
-              <a class="my-super-cool-btn">
-                <div class="dots-container">
-                  <div class="dot"></div>
-                  <div class="dot"></div>
-                  <div class="dot"></div>
-                  <div class="dot"></div>
-                </div>
-                <span>
+  </div>
+
+  <div class="margin-top" [ngClass]="{'d-flex' : windwosWidth > 990}">
+    <div class="col-lg-8 col-12 mt-5 mb-5">
+      <div class="container upload-images product-description py-5">
+        <div class="col-12 mb-5" style="padding: 0">
+          <div>
+            <div class="d-flex upload-images" style="  text-align: -webkit-center;">
+              <div>
+                <input
+                  (change)="onImagePicked($event)"
+                  id="hiddenImageInput"
+                  accept="image/*"
+                  class="form-control fileInput" style="display: none"
+                  multiple
+                  name="imgs" type="file"/>
+                <!--            *********************-->
+                <div id="wrapper" class="my-2 mx-1" (click)="clickAddPhotos();">
+                  <a class="my-super-cool-btn">
+                    <div class="dots-container">
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                    </div>
+                    <span>
                  <div class="text-center">
                    <i class="fas fa-arrow-circle-up fa-2x"></i>
                     <br>
@@ -40,63 +45,59 @@
                    a Photo
                  </div>
                 </span>
-              </a>
+                  </a>
+                </div>
+
+              </div>
+              <div class='col-8'>
+                <ng-image-slider
+                  [imageSize]="{width: 150, height: 150, space: 4}"
+                  [images]="imageObject"
+                  [imagePopup]="!deletePhotos"
+                  [infinite]="false" (imageClick)=" deletePhotos ? deletePhoto($event) : null"></ng-image-slider>
+              </div>
+
             </div>
-
           </div>
-          <div class='col-7 col-lg-10 col-md-9 pt-2'>
-            <ng-image-slider
-              [imageSize]="{width: 150, height: 150, space: 4}"
-              [images]="imageObject"
-              [imagePopup]="!deletePhotos"
-              [infinite]="false" (imageClick)=" deletePhotos ? deletePhoto($event) : null"></ng-image-slider>
-          </div>
-
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="margin-top" [ngClass]="{'d-flex' : windwosWidth > 767}">
-    <div class="col-md-8 col-12 mt-5 mb-5">
-      <div class="container upload-images product-description py-5">
         <div class="row">
-          <div class="col-md-6 col-12 mb-3">
-            <div class="col-12">
-              <label class="text-size pl-2">Name</label>
-            </div>
-            <div class="col-12">
-              <input
-                [ngModel]="singleProduct.name"
-                class="text-size product-input"
-                formControlName="name" type="text">
-            </div>
-          </div>
-          <div class="col-md-3 col-6">
-            <div class="col-12">
-              <label class="text-size pl-2">Quantity</label>
-            </div>
-            <div class="col-12">
-              <input
-                [ngModel]="singleProduct.quantity"
-                class="width-100 text-size product-input"
-                formControlName="quantity"
-                min="0" type="number">
-            </div>
-          </div>
+<!--          <div class="col-md-6 col-12 mb-3">-->
+<!--            <div class="col-12">-->
+<!--              <label class="text-size pl-2">Name</label>-->
+<!--            </div>-->
+<!--            <div class="col-12">-->
+<!--              <input-->
+<!--                [ngModel]="singleProduct.name"-->
+<!--                class="text-size product-input"-->
+<!--                formControlName="name" type="text">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="col-md-3 col-6">-->
+<!--            <div class="col-12">-->
+<!--              <label class="text-size pl-2">Quantity</label>-->
+<!--            </div>-->
+<!--            <div class="col-12">-->
+<!--              <input-->
+<!--                [ngModel]="singleProduct.quantity"-->
+<!--                class="width-100 text-size product-input"-->
+<!--                formControlName="quantity"-->
+<!--                min="0" type="number">-->
+<!--            </div>-->
+<!--          </div>-->
 
-          <div class="col-md-3 col-6">
-            <div class="col-12">
-              <label class="text-size pl-2">Price</label>
-            </div>
-            <div class="col-12">
-              <input
-                [ngModel]="singleProduct.price"
-                class="text-size product-input"
-                formControlName="price"
-                min="0" type="number">
-            </div>
-          </div>
+<!--          <div class="col-md-3 col-6">-->
+<!--            <div class="col-12">-->
+<!--              <label class="text-size pl-2">Price</label>-->
+<!--            </div>-->
+<!--            <div class="col-12">-->
+<!--              <input-->
+<!--                [ngModel]="singleProduct.price"-->
+<!--                class="text-size product-input"-->
+<!--                formControlName="price"-->
+<!--                min="0" type="number">-->
+<!--            </div>-->
+<!--          </div>-->
           <div class="col-12 mt-3">
             <div class="col-12">
               <label class="text-size pl-2">Description</label>
@@ -111,10 +112,39 @@
       </div>
     </div>
 
-    <div class="col-md-4 col-12 mt-5 mb-5">
+    <div class="col-lg-4 col-12 mt-5 mb-5">
       <div class="row upload-images mr-1 px-3 py-4 mx-auto mb-3">
-
-        <div class="col-12 mt-5">
+        <div class="col-12">
+          <label class="text-size pl-2">Name</label>
+        </div>
+        <div class="col-12 mb-3">
+          <input
+            [ngModel]="singleProduct.name"
+            class="text-size product-input"
+            formControlName="name" type="text">
+        </div>
+        <div class="col-12">
+          <label class="text-size pl-2">Quantity</label>
+        </div>
+        <div class="col-12 mb-3">
+          <input
+            [ngModel]="singleProduct.quantity"
+            style="width: 90% !important;"
+            class="width-100 text-size product-input"
+            formControlName="quantity"
+            min="0" type="number">
+        </div>
+        <div class="col-12">
+          <label class="text-size pl-2">Price</label>
+        </div>
+        <div class="col-12 mb-3">
+          <input
+            [ngModel]="singleProduct.price"
+            class="text-size product-input"
+            formControlName="price"
+            min="0" type="number">
+        </div>
+        <div class="col-12">
           <label class="text-size pl-2">Status</label>
         </div>
         <div class="col-12">
