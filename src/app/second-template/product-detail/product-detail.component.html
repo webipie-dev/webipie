@@ -29,7 +29,7 @@
               <span class="price"><small>dt</small>{{product.price}}</span>
 
               <!-- Sale Tags -->
-              <div class="on-sale"> 10% <span>OFF</span> </div>
+<!--              <div class="on-sale"> 10% <span>OFF</span> </div>-->
               <!-- <ul class="item-owner">
                 <li>Designer :<span> ABC Art</span></li>
                 <li>Brand:<span> LimeWood</span></li>
@@ -67,7 +67,7 @@
                   </li> -->
 
                   <!-- ADD TO CART -->
-                  <li class="col-xs-6"> <a href="#." class="btn">ADD TO CART</a> </li>
+                  <li class="col-xs-6"> <button class="btn" [disabled]="disabled" (click)="addToCart(product, 1)">ADD TO CART</button> </li>
 
                   <!-- LIKE -->
                   <li class="col-xs-6"> <a href="#." class="like-us"><i class="icon-heart"></i></a> </li>

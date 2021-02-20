@@ -75,6 +75,7 @@ export class ClientsComponent implements OnInit {
         }
         aux = element;
         aux.fullAddress = fullAddress.trim();
+        console.log(aux.fullAddress);
         this.clients.push(aux);
       });
     });

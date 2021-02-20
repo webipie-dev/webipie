@@ -4,6 +4,7 @@ import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../_shared/services/client.service';
+import {Product} from '../../_shared/models/product.model';
 
 
 @Component({
@@ -12,10 +13,11 @@ import {ClientService} from '../../_shared/services/client.service';
   styleUrls: ['./checkout-second-template.component.css']
 })
 export class CheckoutSecondTemplateComponent implements OnInit {
-  store;
+  store: Store;
   clientForm: FormGroup;
 
-
+  cart: [{product: Product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+  totalPrice = 0;
   constructor(private storeService: StoreService,
               private el: ElementRef,
               private clientService: ClientService) {
@@ -37,19 +39,24 @@ export class CheckoutSecondTemplateComponent implements OnInit {
 
 
     this.storeService.changeTheme(this.el, this.store);
+
+    this.cart.forEach(data => {
+      this.totalPrice += +data.product.price;
+    });
   }
 
   onSubmit(): void {
     const postData = new FormData();
     let fullAddress = '';
 
+    // tslint:disable-next-line:forin
     for (const field in this.clientForm.controls) {
       let control = this.clientForm.get(field).value;
       if (typeof control === 'string') {
         control = control.trim();
       }
-
-      if (!['street', 'city', 'state', 'zipcode'].includes(field)) {
+      const exclude = new Set(['street', 'city', 'state', 'zipcode']);
+      if (!exclude.has(field)) {
         if (control) {
           postData.append(field, control);
           console.log(postData.get(field));

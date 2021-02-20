@@ -1,9 +1,10 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ProductService } from 'src/app/_shared/services/product.service';
 import { Review } from '../../_shared/models/review.model';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
+import {Product} from '../../_shared/models/product.model';
 
 @Component({
   selector: 'app-product-detail',
@@ -12,8 +13,12 @@ import {StoreService} from '../../_shared/services/store.service';
 })
 export class ProductDetailComponent implements OnInit {
   store: Store;
-  product: any;
+  product: Product;
   review: Review;
+
+  disabled = false;
+
+  productId = this.activatedRoute.snapshot.paramMap.get('id');
 
 
   constructor(private productService: ProductService,
@@ -22,6 +27,14 @@ export class ProductDetailComponent implements OnInit {
               private el: ElementRef) { }
 
   ngOnInit(): void {
+    const cartData: [{product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+
+    cartData.forEach(data => {
+      if (this.productId === data.product.id){
+        this.disabled = true;
+      }
+    });
+
     this.store = JSON.parse(sessionStorage.getItem('store'));
 
     this.review = new Review();
@@ -38,6 +51,15 @@ export class ProductDetailComponent implements OnInit {
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review);
   }
+
+  addToCart(product: Product, quantity): void {
+    this.disabled = true;
+    const cart: [{product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({product, quantity});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    console.log(JSON.parse(localStorage.getItem('cart')));
+  }
+
 
   public loadScript(): void {
     let isFound = false;

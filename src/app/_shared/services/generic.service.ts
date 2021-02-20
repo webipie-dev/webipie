@@ -52,16 +52,17 @@ export class GenericService<T extends GenericModel> {
       };
     }
 
-    console.log('params : ', query);
     return this.http.get(this.getUrl() + this.suffix, httpOptions) as unknown as Observable<T>;
   }
 
   public getMany(arrayIds: string[]): Observable<T> {
-    const httpOptions = {
-      headers: { 'Content-Type': 'application/json' },
-      query: { ids: arrayIds}
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      params: { ids: arrayIds}
     };
-    return this.http.get(this.getUrl() + this.suffix , httpOptions) as Observable<T>;
+    return this.http.get(this.getUrl() + this.suffix + '/many', options) as Observable<T>;
   }
 
   public addOne(body: T): Observable<T> {

@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
+import {Product} from '../../_shared/models/product.model';
+import {ProductService} from '../../_shared/services/product.service';
 
 @Component({
   selector: 'app-cart-second-template',
@@ -10,6 +12,11 @@ import {StoreService} from '../../_shared/services/store.service';
 export class CartSecondTemplateComponent implements OnInit {
   displayNone = true;
   store: Store;
+  cart: {product: Product, quantity}[] = JSON.parse(localStorage.getItem('cart')) || [];
+  totalPrice = 0;
+
+  products: Product[] = [];
+
 
   constructor(private el: ElementRef,
               private storeService: StoreService) {
@@ -18,5 +25,18 @@ export class CartSecondTemplateComponent implements OnInit {
   ngOnInit(): void {
     this.store = JSON.parse(sessionStorage.getItem('store'));
     this.storeService.changeTheme(this.el, this.store);
+    this.cart.forEach(data => {
+      this.totalPrice += +data.product.price;
+    });
   }
+
+  counter(i: number): Array<number> {
+    return new Array(i);
+  }
+
+  deleteProduct(event): void {
+    this.cart = this.cart.filter(element => element.product.id !== event.id);
+    localStorage.setItem('cart', JSON.stringify(this.cart));
+  }
+
 }

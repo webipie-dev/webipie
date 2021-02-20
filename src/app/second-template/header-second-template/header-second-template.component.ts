@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
+import {Product} from '../../_shared/models/product.model';
 
 
 @Component({
@@ -10,6 +11,8 @@ import {StoreService} from '../../_shared/services/store.service';
 })
 export class HeaderSecondTemplateComponent implements OnInit {
   store: Store;
+  cart: [{product: Product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+  totalPrice = 0;
 
   constructor(private el: ElementRef,
               private storeService: StoreService) { }
@@ -17,6 +20,9 @@ export class HeaderSecondTemplateComponent implements OnInit {
   ngOnInit(): void {
     this.store = JSON.parse(sessionStorage.getItem('store'));
     this.storeService.changeTheme(this.el, this.store);
+    this.cart.forEach(data => {
+      this.totalPrice += +data.product.price;
+    });
   }
 
 

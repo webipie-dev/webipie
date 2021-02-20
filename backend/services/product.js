@@ -35,6 +35,28 @@ exports.getOneProduct = async (req, res, next) => {
 
 };
 
+exports.getManyProductById = async (req, res, next) => {
+  let { ids } = req.query
+  // console.log(req.query)
+  ids = JSON.parse(ids)
+  for(var property in ids[0]) {
+    // console.log(property + "=" + ids[0][property]);
+  }
+
+  // const products = await Product.find({_id: {$in: ids}})
+  //   .catch((err) => {
+  //     res.status(400).json({errors: [{ message: err.message }]});
+  //   });
+  //
+  // if(products.length !== ids.length){
+  //   next(ApiError.NotFound('Products Not Found'));
+  //   return;
+  // }
+  //
+  // res.status(200).send(products);
+}
+
+
 exports.addProduct = async (req, res, next) => {
   const url = req.protocol + '://' +req.get('host');
   let images = [];
@@ -81,6 +103,10 @@ exports.editOneProduct = async (req, res, next) => {
   // separating the id
   const { id } = req.params;
   const product = await Product.findById(id)
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
   if (!product) {
     next(ApiError.NotFound('Product Not Found'));
     return;
