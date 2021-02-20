@@ -47,10 +47,12 @@ export class StoreEditComponent implements OnInit {
 
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
+      this.urlToPreview = 'http://' + this.store.url + ':4200';
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
+      sessionStorage.setItem('store', JSON.stringify(this.store));
     });
     // this.store = JSON.parse(this.storeService.getById(this.storeId));
 
-    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
     // if (document.getElementById('sidebar').classList.contains('active')) {
     //  this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
     // } else {
