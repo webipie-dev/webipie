@@ -41,7 +41,7 @@ const storage = multer.diskStorage({
 });
 
 // filerClients
-router.get('', passportJWT, ClientService.getClients)
+router.get('', ClientService.getClients)
 
 
 // getClientbyId

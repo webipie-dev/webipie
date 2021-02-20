@@ -11,11 +11,11 @@ import {Store} from '../_shared/models/store.model';
 })
 
 export class StoreEditComponent implements OnInit {
-  urlToPreview = 'http://localhost:4200/second-template/default-store/ariana';
+  urlToPreview: string;
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
-  storeId = '600053ca1181b69010315090';
+  storeId = localStorage.getItem('storeID');
   store: Store;
 
 
@@ -46,48 +46,21 @@ export class StoreEditComponent implements OnInit {
 
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
+      this.urlToPreview = 'http://' + this.store.url + ':4200';
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
+      sessionStorage.setItem('store', JSON.stringify(this.store));
     });
-    // this.store = JSON.parse(this.storeService.getById(this.storeId));
-
-    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
-    // if (document.getElementById('sidebar').classList.contains('active')) {
-    //  this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    // } else {
-    //   this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    // }
-    // document.getElementById('iframe').style.width = this.newWidth.toString();
-    // window.addEventListener('resize', () => {
-    //   if (document.getElementById('sidebar').classList.contains('active')) {
-    //     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    //   } else {
-    //     this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    //   }
-    //   document.getElementById('iframe').style.width = this.newWidth.toString();
-    // });
-  }
-
-  public _toggleSidebar(): void {
-    this.opened = !this.opened;
-    this.minimized = !this.minimized;
-  }
-
-  public _toggleBigSidebar(): void {
-    this.opened = !this.opened;
-  }
-
-  public _closeBigSidebar(): void {
-    this.opened = false;
-  }
-
-
-
-  @HostListener('window:resize') windwosResize() {
-    this.windwosWidth = window.innerWidth;
-    if (this.windwosWidth < 576) {
-      this.mode = 'over';
-      this.mobileOpen = true;
-      if (this.opened && document.getElementById('toggleMobile')) {
-        document.getElementById('toggleMobile').click();
+    if (document.getElementById('sidebar').classList.contains('active')) {
+     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
+    } else {
+      this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
+    }
+    document.getElementById('iframe').style.width = this.newWidth.toString();
+    window.addEventListener('resize', () => {
+      if (document.getElementById('sidebar').classList.contains('active')) {
+        this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
+      } else {
+        this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
       }
 
     } else if (this.windwosWidth >= 576) {
