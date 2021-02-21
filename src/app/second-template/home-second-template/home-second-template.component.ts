@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 @Component({
   selector: 'app-home-second-template',

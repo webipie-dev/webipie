@@ -4,6 +4,7 @@ import { ProductService } from '../../_shared/services/product.service';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 @Component({
   selector: 'app-products-section-second-template',
@@ -15,7 +16,8 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
 
   constructor(private productService: ProductService,
               private storeService: StoreService,
-              private el: ElementRef) { }
+              private el: ElementRef,
+              private externalFilesService: ExternalFilesService) { }
   store: Store;
   popularProducts: Product[];
 
@@ -26,6 +28,7 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
 
     this.productService.getAll({store: this.store._id, popular: true}, 'client').subscribe(data => {
       this.popularProducts.push.apply(this.popularProducts, data);
+      this.externalFilesService.loadScripts();
     });
 
     this.storeService.changeTheme(this.el, this.store);
