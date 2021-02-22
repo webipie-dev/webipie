@@ -83,7 +83,6 @@ a[data-toggle="collapse"] {
 :host >>> .ng-sidebar {
   max-width: 280px;
   min-width: 90px;
-  overflow-y: hidden;
 }
 
 .toggle-mobile {

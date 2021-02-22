@@ -158,3 +158,10 @@ a[data-toggle="collapse"] {
 .button-black:hover {
   border: 2px solid #2D3438 !important;
 }
+
+.button-black:disabled,
+.button-black[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
