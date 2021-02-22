@@ -15,11 +15,14 @@ export class ProductDetailComponent implements OnInit {
   product: any;
   review: Review;
 
+  loadAPI: Promise<any>;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
               private storeService: StoreService,
-              private el: ElementRef) { }
+              private el: ElementRef) {
+
+  }
 
   ngOnInit(): void {
     this.store = JSON.parse(sessionStorage.getItem('store'));

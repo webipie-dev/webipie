@@ -16,23 +16,27 @@
               <!-- Images Slider -->
               <div class="images-slider">
                 <ul class="slides">
-                  <li [attr.data-thumb]="product.imgs[0]"><img class="img-responsive" [src]="product.imgs[0]" alt="">
-                  </li>
-                  <li *ngIf="product.imgs[1]" [attr.data-thumb]="product.imgs[1]"><img class="img-responsive"
-                                                                                       [src]="product.imgs[1]" alt="">
-                  </li>
-                  <li *ngIf="product.imgs[2]" [attr.data-thumb]="product.imgs[2]"><img class="img-responsive"
-                                                                                       [src]="product.imgs[2]" alt="">
-                  </li>
+                  <li data-thumb="{{product.imgs[0]}}"><img class="img-responsive" src="{{product.imgs[0]}}" alt=""></li>
+                  <li data-thumb="{{product.imgs.length > 1 ? product.imgs[1] : product.imgs[0]}}"><img class="img-responsive" src="{{product.imgs.length > 1 ? product.imgs[1] : product.imgs[0]}}" alt=""></li>
+                  <li data-thumb="{{product.imgs.length > 2 ? product.imgs[2] : product.imgs[0]}}"><img class="img-responsive" src="{{product.imgs.length > 2 ? product.imgs[2] : product.imgs[0]}}" alt=""></li>
                 </ul>
+              </div>
+
+              <div class="feedback" style="display: block; margin-top: 60px">
+                <!-- Item Detail -->
+                <h5>• Description:</h5>
+                <p [innerHTML]="product.description"></p>
+
               </div>
             </div>
 
             <!-- COntent -->
-            <div class="col-md-5">
+            <div class="col-md-5 feedback" style="display: block">
               <h4>{{product.name}}</h4>
-              <span class="price"><small>dt</small>
-                {{product.price}}</span>
+              <span class="price">
+                {{product.price}}
+                <small>dt</small>
+              </span>
 
               <!-- Sale Tags -->
               <div class="on-sale"> 10% <span>OFF</span></div>
@@ -40,10 +44,6 @@
                 <li>Designer :<span> ABC Art</span></li>
                 <li>Brand:<span> LimeWood</span></li>
               </ul> -->
-
-              <!-- Item Detail -->
-              <h5>Description:</h5>
-              <p [innerHTML]="product.description"></p>
 
               <!-- Short By -->
               <div class="some-info">
@@ -167,20 +167,29 @@
                 <ul class="row">
                   <li class="col-sm-6">
                     <label for="name"> *NAME</label>
-                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger py-3"> Name field is required</div>
-                    <input required name="name" #name="ngModel" id="name" type="text" value="" placeholder="" [(ngModel)]="review.name">
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger py-3"> Name
+                      field is required
+                    </div>
+                    <input required name="name" #name="ngModel" id="name" type="text" value="" placeholder=""
+                           [(ngModel)]="review.name">
 
                   </li>
                   <li class="col-sm-6">
                     <label for="email"> *EMAIL</label>
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger py-3"> Email field is required</div>
-                    <input required name="email" #email="ngModel" id="email" type="text" value="" placeholder="" [(ngModel)]="review.email">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger py-3"> Email
+                      field is required
+                    </div>
+                    <input required name="email" #email="ngModel" id="email" type="text" value="" placeholder=""
+                           [(ngModel)]="review.email">
                   </li>
 
                   <li class="col-sm-12">
                     <label for="rev"> *YOUR REVIEW</label>
-                    <div *ngIf="rev.invalid && (rev.dirty || rev.touched)" class="alert alert-danger py-3"> Review field is required</div>
-                    <textarea required name="rev" #rev="ngModel" id="rev" placeholder="" [(ngModel)]="review.review"></textarea>
+                    <div *ngIf="rev.invalid && (rev.dirty || rev.touched)" class="alert alert-danger py-3"> Review field
+                      is required
+                    </div>
+                    <textarea required name="rev" #rev="ngModel" id="rev" placeholder=""
+                              [(ngModel)]="review.review"></textarea>
                   </li>
                   <li class="col-sm-6">
                     <!-- Rating Stars -->
@@ -188,7 +197,7 @@
                     <div>
                       <div class="stars font"><span>YOUR RATING</span></div>
                       <div class="rating mt-3">
-                        <input type="radio" name="rating"  [value]="5" [(ngModel)]="review.rating" id="rating-5">
+                        <input type="radio" name="rating" [value]="5" [(ngModel)]="review.rating" id="rating-5">
                         <label for="rating-5"></label>
                         <input type="radio" name="rating" [value]="4" [(ngModel)]="review.rating" id="rating-4">
                         <label for="rating-4"></label>
