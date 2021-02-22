@@ -31,7 +31,9 @@ export class CartSecondTemplateComponent implements OnInit {
   }
 
   counter(i: number): Array<number> {
-    return new Array(i);
+    const count =  [];
+    for(let j = 1; count.push(j++) < i;);
+    return count;
   }
 
   deleteProduct(event): void {

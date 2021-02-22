@@ -11,7 +11,7 @@ import {Product} from '../../_shared/models/product.model';
 })
 export class HeaderSecondTemplateComponent implements OnInit {
   store: Store;
-  cart: [{product: Product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+  cart: {product: Product, quantity}[] = JSON.parse(localStorage.getItem('cart')) || [];
   totalPrice = 0;
 
   constructor(private el: ElementRef,
@@ -24,6 +24,12 @@ export class HeaderSecondTemplateComponent implements OnInit {
       this.totalPrice += +data.product.price;
     });
   }
+
+  deleteProduct(event): void {
+    this.cart = this.cart.filter(element => element.product.id !== event.id);
+    localStorage.setItem('cart', JSON.stringify(this.cart));
+  }
+
 
 
 }

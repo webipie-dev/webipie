@@ -46,6 +46,7 @@
                   <div class="media-body">
                     <h6 class="media-heading">{{element.product.name}}</h6>
                     <span class="price">{{element.product.price}} DT</span> <span class="qty">QTY: {{element.quantity}}</span> </div>
+                    <i (click)="deleteProduct(element.product)" class="icon-close"></i>
                   </div>
                 </li>
 

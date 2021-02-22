@@ -46,7 +46,7 @@
                     <div class="quinty">
                       <!-- QTY -->
                       <select class='customSelect'>
-                        <option *ngFor='let quantity of counter(product.quantity); let i = index' [value]='i'>{{i}}</option>
+                        <option *ngFor='let quantity of counter(product.quantity);' [value]='quantity'>{{quantity}}</option>
                       </select>
                     </div>
                   </li>
