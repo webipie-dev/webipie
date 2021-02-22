@@ -10,7 +10,9 @@ import {Store} from '../../_shared/models/store.model';
 })
 export class SocialMediaComponent implements OnInit {
   defaultFacebook = JSON.parse(sessionStorage.getItem('store')).contact.facebookPage;
+  initialFacebook = JSON.parse(sessionStorage.getItem('store')).contact.facebookPage;
   defaultInstagram = JSON.parse(sessionStorage.getItem('store')).contact.instagramPage;
+  initialInstagram = JSON.parse(sessionStorage.getItem('store')).contact.instagramPage;
   storeId = JSON.parse(sessionStorage.getItem('store'))._id;
 
   constructor(private http: HttpClient,
@@ -29,6 +31,8 @@ export class SocialMediaComponent implements OnInit {
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
       sessionStorage.setItem('store', JSON.stringify(store));
+      this.initialFacebook = this.defaultFacebook;
+      this.initialInstagram = this.defaultInstagram;
     });
   }
 

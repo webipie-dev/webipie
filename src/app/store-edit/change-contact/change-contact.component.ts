@@ -13,20 +13,27 @@ import {filter, map} from 'rxjs/operators';
 export class ChangeContactComponent implements OnInit {
 
   defaultEmail = JSON.parse(sessionStorage.getItem('store')).contact.email;
+  initialEmail = JSON.parse(sessionStorage.getItem('store')).contact.email;
   defaultNumber = JSON.parse(sessionStorage.getItem('store')).contact.phoneNumber;
+  initialNumber = JSON.parse(sessionStorage.getItem('store')).contact.phoneNumber;
   defaultLocation = JSON.parse(sessionStorage.getItem('store')).contact.location;
+  initialLocation = JSON.parse(sessionStorage.getItem('store')).contact.location;
   storeId = JSON.parse(sessionStorage.getItem('store'))._id;
 
 
 
   constructor(private http: HttpClient,
-              private storeService: StoreService,
-              private router: Router) {
+              private storeService: StoreService) {
   }
 
   ngOnInit(): void {
   }
 
+  testChange(): boolean {
+    return (this.initialNumber === this.defaultNumber &&
+      this.initialLocation === this.defaultLocation &&
+      this.initialEmail === this.defaultEmail);
+  }
   submit(): void {
 
     const postData = {
@@ -36,6 +43,9 @@ export class ChangeContactComponent implements OnInit {
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
       sessionStorage.setItem('store', JSON.stringify(store));
+      this.initialEmail = this.defaultEmail;
+      this.initialNumber = this.defaultNumber;
+      this.initialLocation = this.defaultLocation;
     });
   }
 }

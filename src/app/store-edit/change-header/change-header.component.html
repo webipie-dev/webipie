@@ -62,7 +62,8 @@
       </li>
     </ul>
     <div class="text-center my-5">
-      <button class="button-generic button-black text-size mr-2" type="submit">Save</button>
+      <button class="button-generic button-black text-size mr-2" [disabled]="testSame()"
+              type="submit">Save</button>
       <button class="button-generic button-black text-size">Reset</button>
     </div>
   </form>

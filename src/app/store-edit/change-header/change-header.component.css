@@ -119,3 +119,10 @@ button {
     top: 5%;
     z-index: 2;
 }
+
+.button-black:disabled,
+.button-black[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
