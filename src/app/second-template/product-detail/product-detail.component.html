@@ -166,19 +166,21 @@
               <form>
                 <ul class="row">
                   <li class="col-sm-6">
-                    <label> *NAME
-                      <input id="name" type="text" value="" placeholder="" [(ngModel)]="review.name" name="name">
-                    </label>
+                    <label for="name"> *NAME</label>
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger py-3"> Name field is required</div>
+                    <input required name="name" #name="ngModel" id="name" type="text" value="" placeholder="" [(ngModel)]="review.name">
+
                   </li>
                   <li class="col-sm-6">
-                    <label> *EMAIL
-                      <input type="email" value="" placeholder="" [(ngModel)]="review.email" name="email">
-                    </label>
+                    <label for="email"> *EMAIL</label>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger py-3"> Email field is required</div>
+                    <input required name="email" #email="ngModel" id="email" type="text" value="" placeholder="" [(ngModel)]="review.email">
                   </li>
+
                   <li class="col-sm-12">
-                    <label> *YOUR REVIEW
-                      <textarea [(ngModel)]="review.review" name="review"></textarea>
-                    </label>
+                    <label for="rev"> *YOUR REVIEW</label>
+                    <div *ngIf="rev.invalid && (rev.dirty || rev.touched)" class="alert alert-danger py-3"> Review field is required</div>
+                    <textarea required name="rev" #rev="ngModel" id="rev" placeholder="" [(ngModel)]="review.review"></textarea>
                   </li>
                   <li class="col-sm-6">
                     <!-- Rating Stars -->
