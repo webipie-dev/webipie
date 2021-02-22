@@ -36,7 +36,9 @@ export class ProductDetailComponent implements OnInit {
 }
 
   sendReview(): void{
-    this.productService.addReview(this.product.id, this.review);
+    this.productService.addReview(this.product.id, this.review).subscribe(data => {
+      console.log(data);
+    });
   }
 
   public loadScript(): void {
@@ -73,4 +75,5 @@ export class ProductDetailComponent implements OnInit {
       }
     }
   }
+
 }
