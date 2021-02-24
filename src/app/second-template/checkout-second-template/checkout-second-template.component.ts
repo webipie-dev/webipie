@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
-
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {StoreService} from '../../_shared/services/store.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../_shared/services/client.service';
@@ -12,7 +12,7 @@ import {ClientService} from '../../_shared/services/client.service';
   styleUrls: ['./checkout-second-template.component.css']
 })
 export class CheckoutSecondTemplateComponent implements OnInit {
-  store;
+  store: Store;
   clientForm: FormGroup;
 
 
@@ -22,8 +22,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
-    console.log(this.store);
+    this.store = encryptStorage.getItem('store');
 
     this.clientForm = new FormGroup({
       firstname: new FormControl(null, Validators.required),
@@ -52,7 +51,6 @@ export class CheckoutSecondTemplateComponent implements OnInit {
       if (!['street', 'city', 'state', 'zipcode'].includes(field)) {
         if (control) {
           postData.append(field, control);
-          console.log(postData.get(field));
         }
       }
       else {
@@ -69,7 +67,6 @@ export class CheckoutSecondTemplateComponent implements OnInit {
     postData.append('storeId', this.store._id);
 
     this.clientService.addOne(postData).subscribe((data) => {
-      console.log(data);
     });
 
 

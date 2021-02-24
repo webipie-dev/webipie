@@ -1,9 +1,9 @@
 import {ElementRef, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {GenericService} from './generic.service';
-import {Observable} from 'rxjs';
 import {Store} from '../models/store.model';
-import {log} from 'util';
+import { encryptStorage } from '../utils/encrypt-storage';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,12 @@ export class StoreService extends GenericService<any>{
 
   getStoreByUrl() {
     return new Promise(resolve => {
+      if (encryptStorage.getItem('store')?.url === window.location.hostname || window.location.hostname === 'webipie.com') {
+        resolve(true);
+      }
       this.http.get<Store>(this.getUrl() + this.suffix + '/url/' + window.location.hostname).subscribe( store => {
         if (store){
-          sessionStorage.setItem('store', JSON.stringify(store));
+          encryptStorage.setItem('store', store);
         }
         resolve(true);
       });

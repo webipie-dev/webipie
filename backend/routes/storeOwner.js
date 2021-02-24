@@ -31,7 +31,6 @@ router.route('/changepwd')
         ], validateRequest, passportJWT, storeOwnerService.changePwd);
 
 router.post('/secret' , passportJWT , async (req,res) => {
-    console.log('secret')
     res.send('resource');
 });
 

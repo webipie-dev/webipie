@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
   newPassword: string;
   checked: boolean;
   validation: boolean;
-  
+
   constructor(private authService: AuthService) { }
 
 
@@ -40,7 +40,6 @@ export class ProfileComponent implements OnInit {
   }
 
   checkPwd(event: any): void{
-    // console.log(value);
     if (this.newPassword === event.target.value) {
       event.target.classList.remove('red');
       this.checked = true;
@@ -53,7 +52,6 @@ export class ProfileComponent implements OnInit {
 
   changePwd(): void{
     this.authService.changePwd(this.oldPassword, this.newPassword).subscribe( data => {
-      console.log(data);
       Swal.fire({
         toast: true,
         position: 'top',

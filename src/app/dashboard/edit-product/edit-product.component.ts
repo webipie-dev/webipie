@@ -8,6 +8,7 @@ import {ActivatedRoute, Route, Router} from '@angular/router';
 import uniqueSlug from 'unique-slug';
 
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-edit-product',
@@ -86,6 +87,20 @@ export class EditProductComponent implements OnInit {
           thumbImage: elt,
         });
       });
+      // this.imageObject = this.imageObject.concat(this.imageObject);
+      // this.imageObject = this.imageObject.concat(this.imageObject);
+      // this.imageObject = this.imageObject.concat(this.imageObject);
+      // this.imageObject = this.imageObject.concat(this.imageObject);
+      const images = document.getElementsByClassName('carousel-item');
+      // const img = Array.prototype.slice.call(images.item(0));
+      setTimeout(() => {
+        for (let i = 0 ; i < this.imageObject.length; i++) {
+          if (i % 3) {
+            document.getElementById(`carousel-${i}`).remove();
+            console.log(i);
+          }
+        }
+      }, 400);
     });
   }
 
@@ -100,8 +115,14 @@ export class EditProductComponent implements OnInit {
       reader.onload = (_event) => {
         this.msg = '';
         this.url = reader.result;
-
+        const imgLength = this.imageObject.length;
         this.imageObject.push({image: this.url, thumbImage: this.url});
+        for (let i = imgLength ; i < this.imageObject.length; i++) {
+          if (i % 3) {
+            document.getElementById(`carousel-${i}`).remove();
+            console.log(i);
+          }
+        }
       };
     });
 
@@ -160,7 +181,7 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const currentStore = JSON.parse(localStorage.getItem('currentStore'))._id;
+    const currentStore = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.postData.append('storeId', currentStore);
     this.postData.append('openReview', this.isChecked.toString());
     this.postData.append('popular', this.isPopular.toString());
@@ -179,17 +200,14 @@ export class EditProductComponent implements OnInit {
     const imagesArray = Array.from(images);
     if (!this.addIconDelete) {
       imagesArray.forEach((item, i) => {
-        console.log(item);
         const template = document.createElement('div');
         const htmlString = `<i id='delete-${i}' class="fas fa-minus-circle fa-3x mt-2 ml-2"
                             style="color: #ffffff; position: relative;"></i>`;
         template.innerHTML = htmlString.trim();
         item.parentNode.appendChild(template);
-        console.log(item);
       });
     }
     this.addIconDelete = true;
-    console.log(images);
     this.deletePhotos = true;
   }
 
@@ -204,19 +222,20 @@ export class EditProductComponent implements OnInit {
 
   }
 
-  deletePhoto(e): void {
-    const images = document.getElementsByClassName('image');
-    const imagesArray = Array.from(images);
-    if (imagesArray.length === 1 ) {
-      console.log('hhhhhhhhhhhhhhhhhh');
-    } else {
-      this.imageObject.splice(e, 1);
-
-    }
+  deletePhoto(i): void {
+    this.imageObject.splice(i, 1);
+    // const images = document.getElementsByClassName('image');
+    // const imagesArray = Array.from(images);
+    // if (imagesArray.length === 1 ) {
+    //   console.log('hhhhhhhhhhhhhhhhhh');
+    // } else {
+    //   this.imageObject.splice(e, 1);
+    //
+    // }
     console.log(this.imageObject);
-    console.log(e);
+    console.log(i);
     console.log(this.imageObject);
-    this.deletePhotoClose();
+    // this.deletePhotoClose();
   }
 
 

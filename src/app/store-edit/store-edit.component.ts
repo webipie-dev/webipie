@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {NavigationExtras, Router} from '@angular/router';
 import {StoreService} from '../_shared/services/store.service';
 import {Store} from '../_shared/models/store.model';
+import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-store-edit',
@@ -11,42 +12,102 @@ import {Store} from '../_shared/models/store.model';
 })
 
 export class StoreEditComponent implements OnInit {
-  urlToPreview = 'http://store.webipie.com:4200';
+
+  urlToPreview: string;
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
-  storeId = localStorage.getItem('storeID');
+  storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
+
   store: Store;
+  iframe = '<app-second-template></app-second-template>';
+
+
+
+  public opened = true;
+  public minimized = false;
+  public mobileOpen = false;
+  public mode = 'push';
+  public windwosWidth = window.innerWidth;
+
 
   constructor(public sanitizer: DomSanitizer,
               private router: Router,
               private storeService: StoreService) { }
 
+
   ngOnInit(): void {
+    if (window.screen.width < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+      this.opened = false;
+      this.minimized = false;
+    } else {
+      this.mode = 'push';
+      this.mobileOpen = false;
+      this.opened = true;
+      this.minimized = false;
+    }
+
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
-      sessionStorage.setItem('store', JSON.stringify(this.store));
+      this.urlToPreview = 'http://' + this.store.url + ':4200';
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
+      encryptStorage.setItem('store', this.store);
     });
-    this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
-    if (document.getElementById('sidebar').classList.contains('active')) {
-     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    } else {
-      this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    }
-    document.getElementById('iframe').style.width = this.newWidth.toString();
-    window.addEventListener('resize', () => {
-      if (document.getElementById('sidebar').classList.contains('active')) {
-        this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-      } else {
-        this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-      }
-      document.getElementById('iframe').style.width = this.newWidth.toString();
-    });
+    // this.store = JSON.parse(this.storeService.getById(this.storeId));
+
+    // if (document.getElementById('sidebar').classList.contains('active')) {
+    //  this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
+    // } else {
+    //   this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
+    // }
+    // document.getElementById('iframe').style.width = this.newWidth.toString();
+    // window.addEventListener('resize', () => {
+    //   if (document.getElementById('sidebar').classList.contains('active')) {
+    //     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
+    //   } else {
+    //     this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
+    //   }
+    //   document.getElementById('iframe').style.width = this.newWidth.toString();
+    // });
   }
+
+  public _toggleSidebar(): void {
+    this.opened = !this.opened;
+    this.minimized = !this.minimized;
+  }
+
+  public _toggleBigSidebar(): void {
+    this.opened = !this.opened;
+  }
+
+  public _closeBigSidebar(): void {
+    this.opened = false;
+  }
+
+  @HostListener('window:resize') windwosResize() {
+    this.windwosWidth = window.innerWidth;
+    if (this.windwosWidth < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+      if (this.opened && document.getElementById('toggleMobile')) {
+        document.getElementById('toggleMobile').click();
+      }
+
+    } else if (this.windwosWidth >= 576) {
+      this.mode = 'push';
+      this.opened = true;
+      this.minimized = false;
+      this.mobileOpen = false;
+
+    }
+  }
+
 
   switchAndToggleS(path): void {
     this.router.navigate([path]);
-    this.toggleS();
+    this._toggleSidebar();
   }
 
   toggleS = (): void =>  {
