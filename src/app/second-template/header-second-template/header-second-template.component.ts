@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 
 
 @Component({
@@ -15,10 +16,12 @@ export class HeaderSecondTemplateComponent implements OnInit {
   totalPrice = 0;
 
   constructor(private el: ElementRef,
-              private storeService: StoreService) { }
+              private storeService: StoreService) {
+  }
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
+
+    this.store = encryptStorage.getItem('store');
     this.storeService.changeTheme(this.el, this.store);
     this.cart.forEach(data => {
       this.totalPrice += +data.product.price;
@@ -34,7 +37,6 @@ export class HeaderSecondTemplateComponent implements OnInit {
       this.totalPrice += +data.product.price * data.quantity;
     });
   }
-
 
 
 }

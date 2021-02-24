@@ -1,8 +1,9 @@
 import {ElementRef, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {GenericService} from './generic.service';
-import {Observable} from 'rxjs';
 import {Store} from '../models/store.model';
+import { encryptStorage } from '../utils/encrypt-storage';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,31 +15,14 @@ export class StoreService extends GenericService<any>{
     this.suffix = '/store';
   }
 
-  // tslint:disable-next-line: typedef
-  getStore(name: string, location: string) {
-    if (!sessionStorage.getItem('store') ||
-     JSON.parse(sessionStorage.getItem('store')).name !== name ||
-     JSON.parse(sessionStorage.getItem('store')).contact.location !== location
-     ) {
-      const httpOptions = {
-        headers: { 'Content-Type': 'application/json' },
-      };
-      this.http.get(this.getUrl() + this.suffix + '/' + name + '/' + location , httpOptions).subscribe(store => {
-        console.log(store);
-        sessionStorage.setItem('store', JSON.stringify(store));
-        return sessionStorage.getItem('store');
-
-      });
-    }
-    return sessionStorage.getItem('store');
-
-  }
-
   getStoreByUrl() {
     return new Promise(resolve => {
+      if (encryptStorage.getItem('store')?.url === window.location.hostname || window.location.hostname === 'webipie.com') {
+        resolve(true);
+      }
       this.http.get<Store>(this.getUrl() + this.suffix + '/url/' + window.location.hostname).subscribe( store => {
         if (store){
-          sessionStorage.setItem('store', JSON.stringify(store));
+          encryptStorage.setItem('store', store);
         }
         resolve(true);
       });
@@ -57,7 +41,6 @@ export class StoreService extends GenericService<any>{
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);
     const b = parseInt(hex.slice(5, 7), 16);
-
     if (alpha) {
       return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')';
     } else {

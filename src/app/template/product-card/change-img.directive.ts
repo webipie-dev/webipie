@@ -9,6 +9,5 @@ export class ChangeImgDirective implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.elRef);
   }
 }

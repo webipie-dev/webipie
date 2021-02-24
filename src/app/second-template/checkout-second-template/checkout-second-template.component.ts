@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
-
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {StoreService} from '../../_shared/services/store.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../_shared/services/client.service';
@@ -26,8 +26,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
-    console.log(this.cart);
+    this.store = encryptStorage.getItem('store');
 
     this.clientForm = new FormGroup({
       firstname: new FormControl(null, Validators.required),
@@ -67,7 +66,6 @@ export class CheckoutSecondTemplateComponent implements OnInit {
       if (!exclude.has(field)) {
         if (control) {
           postData.append(field, control);
-          console.log(postData.get(field));
         }
       }
       else {
@@ -109,6 +107,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
       this.orderService.addOne(order).subscribe((orderCreated) => {
         console.log('order: ', orderCreated);
       });
+
     });
 
 
