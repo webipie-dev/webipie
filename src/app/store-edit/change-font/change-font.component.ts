@@ -50,6 +50,10 @@ export class ChangeFontComponent implements OnInit {
     });
   }
 
+  resetFont() {
+    this.fontType = this.currentFont;
+  }
+
 }
 
 
