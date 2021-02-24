@@ -18,6 +18,7 @@ export class StoreEditComponent implements OnInit {
   newWidth;
   storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
   store: Store;
+  iframe = '<app-second-template></app-second-template>';
 
   constructor(public sanitizer: DomSanitizer,
               private router: Router,
