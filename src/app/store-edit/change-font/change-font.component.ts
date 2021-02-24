@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Validators} from '@angular/forms';
-import {AlignmentTypes} from '@swimlane/ngx-charts';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
@@ -16,16 +15,16 @@ export class ChangeFontComponent implements OnInit {
   /*
     general settings to any template
   */
-  fontTypes: Array<string> = JSON.parse(sessionStorage.getItem('store')).template.fontOptions;
+  fontTypes: Array<string> = encryptStorage.getItem('store').template.fontOptions;
   /*
     specific settings to user's template
   */
 
-  fontType = JSON.parse(sessionStorage.getItem('store')).template.font;
+  fontType = encryptStorage.getItem('store').template.font;
 
-  storeId = JSON.parse(sessionStorage.getItem('store'))._id;
+  storeId = encryptStorage.getItem('store').id;
 
-  currentFont = JSON.parse(sessionStorage.getItem('store')).template.font;
+  currentFont = encryptStorage.getItem('store').template.font;
 
   constructor(private http: HttpClient,
               private storeService: StoreService,
@@ -45,7 +44,7 @@ export class ChangeFontComponent implements OnInit {
     this.storeService.edit(this.storeId, postData).subscribe(store => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/font']);
-        sessionStorage.setItem('store', JSON.stringify(store));
+        encryptStorage.setItem('store', store);
       });
     });
   }

@@ -22,20 +22,23 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
-  declarations: [
-    SecondTemplateComponent,
-    HeaderSecondTemplateComponent,
-    FooterSecondTemplateComponent,
-    HomeSecondTemplateComponent,
-    TopSliderComponent,
-    ProductsSectionSecondTemplateComponent,
-    AboutSecondTemplateComponent,
-    ProductsAllSecondTemplateComponent,
-    CartSecondTemplateComponent,
-    CheckoutSecondTemplateComponent,
-    ProductDetailComponent,
-    SubHeaderSecondTemplateComponent,
-  ],
+    declarations: [
+        SecondTemplateComponent,
+        HeaderSecondTemplateComponent,
+        FooterSecondTemplateComponent,
+        HomeSecondTemplateComponent,
+        TopSliderComponent,
+        ProductsSectionSecondTemplateComponent,
+        AboutSecondTemplateComponent,
+        ProductsAllSecondTemplateComponent,
+        CartSecondTemplateComponent,
+        CheckoutSecondTemplateComponent,
+        ProductDetailComponent,
+        SubHeaderSecondTemplateComponent,
+    ],
+    exports: [
+        SecondTemplateComponent
+    ],
     imports: [
         CommonModule,
         SecondTemplateRoutingModule,

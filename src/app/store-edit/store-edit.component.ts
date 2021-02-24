@@ -3,6 +3,7 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {NavigationExtras, Router} from '@angular/router';
 import {StoreService} from '../_shared/services/store.service';
 import {Store} from '../_shared/models/store.model';
+import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-store-edit',
@@ -15,7 +16,7 @@ export class StoreEditComponent implements OnInit {
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
-  storeId = localStorage.getItem('storeID');
+  storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
   store: Store;
 
   constructor(public sanitizer: DomSanitizer,
@@ -27,7 +28,7 @@ export class StoreEditComponent implements OnInit {
       this.store = store;
       this.urlToPreview = 'http://' + this.store.url + ':4200';
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
-      sessionStorage.setItem('store', JSON.stringify(this.store));
+      encryptStorage.setItem('store', this.store);
     });
     if (document.getElementById('sidebar').classList.contains('active')) {
      this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
