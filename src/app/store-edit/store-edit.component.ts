@@ -12,11 +12,13 @@ import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-stor
 })
 
 export class StoreEditComponent implements OnInit {
+
   urlToPreview: string;
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
   newWidth;
   storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
+
   store: Store;
   iframe = '<app-second-template></app-second-template>';
 
