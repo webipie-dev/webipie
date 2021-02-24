@@ -26,13 +26,12 @@
         <div class="col-6">
           <p *ngIf="displayMode" class="small-titles">Status: </p>
           <p *ngIf="editMode" class="small-titles">Change Status: </p>
-          <p *ngIf="displayMode" class="text-size">{{rowData.orderStatus}}</p>
+          <p *ngIf="displayMode" class="text-size">{{orderStatus}}</p>
           <div *ngIf="editMode">
-            <select class="select text-size py-2 pl-2" name="cars" id="cars" [value]="rowData.orderStatus">
-              <option value="volvo">Shipped</option>
-              <option value="saab">Canceled</option>
-              <option value="mercedes">Pending</option>
-              <option value="audi">On Review</option>
+            <select class="select text-size py-2 pl-2" name="status" id="status" [value]="rowData.orderStatus" [(ngModel)]='orderStatus'>
+              <option value="pending">pending</option>
+              <option value="accepted">accepted</option>
+              <option value="refused">refused</option>
             </select>
           </div>
         </div>
@@ -63,7 +62,8 @@
         </div>
         <div class="col-3 my-auto">
           <p *ngIf="displayMode">{{rowData.products[i].quantity}}</p>
-          <input *ngIf="editMode" type="number" class="change-quantity" [value]="rowData.products[i].quantity">
+          <!-- <input *ngIf="editMode" type="number" class="change-quantity" [value]="rowData.products[i].quantity"> -->
+          <p  *ngIf='editMode' class="my-auto text-center"> {{rowData.products[i].quantity}} </p>
         </div>
         <div class="col-3 my-auto">{{product.price}}</div>
       </div>

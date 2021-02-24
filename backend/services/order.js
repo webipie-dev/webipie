@@ -3,7 +3,21 @@ const Product = require('../models/product')
 const Client = require('../models/client')
 const Store = require('../models/store')
 const ApiError = require("../errors/api-error");
+const nodemailer = require("nodemailer");
+const smtpTransport = require('nodemailer-smtp-transport');
+const config = require('../configuration/index');
+const { StoreOwner } = require('../models/storeOwner');
 
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport(smtpTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  auth: {
+    user: config.EMAIL.USER, 
+    pass: config.EMAIL.PASSWORD, 
+  },
+})
+);
 
 // getAndFilterOrder
 exports.getOrders = async (req, res) => {
@@ -11,7 +25,7 @@ exports.getOrders = async (req, res) => {
   // I THINK ORDERS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
-  const orders = await Order.find(req.query).populate('client')
+  const orders = await Order.find(req.query).populate('client');
     // .catch((err) => {
     //   res.status(400).json({errors: [{ message: err.message }]});
     // });
@@ -43,60 +57,37 @@ exports.getOneOrder = async (req, res) => {
 
 exports.addOrder = async (req, res, next) => {
 
-  // productsOrders schema :
-  // productsOrder = {
-  //   ids: ['444444',555555],
-  //   products : [
-  //     {
-  //       _id: '44444',
-  //       quantity: 1,
-  //       name,
-  //       imgs,
-  //       price
-  //
-  //     },
-  //     {
-  //       _id: '555555',
-  //       quantity: 1
-  //       name,
-  //       imgs,
-  //       price
-  //     }
-  //   ]
-  // }
-
   const { orderStatus, paymentMethod, productsOrder, clientId, storeId } = req.body
 
   const store = await Store.findById(storeId)
-
   if (!store) {
     next(ApiError.NotFound('Store Not Found'));
     return;
   }
 
-  const client = await Client.findById(clientId)
+  const storeOwner = await StoreOwner.findOne({storeID: storeId});
 
+  const client = await Client.findById(clientId)
   if (!client) {
     next(ApiError.NotFound('Client Not Found'));
     return;
   }
 
   const prods = await Product.find({_id: {$in: productsOrder.ids}})
-
   if (prods.length !== productsOrder.ids.length) {
     next(ApiError.NotFound('One or more products Not Found'));
     return;
   }
 
   let totalPrice = 0
-  for (let i=0; i < productsOrder.products.length; i++) {
-      totalPrice += productsOrder.products[i].price * productsOrder.products[i].quantity
+  for (let i=0; i < prods.length; i++) {
+      totalPrice += prods[i].price * prods[i].quantity
   }
 
   const order = new Order({
     orderStatus,
     paymentMethod,
-    products: productsOrder.products,
+    products: prods,
     totalPrice,
     client,
     store,
@@ -105,7 +96,7 @@ exports.addOrder = async (req, res, next) => {
   await order.save();
 
   let bulkQueries = [];
-  productsOrder.products.map(product => {
+  prods.map(product => {
     bulkQueries.push({
       updateOne: {
         "filter": { _id: product._id},
@@ -118,6 +109,34 @@ exports.addOrder = async (req, res, next) => {
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
+
+
+  // send notification
+  const io = req.app.get('socketio');
+  io.emit('new order', order);
+
+  // send mail to storeowner 
+
+  var mailOptions = {
+    from: config.EMAIL.USER,
+    to: storeOwner.local.email || storeOwner.google.email || storeOwner.facebook.email,
+    subject: 'New order',
+    text: 'You have a new order from ' + 
+      String(client.firstname) + ' ' + 
+      String(client.lastname) + 
+      '. You can call your client on '+
+      String(client.phoneNumber) + 
+      ' and contact him on ' + 
+      String(client.email),
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });  
 
   res.status(201).send(order);
 
@@ -163,10 +182,9 @@ exports.editOrder = async (req, res, next) => {
   // separating the updates
   const edits = {};
   for(const key in req.body) {
-      if(key !== 'id'){
-        edits[key] = req.body[key];
-
-      }
+    if(key !== 'id'){
+      edits[key] = req.body[key];
+    }
   }
 
   const orderEdited = await Order.updateOne({_id: id}, { $set: edits })
@@ -182,6 +200,24 @@ exports.editOrder = async (req, res, next) => {
     }
   }
 
+  for(const key in req.body) {
+    if(key ==='orderStatus'){
+      var mailOptions = {
+        from: config.EMAIL.USER,
+        to: orderEdited.client.email,
+        subject: 'Updated order',
+        text: 'You have an update to your order with status to ' + String(orderEdited.orderStatus), 
+      };
+    
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      }); 
+    }
+  }
 
   res.status(200).send(orderEdited);
 };

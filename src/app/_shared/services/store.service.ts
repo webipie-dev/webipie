@@ -34,6 +34,10 @@ export class StoreService extends GenericService<any>{
 
   }
 
+  getStoreNames(): Observable<any>{
+    return this.http.get(this.getUrl() + this.suffix + '/all/names') as unknown as Observable<any>;
+  }
+
   getStoreByUrl() {
     return new Promise(resolve => {
       this.http.get<Store>(this.getUrl() + this.suffix + '/url/' + window.location.hostname).subscribe( store => {

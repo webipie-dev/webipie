@@ -2,6 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const { string } = require('joi');
 
 const storeOwnerSchema = new Schema({
   methods: {
@@ -10,6 +11,10 @@ const storeOwnerSchema = new Schema({
     default: []
   },
   local: {
+    name: {
+      type: String,
+      default: ''
+    },
     email: {
       type: String,
       lowercase: true, default: ''
@@ -80,6 +85,7 @@ function validatestoreOwner(storeOwner) {
 
     schemas = {
         authSchema: Joi.object().keys({
+          name: Joi.string().min(5),
           email: Joi.string().email({minDomainSegments: 2}).required(),
           password: Joi.string().required().min(5)
         })

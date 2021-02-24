@@ -8,6 +8,20 @@
         <button (click)="onDeleteMany()" [disabled]="!showDeleteManyButton" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}" class="mr-5 float-right py-2 button-generic button-delete text-size"><i id="delete-icon" class="fa fa-trash-alt"></i> Delete Selected</button>
       </div>
     </div>
+    <div class="row mt-5">
+      <div class="col-8 d-flex">
+        <div class="mx-4"><span class='dot yellow'></span> PENDING </div>
+        <div class="mx-4"><span class='dot green'></span> ACCEPTED </div>
+        <div class="mx-4"><span class='dot red'></span> REFUSED </div>
+      </div>
+
+      <div class="col-4">
+        <div style="right:3%">
+          <button class="mr-5 float-right py-2 button-generic text-size" [hidden]="newOrder" (click)="reload()"> You have new Orders! Click here </button>
+        </div>
+      </div>
+    </div>
+
     <div class="my-5 mx-auto px-5 py-3 shadow" *ngIf="windowWidth >= 1024">
       <ng2-smart-table class="text-size text-center"
                        *ngIf="orders.length > 0"
