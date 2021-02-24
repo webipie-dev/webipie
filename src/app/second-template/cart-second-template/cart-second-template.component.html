@@ -67,8 +67,8 @@
               <div class="position-center-center">
                 <div class="quinty">
                   <!-- QTY -->
-                  <select class='customSelect'>
-                    <option *ngFor='let quantity of counter(element.product.quantity);' [value]='quantity'>{{quantity}}</option>
+                  <select class='customSelect' (change)="saveQuantity(element.product, $event)" [(ngModel)]="element.quantity">
+                    <option *ngFor='let i of counter(element.product.quantity);' [value]='i'>{{i}}</option>
                   </select>
 <!--                  <select class="selectpicker">-->
 <!--                    <option>1</option>-->
@@ -118,7 +118,7 @@
               <div class="grand-total">
                 <div class="order-detail">
                   <div *ngFor="let element of cart">
-                  <p>{{element.product.name}} <span>{{element.product.price}} DT</span></p>
+                  <p>{{element.product.name}} <span>{{element.quantity}}x  {{element.product.price}} DT</span></p>
                   </div>
                   <!-- SUB TOTAL -->
                   <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span></p>
@@ -126,6 +126,8 @@
               </div>
             </div>
           </div>
+          <li class="col-xs-6"> <button class="btn" (click)="save()">SAVE</button> </li>
+
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../_shared/services/client.service';
 import {Product} from '../../_shared/models/product.model';
+import {OrderService} from '../../_shared/services/order.service';
 
 
 @Component({
@@ -20,12 +21,13 @@ export class CheckoutSecondTemplateComponent implements OnInit {
   totalPrice = 0;
   constructor(private storeService: StoreService,
               private el: ElementRef,
-              private clientService: ClientService) {
+              private clientService: ClientService,
+              private orderService: OrderService) {
   }
 
   ngOnInit(): void {
     this.store = JSON.parse(sessionStorage.getItem('store'));
-    console.log(this.store);
+    console.log(this.cart);
 
     this.clientForm = new FormGroup({
       firstname: new FormControl(null, Validators.required),
@@ -41,11 +43,17 @@ export class CheckoutSecondTemplateComponent implements OnInit {
     this.storeService.changeTheme(this.el, this.store);
 
     this.cart.forEach(data => {
-      this.totalPrice += +data.product.price;
+      this.totalPrice += +data.product.price * data.quantity;
     });
   }
 
   onSubmit(): void {
+    const checkout: [{product: Product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+    this.totalPrice = 0;
+    checkout.forEach(data => {
+      this.totalPrice += +data.product.price * data.quantity;
+    });
+
     const postData = new FormData();
     let fullAddress = '';
 
@@ -76,7 +84,31 @@ export class CheckoutSecondTemplateComponent implements OnInit {
     postData.append('storeId', this.store.id);
 
     this.clientService.addOne(postData).subscribe((data) => {
-      console.log(data);
+
+      const products = checkout.map(element => ({
+        id: element.product.id,
+        quantity: element.quantity,
+        imgs: element.product.imgs,
+        name: element.product.name,
+        price: element.product.price
+      }));
+
+      const ids = checkout.map(element => element.product.id);
+
+      const order = {
+        productsOrder: {
+          ids,
+          products
+        },
+        clientId: data.id,
+        storeId: this.store.id
+
+      };
+      console.log('client: ', data);
+
+      this.orderService.addOne(order).subscribe((orderCreated) => {
+        console.log('order: ', orderCreated);
+      });
     });
 
 

@@ -45,8 +45,8 @@
                   <li class="col-xs-4">
                     <div class="quinty">
                       <!-- QTY -->
-                      <select class='customSelect'>
-                        <option *ngFor='let quantity of counter(product.quantity);' [value]='quantity'>{{quantity}}</option>
+                      <select class='customSelect' [(ngModel)]="quantity">
+                        <option *ngFor='let i of counter(product.quantity);'  [value]='i'>{{i}}</option>
                       </select>
                     </div>
                   </li>
@@ -67,7 +67,7 @@
                   </li> -->
 
                   <!-- ADD TO CART -->
-                  <li class="col-xs-6"> <button class="btn" [disabled]="disabled" (click)="addToCart(product, 1)">ADD TO CART</button> </li>
+                  <li class="col-xs-6"> <button class="btn" [disabled]="disabled" (click)="addToCart(product)">ADD TO CART</button> </li>
 
                   <!-- LIKE -->
                   <li class="col-xs-6"> <a href="#." class="like-us"><i class="icon-heart"></i></a> </li>

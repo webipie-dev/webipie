@@ -17,6 +17,7 @@ export class ProductDetailComponent implements OnInit {
   review: Review;
 
   disabled = false;
+  quantity = 1;
 
   productId = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -54,10 +55,10 @@ export class ProductDetailComponent implements OnInit {
     this.productService.addReview(this.product.id, this.review);
   }
 
-  addToCart(product: Product, quantity): void {
+  addToCart(product: Product): void {
     this.disabled = true;
-    const cart: [{product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({product, quantity});
+    const cart: [{product: Product, quantity: number}] = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({product, quantity: this.quantity});
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log(JSON.parse(localStorage.getItem('cart')));
   }

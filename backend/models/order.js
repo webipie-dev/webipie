@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const ExSchema = new Schema({
   orderDate: {type: Date, default: Date.now() },
-  orderStatus: {type: String, default: ''},
+  orderStatus: {type: String, default: 'Pending'},
   paymentMethod: {type: String, default: ''},
   products: [{
     id: {type: Schema.Types.ObjectID, ref: "Product"},
