@@ -8,6 +8,7 @@ import {ActivatedRoute, Route, Router} from '@angular/router';
 import uniqueSlug from 'unique-slug';
 
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-edit-product',
@@ -180,7 +181,7 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const currentStore = JSON.parse(localStorage.getItem('currentStore'))._id;
+    const currentStore = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.postData.append('storeId', currentStore);
     this.postData.append('openReview', this.isChecked.toString());
     this.postData.append('popular', this.isPopular.toString());
@@ -199,17 +200,14 @@ export class EditProductComponent implements OnInit {
     const imagesArray = Array.from(images);
     if (!this.addIconDelete) {
       imagesArray.forEach((item, i) => {
-        console.log(item);
         const template = document.createElement('div');
         const htmlString = `<i id='delete-${i}' class="fas fa-minus-circle fa-3x mt-2 ml-2"
                             style="color: #ffffff; position: relative;"></i>`;
         template.innerHTML = htmlString.trim();
         item.parentNode.appendChild(template);
-        console.log(item);
       });
     }
     this.addIconDelete = true;
-    console.log(images);
     this.deletePhotos = true;
   }
 

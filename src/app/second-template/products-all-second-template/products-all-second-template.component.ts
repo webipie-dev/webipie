@@ -3,6 +3,7 @@ import { ProductService } from 'src/app/_shared/services/product.service';
 import {Store} from '../../_shared/models/store.model';
 import {Product} from '../../_shared/models/product.model';
 import {StoreService} from '../../_shared/services/store.service';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 
 
 @Component({
@@ -21,9 +22,9 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
               private el: ElementRef) { }
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
+    this.store = encryptStorage.getItem('store');
     this.products = [];
-    this.productService.getAll({store: this.store._id}).subscribe(data => {
+    this.productService.getAll({store: this.store._id}, 'client').subscribe(data => {
       this.products.push.apply(this.products, data);
     }, error => console.log(error));
     this.storeService.changeTheme(this.el, this.store);

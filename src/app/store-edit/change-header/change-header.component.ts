@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
-import { HeaderComponent } from '../../dashboard/header/header.component';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-change-header',
@@ -21,7 +21,7 @@ export class ChangeHeaderComponent implements OnInit {
   store: any;
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
+    this.store = encryptStorage.getItem('store');
     this.headerForm = new FormGroup({
       title: new FormControl(this.store.template.header.title),
       description: new FormControl(this.store.template.header.description),
@@ -39,10 +39,9 @@ export class ChangeHeaderComponent implements OnInit {
   onFileChanged(event): void {
     const file = event.target.files[0];
     this.postData.append('headerImg', file, file.name);
-    console.log(file);
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (event) => {
+    reader.onload = (events) => {
       this.imgSrc = reader.result.toString();
     };
   }
@@ -69,7 +68,7 @@ export class ChangeHeaderComponent implements OnInit {
     this.storeService.edit(this.storeId, this.postData).subscribe(store => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/header']);
-        sessionStorage.setItem('store', JSON.stringify(store));
+        encryptStorage.setItem('store', store);
         this.initialHeaderForm = this.headerForm;
       });
     });

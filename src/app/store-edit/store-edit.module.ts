@@ -27,6 +27,7 @@ import {SidebarModule} from "ng-sidebar";
     FormsModule,
     SidebarModule
   ],
+
   declarations: [
     StoreEditComponent,
     ChangeFontComponent,

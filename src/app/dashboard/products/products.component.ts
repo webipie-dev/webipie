@@ -1,13 +1,10 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {HttpClient} from '@angular/common/http';
-import {OrderService} from '../../_shared/services/order.service';
 import {ProductService} from '../../_shared/services/product.service';
-import {Product} from '../../_shared/models/product.model';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import {log} from 'util';
-import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-products',
@@ -92,8 +89,7 @@ export class ProductsComponent implements OnInit {
 
 
   getAllProducts(): void {
-    console.log(localStorage.getItem('storeID'));
-    this.productService.getAll({store: localStorage.getItem('storeID')}).subscribe((data) => {
+    this.productService.getAll({store: encryptLocalStorage.decryptString(localStorage.getItem('storeID'))}).subscribe((data) => {
       let quant;
       let aux;
       data.forEach((element) => {

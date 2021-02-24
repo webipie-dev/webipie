@@ -51,8 +51,6 @@ export class GenericService<T extends GenericModel> {
         params: query
       };
     }
-
-    console.log('params : ', query);
     return this.http.get(this.getUrl() + this.suffix, httpOptions) as unknown as Observable<T>;
   }
 

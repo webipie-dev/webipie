@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
 
 @Component({
@@ -8,5 +8,5 @@ import {ViewEncapsulation} from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'savvy';
+  title = 'Webipie';
 }

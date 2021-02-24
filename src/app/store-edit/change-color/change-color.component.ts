@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
-import {Router} from '@angular/router';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-change-color',
@@ -11,13 +11,13 @@ import {Router} from '@angular/router';
 export class ChangeColorComponent implements OnInit {
 
   constructor(private http: HttpClient,
-              private storeService: StoreService,
-              private router: Router) {
+              private storeService: StoreService) {
   }
 
   defaultColor;
-  store = JSON.parse(sessionStorage.getItem('store'));
   usedChart;
+  store = encryptStorage.getItem('store');
+
   public show = false;
   public defaultColors = [];
 
@@ -45,7 +45,7 @@ export class ChangeColorComponent implements OnInit {
       'template.colorChart': this.defaultColor
     };
     this.storeService.edit(this.store._id, postData).subscribe(store => {
-      sessionStorage.setItem('store', JSON.stringify(store));
+      encryptStorage.setItem('store', store);
       this.usedChart = this.store.template.colorChart;
       console.log(this.usedChart);
     });
