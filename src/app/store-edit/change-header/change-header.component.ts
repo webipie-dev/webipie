@@ -15,6 +15,7 @@ export class ChangeHeaderComponent implements OnInit {
               private router: Router) { }
   storeId = '5fd09d461bcaf731b40f95fb';
   headerForm: FormGroup;
+  initialHeaderForm: FormGroup;
   postData = new FormData();
   imgSrc = '../../../assets/images/fashion-WPWVGRY.jpg';
   store: any;
@@ -22,6 +23,12 @@ export class ChangeHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.store = encryptStorage.getItem('store');
     this.headerForm = new FormGroup({
+      title: new FormControl(this.store.template.header.title),
+      description: new FormControl(this.store.template.header.description),
+      mainButton: new FormControl(this.store.template.header.mainButton),
+      img: new FormControl(this.store.template.header.img),
+    });
+    this.initialHeaderForm = new FormGroup({
       title: new FormControl(this.store.template.header.title),
       description: new FormControl(this.store.template.header.description),
       mainButton: new FormControl(this.store.template.header.mainButton),
@@ -39,6 +46,14 @@ export class ChangeHeaderComponent implements OnInit {
     };
   }
 
+  testSame(): boolean {
+    console.log(this.initialHeaderForm.get('title').value);
+    return this.initialHeaderForm.get('description').value === this.headerForm.get('description').value &&
+      this.initialHeaderForm.get('title').value === this.headerForm.get('title').value &&
+      this.initialHeaderForm.get('mainButton').value === this.headerForm.get('mainButton').value &&
+      this.initialHeaderForm.get('img').value === this.headerForm.get('img').value;
+  }
+
   onSubmit(): void {
     for (const field in this.headerForm.controls) {
       if (field !== 'img') {
@@ -54,6 +69,7 @@ export class ChangeHeaderComponent implements OnInit {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/header']);
         encryptStorage.setItem('store', store);
+        this.initialHeaderForm = this.headerForm;
       });
     });
   }

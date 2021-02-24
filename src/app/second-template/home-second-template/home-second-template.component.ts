@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {ExternalFilesService} from '../../_shared/services/external-files.service';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-home-second-template',
@@ -7,7 +6,9 @@ import {ExternalFilesService} from '../../_shared/services/external-files.servic
   styleUrls: ['./home-second-template.component.css']
 })
 export class HomeSecondTemplateComponent implements OnInit {
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

@@ -119,3 +119,19 @@ button {
     top: 5%;
     z-index: 2;
 }
+
+.button-black:disabled,
+.button-black[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+.upload-back {
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #ffffff;
+  background-color: #51c2d5;
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: 0 0 10px 5px rgba(10, 10, 10, 0.3);
+}

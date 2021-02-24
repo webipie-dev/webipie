@@ -3,11 +3,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Injector, APP_INITIALIZER} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {IndexComponent} from './index/index.component';
-import {PricingComponent} from './index/pricing/pricing.component';
-import {HeaderComponent} from './index/header/header.component';
-import {SignUpComponent} from './index/sign-up/sign-up.component';
-import {AfterSigninComponent} from './index/after-signin/after-signin.component';
 import {FormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {SocialLoginModule, SocialAuthServiceConfig} from 'angularx-social-login';
@@ -35,6 +30,7 @@ import { ErrorsComponent } from './errors/errors.component';
 import {ErrorInterceptor} from './error-interceptor';
 import { SidebarModule } from 'ng-sidebar';
 import {StoreService} from './_shared/services/store.service';
+import {IndexModule} from "./index/index.module";
 
 
 export let InjectorInstance: Injector;
@@ -42,16 +38,8 @@ export let InjectorInstance: Injector;
 @NgModule({
   declarations: [
     AppComponent,
-    IndexComponent,
-    PricingComponent,
-    HeaderComponent,
-    SignUpComponent,
-    AfterSigninComponent,
     PageNotFoundComponent,
-    SignInComponent,
     LoadingSpinnerComponent,
-    FooterComponent,
-    TemplatesPageComponent,
     ErrorsComponent
   ],
   imports: [
@@ -77,7 +65,8 @@ export let InjectorInstance: Injector;
     }),
     SecondTemplateModule,
     SpinnerModule,
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    IndexModule,
   ],
   providers: [
     {

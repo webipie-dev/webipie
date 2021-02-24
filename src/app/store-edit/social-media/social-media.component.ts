@@ -10,8 +10,10 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 })
 export class SocialMediaComponent implements OnInit {
   defaultFacebook = encryptStorage.getItem('store').contact.facebookPage;
+  initialFacebook = encryptStorage.getItem('store').contact.facebookPage;
   defaultInstagram = encryptStorage.getItem('store').contact.instagramPage;
-  storeId = encryptStorage.getItem('store').id;
+  initialInstagram = encryptStorage.getItem('store').contact.instagramPage;
+  storeId = encryptStorage.getItem('store')._id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService) {
@@ -29,6 +31,8 @@ export class SocialMediaComponent implements OnInit {
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
       encryptStorage.setItem('store', store);
+      this.initialFacebook = this.defaultFacebook;
+      this.initialInstagram = this.defaultInstagram;
     });
   }
 

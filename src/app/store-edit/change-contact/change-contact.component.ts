@@ -12,12 +12,14 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 })
 export class ChangeContactComponent implements OnInit {
 
+
   defaultEmail = encryptStorage.getItem('store').contact.email;
+  initialEmail = encryptStorage.getItem('store').contact.email;
   defaultNumber = encryptStorage.getItem('store').contact.phoneNumber;
+  initialNumber = encryptStorage.getItem('store').contact.phoneNumber;
   defaultLocation = encryptStorage.getItem('store').contact.location;
-  storeId = encryptStorage.getItem('store').id;
-
-
+  initialLocation = encryptStorage.getItem('store').contact.location;
+  storeId = encryptStorage.getItem('store')._id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService) {
@@ -26,6 +28,11 @@ export class ChangeContactComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  testChange(): boolean {
+    return (this.initialNumber === this.defaultNumber &&
+      this.initialLocation === this.defaultLocation &&
+      this.initialEmail === this.defaultEmail);
+  }
   submit(): void {
 
     const postData = {
@@ -35,6 +42,9 @@ export class ChangeContactComponent implements OnInit {
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
       encryptStorage.setItem('store', store);
+      this.initialEmail = this.defaultEmail;
+      this.initialNumber = this.defaultNumber;
+      this.initialLocation = this.defaultLocation;
     });
   }
 }

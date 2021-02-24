@@ -17,6 +17,7 @@ export class ProductDetailComponent implements OnInit {
   product: any;
   review: Review;
 
+  loadAPI: Promise<any>;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -40,6 +41,8 @@ export class ProductDetailComponent implements OnInit {
 }
 
   sendReview(): void{
-    this.productService.addReview(this.product.id, this.review);
+    this.productService.addReview(this.product.id, this.review).subscribe(data => {
+      console.log(data);
+    });
   }
 }

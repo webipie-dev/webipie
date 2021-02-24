@@ -219,6 +219,27 @@
   background: var(--secondary-color) !important;
 }
 
+
+.title-cart {
+  font-family: var(--font-choice), sans-serif !important;
+  margin-bottom: 60px;
+  margin-top: 0;
+  color: var(--font-color);
+  font-size: 20px;
+  letter-spacing: 3px;
+  padding: 0 10px;
+}
+.title-cart:before {
+  width: 60px;
+  height: 2px;
+  background: var(--font-color);
+  border: none;
+  content: '';
+  display: inline-block;
+  position: absolute;
+  margin-top: 30px;
+}
+
 /*.small-cart .cart-ship-info form {
   background: #eeeeee;
   padding: 50px;

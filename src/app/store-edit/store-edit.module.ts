@@ -13,20 +13,21 @@ import {ColorPickerComponent} from './change-color/color-picker/color-picker.com
 import {SocialMediaComponent} from './social-media/social-media.component';
 import {SidenavMenuComponent} from './sidenav-menu/sidenav-menu.component';
 import {TemplateModule} from '../template/template.module';
-import {SecondTemplateModule} from '../second-template/second-template.module';
+import {SidebarModule} from "ng-sidebar";
 
 
 @NgModule({
-    imports: [
-        StoreEditRoutingModule,
-        HttpClientModule,
-        Ng2SmartTableModule,
-        ReactiveFormsModule,
-        CommonModule,
-        TemplateModule,
-        FormsModule,
-        SecondTemplateModule
-    ],
+  imports: [
+    StoreEditRoutingModule,
+    HttpClientModule,
+    Ng2SmartTableModule,
+    ReactiveFormsModule,
+    CommonModule,
+    TemplateModule,
+    FormsModule,
+    SidebarModule
+  ],
+
   declarations: [
     StoreEditComponent,
     ChangeFontComponent,

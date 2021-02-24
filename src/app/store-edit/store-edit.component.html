@@ -1,66 +1,134 @@
-<div class="wrapper">
-  <div class="d-flex">
-    <div>
-      <nav id="sidebar">
-        <div class="sidebar-header">
-          <h3 class="huge-titles text-center">Hackover</h3>
-        </div>
-        <router-outlet></router-outlet>
-        <div class="container sidenav-footer">
-          <div class="row">
-            <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
-            <span (click)="toggleS()" class="col-4">
-              <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
-            </span>
-          </div>
-        </div>
-      </nav>
-      <div class="only-tablet">
-        <nav id="sidebar-non-active" class="active">
-          <ul class="list-unstyled text-size text-center">
-            <li class="sidenav-elem mb-3">
-              <a (click)="switchAndToggleS('/store/color')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1 cursor-pointer">
-                <i class="fa fa-palette"></i>
-              </a>
-              <a (click)="switchAndToggleS('/store/font')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
-                <i class="fa fa-font"></i>
-              </a>
-              <a (click)="switchAndToggleS('/store/social-media')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
-                <i class="fa fa-share-alt"></i>
-              </a>
-              <a (click)="switchAndToggleS('/store/header')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
-                <i class="fa fa-align-left"></i>
-              </a>
-              <a (click)="switchAndToggleS('/store/contact')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
-                <i class="fa fa-phone"></i>
-              </a>
-              <a (click)="switchAndToggleS('/dashboard')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
-                <i class="fa fa-backward"></i>
-              </a>
-            </li>
-          </ul>
-          <div class="container mt-5">
-            <div class="row text-center">
-              <span class="mx-auto" (click)="toggleS()">
-                <i class="fa fa-toggle-off fa-3x " aria-hidden="true" ></i>
-              </span>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <nav>
-        <div id="sidebar-non-active2" class="container only-mobile active toggle-sidenav-2 hidden-sidenav">
-          <div class="row text-center">
-      <span class="mx-auto" (click)="toggleS()">
-        <i class="fa fa-toggle-off fa-3x white-colored" aria-hidden="true" ></i>
+<ng-sidebar-container style="height: 100vh;">
+  <!-- A sidebar -->
+  <ng-sidebar [(opened)]="opened" [mode]="mode" *ngIf="opened">
+    <div class="sidebar-header">-->
+      <h3 class="huge-titles text-center py-2">{{store ? store.name : null}}</h3>
+    </div>
+    <router-outlet></router-outlet>
+    <div class="container sidenav-footer" style="color: #ffffff;">
+      <div class="row ">
+        <div class="col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>
+        <span class="col-4" (click)="windwosWidth > 576 ? _toggleSidebar() : _toggleBigSidebar()" style="cursor: pointer;">
+        <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
       </span>
-          </div>
-        </div>
-      </nav>
+      </div>
+    </div>
+  </ng-sidebar>
+  <ng-sidebar [(opened)]="minimized" [mode]="mode" *ngIf="minimized">
+    <!--    <app-side-nav [toggleS]="_toggleSidebar"></app-side-nav>-->
+    <nav id="sidebar-non-active" class="active">
+      <ul class="list-unstyled text-size text-center">
+        <li class="sidenav-elem mb-3">
+          <a (click)="switchAndToggleS('/store/color')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1 cursor-pointer">
+            <i class="fa fa-palette"></i>
+          </a>
+          <a (click)="switchAndToggleS('/store/font')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+            <i class="fa fa-font"></i>
+          </a>
+          <a (click)="switchAndToggleS('/store/social-media')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+            <i class="fa fa-share-alt"></i>
+          </a>
+          <a (click)="switchAndToggleS('/store/header')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+            <i class="fa fa-align-left"></i>
+          </a>
+          <a (click)="switchAndToggleS('/store/contact')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+            <i class="fa fa-phone"></i>
+          </a>
+          <a (click)="switchAndToggleS('/dashboard')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+            <i class="fa fa-backward"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container sidenav-footer " style="color: #ffffff;">
+      <div class="row bottom-float">
+        <span class="col-4" (click)="_toggleSidebar()" style="cursor: pointer;">
+        <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
+      </span>
+      </div>
+    </div>
+    <!--      <div id="sidebar-non-active2" class="container only-mobile active  " style="color: #ffffff">-->
+    <!--        <div class="row text-center">-->
+    <!--      <span class="mx-auto" (click)="_toggleSidebar()">-->
+    <!--        <i class="fa fa-toggle-off fa-3x white-colored" aria-hidden="true" ></i>-->
+    <!--      </span>-->
+    <!--        </div>-->
+    <!--      </div>-->
+  </ng-sidebar>
 
+  <!-- Page content -->
+  <div ng-sidebar-content>
+    <div class="text-center toggle-mobile" *ngIf="mobileOpen">
+        <span (click)="_toggleBigSidebar()" style="cursor: pointer;" id="toggleMobile">
+        <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
+      </span>
     </div>
-    <div class="">
-      <iframe id="iframe" class="" width="100%" height="{{windowHeight}}" frameBorder="0" [src]="urlSafe"></iframe>
-    </div>
+    <iframe id="iframe" class="" width="100%" height="{{windowHeight}}" frameBorder="0" [src]="urlSafe"></iframe>
   </div>
-</div>
+</ng-sidebar-container>
+
+<!--<div class="wrapper">-->
+<!--  <div class="d-flex">-->
+<!--    <div>-->
+<!--      <nav id="sidebar">-->
+<!--        <div class="sidebar-header">-->
+<!--          <h3 class="huge-titles text-center">Hackover</h3>-->
+<!--        </div>-->
+<!--        <router-outlet></router-outlet>-->
+<!--        <div class="container sidenav-footer">-->
+<!--          <div class="row">-->
+<!--            <div class="copyright-sidenav-footer col-8"> Copyright @ 2020 All Rights Reserved by Savvy</div>-->
+<!--            <span (click)="toggleS()" class="col-4">-->
+<!--              <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>-->
+<!--            </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </nav>-->
+<!--      <div class="only-tablet">-->
+<!--        <nav id="sidebar-non-active" class="active">-->
+<!--          <ul class="list-unstyled text-size text-center">-->
+<!--            <li class="sidenav-elem mb-3">-->
+<!--              <a (click)="switchAndToggleS('/store/color')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar mt-1 cursor-pointer">-->
+<!--                <i class="fa fa-palette"></i>-->
+<!--              </a>-->
+<!--              <a (click)="switchAndToggleS('/store/font')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">-->
+<!--                <i class="fa fa-font"></i>-->
+<!--              </a>-->
+<!--              <a (click)="switchAndToggleS('/store/social-media')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">-->
+<!--                <i class="fa fa-share-alt"></i>-->
+<!--              </a>-->
+<!--              <a (click)="switchAndToggleS('/store/header')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">-->
+<!--                <i class="fa fa-align-left"></i>-->
+<!--              </a>-->
+<!--              <a (click)="switchAndToggleS('/store/contact')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">-->
+<!--                <i class="fa fa-phone"></i>-->
+<!--              </a>-->
+<!--              <a (click)="switchAndToggleS('/dashboard')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">-->
+<!--                <i class="fa fa-backward"></i>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--          <div class="container mt-5">-->
+<!--            <div class="row text-center">-->
+<!--              <span class="mx-auto" (click)="toggleS()">-->
+<!--                <i class="fa fa-toggle-off fa-3x " aria-hidden="true" ></i>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </nav>-->
+<!--      </div>-->
+<!--      <nav>-->
+<!--        <div id="sidebar-non-active2" class="container only-mobile active toggle-sidenav-2 hidden-sidenav">-->
+<!--          <div class="row text-center">-->
+<!--      <span class="mx-auto" (click)="toggleS()">-->
+<!--        <i class="fa fa-toggle-off fa-3x white-colored" aria-hidden="true" ></i>-->
+<!--      </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </nav>-->
+
+<!--    </div>-->
+<!--    <div class="">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
