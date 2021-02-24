@@ -60,6 +60,7 @@ export class EditProductComponent implements OnInit {
     });
     // if we're in the edit page
     if (this.edit) {
+      console.log('aaaaaa');
       this.getProductById(this.productId);
     }
     this.productForm = new FormGroup({

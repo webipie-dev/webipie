@@ -1,11 +1,13 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ProductService } from 'src/app/_shared/services/product.service';
 import { Review } from '../../_shared/models/review.model';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
+import {Product} from '../../_shared/models/product.model';
 import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
+
 
 @Component({
   selector: 'app-product-detail',
@@ -14,10 +16,13 @@ import {ExternalFilesService} from '../../_shared/services/external-files.servic
 })
 export class ProductDetailComponent implements OnInit {
   store: Store;
-  product: any;
+  product: Product;
   review: Review;
 
-  loadAPI: Promise<any>;
+
+  disabled = false;
+  quantity = 1;
+  productId = this.activatedRoute.snapshot.paramMap.get('id');
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -26,6 +31,14 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
+    const cartData: [{product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+
+    cartData.forEach(data => {
+      if (this.productId === data.product.id){
+        this.disabled = true;
+      }
+    });
+
     this.store = encryptStorage.getItem('store');
 
     this.review = new Review();
@@ -37,7 +50,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   counter(i: number): Array<number> {
-    return new Array(i);
+    const count =  [];
+    for(let j = 1; count.push(j++) < i;);
+    return count;
 }
 
   sendReview(): void{

@@ -12,7 +12,6 @@ import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-stor
 })
 
 export class StoreEditComponent implements OnInit {
-
   urlToPreview: string;
   urlSafe: SafeResourceUrl;
   windowHeight = window.innerHeight;
@@ -55,7 +54,6 @@ export class StoreEditComponent implements OnInit {
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
       encryptStorage.setItem('store', this.store);
     });
-    // this.store = JSON.parse(this.storeService.getById(this.storeId));
 
     // if (document.getElementById('sidebar').classList.contains('active')) {
     //  this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';

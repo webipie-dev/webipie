@@ -11,7 +11,7 @@ export class ClientDetailComponent implements OnInit {
   public rowData: any; // data of the particular row
   windowWidth = window.screen.width;
   newVal = {
-    _id: ''
+    id: ''
   };
   closeResult;
   fullAddress = '';
@@ -26,7 +26,7 @@ export class ClientDetailComponent implements OnInit {
   open(content): void {
     // tslint:disable-next-line:forin
     for (const key in this.rowData.fullAddress) {
-      if (key !== '_id'){
+      if (key !== 'id'){
         this.fullAddress += this.rowData.fullAddress[key];
       }
     }

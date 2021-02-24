@@ -81,16 +81,68 @@
               <li class="col-sm-2">
                 <div class="position-center-center"> <span class="price"><small>$</small>299</span> </div>
               </li>
-
-              <!-- REMOVE -->
-              <li class="col-sm-1">
-                <div class="position-center-center"> <a href="#"><i class="icon-close"></i></a> </div>
-              </li>
+              <li class="col-sm-1"> </li>
             </ul>
+          </div>
 
+          <div *ngFor="let element of cart">>
+          <!-- Cart Details -->
+          <ul class="row cart-details">
+            <li class="col-sm-6">
+              <div> <!-- Hne kenet fama class="media" fasa5tha-->
+                <!-- Media Image -->
+                <div class="media-left media-middle">
+                  <a href="#" class="item-img">
+                    <img class="media-object" [src]="element.product.imgs[0]" alt="">
+                  </a>
+                </div>
+                <!-- Item Name -->
+                <div class="media-body">
+                  <div class="position-center-center">
+                    <h5>{{element.product.name}}</h5>
+                    <p [innerHTML]="element.product.description"></p>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <!-- PRICE -->
+            <li class="col-sm-2">
+              <div class="position-center-center"> <span class="price">{{element.product.price}} <small>DT</small></span> </div>
+            </li>
+
+            <!-- QTY -->
+            <li class="col-sm-1">
+              <div class="position-center-center">
+                <div class="quinty">
+                  <!-- QTY -->
+                  <select class='customSelect' (change)="saveQuantity(element.product, $event)" [(ngModel)]="element.quantity">
+                    <option *ngFor='let i of counter(element.product.quantity);' [value]='i'>{{i}}</option>
+                  </select>
+<!--                  <select class="selectpicker">-->
+<!--                    <option>1</option>-->
+<!--                    <option>2</option>-->
+<!--                    <option>3</option>-->
+<!--                  </select>-->
+                </div>
+              </div>
+            </li>
+
+            <!-- TOTAL PRICE -->
+            <li class="col-sm-2">
+              <div class="position-center-center"> <span class="price">{{element.product.price * element.quantity}} <small>DT</small></span> </div>
+            </li>
+
+            <!-- REMOVE -->
+            <li class="col-sm-1">
+              <div class="position-center-center"> <a (click)="deleteProduct(element.product)"><i class="icon-close"></i></a> </div>
+            </li>
+          </ul>
           </div>
         </div>
-      </section>
+      </div>
+
+    </section>
 
       <!--======= PAGES INNER =========-->
       <section class="padding-top-100 padding-bottom-100 light-gray-bg shopping-cart small-cart col-lg-5 col-12">
@@ -109,22 +161,23 @@
                 <div class="coupn-btn"> <a href="#." class="btn">continue shopping</a> <a href="#." class="btn">update cart</a> </div>
               </div>-->
 
-              <!-- SUB TOTAL -->
-              <div class="col-12">
-                <h6>grand total</h6>
-                <div class="grand-total">
-                  <div class="order-detail">
-                    <p>WOOD CHAIR <span>$598 </span></p>
-                    <p>STOOL <span>$199 </span></p>
-                    <p>WOOD SPOON <span> $139</span></p>
-
-                    <!-- SUB TOTAL -->
-                    <p class="all-total">TOTAL COST <span> $998</span></p>
+            <!-- SUB TOTAL -->
+            <div class="col-12 col-lg-6">
+              <h6>grand total</h6>
+              <div class="grand-total">
+                <div class="order-detail">
+                  <div *ngFor="let element of cart">
+                  <p>{{element.product.name}} <span>{{element.quantity}}x  {{element.product.price}} DT</span></p>
                   </div>
+                  <!-- SUB TOTAL -->
+                  <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span></p>
+
                 </div>
               </div>
             </div>
           </div>
+          <li class="col-xs-6"> <button class="btn" (click)="save()">SAVE</button> </li>
+
         </div>
       </section>
     </div>

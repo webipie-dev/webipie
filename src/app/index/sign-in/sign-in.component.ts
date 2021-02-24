@@ -36,6 +36,7 @@ export class SignInComponent implements OnInit {
 
     const head = document.getElementById('headerr');
     head.className += ' color-blue-header';
+
   }
 
   signIn(): void {
@@ -184,4 +185,5 @@ export class SignInComponent implements OnInit {
     const storeType = this.route.snapshot.queryParamMap.get('storeType');
     this.router.navigate(['signup'], { queryParams: { templateId, storeName, storeType }});
   }
+
 }

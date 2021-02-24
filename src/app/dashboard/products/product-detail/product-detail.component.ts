@@ -15,7 +15,7 @@ export class ProductDetailComponent implements OnInit {
   public rowData: any;
   windowWidth = window.screen.width;
   newVal = {
-    _id: ''
+    id: ''
   };
   closeResult;
 
@@ -28,7 +28,7 @@ export class ProductDetailComponent implements OnInit {
 
   onEditSelect(): void {
     document.getElementById('close-modal').click();
-    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: this.rowData._id} });
+    this.router.navigate(['dashboard', 'product-edit'], { queryParams: {id: this.rowData.id} });
   }
 
   onDelete(): void{
@@ -45,7 +45,7 @@ export class ProductDetailComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.productService.deleteMany({ids: [this.rowData._id]}).subscribe(data => {
+        this.productService.deleteMany({ids: [this.rowData.id]}).subscribe(data => {
           this.productService.deleteModal.fire(
             'Deleted!',
             'Your file has been deleted.',

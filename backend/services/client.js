@@ -56,8 +56,9 @@ exports.addClient = async (req, res, next) => {
 
   // convert string to array
   const addArray = fullAddress.split(' ,');
+  console.log(addArray)
 
-  // fill the address object from the array
+  // // fill the address object from the array
   const address = {
     street: addArray[0],
     city: addArray[1],

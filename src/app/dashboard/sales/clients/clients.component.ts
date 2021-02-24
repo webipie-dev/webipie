@@ -69,13 +69,14 @@ export class ClientsComponent implements OnInit {
       data.forEach((element) => {
         let fullAddress = '';
         for (const key in element.fullAddress) {
-          if (key !== '_id'){
+          if (key !== 'id'){
             fullAddress += ' ' + element.fullAddress[key];
           }
 
         }
         aux = element;
         aux.fullAddress = fullAddress.trim();
+        console.log(aux.fullAddress);
         this.clients.push(aux);
       });
     });

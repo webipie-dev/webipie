@@ -24,7 +24,7 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
   ngOnInit(): void {
     this.store = encryptStorage.getItem('store');
     this.products = [];
-    this.productService.getAll({store: this.store._id}, 'client').subscribe(data => {
+    this.productService.getAll({store: this.store.id}, 'client').subscribe(data => {
       this.products.push.apply(this.products, data);
     }, error => console.log(error));
     this.storeService.changeTheme(this.el, this.store);

@@ -25,10 +25,9 @@ router.get('/:id', [
 
 // addOrder
 router.post('', [
-  orderValidation.orderStatus,
   orderValidation.ids,
   orderValidation.productsOrder,
-  orderValidation.productId,
+  // orderValidation.productId,
   orderValidation.clientId,
   validation.storeId
 ], validateRequest, passportJWT, clearCache, OrderService.addOrder)

@@ -7,9 +7,8 @@ exports.getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
-  // add the store_id to the query
+  // add the storeid to the query
   // req.query.store = req.params.store;
-
   if(!req.query.store){
     return next(ApiError.BadRequest('you have to pass the storeID'));
   }
@@ -35,6 +34,28 @@ exports.getOneProduct = async (req, res, next) => {
   res.status(200).send(product);
 
 };
+
+exports.getManyProductById = async (req, res, next) => {
+  let { ids } = req.query
+  // console.log(req.query)
+  ids = JSON.parse(ids)
+  for(var property in ids[0]) {
+    // console.log(property + "=" + ids[0][property]);
+  }
+
+  // const products = await Product.find({_id: {$in: ids}})
+  //   .catch((err) => {
+  //     res.status(400).json({errors: [{ message: err.message }]});
+  //   });
+  //
+  // if(products.length !== ids.length){
+  //   next(ApiError.NotFound('Products Not Found'));
+  //   return;
+  // }
+  //
+  // res.status(200).send(products);
+}
+
 
 exports.addProduct = async (req, res, next) => {
   const url = req.protocol + '://' +req.get('host');
@@ -82,6 +103,10 @@ exports.editOneProduct = async (req, res, next) => {
   // separating the id
   const { id } = req.params;
   const product = await Product.findById(id)
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
   if (!product) {
     next(ApiError.NotFound('Product Not Found'));
     return;

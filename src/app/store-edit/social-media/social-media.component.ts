@@ -9,11 +9,12 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
   styleUrls: ['./social-media.component.css']
 })
 export class SocialMediaComponent implements OnInit {
+
   defaultFacebook = encryptStorage.getItem('store').contact.facebookPage;
   initialFacebook = encryptStorage.getItem('store').contact.facebookPage;
   defaultInstagram = encryptStorage.getItem('store').contact.instagramPage;
   initialInstagram = encryptStorage.getItem('store').contact.instagramPage;
-  storeId = encryptStorage.getItem('store')._id;
+  storeId = encryptStorage.getItem('store').id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService) {

@@ -12,7 +12,6 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 })
 export class ChangeContactComponent implements OnInit {
 
-
   defaultEmail = encryptStorage.getItem('store').contact.email;
   initialEmail = encryptStorage.getItem('store').contact.email;
   defaultNumber = encryptStorage.getItem('store').contact.phoneNumber;

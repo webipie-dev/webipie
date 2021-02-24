@@ -15,7 +15,7 @@ exports.getStores = async (req, res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(stores.forEach( obj => renameKey( obj, '_id', 'id' )));
+  res.status(200).send(stores);
 
 }
 
@@ -32,6 +32,15 @@ exports.getOneStore = async (req, res) => {
   res.status(200).send(store);
 }
 
+exports.getStoreByUrl = async (req,res) => {
+  const { url } = req.params;
+  const store = await Store.findOne({url})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+  res.status(200).send(store);
+}
+
 exports.getStoreByNameAndLocation = async (req,res) => {
   const { name,location } = req.params;
   const store = await Store.findOne({name, "contact.location": location})
@@ -39,7 +48,7 @@ exports.getStoreByNameAndLocation = async (req,res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(store.forEach( obj => renameKey( obj, '_id', 'id' )));
+  res.status(200).send(store);
 }
 
 exports.getStoreByUrl = async (req,res) => {
@@ -61,9 +70,9 @@ exports.addStore = async (req, res, next) => {
   }
 
   //get the store id from the request
-  // const _id = req.user.storeID;
+  // const id = req.user.storeID;
 
-  // const userStore = Store.findById(_id)
+  // const userStore = Store.findById(id)
   // if (userStore) {
   //   next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
   //   return;
@@ -78,10 +87,10 @@ exports.addStore = async (req, res, next) => {
     return;
   }
 
-  getTemplate._id= templateId
+  getTemplate.id= templateId
 
   const store = new Store({
-    // _id,
+    // id,
     name,
     logo,
     description,
@@ -94,7 +103,7 @@ exports.addStore = async (req, res, next) => {
 
   // update storeowner with its id
   if (req.user){
-    const user = await StoreOwner.updateOne({_id: req.user._id}, {storeID: store._id}, {new: true});
+    const user = await StoreOwner.updateOne({_id: req.user.id}, {storeID: store.id}, {new: true});
   }
 
 
@@ -225,11 +234,3 @@ exports.changeTemplate = async (req, res, next) => {
   res.status(200).send(storeEdited)
 };
 
-
-function renameKey ( obj, old_key, new_key ) {
-  if (old_key !== new_key) {
-    Object.defineProperty(obj, new_key,
-        Object.getOwnPropertyDescriptor(obj, old_key));
-    delete o[old_key];
-  }
-}

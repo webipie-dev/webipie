@@ -21,6 +21,15 @@ const productSchema = mongoose.Schema({
   reviews: [review],
   store: {type: Schema.Types.ObjectID, ref: "Store", default: ''}
 
-});
+},
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+      }
+    }
+  });
 
 module.exports = mongoose.model('Product', productSchema);

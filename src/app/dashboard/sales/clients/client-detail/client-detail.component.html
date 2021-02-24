@@ -1,7 +1,7 @@
 <a data-toggle="modal" (click)="open(content)" class="button-generic button-white-border-blue detail-button">Details</a>
 <ng-template #content let-modal class="order-detail-modal">
   <div class="modal-header">
-    <h5 class="modal-title my-auto" id="exampleModalLabel">Client ID: {{rowData._id}} </h5>
+    <h5 class="modal-title my-auto" id="exampleModalLabel">Client ID: {{rowData.id}} </h5>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true" class="close-x">&times;</span>
     </button>
