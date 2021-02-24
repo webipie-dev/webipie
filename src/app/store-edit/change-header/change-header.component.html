@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <div id="sidebar-header">
   <form (submit)="onSubmit()" [formGroup]="headerForm">
-    <ul class="list-unstyled components text-size">
+    <ul class="list-unstyled components text-size" style="color: #ffffff;">
       <li class="sidenav-elem">
         <a class="cursor-pointer my-4 py-3 px-1 back-button nav-link-sidebar" routerLink="/store">
           <i class="fa fa-chevron-left"></i>
@@ -10,10 +10,10 @@
         <a class="nav-link-sidebar mt-1 big-titles">
           <i class="fas fa-heading mr-3"></i> Header
         </a>
-        <p>Lorem ipsum dolor sit amet!</p>
+        <p class="text-center">Lorem ipsum dolor sit amet!</p>
         <div>
           <div class="my-3">
-            <label class="d-block">Big Title</label>
+            <label class="d-block label-input-edit">Big Title</label>
             <input
               placeholder="title"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
@@ -21,18 +21,19 @@
               formControlName="title"
             >
           </div>
+          <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
           <div class="my-3">
-            <label class="d-block">Description</label>
-            <input
+            <label class="d-block label-input-edit">Description</label>
+            <textarea
               placeholder="description"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               style="height: 100px;"
-              type='text'
               formControlName="description"
-            >
+            ></textarea>
           </div>
+          <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
           <div class="my-3">
-            <label class="d-block">Main Button</label>
+            <label class="d-block label-input-edit">Main Button</label>
             <input
               placeholder="main button"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
@@ -40,8 +41,9 @@
               formControlName="mainButton"
             >
           </div>
+          <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
           <div class="my-3">
-            <label> Background </label>
+            <label class="label-input-edit"> Background </label>
             <div class="background">
               <input
                 accept="image/jpg, image/jpeg"
@@ -50,14 +52,22 @@
                 type="file"
                 (change)="onFileChanged($event)"
               >
-              <button class="img-fluid mb-3 mt-2 img-product">
+              <div class="img-fluid img-product">
                 <img alt="" class="image" [src]="headerForm.get('img').value">
-                <img alt="" class='ml-6 upload-image ' src="../../../assets/images/upload-image.png">
+              </div>
+              <button class=" mb-3 mt-2 upload-back d-flex mx-auto">
+                Upload Background
+<!--                <img alt="" class='ml-6 upload-image ' src="../../../assets/images/upload-image.png">-->
               </button>
-              <label>*Img resolution should be</label>
-              <label><b>  1919 * 1055</b></label>
+              <div class="alert alert-danger text-center mt-4">
+                • NOTICE: Image Resolution should be
+                <br>
+                1919px * 1055px
+              </div>
             </div>
           </div>
+          <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
+
         </div>
       </li>
     </ul>
