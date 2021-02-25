@@ -18,7 +18,15 @@
             <label for="name" class="text-size ml-5 mt-3 color-blue text-bold">Store Name</label>
             <div class="text-size">Choose your store name that will appear to your customers,
               you can change it later at any time</div>
-            <input type="text" id="name" class="input mt-2" placeholder="Name" [(ngModel)]='storeName'>
+            <input 
+              type="text" 
+              id="name" 
+              class="input mt-2" 
+              placeholder="Name" 
+              [(ngModel)]='storeName' [ngClass]="invalidName? 'red-border': ''"
+              (keyup)="onInputFocus($event)">
+            <p class="mt-2 red-color shake delay-300" *ngIf="invalidName">* {{nameError | titlecase}}</p>
+
             <label for="store-type" class="text-size ml-5 mt-3 color-blue text-bold">Store Type</label>
             <div class="text-size">Tell us the type of your business so we can help you choose
               the best template for your work</div>
@@ -37,7 +45,7 @@
               <button class="img-fluid mx-1 my-1 upload-icon border-none py-4 px-5"><i class="fa fa-upload fa-5x icon mx-auto"></i></button>
             </div> -->
             <div class="text-center mt-3">
-              <a class="button-generic button-blue small-titles " (click)='submit()'>Choose your template</a>
+              <button class="button-generic button-blue small-titles " (click)='submit()' [disabled]="invalidName" >Choose your template</button>
             </div>
           </div>
         </div>

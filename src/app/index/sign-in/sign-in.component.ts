@@ -158,7 +158,9 @@ export class SignInComponent implements OnInit {
 
             // redirect to dashboard in case of storeID
             if (result['storeID']){
+
               localStorage.setItem('storeId', encryptLocalStorage.encryptString(result['storeId']));
+
               this.router.navigate([returnUrl || 'dashboard']);
             }
             // create store and redirect to dashboard

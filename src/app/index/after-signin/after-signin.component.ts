@@ -19,6 +19,9 @@ export class AfterSigninComponent implements OnInit {
   loading = true;
   storeName: string;
   storeType: string;
+  names: Array<string>;
+  invalidName = false;
+  nameError: string;
 
   ngOnInit(): void {
     const templateId = this.route.snapshot.queryParamMap.get('templateId');
@@ -30,9 +33,26 @@ export class AfterSigninComponent implements OnInit {
       this.loading = false;
     });
 
+    this.storeService.getStoreNames().subscribe( data => {
+      this.names = data.map(obj => {
+        return obj.name.toLowerCase();
+      });
+      console.log(this.names);
+    });
+
     // setTimeout(() => {
     //   this.loading = false;
     // }, 2000);
+  }
+
+  onInputFocus(event): void{
+    if (this.names.indexOf(event.target.value.toLowerCase().replace(/\s/g, '')) > -1){
+      this.invalidName = true;
+      this.nameError = 'Name should be unique';
+    }else{
+      this.invalidName = false;
+      this.nameError = '';
+    }
   }
 
   submit(): void {
@@ -43,6 +63,7 @@ export class AfterSigninComponent implements OnInit {
         console.log('here to create store!');
         this.storeService.addOne({ templateId, name: this.storeName, storeType: this.storeType }).subscribe( store => {
           localStorage.setItem('storeId', encryptLocalStorage.encryptString(store.id));
+
         });
         this.router.navigate(['dashboard']);
       } else {

@@ -15,6 +15,11 @@ export class StoreService extends GenericService<any>{
     this.suffix = '/store';
   }
 
+
+  getStoreNames(): Observable<any>{
+    return this.http.get(this.getUrl() + this.suffix + '/all/names') as unknown as Observable<any>;
+  }
+
   getStoreByUrl() {
     return new Promise(resolve => {
       if (encryptStorage.getItem('store')?.url === window.location.hostname || window.location.hostname === 'webipie.com') {

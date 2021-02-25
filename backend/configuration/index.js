@@ -1,6 +1,10 @@
 module.exports = {
-    JWT_SECRET : 'secretHERE'
+    JWT_SECRET : 'secretHERE',
 
+    EMAIL: {
+        USER: 'webipie@gmail.com',
+        PASSWORD: 'webipie4win',
+    }
 }
 
 //google

@@ -6,6 +6,7 @@ import {SocialAuthService} from 'angularx-social-login';
 import {FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
 import {ActivatedRoute, Router} from '@angular/router';
 import { StoreService } from '../../_shared/services/store.service';
+import Swal from 'sweetalert2';
 import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 declare var $: any;
@@ -22,6 +23,8 @@ export class SignUpComponent implements OnInit {
   emailError = '';
   invalidPassword = false;
   passwordError = '';
+  invalidName = false;
+  nameError = '';
   loading = false;
   loadingPage = true;
 
@@ -72,16 +75,31 @@ export class SignUpComponent implements OnInit {
           }
 
           this.loading = false;
-      }, error => {
-        console.log(error);
-        console.log(error.error);
-        if (error.status === 400) {
-          if (error.error.indexOf('email') > -1) { this.invalidEmail =  true; this.emailError = error.error;  }
-          if (error.error.indexOf('password') > -1) { this.invalidPassword =  true; this.passwordError = error.error; }
+      }, err => {
+        // console.log(err);
+        // console.log(err.error.errors[0].message);
+        Swal.fire({
+          title: 'Error!',
+          text: err.error.errors[0].message,
+          icon: 'error',
+          confirmButtonText: 'Cool'
+        });
+
+        if (err.status === 400) {
+          if (err.error.errors[0].message.toLowerCase().indexOf('email') > -1 )
+          {
+            this.invalidEmail =  true;
+            this.emailError = err.error.errors[0].message;
+          }
+          if (err.error.errors[0].message.toLowerCase().indexOf('password') > -1)
+          {
+            this.invalidPassword =  true;
+            this.passwordError = err.error.errors[0].message;
+          }
         }
-        if (error.status === 403) {
+        if (err.status === 403) {
           this.invalidEmail = true;
-          this.emailError = error.error.error;
+          this.emailError = err.error.errors[0].message;
         }
         this.loading = false;
       });
@@ -109,6 +127,18 @@ export class SignUpComponent implements OnInit {
       else{
         this.invalidPassword = true;
         this.passwordError = 'Password must contain at least 8 characters, with one digit and at least one uppercase and lower case letter';
+      }
+    }
+
+    if (event.target.id === 'name'){
+      const re = /^.{5,}$/;
+      if (re.test(event.target.value) || event.target.value === ''){
+        this.invalidName = false;
+        this.nameError = '';
+      }
+      else{
+        this.invalidName = true;
+        this.nameError = 'Name should be minimum 5 caracters';
       }
     }
   }

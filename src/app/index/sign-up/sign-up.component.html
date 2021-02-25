@@ -22,7 +22,8 @@
             <div class="text-center text-size mt-3">You can configure your store after creating your account.</div>
             <form #f="ngForm">
               <label for="name" class="text-size ml-5 mt-3">Name</label>
-              <input type="text" id="name" class="input" placeholder="Name">
+              <input type="text" id="name" class="input" placeholder="Name" [ngClass]="invalidName? 'red-border': ''" [(ngModel)]="storeOwner.name" name="name" (keyup)="onInputFocus($event)">
+              <p class="mt-2 red-color shake delay-300" *ngIf="invalidName">* {{nameError | titlecase}}</p>
               <label for="email" class="text-size ml-5 mt-3">Email</label>
               <input type="email" id="email" class="input" placeholder="Email" [ngClass]="invalidEmail? 'red-border': ''" [(ngModel)]="storeOwner.email" name="email" (keyup)="onInputFocus($event)">
               <p class="mt-2 red-color shake delay-300" *ngIf="invalidEmail">* {{emailError | titlecase}}</p>
@@ -30,7 +31,7 @@
               <input type="password" id="password" class="input" placeholder="Password" [ngClass]="invalidPassword? 'red-border': ''" [(ngModel)]="storeOwner.password" name="password" (keyup)="onInputFocus($event)">
               <p class="mt-2 red-color shake delay-300" *ngIf="invalidPassword">* {{passwordError | titlecase}}</p>
               <div class="text-center mt-3">
-                <button  class="button-generic button-blue small-titles " (click)="signUp()" type='submit'>Configure your store</button>
+                <button  class="button-generic button-blue small-titles " (click)="signUp()" type='submit' [disabled]="invalidEmail || invalidName || invalidPassword">Configure your store</button>
               </div>
             </form>
             <div class="row text-center text-size d-flex justify-content-center">
