@@ -3,6 +3,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {ViewportScroller} from '@angular/common';
 import {log} from 'util';
 import {defaultLogger} from '@angular/cdk/schematics/update-tool/logger';
+import {encryptLocalStorage} from '../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-index',

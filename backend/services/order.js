@@ -99,7 +99,7 @@ exports.addOrder = async (req, res, next) => {
   prods.map(product => {
     bulkQueries.push({
       updateOne: {
-        "filter": { _id: product._id},
+        "filter": { _id: product.id},
         "update":{$inc: {quantity: -product.quantity}}
       }
     })
@@ -227,7 +227,7 @@ exports.deleteProductOrder = async (req,res, next) => {
   //get order id
   const { id } = req.body;
 
-  const orderDeleted = await Order.updateOne({_id: id}, {$pull: {products: {_id : req.body.product}}})
+  const orderDeleted = await Order.updateOne({_id: id}, {$pull: {products: {id : req.body.product}}})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });

@@ -26,6 +26,7 @@ import {HeaderComponent} from './header/header.component';
 import {SpinnerModule} from "../spinner/spinner.module";
 import {SidebarModule} from "ng-sidebar";
 import { SideNavMinimizedComponent } from './side-nav-minimized/side-nav-minimized.component';
+import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { SideNavMinimizedComponent } from './side-nav-minimized/side-nav-minimiz
     StatisticsComponent,
     ProfileComponent,
     HeaderComponent,
-    SideNavMinimizedComponent
+    SideNavMinimizedComponent,
+    DashboardHomeComponent
   ],
   providers: [
     AuthGuard,

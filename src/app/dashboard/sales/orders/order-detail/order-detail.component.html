@@ -1,4 +1,4 @@
-<a *ngIf="!value" data-toggle="modal" (click)="open(content)" data-target="#order-detail-modal-{{rowData._id[rowData._id.length-1]}}"
+<a *ngIf="!value" data-toggle="modal" (click)="open(content)" data-target="#order-detail-modal-{{rowData.id[rowData.id.length-1]}}"
    class="button-generic button-white-border-blue detail-button">Details</a>
 
 <a *ngIf="value" data-toggle="modal" (click)="open(content)">
@@ -6,7 +6,7 @@
 
 <ng-template #content let-modal class="order-detail-modal">
     <div class="modal-header">
-      <h5 class="modal-title my-auto" id="exampleModalLabel">Order ID: {{rowData._id}} </h5>
+      <h5 class="modal-title my-auto" id="exampleModalLabel">Order ID: {{rowData.id}} </h5>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true" class="close-x">&times;</span>
       </button>
@@ -72,7 +72,7 @@
       <div class="mt-3">
         <div *ngIf="displayMode">
 <!--          <a class="button-generic button-edit py-2 mr-2 text-size" (click)="onSwitch()"><i id="edit-icon" class="fa fa-edit"></i> Edit</a>-->
-          <a class="button-generic button-delete py-2 text-size" (click)="onDeleteOrder(rowData._id)"><i id="delete-icon" class="fa fa-trash-alt" ></i> Delete</a>
+          <a class="button-generic button-delete py-2 text-size" (click)="onDeleteOrder(rowData.id)"><i id="delete-icon" class="fa fa-trash-alt" ></i> Delete</a>
         </div>
         <div *ngIf="editMode">
           <a class="button-generic button-edit mr-2 py-2 text-size" (click)="onSwitch()"><i id="save-icon" class="fa fa-check"></i> Save</a>

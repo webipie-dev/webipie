@@ -72,13 +72,13 @@
               <h6>YOUR ORDER</h6>
               <div class="order-place">
                 <div class="order-detail">
-                  <p>WOOD CHAIR <span>$598 </span></p>
-                  <p>STOOL <span>$199 </span></p>
-                  <p>WOOD SPOON <span> $139</span></p>
-
+                  <div *ngFor="let element of cart">
+                    <p>{{element.product.name}} <span>{{element.quantity}}x  {{element.product.price}} DT</span></p>
+                  </div>
                   <!-- SUB TOTAL -->
-                  <p class="all-total">TOTAL COST <span> $998</span></p>
+                  <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span></p>
                 </div>
+
               </div>
             </div>
           </div>

@@ -35,31 +35,32 @@
             <!-- USER BASKET -->
             <li class="dropdown user-basket"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><i class="icon-basket-loaded"></i> </a>
               <ul class="dropdown-menu">
+                <div>
                 <li>
+                  <div *ngFor="let element of cart">
                   <div class="media-left">
-                    <div class="cart-img"> <a href="#" style="margin: 0"> <img class="media-object img-responsive" src="../../../assets/second-template/images/cart-img-1.jpg" alt="..."> </a> </div>
+                    <div class="cart-img"> <button href="#" style="margin: 0">
+                      <img class="media-object img-responsive" [src]="element.product.imgs[0]" alt="..."> </button> </div>
                   </div>
+
                   <div class="media-body">
-                    <h6 class="media-heading">WOOD CHAIR</h6>
-                    <span class="price">129.00 USD</span> <span class="qty">QTY: 01</span> </div>
-                </li>
-                <li>
-                  <div class="media-left">
-                    <div class="cart-img"> <a href="#" style="margin: 0"> <img class="media-object img-responsive" src="../../../assets/second-template/images/cart-img-2.jpg" alt="..."> </a> </div>
+                    <h6 class="media-heading">{{element.product.name}}</h6>
+                    <span class="price">{{element.product.price}} DT</span> <span class="qty">QTY: {{element.quantity}}</span> </div>
+                    <i (click)="deleteProduct(element.product)" class="icon-close"></i>
                   </div>
-                  <div class="media-body">
-                    <h6 class="media-heading">WOOD STOOL</h6>
-                    <span class="price">129.00 USD</span> <span class="qty">QTY: 01</span> </div>
                 </li>
+
                 <li>
-                  <h5 class="text-center">SUBTOTAL: 258.00 USD</h5>
+                  <h5 class="text-center">SUBTOTAL: {{totalPrice}}</h5>
                 </li>
                 <li class="margin-0">
                   <div class="row">
-                    <div class="col-xs-6"> <a class="btn" routerLink="/second-template/cart">VIEW CART</a></div>
-                    <div class="col-xs-6 "> <a class="btn">CHECK OUT</a></div>
+                    <div class="col-xs-6"> <a class="btn" routerLink="cart">VIEW CART</a></div>
+                    <div class="col-xs-6 "> <a class="btn" routerLink="checkout">CHECK OUT</a></div>
                   </div>
                 </li>
+
+                </div>
               </ul>
             </li>
 

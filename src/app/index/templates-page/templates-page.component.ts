@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {StoreOwner} from '../../_shared/models/store_owner.model';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 declare var $: any;
 

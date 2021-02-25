@@ -7,28 +7,13 @@ import {PageNotFoundComponent} from './index/page-not-found/page-not-found.compo
 import { SignInComponent } from './index/sign-in/sign-in.component';
 import {TemplatesPageComponent} from './index/templates-page/templates-page.component';
 import { AuthGuard } from './_shared/services/auth-guard.service';
+import {encryptStorage} from './_shared/utils/encrypt-storage';
 
 const routes: Routes = [
   {
     path: '',
-    component: IndexComponent,
-  },
-  {
-    path: 'templates',
-    component: TemplatesPageComponent
-  },
-  {
-    path: 'signup',
-    component: SignUpComponent
-  },
-  {
-    path: 'signin',
-    component: SignInComponent
-  },
-  {
-    path: 'after-signin',
-    component: AfterSigninComponent,
-    // canActivate: [AuthGuard]
+    loadChildren: () => import('./index/index.module')
+      .then(m => m.IndexModule),
   },
   {
     path: 'dashboard',
@@ -52,7 +37,7 @@ const templateRoutes: Routes = [
   {
     path: '',
     loadChildren: () => {
-      const template = JSON.parse(sessionStorage.getItem('store')).template.name;
+      const template = encryptStorage.getItem('store').template.name;
       if (template === 'template1') {
         return import('./second-template/second-template.module')
           .then(m => m.SecondTemplateModule);

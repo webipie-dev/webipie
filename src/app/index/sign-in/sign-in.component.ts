@@ -6,6 +6,7 @@ import {AuthService} from '../../_shared/services/auth.service';
 import {StoreOwner} from '../../_shared/models/store_owner.model';
 import Swal from 'sweetalert2';
 import { StoreService } from '../../_shared/services/store.service';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-sign-in',
@@ -35,6 +36,7 @@ export class SignInComponent implements OnInit {
 
     const head = document.getElementById('headerr');
     head.className += ' color-blue-header';
+
   }
 
   signIn(): void {
@@ -51,13 +53,13 @@ export class SignInComponent implements OnInit {
 
         // redirect to dashboard in case of storeID
         if (result['storeId']){
-          localStorage.setItem('storeID', result['storeId']);
+          localStorage.setItem('storeID', encryptLocalStorage.encryptString(result['storeId']));
           this.router.navigate([returnUrl || 'dashboard']);
         }
         // create store and redirect to dashboard
         else if (templateId && storeName && storeType){
           this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-            localStorage.setItem('storeID', store._id);
+            localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
           });
           this.router.navigate(['dashboard']);
         }
@@ -109,8 +111,6 @@ export class SignInComponent implements OnInit {
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
       .then(x => {
-        // let credentials = {"acces_token": x};
-        // console.log(x['authToken']);
         this.auth.loginWithFb(x['authToken'])
           .subscribe(result => {
             localStorage.setItem('token', result['token']);
@@ -123,13 +123,13 @@ export class SignInComponent implements OnInit {
 
             // redirect to dashboard in case of storeID
             if (result['storeID']){
-              localStorage.setItem('storeID', result['storeId']);
+              localStorage.setItem('storeID', encryptLocalStorage.encryptString(result['storeId']));
               this.router.navigate([returnUrl || 'dashboard']);
             }
             // create store and redirect to dashboard
             else if (templateId && storeName && storeType){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                localStorage.setItem('storeID', store._id);
+                localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
               });
               this.router.navigate(['dashboard']);
             }
@@ -147,7 +147,6 @@ export class SignInComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(x => {
-        // console.log(x['authToken']);
         this.auth.loginWithGoogle(x['authToken'])
           .subscribe(result => {
             localStorage.setItem('token', result['token']);
@@ -159,13 +158,15 @@ export class SignInComponent implements OnInit {
 
             // redirect to dashboard in case of storeID
             if (result['storeID']){
-              localStorage.setItem('storeID', result['storeId']);
+
+              localStorage.setItem('storeId', encryptLocalStorage.encryptString(result['storeId']));
+
               this.router.navigate([returnUrl || 'dashboard']);
             }
             // create store and redirect to dashboard
             else if (templateId && storeName && storeType){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                localStorage.setItem('storeID', store._id);
+                localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
               });
               this.router.navigate(['dashboard']);
             }
@@ -186,4 +187,5 @@ export class SignInComponent implements OnInit {
     const storeType = this.route.snapshot.queryParamMap.get('storeType');
     this.router.navigate(['signup'], { queryParams: { templateId, storeName, storeType }});
   }
+
 }

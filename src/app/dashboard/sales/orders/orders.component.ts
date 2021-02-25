@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { WebSocketService } from '../../../_shared/services/web-socket.service';
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
+import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-orders',
@@ -166,7 +167,7 @@ export class OrdersComponent implements OnInit{
   }
 
   getAllOrders(): void {
-    this.orderService.getAll({store: localStorage.getItem('storeID')}).subscribe((data) => {
+    this.orderService.getAll({store: encryptLocalStorage.decryptString(localStorage.getItem('storeID'))}).subscribe((data) => {
       data.forEach((element) => {
         if (element.store) {
           const date = element.orderDate.split('T');
@@ -175,13 +176,13 @@ export class OrdersComponent implements OnInit{
             totalPrice += product.quantity * product.price;
           });
           const aux = {
-            _id: element._id,
+            id: element.id,
             orderDate: date[0],
             orderStatus: element.orderStatus,
             totalPrice,
             paymentMethod: element.paymentMethod,
             products: element.products,
-            clientId: element.client._id,
+            clientId: element.client.id,
             clientName: element.client.firstname,
             store: element.store,
           };
@@ -210,9 +211,9 @@ export class OrdersComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.orderService.deleteMany({ids: event.data._id}).subscribe((data) => {
+        this.orderService.deleteMany({ids: event.data.id}).subscribe((data) => {
           // delete the order from orders displayed
-          this.orders = this.orders.filter(prod => prod._id !== event.data._id);
+          this.orders = this.orders.filter(prod => prod.id !== event.data.id);
           event.confirm.resolve();
 
 
@@ -256,10 +257,10 @@ export class OrdersComponent implements OnInit{
 
         const ids = [];
         this.selectedRows.forEach(elt => {
-          ids.push(elt._id);
+          ids.push(elt.id);
         });
         ids.forEach(elt => {
-          this.orders = this.orders.filter(prod => prod._id !== elt);
+          this.orders = this.orders.filter(prod => prod.id !== elt);
         });
         this.orderService.deleteMany({ids}).subscribe(data => {
           this.selectedRows = [];

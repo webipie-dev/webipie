@@ -46,11 +46,19 @@ const storeOwnerSchema = new Schema({
     ref: "Store",
     required: false
   }
-});
+},
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+      }
+    }
+  });
 
 storeOwnerSchema.pre('save' , async function(next){
     try {
-      console.log('entered');
       if (!this.methods.includes('local')) {
         next();
       }

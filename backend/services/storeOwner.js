@@ -19,10 +19,9 @@ module.exports = {
     signUp : async (req,res,next) => {
         const { error } = validatestoreOwner(req.body);
         if (error) return res.status(400).send(error.details[0].message);
-
+      
         const { name,email,password } = req.body;
-        const storeID = new mongoose.mongo.ObjectId();
-
+      
         let findstoreOwner = await StoreOwner.findOne({ "local.email": email });
         if (findstoreOwner) return next(ApiError.BadRequest('Email is already in use'));
 
@@ -71,13 +70,11 @@ module.exports = {
 
     signIn: async (req, res, next) => {
         // Generate token
-        // console.log(req)
         const token = signToken(req.user);
         res.cookie('access_token', token, {
             httpOnly: true
         });
         // const storeId = await StoreOwner.findOne({email: req.user.local.email});
-        // console.log(storeId);
         res.status(200).json({ token, storeId: req.user.storeID });
     },
 
