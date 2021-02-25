@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
 import {Store} from '../../_shared/models/store.model';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-change-header',
@@ -15,29 +16,43 @@ export class ChangeHeaderComponent implements OnInit {
               private router: Router) { }
   storeId = localStorage.getItem('storeID');
   headerForm: FormGroup;
+  initialHeaderForm: FormGroup;
   postData = new FormData();
   imgSrc = JSON.parse(sessionStorage.getItem('store')).template.header.img;
   store: Store;
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
+    this.store = encryptStorage.getItem('store');
     this.headerForm = new FormGroup({
       title: new FormControl(this.store.template.header.title),
       description: new FormControl(this.store.template.header.description),
       mainButton: new FormControl(this.store.template.header.mainButton),
       img: new FormControl(this.store.template.header.img),
     });
-    console.log(this.headerForm.get('img').value);
+    this.initialHeaderForm = new FormGroup({
+      title: new FormControl(this.store.template.header.title),
+      description: new FormControl(this.store.template.header.description),
+      mainButton: new FormControl(this.store.template.header.mainButton),
+      img: new FormControl(this.store.template.header.img),
+    });
   }
 
   onFileChanged(event): void {
     const file = event.target.files[0];
-    this.postData.append('img', file, file.name);
+    this.postData.append('headerImg', file, file.name);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (events) => {
       this.imgSrc = reader.result.toString();
     };
+  }
+
+  testSame(): boolean {
+    console.log(this.initialHeaderForm.get('title').value);
+    return this.initialHeaderForm.get('description').value === this.headerForm.get('description').value &&
+      this.initialHeaderForm.get('title').value === this.headerForm.get('title').value &&
+      this.initialHeaderForm.get('mainButton').value === this.headerForm.get('mainButton').value &&
+      this.initialHeaderForm.get('img').value === this.headerForm.get('img').value;
   }
 
   onSubmit(): void {
@@ -54,7 +69,8 @@ export class ChangeHeaderComponent implements OnInit {
     this.storeService.edit(this.storeId, this.postData).subscribe(store => {
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/header']);
-        sessionStorage.setItem('store', JSON.stringify(store));
+        encryptStorage.setItem('store', store);
+        this.initialHeaderForm = this.headerForm;
       });
     });
   }

@@ -22,6 +22,7 @@ export class OrderDetailComponent implements OnInit {
   orderProducts = [];
   orderProductsQuantity = [];
   closeResult;
+  orderStatus;
 
   constructor(private http: HttpClient,
               private orderService: OrderService,
@@ -33,6 +34,7 @@ export class OrderDetailComponent implements OnInit {
   ngOnInit(): void {
     this.editMode = this.value;
     this.displayMode = !this.editMode;
+    this.orderStatus = this.rowData.orderStatus;
   }
 
   open(content): void {
@@ -41,7 +43,7 @@ export class OrderDetailComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-    this.orderService.getById(this.rowData._id).subscribe((datas) => {
+    this.orderService.getById(this.rowData.id).subscribe((datas) => {
       if (datas) {
         const date = datas.orderDate.split('T');
         let totalprice = 0;
@@ -49,13 +51,13 @@ export class OrderDetailComponent implements OnInit {
           totalprice += product.quantity * product.price;
         });
         this.rowData = {
-          _id: datas._id,
+          id: datas.id,
           orderDate: date[0],
           orderStatus: datas.orderStatus,
           totalPrice: totalprice,
           paymentMethod: datas.paymentMethod,
           products: datas.products,
-          clientId: datas.client._id,
+          clientId: datas.client.id,
           clientName: datas.client.firstname,
           store: datas.store,
         };
@@ -113,6 +115,13 @@ export class OrderDetailComponent implements OnInit {
   onSwitch(): void {
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;
+
+    this.orderService.edit(this.rowData._id, {orderStatus: this.orderStatus}).subscribe(data => {
+      const currentUrl = this.router.url;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate([currentUrl]);
+    });
   }
 }
 
@@ -120,25 +129,25 @@ export class OrderDetailComponent implements OnInit {
 // onDeleteProduct(event, prod): void {
 //   if (window.confirm('Are you sure you want to delete?')) {
 //     const index = this.orderProducts.indexOf(prod);
-//     this.orderService.deleteProduct(event._id, prod._id).subscribe((data) => {
+//     this.orderService.deleteProduct(event.id, prod.id).subscribe((data) => {
 //       if (index > -1) {
 //         // delete the product from displayed products
 //         this.orderProducts.splice(index, 1);
 //         // refresh the row data orders
-//         this.orderService.getById(event._id).subscribe((datas) => {
+//         this.orderService.getById(event.id).subscribe((datas) => {
 //           const date = datas.orderDate.split('T');
 //           let totalprice = 0;
 //           datas.products.forEach(product => {
 //             totalprice += product.quantity * product.price;
 //           });
 //           this.rowData = {
-//             _id: datas._id,
+//             id: datas.id,
 //             orderDate: date[0] ,
 //             orderStatus: datas.orderStatus,
 //             totalPrice: totalprice,
 //             paymentMethod: datas.paymentMethod,
 //             products: datas.products,
-//             clientId: datas.client._id,
+//             clientId: datas.client.id,
 //             clientName: datas.client.name,
 //             store: datas.store,
 //           };

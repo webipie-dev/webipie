@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {GenericService} from './generic.service';
 import { Observable } from 'rxjs';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'

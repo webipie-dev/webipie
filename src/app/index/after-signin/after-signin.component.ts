@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from '../../_shared/services/store.service';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 declare var $: any;
 
@@ -18,6 +19,9 @@ export class AfterSigninComponent implements OnInit {
   loading = true;
   storeName: string;
   storeType: string;
+  names: Array<string>;
+  invalidName = false;
+  nameError: string;
 
   ngOnInit(): void {
     const templateId = this.route.snapshot.queryParamMap.get('templateId');
@@ -29,20 +33,37 @@ export class AfterSigninComponent implements OnInit {
       this.loading = false;
     });
 
+    this.storeService.getStoreNames().subscribe( data => {
+      this.names = data.map(obj => {
+        return obj.name.toLowerCase();
+      });
+      console.log(this.names);
+    });
+
     // setTimeout(() => {
     //   this.loading = false;
     // }, 2000);
+  }
+
+  onInputFocus(event): void{
+    if (this.names.indexOf(event.target.value.toLowerCase().replace(/\s/g, '')) > -1){
+      this.invalidName = true;
+      this.nameError = 'Name should be unique';
+    }else{
+      this.invalidName = false;
+      this.nameError = '';
+    }
   }
 
   submit(): void {
     this.route.queryParams.subscribe((params) => {
       const templateId = params.templateId;
 
-      if ( localStorage.getItem('token') && !localStorage.getItem('storeID') ) {
+      if ( localStorage.getItem('token') && !localStorage.getItem('storeID')) {
         console.log('here to create store!');
         this.storeService.addOne({ templateId, name: this.storeName, storeType: this.storeType }).subscribe( store => {
-          console.log(store);
-          localStorage.setItem('storeId', store._id);
+          localStorage.setItem('storeId', encryptLocalStorage.encryptString(store.id));
+
         });
         this.router.navigate(['dashboard']);
       } else {

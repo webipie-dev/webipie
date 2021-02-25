@@ -15,8 +15,17 @@ exports.getStores = async (req, res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(stores.forEach( obj => renameKey( obj, '_id', 'id' )));
+  res.status(200).send(stores);
 
+}
+
+exports.getStoreNames = async (req,res) => {
+  const names =await Store.find({}).select({ "name": 1, "_id": 0})
+    .catch((err) => {
+    res.status(400).json({errors: [{ message: err.message }]});
+    });
+
+  res.status(200).send(names);
 }
 
 exports.getOneStore = async (req, res) => {
@@ -32,6 +41,15 @@ exports.getOneStore = async (req, res) => {
   res.status(200).send(store);
 }
 
+exports.getStoreByUrl = async (req,res) => {
+  const { url } = req.params;
+  const store = await Store.findOne({url})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+  res.status(200).send(store);
+}
+
 exports.getStoreByNameAndLocation = async (req,res) => {
   const { name,location } = req.params;
   const store = await Store.findOne({name, "contact.location": location})
@@ -39,8 +57,9 @@ exports.getStoreByNameAndLocation = async (req,res) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  res.status(200).send(store.forEach( obj => renameKey( obj, '_id', 'id' )));
+  res.status(200).send(store);
 }
+
 
 exports.getStoreByUrl = async (req,res) => {
   const { url } = req.params;
@@ -60,14 +79,10 @@ exports.addStore = async (req, res, next) => {
     logo = ''
   }
 
-  //get the store id from the request
-  // const _id = req.user.storeID;
-
-  // const userStore = Store.findById(_id)
-  // if (userStore) {
-  //   next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
-  //   return;
-  // }
+  const foundStore = await StoreOwner.findOne({name: req.body.name});
+  if(foundStore){
+    return next(ApiError.BadRequest('Store name is already in use'));
+  }
 
   const { name, description, location, contact, storeType, templateId} = req.body
 
@@ -78,11 +93,12 @@ exports.addStore = async (req, res, next) => {
     return;
   }
 
-  getTemplate._id= templateId
+  getTemplate.id= templateId
 
   const store = new Store({
-    // _id,
+    // id,
     name,
+    url: name.toLowerCase().replace(/\s/g, ''),
     logo,
     description,
     location,
@@ -94,7 +110,7 @@ exports.addStore = async (req, res, next) => {
 
   // update storeowner with its id
   if (req.user){
-    const user = await StoreOwner.updateOne({_id: req.user._id}, {storeID: store._id}, {new: true});
+    const user = await StoreOwner.updateOne({_id: req.user.id}, {storeID: store.id}, {new: true});
   }
 
 
@@ -177,6 +193,13 @@ exports.editStore = async (req, res, next) => {
     }
   }
 
+  if('name' in req.body){
+    const store = await StoreOwner.findOne({name: req.body.name});
+    if(store){
+      return next(ApiError.BadRequest('Store name is already in use'));
+    }
+  }
+
   // separating the updates
   for (const key in req.body) {
     if (key !== 'id') {
@@ -227,11 +250,3 @@ exports.changeTemplate = async (req, res, next) => {
   res.status(200).send(storeEdited)
 };
 
-
-function renameKey ( obj, old_key, new_key ) {
-  if (old_key !== new_key) {
-    Object.defineProperty(obj, new_key,
-        Object.getOwnPropertyDescriptor(obj, old_key));
-    delete o[old_key];
-  }
-}

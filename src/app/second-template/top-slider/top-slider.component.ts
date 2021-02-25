@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 @Component({
   selector: 'app-top-slider',
@@ -17,7 +19,7 @@ export class TopSliderComponent implements OnInit {
               private storeService: StoreService) { }
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
+    this.store = encryptStorage.getItem('store');
     this.storeService.changeTheme(this.el, this.store);
     this.title = this.store.template.header.title.split(' ');
     if (this.title.length > 1) {

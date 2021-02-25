@@ -6,6 +6,8 @@ import {SocialAuthService} from 'angularx-social-login';
 import {FacebookLoginProvider, GoogleLoginProvider} from 'angularx-social-login';
 import {ActivatedRoute, Router} from '@angular/router';
 import { StoreService } from '../../_shared/services/store.service';
+import Swal from 'sweetalert2';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 declare var $: any;
 
@@ -21,6 +23,8 @@ export class SignUpComponent implements OnInit {
   emailError = '';
   invalidPassword = false;
   passwordError = '';
+  invalidName = false;
+  nameError = '';
   loading = false;
   loadingPage = true;
 
@@ -52,7 +56,6 @@ export class SignUpComponent implements OnInit {
     this.loading = true;
     this.auth.login(this.storeOwner)
       .subscribe(result => {
-          // console.log(result);
           // set token in localStorage
           localStorage.setItem('token', result['token']);
 
@@ -62,7 +65,7 @@ export class SignUpComponent implements OnInit {
           const storeType = this.route.snapshot.queryParamMap.get('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-              localStorage.setItem('storeID', store._id);
+              localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
             });
             this.router.navigate(['dashboard']);
             return;
@@ -72,18 +75,32 @@ export class SignUpComponent implements OnInit {
           }
 
           this.loading = false;
-      }, error => {
-        console.log(error);
-        console.log(error.error);
-        if (error.status === 400) {
-          if (error.error.indexOf('email') > -1) { this.invalidEmail =  true; this.emailError = error.error;  }
-          if (error.error.indexOf('password') > -1) { this.invalidPassword =  true; this.passwordError = error.error; }
+      }, err => {
+        // console.log(err);
+        // console.log(err.error.errors[0].message);
+        Swal.fire({
+          title: 'Error!',
+          text: err.error.errors[0].message,
+          icon: 'error',
+          confirmButtonText: 'Cool'
+        });
+
+        if (err.status === 400) {
+          if (err.error.errors[0].message.toLowerCase().indexOf('email') > -1 )
+          {
+            this.invalidEmail =  true;
+            this.emailError = err.error.errors[0].message;
+          }
+          if (err.error.errors[0].message.toLowerCase().indexOf('password') > -1)
+          {
+            this.invalidPassword =  true;
+            this.passwordError = err.error.errors[0].message;
+          }
         }
-        if (error.status === 403) {
+        if (err.status === 403) {
           this.invalidEmail = true;
-          this.emailError = error.error.error;
+          this.emailError = err.error.errors[0].message;
         }
-        console.log(this.invalidEmail);
         this.loading = false;
       });
   }
@@ -112,16 +129,25 @@ export class SignUpComponent implements OnInit {
         this.passwordError = 'Password must contain at least 8 characters, with one digit and at least one uppercase and lower case letter';
       }
     }
+
+    if (event.target.id === 'name'){
+      const re = /^.{5,}$/;
+      if (re.test(event.target.value) || event.target.value === ''){
+        this.invalidName = false;
+        this.nameError = '';
+      }
+      else{
+        this.invalidName = true;
+        this.nameError = 'Name should be minimum 5 caracters';
+      }
+    }
   }
 
   signInWithFB(): void {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
       .then(x => {
-        // let credentials = {"acces_token": x};
-        // console.log(x['authToken']);
         this.auth.loginWithFb(x['authToken'])
           .subscribe(result => {
-            // console.log(result);
           // set token in localStorage
           localStorage.setItem('token', result['token']);
 
@@ -131,7 +157,7 @@ export class SignUpComponent implements OnInit {
           const storeType = this.route.snapshot.queryParamMap.get('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-              localStorage.setItem('storeID', store.id);
+              localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
             });
             this.router.navigate(['dashboard']);
             return;
@@ -148,10 +174,8 @@ export class SignUpComponent implements OnInit {
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
       .then(x => {
-        // console.log(x['authToken']);
         this.auth.loginWithGoogle(x['authToken'])
           .subscribe(result => {
-            // console.log(result);
             // set token in localStorage
             localStorage.setItem('token', result['token']);
 
@@ -161,7 +185,7 @@ export class SignUpComponent implements OnInit {
             const storeType = this.route.snapshot.queryParamMap.get('storeType');
             if (templateId && storeType && storeName){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
-                localStorage.setItem('storeID', store.id);
+                localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
               });
               this.router.navigate(['dashboard']);
               return;

@@ -1,8 +1,7 @@
 import {GenericModel} from './generic.model';
 
 export class Store extends GenericModel{
-  // tslint:disable-next-line:variable-name
-  public _id: string;
+  public id: string;
   public url: string;
   public name: string;
   public logo: string;
@@ -14,10 +13,10 @@ export class Store extends GenericModel{
     facebookPage: string,
     instagramPage: string,
     location: string,
-    _id: string
+    id: string
   };
   public template: {
-    _id: string,
+    id: string,
     name: string,
     header: {
       img: string,

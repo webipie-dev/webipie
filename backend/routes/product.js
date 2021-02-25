@@ -42,7 +42,7 @@ router.get('', passportJWT.unless(function(req){
 
 
 //getManyProducts
-// router.get('/many', productService.getManyProductById)
+router.get('/many', productService.getManyProductById)
 
 // getProductbyId
 router.get('/:id', [

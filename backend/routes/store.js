@@ -126,8 +126,9 @@ router.get('/:id', [
 
 router.get('/url/:url', StoreService.getStoreByUrl);
 
+router.get('/all/names', StoreService.getStoreNames);
 
-router.get('/:name/:location', StoreService.getStoreByNameAndLocation);
+// router.get('/:name/:location', StoreService.getStoreByNameAndLocation);
 // addStore
 router.post('', [
   storeValidation.name,

@@ -9,12 +9,11 @@ import { AuthService } from '../../_shared/services/auth.service';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor(private authService: AuthService, 
+  constructor(private authService: AuthService,
               private router: Router) {
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   logOut(): void{
     this.authService.logOut();

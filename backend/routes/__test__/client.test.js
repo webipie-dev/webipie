@@ -8,7 +8,4 @@ it('return a 200', async () => {
     .get('/client')
     .send({})
     .expect(200);
-
-  console.log(response.body)
-
 })

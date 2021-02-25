@@ -13,7 +13,7 @@ const contact = new Schema({
 });
 
 const template = new Schema({
-  _id: {type: Schema.Types.ObjectID, ref: "Template"},
+  id: {type: Schema.Types.ObjectID, ref: "Template"},
   name: {type: String, default: ''},
   header: {
     img: { type: String, default: '' },
@@ -28,8 +28,8 @@ const template = new Schema({
 });
 
 const ExSchema = new Schema({
-  url: {type: String, required: true},
-  name: {type: String, default: ''},
+  url: {type: String, required: true, unique: true},
+  name: {type: String, required: true, unique: true},
   logo: {type: String, default: ''},
   description: {type: String, default: ''},
   storeType: {type: String, default: ''},
@@ -37,6 +37,15 @@ const ExSchema = new Schema({
   contact: contact,
   template: template
 
-});
+},
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+      }
+    }
+  });
 
 module.exports = mongoose.model('Store', ExSchema);

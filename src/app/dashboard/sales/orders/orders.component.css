@@ -164,3 +164,44 @@
   opacity: 0.3 !important;
   cursor: not-allowed !important;
 }
+
+
+/**************dot circle**************/
+:host /deep/ ng2-smart-table .dot { 
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;  
+  margin-top: 10%;
+}
+
+:host /deep/ ng2-smart-table .yellow { 
+  background-color: yellow;
+}
+
+:host /deep/ ng2-smart-table .green { 
+  background-color: green;
+}
+
+:host /deep/ ng2-smart-table .red { 
+  background-color: red;
+}
+
+.dot{
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;  
+}
+
+.yellow{
+  background-color: yellow;
+}
+
+.red{
+  background-color: red;
+}
+
+.green{
+  background-color: green;
+}

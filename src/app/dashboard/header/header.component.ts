@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../_shared/services/auth.service';
+import {StoreService} from '../../_shared/services/store.service';
+import {Store} from '../../_shared/models/store.model';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,8 @@ import { AuthService } from '../../_shared/services/auth.service';
 export class HeaderComponent implements OnInit {
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private storeService: StoreService) { }
 
   ngOnInit(): void {
   }
@@ -22,5 +25,13 @@ export class HeaderComponent implements OnInit {
   logOut(): void{
     this.authService.logOut();
     this.router.navigate(['/']);
+  }
+
+  preview() {
+    const storeId = localStorage.getItem('storeID');
+    this.storeService.getById(storeId).subscribe(store => {
+      const url = 'http://' + store.url + ':4200';
+      window.open(url, '_blank');
+    });
   }
 }

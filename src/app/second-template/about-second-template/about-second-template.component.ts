@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 @Component({
   selector: 'app-about-second-template',
@@ -14,7 +16,7 @@ export class AboutSecondTemplateComponent implements OnInit {
               private storeService: StoreService) { }
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
+    this.store = encryptStorage.getItem('store');
     this.storeService.changeTheme(this.el, this.store);
   }
 }
