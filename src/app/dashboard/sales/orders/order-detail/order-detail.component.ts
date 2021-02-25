@@ -116,11 +116,19 @@ export class OrderDetailComponent implements OnInit {
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;
 
-    this.orderService.edit(this.rowData._id, {orderStatus: this.orderStatus}).subscribe(data => {
-      const currentUrl = this.router.url;
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate([currentUrl]);
+    this.orderService.edit(this.rowData.id, {orderStatus: this.orderStatus}).subscribe(data => {
+      console.log(data);
+      // const currentUrl = this.router.url;
+      // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      // this.router.onSameUrlNavigation = 'reload';
+      // this.router.navigate([currentUrl]);
+
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['dashboard/sales/orders']);
+      });
+    },
+    error => {
+      console.log(error);
     });
   }
 }

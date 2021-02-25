@@ -130,7 +130,7 @@
 
             <!-- TOTAL PRICE -->
             <li class="col-sm-2">
-              <div class="position-center-center"> <span class="price">{{element.product.price * element.quantity}} <small>DT</small></span> </div>
+              <div class="position-center-center"> <span class="price">{{ +element.product.price * element.quantity}} <small>DT</small></span> </div>
             </li>
 
             <!-- REMOVE -->
@@ -140,47 +140,50 @@
           </ul>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
 
     </section>
 
-      <!--======= PAGES INNER =========-->
-      <section class="padding-top-100 padding-bottom-100 light-gray-bg shopping-cart small-cart col-lg-5 col-12">
-        <div class="container col-12">
-          <!-- SHOPPING INFORMATION -->
-          <div class="cart-ship-info margin-top-0">
-            <div class="row">
+    <!--======= PAGES INNER =========-->
+    <section class="padding-top-100 padding-bottom-100 light-gray-bg shopping-cart small-cart col-lg-5 col-12">
+      <div class="container col-12">
+        <!-- SHOPPING INFORMATION -->
+        <div class="cart-ship-info margin-top-0">
+          <div class="row">
 
-              <!-- DISCOUNT CODE -->
-              <!--<div class="col-sm-7">
-                <h6>DISCOUNT CODE</h6>
-                <form>
-                  <input type="text" value="" placeholder="ENTER YOUR CODE IF YOU HAVE ONE">
-                  <button type="submit" class="btn btn-small btn-dark">APPLY CODE</button>
-                </form>
-                <div class="coupn-btn"> <a href="#." class="btn">continue shopping</a> <a href="#." class="btn">update cart</a> </div>
-              </div>-->
+            <!-- DISCOUNT CODE -->
+            <!--<div class="col-sm-7">
+              <h6>DISCOUNT CODE</h6>
+              <form>
+                <input type="text" value="" placeholder="ENTER YOUR CODE IF YOU HAVE ONE">
+                <button type="submit" class="btn btn-small btn-dark">APPLY CODE</button>
+              </form>
+              <div class="coupn-btn"> <a href="#." class="btn">continue shopping</a> <a href="#." class="btn">update cart</a> </div>
+            </div>-->
 
-            <!-- SUB TOTAL -->
+          <!-- SUB TOTAL -->
             <div class="col-12 col-lg-6">
-              <h6>grand total</h6>
-              <div class="grand-total">
-                <div class="order-detail">
-                  <div *ngFor="let element of cart">
-                  <p>{{element.product.name}} <span>{{element.quantity}}x  {{element.product.price}} DT</span></p>
-                  </div>
-                  <!-- SUB TOTAL -->
-                  <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span></p>
-
-                </div>
+            <h6>grand total</h6>
+            <div class="grand-total">
+              <div class="order-detail">
+                <div *ngFor="let element of cart">
+                <p>{{element.product.name}} <span>{{element.quantity}}x  {{element.product.price}} DT</span></p>
               </div>
+                <!-- SUB TOTAL -->
+                <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span></p>
+
             </div>
           </div>
-          <li class="col-xs-6"> <button class="btn" (click)="save()">SAVE</button> </li>
-
+          </div>
         </div>
-      </section>
-    </div>
-  </div>
+        <li class="col-xs-6"> <button class="btn" (click)="save()">SAVE</button> </li>
 
-</div>
+      </div>
+    <!-- </section> -->
+    
+    
+    
+  </div>
+  <!-- </div> -->
+
+<!-- </div> -->

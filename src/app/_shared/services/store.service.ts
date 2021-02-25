@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {GenericService} from './generic.service';
 import {Store} from '../models/store.model';
 import { encryptStorage } from '../utils/encrypt-storage';
+import { Observable } from 'rxjs';
 
 
 @Injectable({

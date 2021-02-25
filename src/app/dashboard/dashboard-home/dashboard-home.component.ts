@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {OrderService} from "../../_shared/services/order.service";
-import {ClientService} from "../../_shared/services/client.service";
-import {ProductService} from "../../_shared/services/product.service";
-import {Product} from "../../_shared/models/product.model";
-import {StoreService} from "../../_shared/services/store.service";
-import {Store} from "../../_shared/models/store.model";
+import {OrderService} from '../../_shared/services/order.service';
+import {ClientService} from '../../_shared/services/client.service';
+import {ProductService} from '../../_shared/services/product.service';
+import {Product} from '../../_shared/models/product.model';
+import {StoreService} from '../../_shared/services/store.service';
+import {Store} from '../../_shared/models/store.model';
+import { encryptLocalStorage } from 'src/app/_shared/utils/encrypt-storage';
 
 declare var $: any;
 
@@ -35,13 +36,13 @@ export class DashboardHomeComponent implements OnInit {
   }
 
   getStore(): void {
-    this.storeService.getById(localStorage.getItem('storeID')).subscribe(data => {
+    this.storeService.getById(encryptLocalStorage.decryptString(localStorage.getItem('storeID'))).subscribe(data => {
       this.store = data;
     });
   }
 
   getOrderLength(): void {
-    const store = localStorage.getItem('storeID');
+    const store = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.orderService.getAll({store}).subscribe((data) => {
       console.log(data);
       const prodArray = [];
@@ -75,7 +76,7 @@ export class DashboardHomeComponent implements OnInit {
   }
   getClientsLength(): void {
     this.isLoading = true;
-    const store = localStorage.getItem('storeID');
+    const store = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.clientService.getAll({store}).subscribe((data) => {
       console.log(data);
       this.clientsLength = data.length;
@@ -83,7 +84,7 @@ export class DashboardHomeComponent implements OnInit {
     });
   }
   getProductsLength(): void {
-    const store = localStorage.getItem('storeID');
+    const store = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     console.log(store);
     this.productService.getAll({store}).subscribe((data) => {
       console.log(data);

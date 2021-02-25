@@ -18,7 +18,7 @@ signToken = user => {
 module.exports = {
     signUp : async (req,res,next) => {
         const { error } = validatestoreOwner(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
+        if (error) return next(ApiError.BadRequest(error.details[0].message));
       
         const { name,email,password } = req.body;
       

@@ -14,6 +14,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {IndexComponent} from './index.component';
 import {IndexRoutingModule} from './index-routing.module';
 import { LoadingSpinnerComponent } from '../_shared/loading-spinner/loading-spinner.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 
@@ -37,7 +39,9 @@ import { LoadingSpinnerComponent } from '../_shared/loading-spinner/loading-spin
     ReactiveFormsModule,
     SpinnerModule,
     HttpClientModule,
-    IndexRoutingModule
-  ]
+    IndexRoutingModule,
+    NgxSpinnerModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class IndexModule { }

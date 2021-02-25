@@ -17,7 +17,7 @@ import {StoreEditModule} from './store-edit/store-edit.module';
 import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
 import {SignInComponent} from './index/sign-in/sign-in.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
-import {LoadingSpinnerComponent} from './_shared/loading-spinner/loading-spinner.component';
+// import {LoadingSpinnerComponent} from './_shared/loading-spinner/loading-spinner.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TemplateModule} from './template/template.module';
 import {FooterComponent} from './index/footer/footer.component';
@@ -30,7 +30,7 @@ import { ErrorsComponent } from './errors/errors.component';
 import {ErrorInterceptor} from './error-interceptor';
 import { SidebarModule } from 'ng-sidebar';
 import {StoreService} from './_shared/services/store.service';
-import {IndexModule} from "./index/index.module";
+import {IndexModule} from './index/index.module';
 
 
 export let InjectorInstance: Injector;
@@ -39,7 +39,7 @@ export let InjectorInstance: Injector;
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    LoadingSpinnerComponent,
+    // LoadingSpinnerComponent,
     ErrorsComponent
   ],
   imports: [
