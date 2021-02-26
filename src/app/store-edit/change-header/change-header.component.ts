@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {Store} from '../../_shared/models/store.model';
 
 @Component({
   selector: 'app-change-header',
@@ -17,8 +18,8 @@ export class ChangeHeaderComponent implements OnInit {
   headerForm: FormGroup;
   initialHeaderForm: FormGroup;
   postData = new FormData();
-  imgSrc = '../../../assets/images/fashion-WPWVGRY.jpg';
-  store: any;
+  imgSrc = encryptStorage.getItem('store').template.header.img;
+  store: Store;
 
   ngOnInit(): void {
     this.store = encryptStorage.getItem('store');
@@ -38,7 +39,7 @@ export class ChangeHeaderComponent implements OnInit {
 
   onFileChanged(event): void {
     const file = event.target.files[0];
-    this.postData.append('headerImg', file, file.name);
+    this.postData.append('img', file, file.name);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (events) => {
@@ -47,7 +48,6 @@ export class ChangeHeaderComponent implements OnInit {
   }
 
   testSame(): boolean {
-    console.log(this.initialHeaderForm.get('title').value);
     return this.initialHeaderForm.get('description').value === this.headerForm.get('description').value &&
       this.initialHeaderForm.get('title').value === this.headerForm.get('title').value &&
       this.initialHeaderForm.get('mainButton').value === this.headerForm.get('mainButton').value &&

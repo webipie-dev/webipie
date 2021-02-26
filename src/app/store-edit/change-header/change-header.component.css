@@ -9,6 +9,10 @@
   display: block;
 }
 
+.external {
+  padding: 10px 10px 10px 10px !important;
+}
+
 #sidebar-header-non-active ul li a {
   padding: 20px;
   display: block;
@@ -105,7 +109,7 @@ button {
 .image{
     position: sticky;
     border-radius: 8px;
-    width: 100%; 
+    width: 100%;
     filter: blur(1px);
     -webkit-filter: blur(1px);
     z-index: 1;

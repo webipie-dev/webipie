@@ -184,8 +184,8 @@ exports.editStore = async (req, res, next) => {
       if(file.fieldname === 'logoImg') {
         logoPath = req.protocol + "://" + req.get("host") + "/backend/images/logoImgs/" + file.filename
         edits['logo'] = logoPath
-      } else if(file.fieldname === 'headerImg') {
-        headerPath = req.protocol + "://" + req.get("host") + "/backend/images/headerImgs/" + file.filename
+      } else if(file.fieldname === 'img') {
+        headerPath = req.protocol + "://" + req.get("host") + "/backend/images/" + file.filename
         edits['template.header.img'] = headerPath
       }
     }
