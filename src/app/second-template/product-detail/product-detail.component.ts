@@ -74,6 +74,7 @@ export class ProductDetailComponent implements OnInit {
       }
     }
 
+
     if (!isFound) {
       const dynamicScripts = [
         'assets/second-template/js/modernizr.js',
