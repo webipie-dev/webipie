@@ -157,9 +157,9 @@ export class SignInComponent implements OnInit {
             const storeType = this.route.snapshot.queryParamMap.get('storeType');
 
             // redirect to dashboard in case of storeID
-            if (result['storeID']){
+            if (result['storeId']){
 
-              localStorage.setItem('storeId', encryptLocalStorage.encryptString(result['storeId']));
+              localStorage.setItem('storeID', encryptLocalStorage.encryptString(result['storeId']));
 
               this.router.navigate([returnUrl || 'dashboard']);
             }

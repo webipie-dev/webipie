@@ -39,129 +39,95 @@
             </div>
 
             <!-- Cart Details -->
-            <ul class="row cart-details">
-              <li class="col-sm-6">
-                <div> <!-- Hne kenet fama class="media" fasa5tha-->
-                  <!-- Media Image -->
-                  <div class="media-left media-middle">
-                    <a href="#" class="item-img">
-                      <img class="media-object" src="../../../assets/second-template/images/cart-img-1.jpg" alt="">
-                    </a>
-                  </div>
-                  <!-- Item Name -->
-                  <div class="media-body">
-                    <div class="position-center-center">
-                      <h5>wood chair</h5>
-                      <p>Lorem ipsum dolor sit amet</p>
+            <div *ngFor="let element of cart">>
+              <!-- Cart Details -->
+              <ul class="row cart-details">
+                <li class="col-sm-6">
+                  <div> <!-- Hne kenet fama class="media" fasa5tha-->
+                    <!-- Media Image -->
+                    <div class="media-left media-middle">
+                      <a href="#" class="item-img">
+                        <img class="media-object" [src]="element.product.imgs[0]" alt="">
+                      </a>
+                    </div>
+                    <!-- Item Name -->
+                    <div class="media-body">
+                      <div class="position-center-center">
+                        <h5>{{element.product.name}}</h5>
+                        <p [innerHTML]="element.product.description"></p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </li>
+                </li>
 
-              <!-- PRICE -->
-              <li class="col-sm-2">
-                <div class="position-center-center"> <span class="price"><small>$</small>299</span> </div>
-              </li>
+                <!-- PRICE -->
+                <li class="col-sm-2">
+                  <div class="position-center-center"> <span class="price">{{element.product.price}} <small>DT</small></span> </div>
+                </li>
 
-              <!-- QTY -->
-              <li class="col-sm-1">
-                <div class="position-center-center">
-                  <div class="quinty">
-                    <!-- QTY -->
-                    <select class="selectpicker">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                    </select>
-                  </div>
-                </div>
-              </li>
-
-              <!-- TOTAL PRICE -->
-              <li class="col-sm-2">
-                <div class="position-center-center"> <span class="price"><small>$</small>299</span> </div>
-              </li>
-              <li class="col-sm-1"> </li>
-            </ul>
-          </div>
-
-          <div *ngFor="let element of cart">>
-          <!-- Cart Details -->
-          <ul class="row cart-details">
-            <li class="col-sm-6">
-              <div> <!-- Hne kenet fama class="media" fasa5tha-->
-                <!-- Media Image -->
-                <div class="media-left media-middle">
-                  <a href="#" class="item-img">
-                    <img class="media-object" [src]="element.product.imgs[0]" alt="">
-                  </a>
-                </div>
-                <!-- Item Name -->
-                <div class="media-body">
+                <!-- QTY -->
+                <li class="col-sm-1">
                   <div class="position-center-center">
-                    <h5>{{element.product.name}}</h5>
-                    <p [innerHTML]="element.product.description"></p>
+                    <div class="quinty">
+                      <!-- QTY -->
+                      <select class='customSelect' (change)="saveQuantity(element.product, $event)" [(ngModel)]="element.quantity">
+                        <option *ngFor='let i of counter(element.product.quantity);' [value]='i'>{{i}}</option>
+                      </select>
+                      <!--                  <select class="selectpicker">-->
+                      <!--                    <option>1</option>-->
+                      <!--                    <option>2</option>-->
+                      <!--                    <option>3</option>-->
+                      <!--                  </select>-->
+                    </div>
                   </div>
-                </div>
-              </div>
-            </li>
 
-            <!-- PRICE -->
-            <li class="col-sm-2">
-              <div class="position-center-center"> <span class="price">{{element.product.price}} <small>DT</small></span> </div>
-            </li>
+                </li>
 
-            <!-- QTY -->
-            <li class="col-sm-1">
-              <div class="position-center-center">
-                <div class="quinty">
-                  <!-- QTY -->
-                  <select class='customSelect' (change)="saveQuantity(element.product, $event)" [(ngModel)]="element.quantity">
-                    <option *ngFor='let i of counter(element.product.quantity);' [value]='i'>{{i}}</option>
-                  </select>
-<!--                  <select class="selectpicker">-->
-<!--                    <option>1</option>-->
-<!--                    <option>2</option>-->
-<!--                    <option>3</option>-->
-<!--                  </select>-->
-                </div>
-              </div>
-            </li>
+                <!-- TOTAL PRICE -->
+                <li class="col-sm-2">
+                  <div class="position-center-center"> <span class="price">{{element.product.price * element.quantity}} <small>DT</small></span> </div>
+                </li>
 
-            <!-- TOTAL PRICE -->
-            <li class="col-sm-2">
-              <div class="position-center-center"> <span class="price">{{ +element.product.price * element.quantity}} <small>DT</small></span> </div>
-            </li>
+                <!-- REMOVE -->
+                <li class="col-sm-1">
+                  <div class="position-center-center"> <a (click)="deleteProduct(element.product)"><i class="icon-close"></i></a> </div>
+                </li>
+              </ul>
+            </div>
 
-            <!-- REMOVE -->
-            <li class="col-sm-1">
-              <div class="position-center-center"> <a (click)="deleteProduct(element.product)"><i class="icon-close"></i></a> </div>
-            </li>
-          </ul>
+
           </div>
+
         </div>
-      <!-- </div> -->
 
-    </section>
 
-    <!--======= PAGES INNER =========-->
-    <section class="padding-top-100 padding-bottom-100 light-gray-bg shopping-cart small-cart col-lg-5 col-12">
-      <div class="container col-12">
-        <!-- SHOPPING INFORMATION -->
-        <div class="cart-ship-info margin-top-0">
-          <div class="row">
 
-            <!-- DISCOUNT CODE -->
-            <!--<div class="col-sm-7">
-              <h6>DISCOUNT CODE</h6>
-              <form>
-                <input type="text" value="" placeholder="ENTER YOUR CODE IF YOU HAVE ONE">
-                <button type="submit" class="btn btn-small btn-dark">APPLY CODE</button>
-              </form>
-              <div class="coupn-btn"> <a href="#." class="btn">continue shopping</a> <a href="#." class="btn">update cart</a> </div>
-            </div>-->
 
-          <!-- SUB TOTAL -->
+      </section>
+
+    </div>
+  </div>
+
+
+  <!--======= PAGES INNER =========-->
+      <section class="padding-top-100 padding-bottom-100 light-gray-bg shopping-cart small-cart col-lg-5 col-12">
+        <div class="container col-12">
+          <!-- SHOPPING INFORMATION -->
+          <div class="cart-ship-info margin-top-0">
+            <div class="row">
+
+              <!-- DISCOUNT CODE -->
+              <!--<div class="col-sm-7">
+                <h6>DISCOUNT CODE</h6>
+                <form>
+                  <input type="text" value="" placeholder="ENTER YOUR CODE IF YOU HAVE ONE">
+                  <button type="submit" class="btn btn-small btn-dark">APPLY CODE</button>
+                </form>
+                <div class="coupn-btn"> <a href="#." class="btn">continue shopping</a> <a href="#." class="btn">update cart</a> </div>
+              </div>-->
+
+            <!-- SUB TOTAL -->
+
             <div class="col-12 col-lg-6">
             <h6>grand total</h6>
             <div class="grand-total">
@@ -174,16 +140,11 @@
 
             </div>
           </div>
+
+          <li class="col-xs-6"> <button class="btn" (click)="save()">SAVE</button> </li>
+
           </div>
         </div>
-        <li class="col-xs-6"> <button class="btn" (click)="save()">SAVE</button> </li>
+      </section>
+</div>
 
-      </div>
-    <!-- </section> -->
-    
-    
-    
-  </div>
-  <!-- </div> -->
-
-<!-- </div> -->
