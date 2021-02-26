@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
-import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 
 
 @Component({
@@ -12,7 +12,7 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 })
 export class HeaderSecondTemplateComponent implements OnInit {
   store: Store;
-  cart: {product: Product, quantity: number}[] = JSON.parse(localStorage.getItem('cart')) || [];
+  cart: {product: Product, quantity: number}[] = encryptLocalStorage.getItem('cart') || [];
   totalPrice = 0;
 
   constructor(private el: ElementRef,
@@ -30,7 +30,7 @@ export class HeaderSecondTemplateComponent implements OnInit {
 
   deleteProduct(event): void {
     this.cart = this.cart.filter(element => element.product.id !== event.id);
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+    encryptLocalStorage.setItem('cart', this.cart);
 
     this.totalPrice = 0;
     this.cart.forEach(data => {

@@ -22,12 +22,12 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    let destFile = 'backend/images/';
-    if(file.fieldname === 'headerImg') {
-      destFile = destFile + 'headerImgs'
-    } else if(file.fieldname === 'logoImg') {
-      destFile = destFile + 'logoImgs'
-    }
+    let destFile = 'images';
+    // if(file.fieldname === 'headerImg') {
+    //   destFile = destFile + 'headerImgs'
+    // } else if(file.fieldname === 'logoImg') {
+    //   destFile = destFile + 'logoImgs'
+    // }
     cb(error, destFile);
   },
   filename: (req, file, cb) => {

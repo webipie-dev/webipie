@@ -54,8 +54,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app
   .use('/backend/images',express.static('images'))
-  .use('/backend/images/logoImgs',express.static('backend/images/logoImgs'))
-  .use('/backend/images/headerImgs',express.static('backend/images/headerImgs'))
+  .use('/backend/images/logos',express.static('images/logos'))
   .use(bodyParser.urlencoded({extended: true}))
   .use(bodyParser.json())
   .use('/storeOwner', storeOwnerRoutes)

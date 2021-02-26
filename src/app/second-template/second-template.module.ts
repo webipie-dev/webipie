@@ -15,7 +15,6 @@ import {SecondTemplateComponent} from './second-template.component';
 import { CheckoutSecondTemplateComponent } from './checkout-second-template/checkout-second-template.component';
 import { SubHeaderSecondTemplateComponent } from './sub-header-second-template/sub-header-second-template.component';
 import {SpinnerModule} from '../spinner/spinner.module';
-import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // https://docs.google.com/document/d/18aZNjQb-RWodUCqOi0Yzu2EhecNpA94TJXMs8vrbUMc/edit?usp=sharing

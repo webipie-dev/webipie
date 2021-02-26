@@ -11,7 +11,7 @@
 }
 
 .font {
-  font-family: var(--font-choice) sans-serif !important;
+  font-family: var(--font-choice), sans-serif !important;
   color: var(--bg-color);
 }
 
