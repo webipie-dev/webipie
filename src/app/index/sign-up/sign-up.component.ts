@@ -66,8 +66,8 @@ export class SignUpComponent implements OnInit {
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
               localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
+              this.router.navigate(['dashboard']);
             });
-            this.router.navigate(['dashboard']);
             return;
           }
           else{
@@ -158,8 +158,8 @@ export class SignUpComponent implements OnInit {
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
               localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
+              this.router.navigate(['dashboard']);
             });
-            this.router.navigate(['dashboard']);
             return;
           }
           else{
@@ -186,8 +186,8 @@ export class SignUpComponent implements OnInit {
             if (templateId && storeType && storeName){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
                 localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
+                this.router.navigate(['dashboard']);
               });
-              this.router.navigate(['dashboard']);
               return;
             }
             else{

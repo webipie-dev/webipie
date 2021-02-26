@@ -18,7 +18,7 @@ export class ChangeContactComponent implements OnInit {
   initialNumber = encryptStorage.getItem('store').contact.phoneNumber;
   defaultLocation = encryptStorage.getItem('store').contact.location;
   initialLocation = encryptStorage.getItem('store').contact.location;
-  storeId = encryptStorage.getItem('store')._id;
+  storeId = encryptStorage.getItem('store').id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService) {
