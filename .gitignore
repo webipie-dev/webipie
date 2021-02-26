@@ -8,6 +8,8 @@
 /bazel-out
 
 # dependencies
+*.rdb
+/backend/*.rdb
 /node_modules
 /backend/node_modules
 

@@ -19,6 +19,15 @@ exports.getStores = async (req, res) => {
 
 }
 
+exports.getStoreNames = async (req,res) => {
+  const names =await Store.find({}).select({ "name": 1, "_id": 0})
+    .catch((err) => {
+    res.status(400).json({errors: [{ message: err.message }]});
+    });
+
+  res.status(200).send(names);
+}
+
 exports.getOneStore = async (req, res) => {
   // We need to check if user is authenticated
 
@@ -51,6 +60,7 @@ exports.getStoreByNameAndLocation = async (req,res) => {
   res.status(200).send(store);
 }
 
+
 exports.getStoreByUrl = async (req,res) => {
   const { url } = req.params;
   const store = await Store.findOne({url})
@@ -69,14 +79,10 @@ exports.addStore = async (req, res, next) => {
     logo = ''
   }
 
-  //get the store id from the request
-  // const id = req.user.storeID;
-
-  // const userStore = Store.findById(id)
-  // if (userStore) {
-  //   next(ApiError.BadRequest('This Store is already in use, you need to sign up !!'));
-  //   return;
-  // }
+  const foundStore = await StoreOwner.findOne({name: req.body.name});
+  if(foundStore){
+    return next(ApiError.BadRequest('Store name is already in use'));
+  }
 
   const { name, description, location, contact, storeType, templateId} = req.body
 
@@ -92,6 +98,7 @@ exports.addStore = async (req, res, next) => {
   const store = new Store({
     // id,
     name,
+    url: name.toLowerCase().replace(/\s/g, ''),
     logo,
     description,
     location,
@@ -181,6 +188,13 @@ exports.editStore = async (req, res, next) => {
         headerPath = req.protocol + "://" + req.get("host") + "/backend/images/headerImgs/" + file.filename
         edits['template.header.img'] = headerPath
       }
+    }
+  }
+
+  if('name' in req.body){
+    const store = await StoreOwner.findOne({name: req.body.name});
+    if(store){
+      return next(ApiError.BadRequest('Store name is already in use'));
     }
   }
 

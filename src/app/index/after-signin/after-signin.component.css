@@ -36,3 +36,12 @@
     padding: 0 1rem;
   }
 }
+
+.red-color {
+  color: #d20000 !important;
+}
+
+.red-border {
+  border: solid 2px #ea3939 !important;
+  box-shadow: 0 0 2px #ea3939;
+}

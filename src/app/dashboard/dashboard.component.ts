@@ -10,14 +10,28 @@ declare var $: any;
 
 export class DashboardComponent implements OnInit {
 
-  constructor() {
-  }
-
   public opened = true;
   public minimized = false;
   public mobileOpen = false;
   public mode = 'push';
   public windwosWidth = window.innerWidth;
+
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    if (window.screen.width < 576) {
+      this.mode = 'over';
+      this.mobileOpen = true;
+      this.opened = false;
+      this.minimized = false;
+    } else {
+      this.mode = 'push';
+      this.mobileOpen = false;
+      this.opened = true;
+      this.minimized = false;
+    }
+  }
 
   public _toggleSidebar(): void {
     this.opened = !this.opened;
@@ -49,20 +63,6 @@ export class DashboardComponent implements OnInit {
       this.minimized = false;
       this.mobileOpen = false;
 
-    }
-  }
-
-  ngOnInit(): void {
-    if (window.screen.width < 576) {
-      this.mode = 'over';
-      this.mobileOpen = true;
-      this.opened = false;
-      this.minimized = false;
-    } else {
-      this.mode = 'push';
-      this.mobileOpen = false;
-      this.opened = true;
-      this.minimized = false;
     }
   }
 }

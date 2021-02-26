@@ -3,7 +3,6 @@ const debug = require("debug")("node-angular");
 const http = require("http");
 const mongoose = require('mongoose');
 
-
 const normalizePort = val => {
   var port = parseInt(val, 10);
 
@@ -62,6 +61,24 @@ const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
 const server = http.createServer(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "http://webipie.com:4200",
+    methods: ["GET", "POST"]
+  }
+});
+
+// io.on('connection', socket => {
+//   let counter = 0;
+//   setInterval(() => {
+//     socket.emit('new order', ++counter);
+//     // console.log(counter);
+//   }, 1000);
+// });
+
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
+
+//passing the server
+app.set('socketio', io);

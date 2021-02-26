@@ -16,13 +16,14 @@ signToken = user => {
 
 
 module.exports = {
-    signUp : async (req,res) => {
+    signUp : async (req,res,next) => {
         const { error } = validatestoreOwner(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
-
-        const { email,password } = req.body;
+        if (error) return next(ApiError.BadRequest(error.details[0].message));
+      
+        const { name,email,password } = req.body;
+      
         let findstoreOwner = await StoreOwner.findOne({ "local.email": email });
-        if (findstoreOwner) return res.status(403).send({ errors: 'Email is already in use'});
+        if (findstoreOwner) return next(ApiError.BadRequest('Email is already in use'));
 
         findstoreOwner = await StoreOwner.find({
             $or: [
@@ -35,6 +36,7 @@ module.exports = {
             // Let's merge them?
             findstoreOwner.methods.push('local')
             findstoreOwner.local = {
+              name: name,
               email: email,
               password: password.trim()
             }
@@ -52,6 +54,7 @@ module.exports = {
         const newstoreOwner = new StoreOwner({
             methods: ['local'],
             local: {
+                name: name,
                 email: email,
                 password: password.trim()
             },

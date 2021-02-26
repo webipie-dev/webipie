@@ -109,4 +109,6 @@ export class ProductDetailComponent implements OnInit {
 
 
   }
+
+  addToCart(product): void{}
 }

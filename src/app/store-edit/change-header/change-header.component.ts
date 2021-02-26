@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
-import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-change-header',
@@ -13,7 +13,7 @@ export class ChangeHeaderComponent implements OnInit {
 
   constructor(private storeService: StoreService,
               private router: Router) { }
-  storeId = '5fd09d461bcaf731b40f95fb';
+  storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
   headerForm: FormGroup;
   initialHeaderForm: FormGroup;
   postData = new FormData();

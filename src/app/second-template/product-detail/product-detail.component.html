@@ -16,9 +16,13 @@
               <!-- Images Slider -->
               <div class="images-slider">
                 <ul class="slides">
-                  <li data-thumb="{{product.imgs[0]}}"><img class="img-responsive" src="{{product.imgs[0]}}" alt=""></li>
-                  <li data-thumb="{{product.imgs.length > 1 ? product.imgs[1] : product.imgs[0]}}"><img class="img-responsive" src="{{product.imgs.length > 1 ? product.imgs[1] : product.imgs[0]}}" alt=""></li>
-                  <li data-thumb="{{product.imgs.length > 2 ? product.imgs[2] : product.imgs[0]}}"><img class="img-responsive" src="{{product.imgs.length > 2 ? product.imgs[2] : product.imgs[0]}}" alt=""></li>
+                  <li [attr.data-thumb]="product.imgs[0]"><img class="img-responsive" src="{{product.imgs[0]}}" alt=""></li>
+                  <li [attr.data-thumb]="product.imgs.length > 1 ? product.imgs[1] : product.imgs[0]" *ngIf="product.imgs.length > 1">
+                    <img class="img-responsive" src="{{product.imgs.length > 1 ? product.imgs[1] : product.imgs[0]}}" alt="">
+                  </li>
+                  <li [attr.data-thumb]="product.imgs.length > 2 ? product.imgs[2] : product.imgs[0]" *ngIf="product.imgs.length > 2">
+                    <img class="img-responsive" src="{{product.imgs.length > 2 ? product.imgs[2] : product.imgs[0]}}" alt="">
+                  </li>
                 </ul>
               </div>
 

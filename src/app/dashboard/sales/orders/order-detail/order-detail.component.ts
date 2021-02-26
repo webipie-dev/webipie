@@ -22,6 +22,7 @@ export class OrderDetailComponent implements OnInit {
   orderProducts = [];
   orderProductsQuantity = [];
   closeResult;
+  orderStatus;
 
   constructor(private http: HttpClient,
               private orderService: OrderService,
@@ -33,6 +34,7 @@ export class OrderDetailComponent implements OnInit {
   ngOnInit(): void {
     this.editMode = this.value;
     this.displayMode = !this.editMode;
+    this.orderStatus = this.rowData.orderStatus;
   }
 
   open(content): void {
@@ -113,6 +115,21 @@ export class OrderDetailComponent implements OnInit {
   onSwitch(): void {
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;
+
+    this.orderService.edit(this.rowData.id, {orderStatus: this.orderStatus}).subscribe(data => {
+      console.log(data);
+      // const currentUrl = this.router.url;
+      // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      // this.router.onSameUrlNavigation = 'reload';
+      // this.router.navigate([currentUrl]);
+
+      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['dashboard/sales/orders']);
+      });
+    },
+    error => {
+      console.log(error);
+    });
   }
 }
 

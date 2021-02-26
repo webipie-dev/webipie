@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {OrderDetailComponent} from './order-detail/order-detail.component';
 import {HttpClient} from '@angular/common/http';
 import {OrderService} from '../../../_shared/services/order.service';
 import Swal from 'sweetalert2';
+import { WebSocketService } from '../../../_shared/services/web-socket.service';
+import { Router } from '@angular/router';
+import { NgZone } from '@angular/core';
 import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
 
 @Component({
@@ -10,12 +13,29 @@ import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit{
   windowWidth = window.screen.width;
   // settings for the web version of the table
   settings = {
     selectMode: 'multi',
     columns: {
+      orderStatus: {
+        title: 'Status',
+        width: '10%',
+        type: 'html',
+        valuePrepareFunction: (value, row, cell) => {
+          // DATA FROM HERE GOES TO renderComponent
+          if (value === 'pending'){
+            return '<span class="dot yellow"><span>';
+          }
+          if (value === 'refused'){
+            return '<span class="dot red"><span>';
+          }
+          if (value === 'accepted'){
+            return '<span class="dot green"><span>';
+          }
+        },
+      },
       clientName: {
         title: 'Client',
         width: '20%'
@@ -29,10 +49,6 @@ export class OrdersComponent implements OnInit {
         width: '20%',
         format: 'short'
       },
-      orderStatus: {
-        title: 'Status',
-        width: '10%'
-      },
       details: {
         title: '',
         width: '10%',
@@ -43,16 +59,16 @@ export class OrdersComponent implements OnInit {
         },
         renderComponent: OrderDetailComponent,
       },
-      // edit: {
-      //   title: '',
-      //   width: '10%',
-      //   type: 'custom',
-      //   valuePrepareFunction: (cell, row) => {
-      //     this.edit = true;
-      //     return this.edit;
-      //   },
-      //   renderComponent: OrderDetailComponent,
-      // },
+      edit: {
+        title: '',
+        width: '10%',
+        type: 'custom',
+        valuePrepareFunction: (cell, row) => {
+          this.edit = true;
+          return this.edit;
+        },
+        renderComponent: OrderDetailComponent,
+      },
 
     },
     actions: {
@@ -71,13 +87,26 @@ export class OrdersComponent implements OnInit {
   settingsMobile = {
     selectMode: 'multi',
     columns: {
+      orderStatus: {
+        title: 'Status',
+        width: '10%',
+        type: 'html',
+        valuePrepareFunction: (value, row, cell) => {
+          // DATA FROM HERE GOES TO renderComponent
+          if (value === 'pending'){
+            return '<span class="dot yellow"><span>';
+          }
+          if (value === 'refused'){
+            return '<span class="dot red"><span>';
+          }
+          if (value === 'accepted'){
+            return '<span class="dot green"><span>';
+          }
+        },
+      },
       clientName: {
         title: 'Client',
         width: '50%'
-      },
-      orderStatus: {
-        title: 'Status',
-        width: '25%'
       },
       details: {
         title: '',
@@ -98,10 +127,13 @@ export class OrdersComponent implements OnInit {
   orders = [];
   selectedRows = [];
   showDeleteManyButton = false;
-
+  newOrder = true;
 
   constructor(private http: HttpClient,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private webSocketService: WebSocketService,
+              private router: Router,
+              private zone: NgZone) {
   }
 
   ngOnInit(): void {
@@ -109,8 +141,30 @@ export class OrdersComponent implements OnInit {
       this.windowWidth = window.screen.width;
     });
     this.getAllOrders();
-  }
 
+    console.log(this.newOrder);
+    this.webSocketService.listen('new order').subscribe( (msg) => {
+      console.log(msg);
+      // this.orders.push(msg);
+      this.zone.run(() => {
+        this.newOrder = false;
+        Swal.mixin({
+          toast: true,
+          position: 'bottom-right',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        }).fire({
+          icon: 'success',
+          title: 'New Order'
+        });
+      });
+    });
+  }
 
   getAllOrders(): void {
     this.orderService.getAll({store: encryptLocalStorage.decryptString(localStorage.getItem('storeID'))}).subscribe((data) => {
@@ -226,5 +280,13 @@ export class OrdersComponent implements OnInit {
       }
     });
 
+  }
+
+
+  reload(): void{
+    const currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
   }
 }
