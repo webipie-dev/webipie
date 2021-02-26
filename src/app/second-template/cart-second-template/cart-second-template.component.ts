@@ -2,9 +2,8 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
-import {ProductService} from '../../_shared/services/product.service';
 import {Router} from '@angular/router';
-import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 
 
 @Component({
@@ -15,7 +14,7 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 export class CartSecondTemplateComponent implements OnInit {
   displayNone = true;
   store: Store;
-  cart: { product: Product, quantity: number }[] = JSON.parse(localStorage.getItem('cart')) || [];
+  cart: { product: Product, quantity: number }[] = encryptLocalStorage.getItem('cart') || [];
   totalPrice = 0;
 
   products: Product[] = [];
@@ -45,7 +44,7 @@ export class CartSecondTemplateComponent implements OnInit {
 
   deleteProduct(event): void {
     this.cart = this.cart.filter(element => element.product.id !== event.id);
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+    encryptLocalStorage.setItem('cart', this.cart);
 
     this.totalPrice = 0;
     this.cart.forEach(data => {
@@ -78,7 +77,7 @@ export class CartSecondTemplateComponent implements OnInit {
   }
 
   save(): void {
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+    encryptLocalStorage.setItem('cart', this.cart);
     this.router.navigate(['checkout']);
   }
 

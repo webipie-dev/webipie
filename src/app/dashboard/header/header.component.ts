@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../_shared/services/auth.service';
 import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit {
   }
 
   preview() {
-    const storeId = localStorage.getItem('storeID');
+    const storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.storeService.getById(storeId).subscribe(store => {
       const url = 'http://' + store.url + ':4200';
       window.open(url, '_blank');

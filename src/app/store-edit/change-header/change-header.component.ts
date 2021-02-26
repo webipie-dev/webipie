@@ -58,6 +58,7 @@ export class ChangeHeaderComponent implements OnInit {
     for (const field in this.headerForm.controls) {
       if (field !== 'img') {
         const control = this.headerForm.get(field);
+        console.log('I am here');
         if (control.value) {
           const head = 'template.header.' + field;
           this.postData.append(head, control.value);
@@ -66,9 +67,9 @@ export class ChangeHeaderComponent implements OnInit {
     }
     this.postData.append('ids', this.storeId);
     this.storeService.edit(this.storeId, this.postData).subscribe(store => {
+      encryptStorage.setItem('store', store);
       this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         this.router.navigate(['store/header']);
-        encryptStorage.setItem('store', store);
         this.initialHeaderForm = this.headerForm;
       });
     });

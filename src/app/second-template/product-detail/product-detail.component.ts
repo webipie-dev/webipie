@@ -5,7 +5,7 @@ import { Review } from '../../_shared/models/review.model';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
-import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 
@@ -31,7 +31,7 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
-    const cartData: [{product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartData: [{product, quantity}] = encryptLocalStorage.getItem('cart') || [];
 
     cartData.forEach(data => {
       if (this.productId === data.product.id){
@@ -64,51 +64,8 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(product: Product): void {
     this.disabled = true;
-    const cart: [{product: Product, quantity: number}] = JSON.parse(localStorage.getItem('cart')) || [];
+    const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
     cart.push({product, quantity: this.quantity});
-    localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(JSON.parse(localStorage.getItem('cart')));
+    encryptLocalStorage.setItem('cart', cart);
   }
-
-
-  public loadScript(): void {
-    let isFound = false;
-    const scripts = document.getElementsByTagName('script');
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < scripts.length; ++i) {
-      if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes('loader')) {
-        isFound = true;
-      }
-    }
-
-
-    if (!isFound) {
-      const dynamicScripts = [
-        'assets/second-template/js/modernizr.js',
-        'assets/second-template/js/jquery-1.11.3.min.js',
-        'assets/second-template/js/bootstrap.min.js',
-        'assets/second-template/js/own-menu.js',
-        'assets/second-template/js/jquery.lighter.js',
-        'assets/second-template/js/owl.carousel.min.js',
-        'assets/second-template/rs-plugin/js/jquery.tp.t.min.js',
-        'assets/second-template/rs-plugin/js/jquery.tp.min.js',
-        'assets/second-template/js/main.js',
-      ];
-
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < dynamicScripts.length; i++) {
-        const node = document.createElement('script');
-        node.src = dynamicScripts [i];
-        node.type = 'text/javascript';
-        node.async = false;
-        node.charset = 'utf-8';
-        document.getElementsByTagName('body')[0].appendChild(node);
-      }
-    }
-
-
-
-  }
-
-  addToCart(product): void{}
 }

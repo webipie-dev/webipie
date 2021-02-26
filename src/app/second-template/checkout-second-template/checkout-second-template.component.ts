@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
-import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {StoreService} from '../../_shared/services/store.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../_shared/services/client.service';
@@ -17,7 +17,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
   store: Store;
   clientForm: FormGroup;
 
-  cart: [{product: Product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+  cart: [{product: Product, quantity}] = encryptLocalStorage.getItem('cart') || [];
   totalPrice = 0;
   constructor(private storeService: StoreService,
               private el: ElementRef,
@@ -47,7 +47,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const checkout: [{product: Product, quantity}] = JSON.parse(localStorage.getItem('cart')) || [];
+    const checkout: [{product: Product, quantity}] = encryptLocalStorage.getItem('cart') || [];
     this.totalPrice = 0;
     checkout.forEach(data => {
       this.totalPrice += +data.product.price * data.quantity;
