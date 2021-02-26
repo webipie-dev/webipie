@@ -29,7 +29,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     SignInComponent,
     SignUpComponent,
     TemplatesPageComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
   ],
   imports: [
     CommonModule,

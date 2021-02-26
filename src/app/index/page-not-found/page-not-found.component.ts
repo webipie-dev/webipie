@@ -10,7 +10,7 @@ export class PageNotFoundComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    var head = document.getElementById('headerr');
+    const head = document.getElementById('headerr');
     head.className += ' color-blue-header';
   }
 

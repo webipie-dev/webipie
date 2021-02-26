@@ -62,7 +62,7 @@ export class AfterSigninComponent implements OnInit {
       if ( localStorage.getItem('token') && !localStorage.getItem('storeID')) {
         console.log('here to create store!');
         this.storeService.addOne({ templateId, name: this.storeName, storeType: this.storeType }).subscribe( store => {
-          localStorage.setItem('storeId', encryptLocalStorage.encryptString(store.id));
+          localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
 
         });
         this.router.navigate(['dashboard']);

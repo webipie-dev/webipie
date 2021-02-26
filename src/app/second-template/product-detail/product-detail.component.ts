@@ -60,4 +60,6 @@ export class ProductDetailComponent implements OnInit {
       console.log(data);
     });
   }
+
+  addToCart(product): void{}
 }
