@@ -87,3 +87,9 @@ input:focus {
   color: var(--white-color);
   border-radius: 10px;
 }
+.button-black:disabled,
+.button-black[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}

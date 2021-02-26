@@ -4,6 +4,7 @@ import {Client} from '../../../_shared/models/client.model';
 import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../../_shared/services/edit-product.service';
 import {ClientService} from '../../../_shared/services/client.service';
+import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
 
 @Component({
   selector: 'app-clients',
@@ -63,7 +64,7 @@ export class ClientsComponent implements OnInit {
   }
 
   getAllClients(): void {
-    this.clientService.getAll({store: localStorage.getItem('storeID')}).subscribe((data) => {
+    this.clientService.getAll({store: encryptLocalStorage.decryptString(localStorage.getItem('storeID'))}).subscribe((data) => {
       let aux;
       data.forEach((element) => {
         let fullAddress = '';

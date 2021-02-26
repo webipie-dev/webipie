@@ -54,7 +54,6 @@ const storeOwnerSchema = new Schema({
 
 storeOwnerSchema.pre('save' , async function(next){
     try {
-      console.log('entered');
       if (!this.methods.includes('local')) {
         next();
       }

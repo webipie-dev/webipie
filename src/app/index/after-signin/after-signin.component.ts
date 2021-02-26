@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from '../../_shared/services/store.service';
+import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
 declare var $: any;
 
@@ -38,11 +39,10 @@ export class AfterSigninComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const templateId = params.templateId;
 
-      if ( localStorage.getItem('token') && !localStorage.getItem('storeID') ) {
+      if ( localStorage.getItem('token') && !localStorage.getItem('storeID')) {
         console.log('here to create store!');
         this.storeService.addOne({ templateId, name: this.storeName, storeType: this.storeType }).subscribe( store => {
-          console.log(store);
-          localStorage.setItem('storeId', store.id);
+          localStorage.setItem('storeId', encryptLocalStorage.encryptString(store.id));
         });
         this.router.navigate(['dashboard']);
       } else {

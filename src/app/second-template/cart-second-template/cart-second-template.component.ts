@@ -4,6 +4,8 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
 import {ProductService} from '../../_shared/services/product.service';
 import {Router} from '@angular/router';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+
 
 @Component({
   selector: 'app-cart-second-template',
@@ -28,7 +30,7 @@ export class CartSecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store = JSON.parse(sessionStorage.getItem('store'));
+    this.store = encryptStorage.getItem('store');
     this.storeService.changeTheme(this.el, this.store);
     this.cart.forEach(data => {
       this.totalPrice += +data.product.price * data.quantity;

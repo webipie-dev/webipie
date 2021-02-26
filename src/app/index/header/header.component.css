@@ -263,3 +263,13 @@ nav {
   }
 }
 
+@media screen and (min-width: 768px){
+  .button-navbar {
+    margin: 0 10px ;
+  }
+}
+@media screen and (max-width: 768px){
+  .button-navbar {
+    margin: 5px 15px;
+  }
+}

@@ -40,10 +40,6 @@ passport.use('googleToken' , new GoogleTokenStrategy({
   clientSecret : 'oQwzeTlMcqnoAT96ZsQpZkFQ'
 }, async (accessToken, refreshToken, profile, done) => {
   try {
-    console.log('accessToken ', accessToken);
-    console.log('refreshToken ', refreshToken);
-    console.log('profile ', profile);
-
     const existingStoreOwner = await StoreOwner.findOne({"google.id" : profile.id});
     if (existingStoreOwner){
       console.log('storeOwner already exists in BD');
