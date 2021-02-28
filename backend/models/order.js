@@ -7,7 +7,7 @@ const ExSchema = new Schema({
   orderStatus: {type: String, default: 'pending'},
   paymentMethod: {type: String, default: ''},
   products: [{
-    id: {type: Schema.Types.ObjectID, ref: "Product"},
+    _id: {type: Schema.Types.ObjectID, ref: "Product"},
     quantity: { type: Number, default: 0},
     name: {type: String, required: false, default: ''},
     imgs: {type: [String], required: false, default: ''},

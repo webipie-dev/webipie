@@ -153,12 +153,12 @@ exports.editOneProduct = async (req, res, next) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  if (productEdited){
-    if (productEdited.nModified === 0) {
-      next(ApiError.NotFound('No Products modified'));
-      return;
-    }
-  }
+  // if (productEdited){
+  //   if (productEdited.nModified === 0) {
+  //     next(ApiError.NotFound('No Products modified'));
+  //     return;
+  //   }
+  // }
 
   res.status(200).send(productEdited);
 };
@@ -166,18 +166,19 @@ exports.editOneProduct = async (req, res, next) => {
 
 exports.addReview = async (req,res,next) => {
   const {id} = req.params;
+  console.log(req.body)
 
-  const { name, email, review, rating, date } = req.body;
+  const { name, email, review, rating} = req.body;
 
-  const reviewBody = new Object({
+  const reviewBody = {
     name,
     email,
     review,
     rating,
-    date
-  })
+    date: Date.now()
+  };
 
-  const productUpdate = await Product.update({_id: id}, { $push: { reviews: reviewBody } })
+  const productUpdate = await Product.updateOne({_id: id}, { $push: { reviews: reviewBody } })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
@@ -189,7 +190,7 @@ exports.addReview = async (req,res,next) => {
     }
   }
 
-  res.status(200).send(review);
+  res.status(200).send(productUpdate);
 };
 
 exports.deleteImage = async (req, res, next) => {

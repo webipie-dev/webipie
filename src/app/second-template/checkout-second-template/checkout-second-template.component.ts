@@ -84,7 +84,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
     this.clientService.addOne(postData).subscribe((data) => {
 
       const products = checkout.map(element => ({
-        id: element.product.id,
+        _id: element.product.id,
         quantity: element.quantity,
         imgs: element.product.imgs,
         name: element.product.name,
@@ -98,9 +98,9 @@ export class CheckoutSecondTemplateComponent implements OnInit {
           ids,
           products
         },
+        totalPrice: this.totalPrice,
         clientId: data.id,
         storeId: this.store.id
-
       };
       console.log('client: ', data);
 

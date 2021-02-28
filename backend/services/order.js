@@ -13,8 +13,8 @@ let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
   auth: {
-    user: config.EMAIL.USER, 
-    pass: config.EMAIL.PASSWORD, 
+    user: config.EMAIL.USER,
+    pass: config.EMAIL.PASSWORD,
   },
 })
 );
@@ -57,7 +57,7 @@ exports.getOneOrder = async (req, res) => {
 
 exports.addOrder = async (req, res, next) => {
 
-  const { orderStatus, paymentMethod, productsOrder, clientId, storeId } = req.body
+  const { orderStatus, paymentMethod, productsOrder, clientId, storeId, totalPrice } = req.body
 
   const store = await Store.findById(storeId)
   if (!store) {
@@ -79,15 +79,10 @@ exports.addOrder = async (req, res, next) => {
     return;
   }
 
-  let totalPrice = 0
-  for (let i=0; i < prods.length; i++) {
-      totalPrice += prods[i].price * prods[i].quantity
-  }
-
   const order = new Order({
     orderStatus,
     paymentMethod,
-    products: prods,
+    products: productsOrder.products,
     totalPrice,
     client,
     store,
@@ -96,7 +91,7 @@ exports.addOrder = async (req, res, next) => {
   await order.save();
 
   let bulkQueries = [];
-  prods.map(product => {
+  productsOrder.products.map(product => {
     bulkQueries.push({
       updateOne: {
         "filter": { _id: product.id},
@@ -115,18 +110,18 @@ exports.addOrder = async (req, res, next) => {
   const io = req.app.get('socketio');
   io.emit('new order', order);
 
-  // send mail to storeowner 
+  // send mail to storeowner
 
   var mailOptions = {
     from: config.EMAIL.USER,
     to: storeOwner.local.email || storeOwner.google.email || storeOwner.facebook.email,
     subject: 'New order',
-    text: 'You have a new order from ' + 
-      String(client.firstname) + ' ' + 
-      String(client.lastname) + 
+    text: 'You have a new order from ' +
+      String(client.firstname) + ' ' +
+      String(client.lastname) +
       '. You can call your client on '+
-      String(client.phoneNumber) + 
-      ' and contact him on ' + 
+      String(client.phoneNumber) +
+      ' and contact him on ' +
       String(client.email),
   };
 
@@ -136,7 +131,7 @@ exports.addOrder = async (req, res, next) => {
     } else {
       console.log('Email sent: ' + info.response);
     }
-  });  
+  });
 
   res.status(201).send(order);
 
@@ -200,26 +195,31 @@ exports.editOrder = async (req, res, next) => {
     }
   }
 
+  const order = await Order.findById(id)
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
   for(const key in req.body) {
     if(key ==='orderStatus'){
       var mailOptions = {
         from: config.EMAIL.USER,
-        to: orderEdited.client.email,
+        to: order.client.email,
         subject: 'Updated order',
-        text: 'You have an update to your order with status to ' + String(orderEdited.orderStatus), 
+        text: 'You have an update to your order with status to ' + String(order.orderStatus),
       };
-    
+
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
           console.log(error);
         } else {
           console.log('Email sent: ' + info.response);
         }
-      }); 
+      });
     }
   }
 
-  res.status(200).send(orderEdited);
+  res.status(200).send(order);
 };
 
 

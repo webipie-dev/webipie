@@ -23,6 +23,7 @@ export class ProductDetailComponent implements OnInit {
   disabled = false;
   quantity = 1;
   productId = this.activatedRoute.snapshot.paramMap.get('id');
+  addDisabled = false;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -31,21 +32,23 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
+
+    this.store = encryptStorage.getItem('store');
     const cartData: [{product, quantity}] = encryptLocalStorage.getItem('cart') || [];
 
     cartData.forEach(data => {
       if (this.productId === data.product.id){
-        this.disabled = true;
+        this.addDisabled = true;
       }
     });
-
-    this.store = encryptStorage.getItem('store');
 
     this.review = new Review();
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
-      this.externalFilesService.loadScripts();
+      this.product.reviews = this.product.reviews.reverse();
+      console.log(this.product.reviews);
     });
+    this.externalFilesService.loadScripts();
     this.storeService.changeTheme(this.el, this.store);
   }
 
@@ -56,14 +59,29 @@ export class ProductDetailComponent implements OnInit {
 }
 
   sendReview(): void{
-    this.productService.addReview(this.product.id, this.review);
-    // this.productService.addReview(this.product.id, this.review).subscribe(data => {
-    //   console.log(data);
-    // });
+    this.productService.addReview(this.product.id, this.review).subscribe(data => {
+      const rev: Review = {
+        name: this.review.name,
+        rating: this.review.rating,
+        review: this.review.review,
+        email: this.review.email,
+        date: new Date(),
+      };
+      this.product.reviews.push(rev);
+      this.disabled = true;
+
+      // clearing form
+      // this.review = {
+      //   name: '',
+      //   rating: 0,
+      //   review: '',
+      //   email: '',
+      //   date: new Date()
+      // };
+    });
   }
 
   addToCart(product: Product): void {
-    this.disabled = true;
     const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
     cart.push({product, quantity: this.quantity});
     encryptLocalStorage.setItem('cart', cart);

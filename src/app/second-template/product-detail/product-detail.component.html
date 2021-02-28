@@ -78,7 +78,7 @@
                   </li> -->
 
                   <!-- ADD TO CART -->
-                  <li class="col-xs-6"> <button class="btn" [disabled]="disabled" (click)="addToCart(product)">ADD TO CART</button> </li>
+                  <li class="col-xs-6"> <button class="btn" [disabled]="addDisabled" (click)="addToCart(product)">ADD TO CART</button> </li>
 
                   <!-- LIKE -->
                   <li class="col-xs-6"><a href="#." class="like-us"><i class="icon-heart"></i></a></li>
@@ -147,7 +147,7 @@
 
             <!-- REVIEW -->
             <div *ngIf='product.openReview' role="tabpanel" class="tab-pane fade in active feedback" id="review">
-              <h6 class="font">{{ product.reviews ? product.reviews.length : '0' }} REVIEWS FOR SHIP YOUR IDEA</h6>
+              <h6 class="font">{{ product.reviews ? product.reviews.length : '0' }} REVIEWS FOR {{product.name}}</h6>
 
               <!-- REVIEW PEOPLE 1 -->
 
@@ -159,15 +159,15 @@
                 </div>
                 <!--  Details -->
                 <div class="media-body">
+                  <h6 class="font"> {{oneReview.name}} <span class="pull-right">{{oneReview.date| date:'short'}}</span></h6>
                   <p class="font-playfair">{{oneReview.review}}</p>
-                  <h6 class="font"> {{oneReview.name}} <span class="pull-right">{{oneReview.date}}</span></h6>
                 </div>
               </div>
 
 
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40 font">ADD REVIEW</h6>
-              <form>
+              <form *ngIf="!disabled">
                 <ul class="row">
                   <li class="col-sm-6">
                     <label for="name"> *NAME</label>
@@ -216,7 +216,7 @@
                   </li>
                   <li class="col-sm-6">
                     <button type="submit" class="btn-font btn btn-dark btn-small pull-right no-margin"
-                            [disabled]="!product.openReview" (submit)='sendReview()'>POST REVIEW
+                             (click)='sendReview()'>POST REVIEW
                     </button>
                   </li>
                 </ul>

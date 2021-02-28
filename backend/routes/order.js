@@ -30,7 +30,7 @@ router.post('', [
   // orderValidation.productId,
   orderValidation.clientId,
   validation.storeId
-], validateRequest, passportJWT, clearCache, OrderService.addOrder)
+], validateRequest, OrderService.addOrder)
 
 
 // deleteManyOrders
