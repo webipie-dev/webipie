@@ -29,12 +29,14 @@
                        [source]="orders"
                        (deleteConfirm)="onDeleteOne($event)"
                        (userRowSelect)="onRowSelect($event)"
+                       (editConfirm)="updateOrder($event)"
       ></ng2-smart-table>
     </div>
     <div *ngIf="windowWidth < 1024">
       <div class="my-5 px-2 py-3 shadow" >
         <ng2-smart-table class="text-size text-center"
                          *ngIf="orders.length > 0"
+                         (userRowSelect)="onRowSelect($event)"
                          [settings]="settingsMobile"
                          [source]="orders">
         </ng2-smart-table>

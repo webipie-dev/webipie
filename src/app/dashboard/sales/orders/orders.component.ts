@@ -68,8 +68,13 @@ export class OrdersComponent implements OnInit{
           return this.edit;
         },
         renderComponent: OrderDetailComponent,
+        onComponentInitFunction: (instance) => {
+          instance.updateResult.subscribe(newOrderStatus => {
+            this.updateOrder(newOrderStatus);
+          });
+        },
+        confirmEdit: true,
       },
-
     },
     actions: {
       position: 'right',
@@ -106,7 +111,7 @@ export class OrdersComponent implements OnInit{
       },
       clientName: {
         title: 'Client',
-        width: '50%'
+        width: '40%'
       },
       details: {
         title: '',
@@ -117,6 +122,22 @@ export class OrdersComponent implements OnInit{
           return this.edit;
         },
         renderComponent: OrderDetailComponent,
+      },
+      edit: {
+        title: '',
+        width: '10%',
+        type: 'custom',
+        valuePrepareFunction: (cell, row) => {
+          this.edit = true;
+          return this.edit;
+        },
+        renderComponent: OrderDetailComponent,
+        onComponentInitFunction: (instance) => {
+          instance.updateResult.subscribe(newOrderStatus => {
+            this.updateOrder(newOrderStatus);
+          });
+        },
+        confirmEdit: true,
       },
     },
     actions: false,
@@ -282,11 +303,17 @@ export class OrdersComponent implements OnInit{
 
   }
 
-
   reload(): void{
     const currentUrl = this.router.url;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
+  }
+
+  updateOrder(order) {
+    const orderToUpdate = this.orders.find(x => x.id === order.id);
+    const index = this.orders.indexOf(orderToUpdate);
+    this.orders[index] = order;
+    this.reload();
   }
 }
