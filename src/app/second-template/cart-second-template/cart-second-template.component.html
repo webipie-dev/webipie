@@ -87,7 +87,7 @@
 <!--                <div class="position-center-center"> <a href="#"><i class="icon-close"></i></a> </div>-->
 <!--              </li>-->
 <!--            </ul>-->
-            <div *ngFor="let element of cart">>
+            <div *ngFor="let element of cart">
               <!-- Cart Details -->
               <ul class="row cart-details">
                 <li class="col-sm-6">
@@ -121,11 +121,6 @@
                       <select class='customSelect' (change)="saveQuantity(element.product, $event)" [(ngModel)]="element.quantity">
                         <option *ngFor='let i of counter(element.product.quantity);' [value]='i'>{{i}}</option>
                       </select>
-                      <!--                  <select class="selectpicker">-->
-                      <!--                    <option>1</option>-->
-                      <!--                    <option>2</option>-->
-                      <!--                    <option>3</option>-->
-                      <!--                  </select>-->
                     </div>
                   </div>
 
@@ -134,6 +129,10 @@
                 <!-- TOTAL PRICE -->
                 <li class="col-sm-2">
                   <div class="position-center-center"> <span class="price">{{element.product.price * element.quantity}} <small>DT</small></span> </div>
+                </li>
+                <!-- REMOVE -->
+                <li class="col-sm-1">
+                  <div class="position-center-center"> <a (click)="deleteProduct(element.product)"><i class="icon-close"></i></a> </div>
                 </li>
 
               </ul>
@@ -160,16 +159,16 @@
               </div>-->
 
               <!-- SUB TOTAL -->
-              <div class="col-12">
+              <div class="col-12 col-lg-6">
                 <h6>grand total</h6>
                 <div class="grand-total">
                   <div class="order-detail">
-                    <p>WOOD CHAIR <span>$598 </span></p>
-                    <p>STOOL <span>$199 </span></p>
-                    <p>WOOD SPOON <span> $139</span></p>
-
+                    <div *ngFor="let element of cart">
+                      <p>{{element.product.name}} <span>{{element.quantity}}x  {{element.product.price}} DT</span></p>
+                    </div>
                     <!-- SUB TOTAL -->
-                    <p class="all-total">TOTAL COST <span> $998</span></p>
+                    <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span>
+                    </p>
                   </div>
                 </div>
               </div>
