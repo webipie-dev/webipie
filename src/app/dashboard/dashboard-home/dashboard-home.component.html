@@ -42,7 +42,7 @@
 <!--********************** Popular Product ********************-->
 
 <div class="content-popular">
-  <div class="card-popular transition-popular" *ngIf="!isLoading">
+  <div class="card-popular transition-popular" *ngIf="!isLoading && popularProduct">
     <h2 class="transition-popular">{{popularProduct.name}}</h2>
     <p>{{popularProduct.description}}</p>
     <div class="card_circle transition-popular"

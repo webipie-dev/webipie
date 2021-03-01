@@ -13,7 +13,8 @@ import {ColorPickerComponent} from './change-color/color-picker/color-picker.com
 import {SocialMediaComponent} from './social-media/social-media.component';
 import {SidenavMenuComponent} from './sidenav-menu/sidenav-menu.component';
 import {TemplateModule} from '../template/template.module';
-import {SidebarModule} from "ng-sidebar";
+import {SidebarModule} from 'ng-sidebar';
+import {KeysPipe} from '../_shared/utils/KeysPipe';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import {SidebarModule} from "ng-sidebar";
     ColorPickerComponent,
     SocialMediaComponent,
     SidenavMenuComponent,
+    KeysPipe
   ]
 })
 export class StoreEditModule {

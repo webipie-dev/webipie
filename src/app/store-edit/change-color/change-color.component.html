@@ -9,61 +9,48 @@
       <a class="nav-link-sidebar mt-1 big-titles">
         <i class="fa fa-palette mr-3"></i> Color
       </a>
+
       <!-- here the colors -->
       <div class="mt-3">
         <div class="small-titles my-2">Recommendations</div>
-
-        <div class="mt-3" *ngFor="let color of defaultColors" (click)="colorChange(color)">
-<!--          <button class="py-2 row my-2 mx-auto button-generic button-white-color">-->
-<!--            <div [ngStyle]="{'background': color['bg-color']}"-->
-<!--                 class="circle"></div>-->
-<!--            <div [ngStyle]="{'background': color['font color']}"-->
-<!--                 class="circle"></div>-->
-<!--            <div [ngStyle]="{'background': color['secondary color']}"-->
-<!--                 class="circle"></div>-->
-<!--          </button>-->
-
-          <div class="color-palettes">
-            <div class="color-palette">
-              <div class="colors">
-
-                <button
-                  class="color-button color"
-                  [ngStyle]="{'background': color['bg-color']}">
-                </button>
-
-                <button
-                  class="color-button color"
-                  [ngStyle]="{'background': color['font color']}">
-                </button>
-
-                <button
-                  class="color-button color"
-                  [ngStyle]="{'background': color['secondary color']}">
-                </button>
-
-              </div>
-              <div class="color-labels text-center">
-                <h3>{{color.name}}</h3>
-                <button class="button-generic button-black text-size"  (click)="colorChange(color)">Choose</button>
-              </div>
-            </div>
+        <div *ngFor="let color of defaultColors" (click)="colorChange(color)">
+          <h2 class="name mt-3">&#x25cf; Chart One</h2>
+          <div class="color-list">
+            <section class="color" *ngFor="let key of color | keys" [ngStyle]="{'background': color[key]}"></section>
           </div>
-          <!--          <button class="py-2 row my-2 mx-auto button-generic button-white-color">-->
-          <!--            <div *ngFor="let paint of color.colors" [ngStyle]="{'background': paint}"-->
-          <!--                 class="circle"></div>-->
-          <!--          </button>-->
         </div>
+<!--        <div class="" *ngFor="let color of defaultColors" (click)="colorChange(color)">-->
+<!--          <div class="color-palettes">-->
+<!--            <div class="color-palette">-->
+<!--              <div class="colors">-->
+<!--                <button-->
+<!--                  class="color-button color"-->
+<!--                  [ngStyle]="{'background': color['bg-color']}">-->
+<!--                </button>-->
+
+<!--                <button-->
+<!--                  class="color-button color"-->
+<!--                  [ngStyle]="{'background': color['font color']}">-->
+<!--                </button>-->
+
+<!--                <button-->
+<!--                  class="color-button color"-->
+<!--                  [ngStyle]="{'background': color['secondary color']}">-->
+<!--                </button>-->
+
+<!--              </div>-->
+<!--              <div class="color-labels text-center">-->
+<!--&lt;!&ndash;                <h3>{{color.name}}</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                <button class="button-generic button-black text-size"  (click)="colorChange(color)">Choose</button>&ndash;&gt;-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;          <button class="py-2 row my-2 mx-auto button-generic button-white-color">&ndash;&gt;-->
+<!--          &lt;!&ndash;            <div *ngFor="let paint of color.colors" [ngStyle]="{'background': paint}"&ndash;&gt;-->
+<!--          &lt;!&ndash;                 class="circle"></div>&ndash;&gt;-->
+<!--          &lt;!&ndash;          </button>&ndash;&gt;-->
+<!--        </div>-->
       </div>
-      <!--      <div class="my-5">-->
-      <!--        <div class="small-titles my-2">Customize</div>-->
-      <!--        <div class="mt-2">-->
-      <!--          <app-color-picker [color]="'blue'" [heading]="'Background'"></app-color-picker>-->
-      <!--        </div>-->
-      <!--        <div class="mt-3">-->
-      <!--          <app-color-picker [color]="'white'" [heading]="'Font'"></app-color-picker>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </li>
   </ul>
   <div class="text-center my-5">

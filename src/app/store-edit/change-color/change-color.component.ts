@@ -25,8 +25,6 @@ export class ChangeColorComponent implements OnInit {
     this.defaultColors = this.store.template.colorChartOptions;
     this.usedChart = this.store.template.colorChart;
     this.defaultColor = this.store.template.colorChart;
-    console.log(this.defaultColor);
-    console.log(this.usedChart);
   }
 
   public toggleColors(): void {
