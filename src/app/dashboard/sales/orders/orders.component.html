@@ -26,7 +26,7 @@
       <ng2-smart-table class="text-size text-center"
                        *ngIf="orders.length > 0"
                        [settings]="settings"
-                       [source]="orders"
+                       [source]="source"
                        (deleteConfirm)="onDeleteOne($event)"
                        (userRowSelect)="onRowSelect($event)"
                        (editConfirm)="updateOrder($event)"
@@ -38,7 +38,7 @@
                          *ngIf="orders.length > 0"
                          (userRowSelect)="onRowSelect($event)"
                          [settings]="settingsMobile"
-                         [source]="orders">
+                         [source]="source">
         </ng2-smart-table>
       </div>
     </div>

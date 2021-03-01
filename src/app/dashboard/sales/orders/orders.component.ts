@@ -7,6 +7,7 @@ import { WebSocketService } from '../../../_shared/services/web-socket.service';
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
 import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
   selector: 'app-orders',
@@ -14,6 +15,7 @@ import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit{
+  source: LocalDataSource;
   windowWidth = window.screen.width;
   // settings for the web version of the table
   settings = {
@@ -211,6 +213,7 @@ export class OrdersComponent implements OnInit{
         }
       });
       this.orders = this.orders.reverse();
+      this.source = new LocalDataSource(this.orders);
     });
   }
 
@@ -312,8 +315,6 @@ export class OrdersComponent implements OnInit{
 
   updateOrder(order) {
     const orderToUpdate = this.orders.find(x => x.id === order.id);
-    const index = this.orders.indexOf(orderToUpdate);
-    this.orders[index] = order;
-    this.reload();
+    this.source.update(orderToUpdate, order);
   }
 }
