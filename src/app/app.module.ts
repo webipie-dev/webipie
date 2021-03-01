@@ -10,18 +10,13 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from 'angularx-social-login';
-
 import {DashboardModule} from './dashboard/dashboard.module';
 import {PageNotFoundComponent} from './index/page-not-found/page-not-found.component';
 import {StoreEditModule} from './store-edit/store-edit.module';
 import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
-import {SignInComponent} from './index/sign-in/sign-in.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
-// import {LoadingSpinnerComponent} from './_shared/loading-spinner/loading-spinner.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TemplateModule} from './template/template.module';
-import {FooterComponent} from './index/footer/footer.component';
-import {TemplatesPageComponent} from './index/templates-page/templates-page.component';
 import {QuillModule} from 'ngx-quill';
 import {SecondTemplateModule} from './second-template/second-template.module';
 import {SpinnerModule} from './spinner/spinner.module';
@@ -39,7 +34,6 @@ export let InjectorInstance: Injector;
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    // LoadingSpinnerComponent,
     ErrorsComponent
   ],
   imports: [
