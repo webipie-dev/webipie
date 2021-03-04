@@ -129,3 +129,80 @@ ul {
 li{
   cursor: pointer;
 }
+
+/******* notifications *******/
+.notification {
+  position: relative;
+  float: right;
+  margin-top: 25px;
+  cursor: pointer;
+}
+
+.notification .badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  /* padding: 5px 10px; */
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
+.notification .notification_dd {
+  position: absolute;
+  top: 48px;
+  right: -15px;
+  user-select: none;
+  background: #fff;
+  border: 1px solid #c7d8e2;
+  width: 350px;
+  height: auto;
+  display: none;
+  border-radius: 15px;
+  box-shadow: 10px 10px 35px rgba(0,0,0,0.125),
+  -10px -10px 35px rgba(0,0,0,0.125);
+  z-index: 10001;
+  transition: 0.3s all ease-in-out;
+}
+
+
+.notification .notification_dd:before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: 15px;
+  border: 10px solid;
+  border-color: transparent transparent #fff transparent;
+  transition: 0.3s all ease-in-out;
+}
+
+.notification .notification_dd{
+  width: 225px;
+}
+
+.notification .notification_dd ul li {
+  /*border-bottom: 1px solid #f1f2f4;*/
+  list-style-type: none;
+
+}
+
+.notification .notification_dd{
+  width: 225px;
+}
+
+.notification.active .notification_dd  {
+  display: block;
+}
+
+.notification .notification_dd ul li .btn:hover{
+  background: #6593e4;
+}
+
+.notification .notification_dd ul li a{
+  display: block;
+  padding: 15px 35px;
+  position: relative;
+  text-decoration: none;
+  transition: 0.3s all;
+  color: var(--blue-color);
+}

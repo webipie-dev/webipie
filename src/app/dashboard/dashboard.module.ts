@@ -23,8 +23,8 @@ import {NgImageSliderModule} from 'ng-image-slider';
 import {ProfileComponent} from './profile/profile.component';
 import {AuthGuard} from '../_shared/services/auth-guard.service';
 import {HeaderComponent} from './header/header.component';
-import {SpinnerModule} from "../spinner/spinner.module";
-import {SidebarModule} from "ng-sidebar";
+import {SpinnerModule} from '../spinner/spinner.module';
+import {SidebarModule} from 'ng-sidebar';
 import { SideNavMinimizedComponent } from './side-nav-minimized/side-nav-minimized.component';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 

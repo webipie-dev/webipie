@@ -5,7 +5,7 @@ import { Review } from '../../_shared/models/review.model';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
-import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 
@@ -31,7 +31,7 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
-    const cartData: [{product, quantity}] = encryptLocalStorage.getItem('cart') || [];
+    const cartData: [{product, quantity}] = [] || JSON.parse(localStorage.getItem('cart'));
 
     cartData.forEach(data => {
       if (this.productId === data.product.id){
@@ -51,21 +51,15 @@ export class ProductDetailComponent implements OnInit {
 
   counter(i: number): Array<number> {
     const count =  [];
-    for(let j = 1; count.push(j++) < i;);
+    for (let j = 1; count.push(j++) < i;) {}
     return count;
-}
+  }
 
   sendReview(): void{
-    this.productService.addReview(this.product.id, this.review);
-    // this.productService.addReview(this.product.id, this.review).subscribe(data => {
-    //   console.log(data);
-    // });
+    this.productService.addReview(this.product.id, this.review).subscribe(data => {
+      console.log(data);
+    });
   }
 
-  addToCart(product: Product): void {
-    this.disabled = true;
-    const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
-    cart.push({product, quantity: this.quantity});
-    encryptLocalStorage.setItem('cart', cart);
-  }
+  addToCart(product): void{}
 }

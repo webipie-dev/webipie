@@ -10,6 +10,22 @@
   </div>
 
   <div class="d-flex" style="margin-left: auto;">
+
+    <div (click)="openNotification()" class="notification text-size mr-4" >
+      <div id="dropdown-notification">
+        <i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+        <span class="badge">{{notifNum}}</span>
+      </div>
+
+      <div class="notification_dd">
+        <ul class="notification_ul">
+          <li *ngIf='!newOrder'> You have no notifications </li>
+          <li *ngIf='newOrder'><a routerLink='/dashboard/sales/orders'> You have new orders</a></li>
+        </ul>
+      </div>
+    </div>
+
+
     <div (click)="openDropDown()" class="profile text-size">
       <div class="icon_wrap" id="dropdown-profile">
         <i class="fas fa-chevron-down"></i>

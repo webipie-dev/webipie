@@ -3,6 +3,8 @@ import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
+import { ProductService } from '../../_shared/services/product.service';
+import { ConsoleLogger } from '@angular/compiler-cli/src/ngtsc/logging';
 
 
 @Component({
@@ -14,9 +16,11 @@ export class HeaderSecondTemplateComponent implements OnInit {
   store: Store;
   cart: {product: Product, quantity: number}[] = encryptLocalStorage.getItem('cart') || [];
   totalPrice = 0;
+  searchTerm: string;
 
   constructor(private el: ElementRef,
-              private storeService: StoreService) {
+              private storeService: StoreService,
+              private productService: ProductService) {
   }
 
   ngOnInit(): void {
@@ -26,6 +30,10 @@ export class HeaderSecondTemplateComponent implements OnInit {
     this.cart.forEach(data => {
       this.totalPrice += +data.product.price;
     });
+  }
+
+  search(): void{
+    this.productService.search({store: this.store.id}, this.searchTerm).subscribe(data => console.log(data));
   }
 
   deleteProduct(event): void {
