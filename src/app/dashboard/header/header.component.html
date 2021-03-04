@@ -14,13 +14,13 @@
     <div (click)="openNotification()" class="notification text-size mr-4" >
       <div id="dropdown-notification">
         <i class="fa fa-bell fa-lg" aria-hidden="true"></i>
-        <span class="badge">{{notifNum}}</span>
+        <span class="badge" *ngIf="notifNum>0">{{notifNum}}</span>
       </div>
 
       <div class="notification_dd">
         <ul class="notification_ul">
-          <li *ngIf='!newOrder'> You have no notifications </li>
-          <li *ngIf='newOrder'><a routerLink='/dashboard/sales/orders'> You have new orders</a></li>
+          <li *ngIf='!newOrder' calss='my-2'> You have no notifications </li>
+          <!-- <li *ngIf='newOrder'><a routerLink='/dashboard/sales/orders'> You have new orders</a></li> -->
         </ul>
       </div>
     </div>

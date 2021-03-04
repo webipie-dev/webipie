@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
     this.newOrder = false;
     this.notifNum = 0;
     this.webSocketService.listen('new order').subscribe( (msg) => {
-      console.log(msg);
+      // console.log(msg);
       // this.orders.push(msg);
       this.zone.run(() => {
         this.newOrder = true;
@@ -36,7 +36,11 @@ export class HeaderComponent implements OnInit {
 
         // d1.insertAdjacentHTML('beforeend', '<div id="two">two</div>');
         const element = document.getElementsByClassName('notification_ul')[0];
-        element.insertAdjacentHTML('afterbegin', '<li><a routerLink="/dashboard/sales/orders"> You have new orders</a></li>');
+        element.insertAdjacentHTML('afterbegin', '<li><a routerLink="/dashboard/sales/orders"' +
+        'style="display: block; padding: 15px 35px 0px 35px; position: relative; text-decoration: none;transition: 0.3s all; color: var(--blue-color);">' +
+        '<i class="fas fa-user-alt mx-2"></i>' +
+        'You have new order from ' + msg.client.firstname + ' ' + msg.client.lastname + '</a></li>' +
+        '<hr class="mt-0 mb-2" style="width: 80%">');
       });
     });
   }
