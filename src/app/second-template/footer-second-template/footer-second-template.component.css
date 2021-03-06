@@ -22,6 +22,7 @@ footer {
   font-family: var(--font-choice), sans-serif !important;
   position: relative;
   z-index: 1;
+  transition: 0.3s all ease-in-out;
 }
 .font {
   font-family: var(--font-choice), sans-serif !important;

@@ -27,6 +27,11 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
 
 
   ngOnInit(): void {
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        this.storeService.changeColorTheme(this.el, event.data);
+      } else { return; }
+    });
     this.store = encryptStorage.getItem('store');
     this.popularProducts = [];
 

@@ -22,6 +22,11 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
               private el: ElementRef) { }
 
   ngOnInit(): void {
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        this.storeService.changeColorTheme(this.el, event.data);
+      } else { return; }
+    });
     this.store = encryptStorage.getItem('store');
     this.products = [];
     this.productService.getAll({store: this.store.id}, 'client').subscribe(data => {

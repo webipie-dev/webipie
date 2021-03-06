@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
 import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 
+declare var $: any;
+
 @Component({
   selector: 'app-change-color',
   templateUrl: './change-color.component.html',
@@ -32,10 +34,9 @@ export class ChangeColorComponent implements OnInit {
   }
 
   colorChange(color): void {
+    $('#iframe')[0].contentWindow.postMessage(color, 'http://store.webipie.com:4200/');
     this.defaultColor = color;
     this.store.template.colorChart = color;
-    console.log(this.store.template.colorChart);
-    console.log(this.usedChart);
   }
 
   submit(): void {

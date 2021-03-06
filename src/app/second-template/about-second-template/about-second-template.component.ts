@@ -16,6 +16,11 @@ export class AboutSecondTemplateComponent implements OnInit {
               private storeService: StoreService) { }
 
   ngOnInit(): void {
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        this.storeService.changeColorTheme(this.el, event.data);
+      } else { return; }
+    });
     this.store = encryptStorage.getItem('store');
     this.storeService.changeTheme(this.el, this.store);
   }

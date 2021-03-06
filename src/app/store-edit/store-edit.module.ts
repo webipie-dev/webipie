@@ -14,6 +14,8 @@ import {SidenavMenuComponent} from './sidenav-menu/sidenav-menu.component';
 import {TemplateModule} from '../template/template.module';
 import {SidebarModule} from 'ng-sidebar';
 import {KeysPipe} from '../_shared/utils/KeysPipe';
+import {SecondTemplateModule} from "../second-template/second-template.module";
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import {KeysPipe} from '../_shared/utils/KeysPipe';
     CommonModule,
     TemplateModule,
     FormsModule,
-    SidebarModule
+    SidebarModule,
+    SecondTemplateModule
   ],
 
   declarations: [
@@ -36,7 +39,8 @@ import {KeysPipe} from '../_shared/utils/KeysPipe';
     ChangeHeaderComponent,
     SocialMediaComponent,
     SidenavMenuComponent,
-    KeysPipe
+    KeysPipe,
+    TestComponent
   ]
 })
 export class StoreEditModule {

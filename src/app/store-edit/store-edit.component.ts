@@ -5,6 +5,7 @@ import {StoreService} from '../_shared/services/store.service';
 import {Store} from '../_shared/models/store.model';
 import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-storage';
 
+declare var $: any;
 @Component({
   selector: 'app-store-edit',
   templateUrl: './store-edit.component.html',
@@ -53,6 +54,9 @@ export class StoreEditComponent implements OnInit {
       this.urlToPreview = 'http://' + this.store.url + ':4200';
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
       encryptStorage.setItem('store', this.store);
+      // $('#iframe').on('load', () => {
+      //   $('#iframe')[0].contentWindow.postMessage('red', 'http://store.webipie.com:4200/');
+      // });
     });
 
     // if (document.getElementById('sidebar').classList.contains('active')) {
@@ -69,7 +73,13 @@ export class StoreEditComponent implements OnInit {
     //   }
     //   document.getElementById('iframe').style.width = this.newWidth.toString();
     // });
+
+    // $('#iframe').on( 'load', () => {
+    //   console.log($('#iframe')[0].contentWindow.getElementById('undefined-sticky-wrapper'));
+    // });
   }
+
+
 
   public _toggleSidebar(): void {
     this.opened = !this.opened;

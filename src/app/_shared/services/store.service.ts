@@ -42,6 +42,15 @@ export class StoreService extends GenericService<any>{
     (el.nativeElement as HTMLElement).style.setProperty('--font-choice', store.template.font);
   }
 
+  changeColorTheme(el: ElementRef,  colors: any) {
+    (el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.hexToRGB(colors['bg-color'], 0.75));
+    (el.nativeElement as HTMLElement).style.setProperty('--bg-color', colors['bg-color']);
+    (el.nativeElement as HTMLElement).style.setProperty('--font-color', colors['font color']);
+    (el.nativeElement as HTMLElement).style.setProperty('--secondary-color', colors['secondary color']);
+    console.log(colors);
+    // (el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.hexToRGB(store.template.colorChart['bg-color'], 0.75));
+  }
+
   hexToRGB(hex, alpha?): string {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);

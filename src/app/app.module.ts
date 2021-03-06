@@ -34,7 +34,7 @@ export let InjectorInstance: Injector;
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    ErrorsComponent
+    ErrorsComponent,
   ],
   imports: [
     BrowserModule,
