@@ -14,6 +14,7 @@
         <select
           #types
           [(ngModel)]="fontType"
+          (change)="changeFont()"
           class="sidenav-input-item col-8 text-size ml-3 px-2 py-1"
           name="types" style="padding: 8px !important;">
           <option *ngFor="let type of fontTypes" class="option" value="{{type}}">{{type}}</option>

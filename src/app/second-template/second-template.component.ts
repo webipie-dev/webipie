@@ -18,8 +18,14 @@ export class SecondTemplateComponent implements OnInit {
       // IMPORTANT: check the origin of the data!
       console.log(event);
       if (event.origin.startsWith('http://webipie.com:4200')) {
-        this.storeService.changeColorTheme(this.el, event.data);
-        // console.log($('.logo')[0]);
+        switch (event.data.type) {
+          case 'color':
+            this.storeService.changeColorTheme(this.el, event.data.subj);
+            break;
+          case 'font':
+            this.storeService.changeFontTheme(this.el, event.data.subj);
+            break;
+        }        // console.log($('.logo')[0]);
         // $('#pop-prod').css('color', event.data);
         // $('.logo').children('children').eq(1).css('color', event.data);
         // The data was sent from your site.

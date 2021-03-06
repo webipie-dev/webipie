@@ -16,6 +16,7 @@
             <label class="d-block label-input-edit">Big Title</label>
             <input
               placeholder="title"
+              (input)="changeHeaderOnChange()"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               type='text'
               formControlName="title"
@@ -28,6 +29,7 @@
               placeholder="description"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               style="height: 100px;"
+              (input)="changeHeaderOnChange()"
               formControlName="description"
             ></textarea>
           </div>
@@ -36,6 +38,7 @@
             <label class="d-block label-input-edit">Main Button</label>
             <input
               placeholder="main button"
+              (input)="changeHeaderOnChange()"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               type='text'
               formControlName="mainButton"
@@ -50,7 +53,7 @@
                 class="fileInput"
                 name="img"
                 type="file"
-                (change)="onFileChanged($event)"
+                (input)="onFileChanged($event)"
               >
               <div class="img-fluid img-product">
                 <img alt="" class="image" [src]="imgSrc">

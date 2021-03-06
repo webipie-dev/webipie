@@ -34,7 +34,11 @@ export class ChangeColorComponent implements OnInit {
   }
 
   colorChange(color): void {
-    $('#iframe')[0].contentWindow.postMessage(color, 'http://store.webipie.com:4200/');
+    const subjectToChange = {
+      subj: color,
+      type: 'color',
+    };
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
     this.defaultColor = color;
     this.store.template.colorChart = color;
   }

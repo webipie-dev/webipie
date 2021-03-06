@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {Store} from '../../_shared/models/store.model';
 
+declare var $: any;
+
 @Component({
   selector: 'app-change-header',
   templateUrl: './change-header.component.html',
@@ -36,6 +38,14 @@ export class ChangeHeaderComponent implements OnInit {
       img: new FormControl(this.store.template.header.img),
     });
   }
+  changeHeaderOnChange() {
+    const subjectToChange = {
+      subj: this.headerForm.value,
+      type: 'header',
+    };
+    console.log(subjectToChange);
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
+  }
 
   onFileChanged(event): void {
     const file = event.target.files[0];
@@ -44,6 +54,8 @@ export class ChangeHeaderComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = (events) => {
       this.imgSrc = reader.result.toString();
+      this.headerForm.value.img = this.imgSrc;
+      this.changeHeaderOnChange();
     };
   }
 

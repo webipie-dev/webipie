@@ -51,6 +51,11 @@ export class StoreService extends GenericService<any>{
     // (el.nativeElement as HTMLElement).style.setProperty('--bg-color-rgba', this.hexToRGB(store.template.colorChart['bg-color'], 0.75));
   }
 
+  changeFontTheme(el: ElementRef,  font: string) {
+    console.log(font);
+    (el.nativeElement as HTMLElement).style.setProperty('--font-choice', font);
+  }
+
   hexToRGB(hex, alpha?): string {
     const r = parseInt(hex.slice(1, 3), 16);
     const g = parseInt(hex.slice(3, 5), 16);

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
 
+declare var $: any;
 @Component({
   selector: 'app-change-font',
   templateUrl: './change-font.component.html',
@@ -33,6 +34,15 @@ export class ChangeFontComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  changeFont() {
+    const subjectToChange = {
+      subj: this.fontType,
+      type: 'font',
+    };
+    console.log(subjectToChange);
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
   }
 
   onSubmit(): void {
