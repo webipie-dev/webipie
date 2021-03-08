@@ -71,14 +71,20 @@ export class EditProductComponent implements OnInit {
       quantity: new FormControl(null, Validators.required),
       store: new FormControl(null, Validators.required),
       openReview: new FormControl(null, Validators.required),
-      popular: new FormControl(null, Validators.required)
+      popular: new FormControl(null, Validators.required),
+      status: new FormControl('disponible', Validators.required)
     });
 
+  }
+
+  get productFormControl() {
+    return this.productForm.controls;
   }
 
 
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
+      console.log(data);
       this.singleProduct = data;
       this.isChecked = data.openReview;
       this.isPopular = data.popular;
