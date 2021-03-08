@@ -17,7 +17,7 @@
   box-shadow: 0 3px 19px rgba(0, 0, 0, 0.1);
 }
 .card-profile {
-  height: 55vh;
+  height: 57vh;
 }
 
 @media screen and (max-width: 768px){
