@@ -4,7 +4,6 @@
 #sidebar {
   top: 0;
   bottom: 0;
-  overflow-y: scroll !important;
   z-index: 5;
   min-width: 250px;
   max-width: 250px;
