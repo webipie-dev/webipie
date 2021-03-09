@@ -106,3 +106,15 @@ a[data-toggle="collapse"] {
   color: #ffffff;
 }
 
+
+::ng-deep .swal2-content {
+  font-size: 20px;
+}
+
+::ng-deep .swal2-title {
+  font-size: 30px;
+}
+
+::ng-deep .swal2-header {
+  font-size: 22px;
+}

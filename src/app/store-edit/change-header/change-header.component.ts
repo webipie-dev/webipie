@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {Store} from '../../_shared/models/store.model';
+import Swal from "sweetalert2";
 
 declare var $: any;
 
@@ -15,7 +16,9 @@ declare var $: any;
 export class ChangeHeaderComponent implements OnInit {
 
   constructor(private storeService: StoreService,
-              private router: Router) { }
+              private router: Router) {
+  }
+
   storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
   headerForm: FormGroup;
   initialHeaderForm: FormGroup;
@@ -38,6 +41,7 @@ export class ChangeHeaderComponent implements OnInit {
       img: new FormControl(this.store.template.header.img),
     });
   }
+
   changeHeaderOnChange() {
     const subjectToChange = {
       subj: this.headerForm.value,
@@ -80,10 +84,48 @@ export class ChangeHeaderComponent implements OnInit {
     this.postData.append('ids', this.storeId);
     this.storeService.edit(this.storeId, this.postData).subscribe(store => {
       encryptStorage.setItem('store', store);
-      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['store/header']);
-        this.initialHeaderForm = this.headerForm;
+      this.initialHeaderForm = this.headerForm;
+
+      this.router.navigateByUrl('/store');
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-start',
+        showConfirmButton: false,
+        timer: 3500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Saved successfully'
       });
     });
   }
+
+  returnToEditStore(): void {
+    if (!this.testSame()) {
+      Swal.fire({
+        title: 'Be Careful!',
+        text: 'You have unsaved changes, Would you continue to discard these changes or save them before proceeding ?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonText: 'Save Changes',
+        denyButtonText: 'Discard Changes'
+      }).then(result => {
+        if (result.value) {
+          this.onSubmit();
+        } else {
+          Swal.close();
+        }
+        this.router.navigateByUrl('/store');
+      });
+    } else {
+      this.router.navigateByUrl('/store');
+    }
+  }
+
 }
