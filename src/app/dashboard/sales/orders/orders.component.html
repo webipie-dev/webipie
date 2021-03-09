@@ -14,37 +14,43 @@
         <div class="mx-4"><span class='dot green'></span> ACCEPTED </div>
         <div class="mx-4"><span class='dot red'></span> REFUSED </div>
       </div>
-
       <div class="col-4">
         <div style="right:3%">
           <button class="mr-5 float-right py-2 button-generic text-size" [hidden]="newOrder" (click)="reload()"> You have new Orders! Click here </button>
         </div>
       </div>
     </div>
-    <div *ngIf="windowWidth >= 1024">
-      <div class="my-5 mx-auto px-5 py-3 shadow" *ngIf="orders.length > 0">
-        <ng2-smart-table class="text-size text-center"
-                         [settings]="settings"
-                         [source]="source"
-                         (deleteConfirm)="onDeleteOne($event)"
-                         (userRowSelect)="onRowSelect($event)"
-                         (editConfirm)="updateOrder($event)"
-        ></ng2-smart-table>
-      </div>
-      <div class="container" *ngIf="orders.length === 0">
-        <div class="mx-auto w-75 alert alert-success mt-5 small-titles text-center">Oups no orders yet, Focus on your Marketing and Leave the rest for us !</div>
-      </div>
+    <div class="mt-5" *ngIf="loading">
+      <app-spinner></app-spinner>
     </div>
-    <div *ngIf="windowWidth < 1024">
-      <div class="my-5 px-2 py-3 shadow" *ngIf="orders.length > 0">
-        <ng2-smart-table class="text-size text-center"
-                         (userRowSelect)="onRowSelect($event)"
-                         [settings]="settingsMobile"
-                         [source]="source">
-        </ng2-smart-table>
+    <div *ngIf="!loading">
+      <!--web version-->
+      <div *ngIf="windowWidth >= 1024">
+        <div class="my-5 mx-auto px-5 py-3 shadow" *ngIf="orders.length > 0">
+          <ng2-smart-table class="text-size text-center"
+                           [settings]="settings"
+                           [source]="source"
+                           (deleteConfirm)="onDeleteOne($event)"
+                           (userRowSelect)="onRowSelect($event)"
+                           (editConfirm)="updateOrder($event)"
+          ></ng2-smart-table>
+        </div>
+        <div class="container" *ngIf="orders.length === 0">
+          <div class="mx-auto w-75 alert alert-success mt-5 small-titles text-center">Oups no orders yet, Focus on your Marketing and Leave the rest for us !</div>
+        </div>
       </div>
-      <div class="container" *ngIf="orders.length === 0">
-        <div class="mx-auto w-75 alert alert-success mt-5 small-titles text-center">Oups no orders yet, Focus on your Marketing and Leave the rest for us !</div>
+      <!--mobile version-->
+      <div *ngIf="windowWidth < 1024">
+        <div class="my-5 px-2 py-3 shadow" *ngIf="orders.length > 0">
+          <ng2-smart-table class="text-size text-center"
+                           (userRowSelect)="onRowSelect($event)"
+                           [settings]="settingsMobile"
+                           [source]="source">
+          </ng2-smart-table>
+        </div>
+        <div class="container" *ngIf="orders.length === 0">
+          <div class="mx-auto w-75 alert alert-success mt-5 small-titles text-center">Oups no orders yet, Focus on your Marketing and Leave the rest for us !</div>
+        </div>
       </div>
     </div>
   </div>

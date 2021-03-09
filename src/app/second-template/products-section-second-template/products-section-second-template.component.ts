@@ -16,15 +16,15 @@ import {ExternalFilesService} from '../../_shared/services/external-files.servic
 
 export class ProductsSectionSecondTemplateComponent implements OnInit{
 
+  store: Store;
+  popularProducts: Product[];
+  loading = true;
+
   constructor(private productService: ProductService,
               private storeService: StoreService,
               private activatedRoute: ActivatedRoute,
               private el: ElementRef,
               private externalFilesService: ExternalFilesService) { }
-  
-  store: Store;
-  popularProducts: Product[];
-
 
   ngOnInit(): void {
     window.addEventListener('message', event => {
@@ -41,12 +41,15 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
     });
     this.store = encryptStorage.getItem('store');
     this.popularProducts = [];
+    this.getPopularProducts();
+    this.storeService.changeTheme(this.el, this.store);
+  }
 
+  getPopularProducts() {
     this.productService.getAll({store: this.store.id, popular: true}, 'client').subscribe(data => {
+      this.loading = false;
       this.popularProducts.push.apply(this.popularProducts, data);
       this.externalFilesService.loadScripts();
     });
-
-    this.storeService.changeTheme(this.el, this.store);
   }
 }

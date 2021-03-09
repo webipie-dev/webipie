@@ -49,7 +49,7 @@ header .logo img {
 
 header .sticky {
   /* background: rgba(255,255,255,0.95); */
-  background: #ffffff;
+  background: var(--bg-color);
   padding: 0 10px;
   left: 0px;
 }

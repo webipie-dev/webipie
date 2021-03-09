@@ -151,6 +151,7 @@ export class OrdersComponent implements OnInit{
   selectedRows = [];
   showDeleteManyButton = false;
   newOrder = true;
+  loading = true;
 
   constructor(private http: HttpClient,
               private orderService: OrderService,
@@ -214,6 +215,7 @@ export class OrdersComponent implements OnInit{
       });
       this.orders = this.orders.reverse();
       this.source = new LocalDataSource(this.orders);
+      this.loading = false;
     });
   }
 

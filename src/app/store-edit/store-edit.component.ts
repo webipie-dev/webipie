@@ -15,21 +15,16 @@ declare var $: any;
 export class StoreEditComponent implements OnInit {
   urlToPreview: string;
   urlSafe: SafeResourceUrl;
-  windowHeight = window.innerHeight;
+  windowHeight = 0;
   newWidth;
   storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
-
   store: Store;
-  iframe = '<app-second-template></app-second-template>';
-
-
-
   public opened = true;
   public minimized = false;
   public mobileOpen = false;
   public mode = 'push';
   public windwosWidth = window.innerWidth;
-
+  loading = true;
 
   constructor(public sanitizer: DomSanitizer,
               private router: Router,
@@ -79,7 +74,10 @@ export class StoreEditComponent implements OnInit {
     // });
   }
 
-
+  public uploadDone() {
+    this.windowHeight = window.innerHeight;
+    this.loading = false;
+  }
 
   public _toggleSidebar(): void {
     this.opened = !this.opened;

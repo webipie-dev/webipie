@@ -20,28 +20,31 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 @NgModule({
-  declarations: [
-    IndexComponent,
-    FooterComponent,
-    HeaderComponent,
-    AfterSigninComponent,
-    PricingComponent,
-    SignInComponent,
-    SignUpComponent,
-    TemplatesPageComponent,
-    LoadingSpinnerComponent,
-  ],
-  imports: [
-    CommonModule,
-    DragDropModule,
-    SpinnerModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SpinnerModule,
-    HttpClientModule,
-    IndexRoutingModule,
-    NgxSpinnerModule
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    declarations: [
+        IndexComponent,
+        FooterComponent,
+        HeaderComponent,
+        AfterSigninComponent,
+        PricingComponent,
+        SignInComponent,
+        SignUpComponent,
+        TemplatesPageComponent,
+        LoadingSpinnerComponent,
+    ],
+    imports: [
+        CommonModule,
+        DragDropModule,
+        SpinnerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SpinnerModule,
+        HttpClientModule,
+        IndexRoutingModule,
+        NgxSpinnerModule
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    exports: [
+        LoadingSpinnerComponent
+    ]
 })
 export class IndexModule { }

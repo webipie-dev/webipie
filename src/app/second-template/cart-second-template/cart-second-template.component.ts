@@ -29,6 +29,7 @@ export class CartSecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.storeService.cart.subscribe(cart => this.cart = cart);
     window.addEventListener('message', event => {
       if (event.origin.startsWith('http://webipie.com:4200')) {
         switch (event.data.type) {
@@ -56,8 +57,8 @@ export class CartSecondTemplateComponent implements OnInit {
 
   deleteProduct(event): void {
     this.cart = this.cart.filter(element => element.product.id !== event.id);
+    this.storeService.updateCart(this.cart);
     encryptLocalStorage.setItem('cart', this.cart);
-
     this.totalPrice = 0;
     this.cart.forEach(data => {
       this.totalPrice += +data.product.price * data.quantity;

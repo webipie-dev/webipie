@@ -1,4 +1,4 @@
-import {ElementRef, Injectable} from '@angular/core';
+import {ElementRef, EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {GenericService} from './generic.service';
 import {Store} from '../models/store.model';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StoreService extends GenericService<any>{
-
+  cart: EventEmitter<any> = new EventEmitter();
   constructor(protected http: HttpClient) {
     super(http);
     this.suffix = '/store';
@@ -65,5 +65,9 @@ export class StoreService extends GenericService<any>{
     } else {
       return 'rgb(' + r + ', ' + g + ', ' + b + ')';
     }
+  }
+
+  updateCart(event) {
+    this.cart.emit(event);
   }
 }

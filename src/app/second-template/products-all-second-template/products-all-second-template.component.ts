@@ -16,6 +16,7 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
 
   store: Store;
   products: Product[];
+  loading = true;
 
   constructor(private productService: ProductService,
               private storeService: StoreService,
@@ -36,9 +37,14 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
     });
     this.store = encryptStorage.getItem('store');
     this.products = [];
+    this.getAllProducts();
+    this.storeService.changeTheme(this.el, this.store);
+  }
+
+  getAllProducts() {
     this.productService.getAll({store: this.store.id}, 'client').subscribe(data => {
       this.products.push.apply(this.products, data);
+      this.loading = false;
     }, error => console.log(error));
-    this.storeService.changeTheme(this.el, this.store);
   }
 }

@@ -16,20 +16,22 @@ import {SidebarModule} from 'ng-sidebar';
 import {KeysPipe} from '../_shared/utils/KeysPipe';
 import {SecondTemplateModule} from "../second-template/second-template.module";
 import { TestComponent } from './test/test.component';
+import {SpinnerModule} from '../spinner/spinner.module';
 
 
 @NgModule({
-  imports: [
-    StoreEditRoutingModule,
-    HttpClientModule,
-    Ng2SmartTableModule,
-    ReactiveFormsModule,
-    CommonModule,
-    TemplateModule,
-    FormsModule,
-    SidebarModule,
-    SecondTemplateModule
-  ],
+    imports: [
+        StoreEditRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
+        TemplateModule,
+        FormsModule,
+        SidebarModule,
+        SecondTemplateModule,
+        SpinnerModule
+    ],
 
   declarations: [
     StoreEditComponent,

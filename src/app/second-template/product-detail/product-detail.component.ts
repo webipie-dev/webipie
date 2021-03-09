@@ -69,15 +69,13 @@ export class ProductDetailComponent implements OnInit {
 
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review);
-    // this.productService.addReview(this.product.id, this.review).subscribe(data => {
-    //   console.log(data);
-    // });
   }
 
   addToCart(product: Product): void {
     this.disabled = true;
     const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
     cart.push({product, quantity: this.quantity});
+    this.storeService.updateCart(cart);
     encryptLocalStorage.setItem('cart', cart);
   }
 }
