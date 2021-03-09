@@ -18,7 +18,7 @@
       <div class="container upload-images product-description py-5">
         <div class="col-12 mb-5" style="padding: 0">
           <div>
-            <div class="d-flex upload-images" style="  text-align: -webkit-center;">
+            <div class="d-flex upload-images" style="  text-align: -webkit-center; border: 2px solid rgba(45,52,56,0.3); padding: 20px 0;">
               <div>
                 <input
                   (change)="onImagePicked($event)"
@@ -54,16 +54,16 @@
                 <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
                   <!--Slides-->
                   <div class="carousel-inner" role="listbox">
-                    <div >
+                    <div class=" d-lg-none ">
                       <!--First slide-->
                       <div *ngFor="let image of imageObject; let i = index;"
                            [ngClass]="{'active' : i === 0}"
-                           class="carousel-item " [id]="'carousel-' + i">
+                           class="carousel-item ">
 
                         <div class="row">
-                          <div class="col-lg-4" *ngIf="imageObject[i]">
+                          <div class="col-lg-4">
                             <div class="card mb-2">
-                              <img class="card-img-top" [src]="imageObject[i].image"
+                              <img class="card-img-top my-auto" [src]="image.image"
                                    alt="Card image cap">
                               <div class="card-body">
                                 <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
@@ -71,25 +71,67 @@
                             </div>
                           </div>
 
-                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 1]">
+<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 1]">-->
+<!--                            <div class="card mb-2">-->
+<!--                              <img class="card-img-top" [src]="imageObject[i+1].image" *ngIf="i + 1 < imageObject.length"-->
+<!--                                   alt="Card image cap">-->
+<!--                              <div class="card-body">-->
+<!--                                <a class="btn button-delete" (click)="deletePhoto(i+1)">Delete</a>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+
+<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 2]">-->
+<!--                            <div class="card mb-2">-->
+<!--                              <img class="card-img-top" [src]="imageObject[i+2].image" *ngIf="i + 2 < imageObject.length"-->
+<!--                                   alt="Card image cap">-->
+<!--                              <div class="card-body">-->
+<!--                                <a class="btn button-delete" (click)="deletePhoto(i+2)">Delete</a>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+                        </div>
+
+                      </div>
+                      <!--/.First slide-->
+
+                    </div>
+                    <div class="d-none d-lg-block">
+                      <!--First slide-->
+                      <div *ngFor="let imageArr of imageObjectToShow; let i = index;"
+                           [ngClass]="{'active' : i === 0}"
+                           class="carousel-item ">
+
+                        <div class="row">
+                          <div *ngFor="let image of imageArr" class="col-lg-4">
                             <div class="card mb-2">
-                              <img class="card-img-top" [src]="imageObject[i+1].image" *ngIf="i + 1 < imageObject.length"
+                              <img class="card-img-top my-auto" [src]="image.image"
                                    alt="Card image cap">
                               <div class="card-body">
-                                <a class="btn button-delete" (click)="deletePhoto(i+1)">Delete</a>
+                                <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
                               </div>
                             </div>
                           </div>
 
-                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 2]">
-                            <div class="card mb-2">
-                              <img class="card-img-top" [src]="imageObject[i+2].image" *ngIf="i + 2 < imageObject.length"
-                                   alt="Card image cap">
-                              <div class="card-body">
-                                <a class="btn button-delete" (click)="deletePhoto(i+2)">Delete</a>
-                              </div>
-                            </div>
-                          </div>
+<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 1]">-->
+<!--                            <div class="card mb-2">-->
+<!--                              <img class="card-img-top" [src]="imageObject[i+1].image" *ngIf="i + 1 < imageObject.length"-->
+<!--                                   alt="Card image cap">-->
+<!--                              <div class="card-body">-->
+<!--                                <a class="btn button-delete" (click)="deletePhoto(i+1)">Delete</a>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+
+<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 2]">-->
+<!--                            <div class="card mb-2">-->
+<!--                              <img class="card-img-top" [src]="imageObject[i+2].image" *ngIf="i + 2 < imageObject.length"-->
+<!--                                   alt="Card image cap">-->
+<!--                              <div class="card-body">-->
+<!--                                <a class="btn button-delete" (click)="deletePhoto(i+2)">Delete</a>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
                         </div>
 
                       </div>
@@ -98,9 +140,9 @@
                     </div>
                   </div>
                   <!--/.Slides-->
-                  <div class="controls-top">
-                    <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-circle-left fa-3x mx-4 my-2"></i></a>
-                    <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-circle-right fa-3x mx-4 my-2"></i></a>
+                  <div class="controls-top" *ngIf="imageObject.length">
+                    <a style="color: #2d3438" class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-circle-left fa-3x mx-4 my-2"></i></a>
+                    <a style="color: #2d3438" class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-circle-right fa-3x mx-4 my-2"></i></a>
                   </div>
                   <!--/.Controls-->
                 </div>

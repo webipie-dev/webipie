@@ -3,8 +3,10 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
+import Swal from "sweetalert2";
 
 declare var $: any;
+
 @Component({
   selector: 'app-change-font',
   templateUrl: './change-font.component.html',
@@ -36,7 +38,30 @@ export class ChangeFontComponent implements OnInit {
 
   }
 
-  changeFont() {
+
+  returnToEditStore(): void {
+    if (this.currentFont !== this.fontType) {
+      Swal.fire({
+        title: 'Be Careful!',
+        text: 'You have unsaved changes, Would you continue to discard these changes or save them before proceeding ?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonText: 'Save Changes',
+        denyButtonText: 'Discard Changes'
+      }).then(result => {
+        if (result.value) {
+          this.onSubmit();
+        } else {
+          Swal.close();
+        }
+        this.router.navigateByUrl('/store');
+      });
+    } else {
+      this.router.navigateByUrl('/store');
+    }
+  }
+
+  changeFont(): void {
     const subjectToChange = {
       subj: this.fontType,
       type: 'font',
@@ -52,9 +77,24 @@ export class ChangeFontComponent implements OnInit {
 
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
-      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['store/font']);
-        encryptStorage.setItem('store', store);
+
+      encryptStorage.setItem('store', store);
+      this.router.navigateByUrl('/store');
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-start',
+        showConfirmButton: false,
+        timer: 3500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Saved successfully'
       });
     });
   }

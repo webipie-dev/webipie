@@ -18,6 +18,7 @@ import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 export class EditProductComponent implements OnInit {
   // array to store the images of the product
   imageObject: Array<object> = [];
+  imageObjectToShow: Array<any> = [];
   productForm: FormGroup;
   postData = new FormData();
   singleProduct: Product = new Product();
@@ -81,6 +82,15 @@ export class EditProductComponent implements OnInit {
     return this.productForm.controls;
   }
 
+  divideImageObject() {
+    const imageCopy = this.imageObject.slice();
+    this.imageObjectToShow = new Array(Math.ceil(imageCopy.length / 3))
+      .fill(imageCopy)
+      .map(() => imageCopy.splice(0, 3));
+    console.log(this.imageObjectToShow);
+    console.log(this.imageObject);
+  }
+
 
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
@@ -94,20 +104,7 @@ export class EditProductComponent implements OnInit {
           thumbImage: elt,
         });
       });
-      // this.imageObject = this.imageObject.concat(this.imageObject);
-      // this.imageObject = this.imageObject.concat(this.imageObject);
-      // this.imageObject = this.imageObject.concat(this.imageObject);
-      // this.imageObject = this.imageObject.concat(this.imageObject);
-      const images = document.getElementsByClassName('carousel-item');
-      // const img = Array.prototype.slice.call(images.item(0));
-      setTimeout(() => {
-        for (let i = 0 ; i < this.imageObject.length; i++) {
-          if (i % 3) {
-            document.getElementById(`carousel-${i}`).remove();
-            console.log(i);
-          }
-        }
-      }, 400);
+      this.divideImageObject();
     });
   }
 
@@ -122,14 +119,8 @@ export class EditProductComponent implements OnInit {
       reader.onload = (_event) => {
         this.msg = '';
         this.url = reader.result;
-        const imgLength = this.imageObject.length;
         this.imageObject.push({image: this.url, thumbImage: this.url});
-        for (let i = imgLength ; i < this.imageObject.length; i++) {
-          if (i % 3) {
-            document.getElementById(`carousel-${i}`).remove();
-            console.log(i);
-          }
-        }
+        this.divideImageObject();
       };
     });
 
@@ -231,6 +222,7 @@ export class EditProductComponent implements OnInit {
 
   deletePhoto(i): void {
     this.imageObject.splice(i, 1);
+    this.divideImageObject();
     // const images = document.getElementsByClassName('image');
     // const imagesArray = Array.from(images);
     // if (imagesArray.length === 1 ) {
