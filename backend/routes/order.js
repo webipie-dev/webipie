@@ -34,22 +34,24 @@ router.post('', [
 
 
 // deleteManyOrders
-router.delete('', validation.ids, passportJWT, validateRequest, clearCache, OrderService.deleteManyOrders)
+router.delete('', validation.ids, passportJWT, validateRequest, OrderService.deleteManyOrders)
 
 //deleteAllOrders
-router.delete('/delete', passportJWT, clearCache, OrderService.deleteAllOrders)
+router.delete('/delete', passportJWT, OrderService.deleteAllOrders)
 
 //delete Products From an Order
 router.delete('/delete/product', [
   validation.id,
   orderValidation.product
-], validateRequest, passportJWT, clearCache, OrderService.deleteProductOrder)
+], validateRequest, passportJWT, OrderService.deleteProductOrder)
 
 
 //edit Orders
 router.patch('/:id', [
   validation.id
-], validateRequest, passportJWT, clearCache, OrderService.editOrder)
+], validateRequest, passportJWT, OrderService.editOrder)
 
+
+router.patch('/refund/products', passportJWT, OrderService.refundProducts)
 
 module.exports = router;

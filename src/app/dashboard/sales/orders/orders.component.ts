@@ -199,7 +199,7 @@ export class OrdersComponent implements OnInit{
   }
 
   onDeleteOne(event): void {
-
+    console.log(event.data);
     this.orderService.deleteModal.fire({
       title: 'Are you sure?',
       text: 'You won\'t be able to revert this!',
@@ -215,9 +215,18 @@ export class OrdersComponent implements OnInit{
           // delete the order from orders displayed
           this.orders = this.orders.filter(prod => prod.id !== event.data.id);
           event.confirm.resolve();
-
-
         });
+
+        if (event.data.orderStatus !== 'accepted'){
+          const refundProducts = event.data.products.map(element => ({
+            id: element._id,
+            quantity: element.quantity
+          }));
+          this.orderService.refundProduct(refundProducts).subscribe((elem) => {
+            console.log(elem);
+          });
+        }
+
         // const index = this.selectedRows.indexOf(event.data);
         // if (index > -1) {
         //   this.selectedRows.splice(index, 1);
@@ -256,7 +265,14 @@ export class OrdersComponent implements OnInit{
       if (result.isConfirmed) {
 
         const ids = [];
+        const refundProducts = [];
         this.selectedRows.forEach(elt => {
+          if (elt.orderStatus !== 'accepted'){
+            elt.products.forEach(element => refundProducts.push({
+              id: element._id,
+              quantity: element.quantity
+            }));
+          }
           ids.push(elt.id);
         });
         ids.forEach(elt => {
@@ -267,6 +283,11 @@ export class OrdersComponent implements OnInit{
           this.changeShowDeleteManyButton();
         });
 
+        // if (refundProducts.length > 0){
+        //   this.orderService.refundProduct(refundProducts).subscribe((elem) => {
+        //     console.log(elem);
+        //   });
+        // }
 
       } else if (
         /* Read more about handling dismissals below */

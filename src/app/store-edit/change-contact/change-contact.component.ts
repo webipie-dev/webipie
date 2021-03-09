@@ -18,6 +18,8 @@ export class ChangeContactComponent implements OnInit {
   initialNumber = encryptStorage.getItem('store').contact.phoneNumber;
   defaultLocation = encryptStorage.getItem('store').contact.location;
   initialLocation = encryptStorage.getItem('store').contact.location;
+  defaultAbout = encryptStorage.getItem('store').about;
+  initialAbout = encryptStorage.getItem('store').about;
   storeId = encryptStorage.getItem('store').id;
 
   constructor(private http: HttpClient,
@@ -25,25 +27,29 @@ export class ChangeContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.initialAbout);
+    console.log(this.defaultAbout);
   }
 
   testChange(): boolean {
     return (this.initialNumber === this.defaultNumber &&
       this.initialLocation === this.defaultLocation &&
-      this.initialEmail === this.defaultEmail);
+      this.initialEmail === this.defaultEmail && this.initialAbout === this.defaultAbout);
   }
   submit(): void {
 
     const postData = {
       'contact.location': this.defaultLocation,
       'contact.email': this.defaultEmail,
-      'contact.phoneNumber': this.defaultNumber
+      'contact.phoneNumber': this.defaultNumber,
+      about: this.defaultAbout
     };
     this.storeService.edit(this.storeId, postData).subscribe(store => {
       encryptStorage.setItem('store', store);
       this.initialEmail = this.defaultEmail;
       this.initialNumber = this.defaultNumber;
       this.initialLocation = this.defaultLocation;
+      this.initialAbout = this.defaultAbout;
     });
   }
 }

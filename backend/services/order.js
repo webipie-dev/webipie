@@ -94,7 +94,7 @@ exports.addOrder = async (req, res, next) => {
   productsOrder.products.map(product => {
     bulkQueries.push({
       updateOne: {
-        "filter": { _id: product.id},
+        "filter": { _id: product._id},
         "update":{$inc: {quantity: -product.quantity}}
       }
     })
@@ -244,5 +244,26 @@ exports.deleteProductOrder = async (req,res, next) => {
 
 }
 
+exports.refundProducts = async (req, res, next) => {
+  const { products } = req.body
+  console.log(req.body)
 
+  let bulkQueries = [];
+  products.map(product => {
+    bulkQueries.push({
+      updateOne: {
+        "filter": { _id: product.id},
+        "update":{$inc: {quantity: product.quantity}}
+      }
+    })
+  });
+  Product
+    .bulkWrite(bulkQueries, {ordered: false})
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
+  res.status(200).json('Products refunded');
+
+}
 

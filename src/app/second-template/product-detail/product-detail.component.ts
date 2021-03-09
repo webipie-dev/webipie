@@ -24,6 +24,7 @@ export class ProductDetailComponent implements OnInit {
   quantity = 1;
   productId = this.activatedRoute.snapshot.paramMap.get('id');
   addDisabled = false;
+  outOfStock = false;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -46,13 +47,17 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
       this.product.reviews = this.product.reviews.reverse();
-      console.log(this.product.reviews);
     });
     this.externalFilesService.loadScripts();
     this.storeService.changeTheme(this.el, this.store);
   }
 
   counter(i: number): Array<number> {
+    if ( i <= 0) {
+      this.addDisabled = true;
+      this.outOfStock = true;
+      return [];
+    }
     const count =  [];
     for(let j = 1; count.push(j++) < i;);
     return count;
@@ -70,14 +75,7 @@ export class ProductDetailComponent implements OnInit {
       this.product.reviews.push(rev);
       this.disabled = true;
 
-      // clearing form
-      // this.review = {
-      //   name: '',
-      //   rating: 0,
-      //   review: '',
-      //   email: '',
-      //   date: new Date()
-      // };
+
     });
   }
 
@@ -85,5 +83,6 @@ export class ProductDetailComponent implements OnInit {
     const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
     cart.push({product, quantity: this.quantity});
     encryptLocalStorage.setItem('cart', cart);
+    this.addDisabled = true;
   }
 }

@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../_shared/services/client.service';
 import {Product} from '../../_shared/models/product.model';
 import {OrderService} from '../../_shared/services/order.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -19,10 +20,12 @@ export class CheckoutSecondTemplateComponent implements OnInit {
 
   cart: [{product: Product, quantity}] = encryptLocalStorage.getItem('cart') || [];
   totalPrice = 0;
+  disabled = false;
   constructor(private storeService: StoreService,
               private el: ElementRef,
               private clientService: ClientService,
-              private orderService: OrderService) {
+              private orderService: OrderService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -102,10 +105,10 @@ export class CheckoutSecondTemplateComponent implements OnInit {
         clientId: data.id,
         storeId: this.store.id
       };
-      console.log('client: ', data);
 
       this.orderService.addOne(order).subscribe((orderCreated) => {
-        console.log('order: ', orderCreated);
+        encryptLocalStorage.setItem('cart', []);
+        this.router.navigate(['']);
       });
 
     });

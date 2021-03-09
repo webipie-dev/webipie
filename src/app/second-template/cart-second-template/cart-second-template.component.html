@@ -135,6 +135,7 @@
                 <li class="col-sm-2">
                   <div class="position-center-center"> <span class="price">{{element.product.price * element.quantity}} <small>DT</small></span> </div>
                 </li>
+                <i (click)="deleteProduct(element.product)" class="icon-close"></i>
 
               </ul>
             </div>
@@ -174,7 +175,7 @@
                   </div>
                 </div>
 
-                <li class="col-xs-6"> <button class="btn" (click)="save()">SAVE</button> </li>
+                <li class="col-xs-6"> <button class="btn" [disabled]="totalPrice <= 0" (click)="save()">SAVE</button> </li>
               </div>
             </div>
           </div>

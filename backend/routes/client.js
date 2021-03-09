@@ -66,7 +66,7 @@ router.delete('', validation.ids, validateRequest, passportJWT.unless(function(r
     if(req.headers['role'] === 'client'){
         return true;
     }
-}), clearCache, ClientService.deleteManyClients)
+}), ClientService.deleteManyClients)
 
 //deleteAllClients
 router.delete('/delete', passportJWT, ClientService.deleteAllClients)
