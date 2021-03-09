@@ -7,6 +7,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
+import {log} from "util";
 
 
 @Component({
@@ -56,6 +57,7 @@ export class ProductDetailComponent implements OnInit {
     this.review = new Review();
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
+      console.log(this.product.description);
       this.externalFilesService.loadScripts();
     });
     this.storeService.changeTheme(this.el, this.store);
