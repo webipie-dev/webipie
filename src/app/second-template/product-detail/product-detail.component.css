@@ -235,7 +235,7 @@
 	width: 100%;
 	font-size: 11px;
 	font-weight: normal;
-	margin-bottom: 20px;
+	margin-top: 20px;
 }
 .item-decribe form input {
   font-family: var(--font-choice), sans-serif !important;
@@ -390,4 +390,9 @@
   padding: 8px;
   border-radius: 10px;
   color: #ffffff !important;
+}
+
+.add-to-cart {
+  padding: inherit !important;
+  width: fit-content !important;
 }

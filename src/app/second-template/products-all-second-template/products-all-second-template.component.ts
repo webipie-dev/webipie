@@ -16,17 +16,35 @@ export class ProductsAllSecondTemplateComponent implements OnInit {
 
   store: Store;
   products: Product[];
+  loading = true;
 
   constructor(private productService: ProductService,
               private storeService: StoreService,
               private el: ElementRef) { }
 
   ngOnInit(): void {
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        switch (event.data.type) {
+          case 'color':
+            this.storeService.changeColorTheme(this.el, event.data.subj);
+            break;
+          case 'font':
+            this.storeService.changeFontTheme(this.el, event.data.subj);
+            break;
+        }
+      } else { return; }
+    });
     this.store = encryptStorage.getItem('store');
     this.products = [];
+    this.getAllProducts();
+    this.storeService.changeTheme(this.el, this.store);
+  }
+
+  getAllProducts() {
     this.productService.getAll({store: this.store.id}, 'client').subscribe(data => {
       this.products.push.apply(this.products, data);
+      this.loading = false;
     }, error => console.log(error));
-    this.storeService.changeTheme(this.el, this.store);
   }
 }

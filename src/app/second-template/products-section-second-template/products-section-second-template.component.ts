@@ -16,25 +16,40 @@ import {ExternalFilesService} from '../../_shared/services/external-files.servic
 
 export class ProductsSectionSecondTemplateComponent implements OnInit{
 
+  store: Store;
+  popularProducts: Product[];
+  loading = true;
+
   constructor(private productService: ProductService,
               private storeService: StoreService,
               private activatedRoute: ActivatedRoute,
               private el: ElementRef,
               private externalFilesService: ExternalFilesService) { }
-  
-  store: Store;
-  popularProducts: Product[];
-
 
   ngOnInit(): void {
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        switch (event.data.type) {
+          case 'color':
+            this.storeService.changeColorTheme(this.el, event.data.subj);
+            break;
+          case 'font':
+            this.storeService.changeFontTheme(this.el, event.data.subj);
+            break;
+        }
+      } else { return; }
+    });
     this.store = encryptStorage.getItem('store');
     this.popularProducts = [];
+    this.getPopularProducts();
+    this.storeService.changeTheme(this.el, this.store);
+  }
 
+  getPopularProducts() {
     this.productService.getAll({store: this.store.id, popular: true}, 'client').subscribe(data => {
+      this.loading = false;
       this.popularProducts.push.apply(this.popularProducts, data);
       this.externalFilesService.loadScripts();
     });
-
-    this.storeService.changeTheme(this.el, this.store);
   }
 }

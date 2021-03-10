@@ -6,7 +6,6 @@
 #sidebar-menu {
   top: 0;
   bottom: 0;
-  overflow-y: scroll !important;
   min-width: 80px;
   min-height: 80vh;
   height: auto;

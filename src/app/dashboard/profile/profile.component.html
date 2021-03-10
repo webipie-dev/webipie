@@ -8,8 +8,8 @@
       vitae voluptatibus.
     </div>
   </div>
-  <div class="mt-5" [ngClass]="{'d-flex' : windwosWidth > 767}">
-    <div class="col-md-6 col-12">
+  <div class="mt-5" [ngClass]="{'d-flex' : windwosWidth > 991}">
+    <div class="col-lg-6 col-12">
       <div class="margin-top width mx-auto mb-5">
         <div class="border-shadow px-5 py-5 white-background card-profile">
           <h3 class="big-titles mb-5">Profile infos</h3>
@@ -18,7 +18,16 @@
               <label class="text-size">Name</label>
             </div>
             <div class="col-md-9 col-12">
-              <input type="text" class="input" placeholder="Hackover">
+              <div *ngIf="nameProf.invalid && (nameProf.dirty || nameProf.touched)"
+                   class="alert alert-danger">
+
+                <div *ngIf="nameProf.errors.required">
+                  Name is required.
+                </div>
+              </div>
+              <input [(ngModel)]="name" name="nameProf"
+                     #nameProf="ngModel" required
+                     type="text" class="input" placeholder="Hackover">
             </div>
           </div>
           <div class="row my-5">
@@ -26,7 +35,20 @@
               <label class="text-size">Email</label>
             </div>
             <div class="col-md-9 col-12">
-              <input type="email" class="input" placeholder="Hackover@gmail.com">
+              <div class="alert alert-danger" *ngIf="!validateEmail(emaill.value) && (emaill.dirty || emaill.touched)">
+                Email is not valid.
+              </div>
+              <div *ngIf="emaill.invalid && (emaill.dirty || emaill.touched)"
+                   class="alert alert-danger">
+
+                <div *ngIf="emaill.errors.required">
+                  Email is required.
+                </div>
+              </div>
+              <input [(ngModel)]="email" name="emaill"
+                     #emaill="ngModel" required
+                     type="email" class="input"
+                     placeholder="Hackover@gmail.com">
             </div>
           </div>
           <div class="row my-5">
@@ -34,7 +56,16 @@
               <label class="text-size">Store Name</label>
             </div>
             <div class="col-md-9 col-12">
-              <input type="text" class="input" placeholder="Hackover">
+              <div *ngIf="storeProf.invalid && (storeProf.dirty || storeProf.touched)"
+                   class="alert alert-danger">
+
+                <div *ngIf="storeProf.errors.required">
+                  Store Name is required.
+                </div>
+              </div>
+              <input [(ngModel)]="storeName" name="storeProf"
+                     #storeProf="ngModel" required
+                     type="text" class="input" placeholder="Hackover">
             </div>
           </div>
           <div class="row mt-5">
@@ -44,16 +75,21 @@
             <div class="col-md-9 col-12">
               <button class="upload-icon border-none shadow-none text-size mx-auto d-flex px-4 py-1">
                 <i class="fas fa-cloud-upload-alt fa-2x mr-4"></i>
-                <p class="mt-2"> Upload new logo</p>
+                <p class="mt-2" style="font-size: 13px"> Upload new logo</p>
               </button>
             </div>
+            <button
+              class="upload-icon border-none shadow-none text-size mx-auto d-flex  mt-5 px-4 py-1"
+              [disabled]="!checked"
+              (click)="changePwd()"
+              type="submit">Submit</button>
           </div>
         </div>
         <div class="password-info"></div>
       </div>
 
     </div>
-    <div class="col-md-6 col-12">
+    <div class="col-lg-6 col-12">
       <div class="margin-top width mx-auto">
         <div class="border-shadow px-5 py-5 white-background card-profile">
           <h3 class="big-titles mb-5">Security infos</h3>

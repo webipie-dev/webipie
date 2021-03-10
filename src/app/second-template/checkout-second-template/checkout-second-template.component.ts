@@ -17,8 +17,9 @@ export class CheckoutSecondTemplateComponent implements OnInit {
   store: Store;
   clientForm: FormGroup;
 
-  cart: [{product: Product, quantity}] = encryptLocalStorage.getItem('cart') || [];
+  cart: [{ product: Product, quantity }] = encryptLocalStorage.getItem('cart') || [];
   totalPrice = 0;
+
   constructor(private storeService: StoreService,
               private el: ElementRef,
               private clientService: ClientService,
@@ -26,16 +27,38 @@ export class CheckoutSecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        switch (event.data.type) {
+          case 'color':
+            this.storeService.changeColorTheme(this.el, event.data.subj);
+            break;
+          case 'font':
+            this.storeService.changeFontTheme(this.el, event.data.subj);
+            break;
+        }
+      } else {
+        return;
+      }
+    });
     this.store = encryptStorage.getItem('store');
 
     this.clientForm = new FormGroup({
       firstname: new FormControl(null, Validators.required),
       lastname: new FormControl(null, Validators.required),
-      phoneNumber: new FormControl(null, Validators.required),
+      phoneNumber: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(8),
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       street: new FormControl(null, Validators.required),
       city: new FormControl(null, Validators.required),
       state: new FormControl(null, Validators.required),
-      zipcode: new FormControl(null, Validators.required),
+      zipcode: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(4),
+        Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
     });
 
 
@@ -46,8 +69,12 @@ export class CheckoutSecondTemplateComponent implements OnInit {
     });
   }
 
+  get clientFormControl() {
+    return this.clientForm.controls;
+  }
+
   onSubmit(): void {
-    const checkout: [{product: Product, quantity}] = encryptLocalStorage.getItem('cart') || [];
+    const checkout: [{ product: Product, quantity }] = encryptLocalStorage.getItem('cart') || [];
     this.totalPrice = 0;
     checkout.forEach(data => {
       this.totalPrice += +data.product.price * data.quantity;
@@ -67,13 +94,13 @@ export class CheckoutSecondTemplateComponent implements OnInit {
         if (control) {
           postData.append(field, control);
         }
-      }
-      else {
+      } else {
         if (control) {
           if (field === 'street') {
             fullAddress += control;
+          } else {
+            fullAddress += ' ,' + control;
           }
-          else { fullAddress += ' ,' + control; }
         }
       }
     }

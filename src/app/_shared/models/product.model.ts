@@ -11,6 +11,7 @@ export class Product extends GenericModel{
   public store: string;
   public popular: boolean;
   public openReview: boolean;
+  public status = 'disponible';
   public reviews: Review[];
 
   constructor() {

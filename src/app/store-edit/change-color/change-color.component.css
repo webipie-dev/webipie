@@ -165,3 +165,61 @@ a[data-toggle="collapse"] {
   background-color: #cccccc;
   color: #666666;
 }
+
+/* ---------------- */
+
+
+.color-list {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  box-shadow: 0 0 3px #999999;
+}
+
+.color {
+  flex: 0 0 33.33%; /*flex-grow | flex-shrink | flex-basis*/
+  box-shadow: 0 0 5px #424242;
+  padding: 1em;
+  color: white;
+  transition: flex-basis 0.5s ease-in-out;
+}
+
+.color:hover {
+  flex-basis: 40%;
+  cursor: pointer;
+}
+
+.details {
+  opacity: 1;
+}
+
+.details {
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}
+
+.details li {
+  line-height: 2em;
+}
+
+#clean {
+  background-color: #A7D2CB;
+}
+
+#butter {
+  background-color: #F2D388;
+}
+
+#salmon {
+  background-color: #C98474;
+}
+
+#eggplant {
+  background-color: #874C62;
+}
+
+.color {
+  box-sizing: border-box;
+}

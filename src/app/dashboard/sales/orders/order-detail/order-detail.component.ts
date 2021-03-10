@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./order-detail.component.css']
 })
 export class OrderDetailComponent implements OnInit {
-  @Output() someEvent = new EventEmitter();
+  @Output() updateResult = new EventEmitter();
   @Input() value; // value passed by valuePrepareFunction (in settings orders.component.ts)
   public rowData: any;
   editMode = false;
@@ -113,6 +113,8 @@ export class OrderDetailComponent implements OnInit {
 
   // switch modal mode
   onSwitch(): void {
+    this.rowData.orderStatus = this.orderStatus;
+    this.updateResult.emit(this.rowData);
     this.editMode = !this.editMode;
     this.displayMode = !this.editMode;
 

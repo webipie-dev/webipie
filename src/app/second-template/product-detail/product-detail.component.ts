@@ -7,6 +7,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
+import {log} from "util";
 
 
 @Component({
@@ -31,6 +32,18 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        switch (event.data.type) {
+          case 'color':
+            this.storeService.changeColorTheme(this.el, event.data.subj);
+            break;
+          case 'font':
+            this.storeService.changeFontTheme(this.el, event.data.subj);
+            break;
+        }
+      } else { return; }
+    });
     const cartData: [{product, quantity}] = encryptLocalStorage.getItem('cart') || [];
 
     cartData.forEach(data => {
@@ -44,6 +57,7 @@ export class ProductDetailComponent implements OnInit {
     this.review = new Review();
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
+      console.log(this.product.description);
       this.externalFilesService.loadScripts();
     });
     this.storeService.changeTheme(this.el, this.store);
@@ -57,15 +71,13 @@ export class ProductDetailComponent implements OnInit {
 
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review);
-    // this.productService.addReview(this.product.id, this.review).subscribe(data => {
-    //   console.log(data);
-    // });
   }
 
   addToCart(product: Product): void {
     this.disabled = true;
     const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
     cart.push({product, quantity: this.quantity});
+    this.storeService.updateCart(cart);
     encryptLocalStorage.setItem('cart', cart);
   }
 }

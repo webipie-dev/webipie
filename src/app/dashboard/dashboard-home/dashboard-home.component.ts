@@ -25,7 +25,7 @@ export class DashboardHomeComponent implements OnInit {
   productLength = 0;
   ordersLength = 0;
   clientsLength = 0;
-  popularProduct: Product = new Product();
+  popularProduct: Product = null;
   popularProdFreq = 0;
   store: Store = new Store();
   isLoading = false;
@@ -51,7 +51,6 @@ export class DashboardHomeComponent implements OnInit {
           prodArray.push(prod);
         });
       });
-      console.log(prodArray);
 
       let counter = 0;
       for (let i = 0; i < prodArray.length; i++) {
@@ -68,8 +67,6 @@ export class DashboardHomeComponent implements OnInit {
         }
         counter = 0;   // make counter 0 for next element.
       }
-      console.log(this.popularProdFreq);
-      console.log(this.popularProduct);
       this.ordersLength = data.length;
       this.getProductsLength();
     });
@@ -78,16 +75,13 @@ export class DashboardHomeComponent implements OnInit {
     this.isLoading = true;
     const store = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.clientService.getAll({store}).subscribe((data) => {
-      console.log(data);
       this.clientsLength = data.length;
       this.getOrderLength();
     });
   }
   getProductsLength(): void {
     const store = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
-    console.log(store);
     this.productService.getAll({store}).subscribe((data) => {
-      console.log(data);
       this.productLength = data.length;
       $.fn.jQuerySimpleCounter = function( options ) {
         const settings = $.extend({
