@@ -14,24 +14,24 @@
             <div class="cart-head">
               <ul class="row">
                 <!-- PRODUCTS -->
-                <li class="col-sm-2 text-left">
+                <li class="col-sm-2 col-xs-2 text-left d-md-block d-none">
                   <h6>PRODUCTS</h6>
                 </li>
                 <!-- NAME -->
-                <li class="col-sm-4 text-left">
+                <li class="col-md-4 col-sm-6 col-xs-3 text-left">
                   <h6>NAME</h6>
                 </li>
                 <!-- PRICE -->
-                <li class="col-sm-2">
+                <li class="col-md-2 col-sm-2 col-xs-2">
                   <h6>PRICE</h6>
                 </li>
                 <!-- QTY -->
-                <li class="col-sm-1">
+                <li class="col-sm-1 col-xs-2">
                   <h6>QTY</h6>
                 </li>
 
                 <!-- TOTAL PRICE -->
-                <li class="col-sm-2">
+                <li class="col-sm-2 col-xs-3">
                   <h6>TOTAL</h6>
                 </li>
                 <li class="col-sm-1"> </li>
@@ -87,11 +87,11 @@
 <!--                <div class="position-center-center"> <a href="#"><i class="icon-close"></i></a> </div>-->
 <!--              </li>-->
 <!--            </ul>-->
-            <div *ngFor="let element of cart">>
+            <div *ngFor="let element of cart">
               <!-- Cart Details -->
               <ul class="row cart-details">
-                <li class="col-sm-6">
-                  <div> <!-- Hne kenet fama class="media" fasa5tha-->
+                <li class="col-sm-6 col-xs-3">
+                  <div class="d-md-block d-none d-xs-none"> <!-- Hne kenet fama class="media" fasa5tha-->
                     <!-- Media Image -->
                     <div class="media-left media-middle">
                       <a href="#" class="item-img">
@@ -106,37 +106,40 @@
                       </div>
                     </div>
                   </div>
+                  <div class="d-md-none d-block">
+                    <div class="position-center-center">
+                      <div style="font-size: 13px; font-weight: bold">{{element.product.name}}</div>
+                      <p [innerHTML]="element.product.description"></p>
+                    </div>
+                  </div>
                 </li>
 
                 <!-- PRICE -->
-                <li class="col-sm-2">
+                <li class="col-sm-2 col-xs-2">
                   <div class="position-center-center"> <span class="price">{{element.product.price}} <small>DT</small></span> </div>
                 </li>
 
                 <!-- QTY -->
-                <li class="col-sm-1">
-                  <div class="position-center-center">
+                <li class="col-sm-1 col-xs-2">
+                  <div class="position-center-center" style="margin-left: -20px;">
                     <div class="quinty">
                       <!-- QTY -->
                       <select class='customSelect' (change)="saveQuantity(element.product, $event)" [(ngModel)]="element.quantity">
                         <option *ngFor='let i of counter(element.product.quantity);' [value]='i'>{{i}}</option>
                       </select>
-                      <!--                  <select class="selectpicker">-->
-                      <!--                    <option>1</option>-->
-                      <!--                    <option>2</option>-->
-                      <!--                    <option>3</option>-->
-                      <!--                  </select>-->
                     </div>
                   </div>
 
                 </li>
 
                 <!-- TOTAL PRICE -->
-                <li class="col-sm-2">
+                <li class="col-sm-2 col-xs-3">
                   <div class="position-center-center"> <span class="price">{{element.product.price * element.quantity}} <small>DT</small></span> </div>
                 </li>
-                <i (click)="deleteProduct(element.product)" class="icon-close"></i>
-
+                <!-- REMOVE -->
+                <li class="col-sm-1 col-xs-1">
+                  <div class="position-center-center"> <a (click)="deleteProduct(element.product)"><i class="icon-close"></i></a> </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -171,7 +174,6 @@
                     </div>
                     <!-- SUB TOTAL -->
                     <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span></p>
-
                   </div>
                 </div>
 

@@ -77,6 +77,7 @@ export class ProductsComponent implements OnInit {
   selectedRows = [];
   showDeleteManyButton = false;
   products = [];
+  loading = true;
 
   constructor(private http: HttpClient,
               private productService: ProductService,
@@ -108,6 +109,7 @@ export class ProductsComponent implements OnInit {
         aux.quantity = quant;
         this.products.push(aux);
       });
+      this.loading = false;
     });
   }
 

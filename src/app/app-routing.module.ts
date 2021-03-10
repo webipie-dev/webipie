@@ -1,11 +1,6 @@
-import {Injectable, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AfterSigninComponent } from './index/after-signin/after-signin.component';
-import { IndexComponent } from './index/index.component';
-import { SignUpComponent } from './index/sign-up/sign-up.component';
 import {PageNotFoundComponent} from './index/page-not-found/page-not-found.component';
-import { SignInComponent } from './index/sign-in/sign-in.component';
-import {TemplatesPageComponent} from './index/templates-page/templates-page.component';
 import { AuthGuard } from './_shared/services/auth-guard.service';
 import {encryptStorage} from './_shared/utils/encrypt-storage';
 

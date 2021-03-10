@@ -4,40 +4,39 @@
 
     <!-- Main Heading -->
     <div class="heading text-center">
-      <h4 class="font">popular products</h4>
+      <h4  id="pop-prod" class="font">popular products</h4>
       <button class="mx-auto btn" routerLink="../products">ALL PRODUCTS</button>
       <span>{{ store.template.header.description }}</span> </div>
 
     <!-- Popular Item Slide -->
-    <div class="papular-block block-slide">
-
+    <div *ngIf="loading">
+      <app-spinner></app-spinner>
+    </div>
+    <div class="papular-block block-slide" *ngIf="!loading">
       <!-- Item -->
       <div class="item" *ngFor="let product of popularProducts">
-        <!-- Item img -->
-        <div class="item-img">
-
-          <div class="parent-image">
-            <img class="img-1" [src]="product.imgs[0]" alt="" >
-            <img class="img-2" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" style="top: auto" alt="" >
-          </div>
-
-          <!-- Overlay -->
-          <div class="overlay">
-            <div class="position-center-center">
-              <div>
-                <!-- to return to previous form add class inn-->
+          <!-- Item img -->
+          <div class="item-img">
+            <div class="parent-image">
+              <img class="img-1" [src]="product.imgs[0]" alt="" >
+              <img class="img-2" [src]="product.imgs[1]?product.imgs[1]:product.imgs[0]" style="top: auto" alt="" >
+            </div>
+            <!-- Overlay -->
+            <div class="overlay">
+              <div class="position-center-center">
+                <div>
+                  <!-- to return to previous form add class inn-->
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Item Name -->
-        <div class="item-name"> <a [routerLink]="['./product-detail/' + product.id]">{{product.name}}</a>
+          <!-- Item Name -->
+          <div class="item-name"> <a [routerLink]="['./product-detail/' + product.id]">{{product.name}}</a>
 
+          </div>
+          <!-- Price -->
+          <span class="price"><small>dt</small>{{product.price}}</span>
         </div>
-        <!-- Price -->
-        <span class="price"><small>dt</small>{{product.price}}</span>
-      </div>
-
     </div>
   </div>
 </section>

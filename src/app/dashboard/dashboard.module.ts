@@ -27,22 +27,24 @@ import {SpinnerModule} from "../spinner/spinner.module";
 import {SidebarModule} from "ng-sidebar";
 import { SideNavMinimizedComponent } from './side-nav-minimized/side-nav-minimized.component';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
+import {IndexModule} from '../index/index.module';
 
 
 @NgModule({
-  imports: [
-    DashboardRoutingModule,
-    HttpClientModule,
-    Ng2SmartTableModule,
-    ReactiveFormsModule,
-    CommonModule,
-    NgxChartsModule,
-    NgImageSliderModule,
-    FormsModule,
-    QuillModule.forRoot(),
-    SpinnerModule,
-    SidebarModule,
-  ],
+    imports: [
+        DashboardRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
+        NgxChartsModule,
+        NgImageSliderModule,
+        FormsModule,
+        QuillModule.forRoot(),
+        SpinnerModule,
+        SidebarModule,
+        IndexModule,
+    ],
   declarations: [
     DashboardComponent,
     SideNavComponent,

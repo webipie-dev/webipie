@@ -7,6 +7,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
+import {log} from "util";
 
 
 @Component({
@@ -33,8 +34,20 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
-
     this.store = encryptStorage.getItem('store');
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        switch (event.data.type) {
+          case 'color':
+            this.storeService.changeColorTheme(this.el, event.data.subj);
+            break;
+          case 'font':
+            this.storeService.changeFontTheme(this.el, event.data.subj);
+            break;
+        }
+      } else { return; }
+    });
+
     const cartData: [{product, quantity}] = encryptLocalStorage.getItem('cart') || [];
 
     cartData.forEach(data => {
@@ -46,9 +59,11 @@ export class ProductDetailComponent implements OnInit {
     this.review = new Review();
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
+
       this.product.reviews = this.product.reviews.reverse();
+      console.log(this.product.description);
+      this.externalFilesService.loadScripts();
     });
-    this.externalFilesService.loadScripts();
     this.storeService.changeTheme(this.el, this.store);
   }
 
@@ -74,14 +89,13 @@ export class ProductDetailComponent implements OnInit {
       };
       this.product.reviews.push(rev);
       this.disabled = true;
-
-
     });
   }
 
   addToCart(product: Product): void {
     const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
     cart.push({product, quantity: this.quantity});
+    this.storeService.updateCart(cart);
     encryptLocalStorage.setItem('cart', cart);
     this.addDisabled = true;
   }

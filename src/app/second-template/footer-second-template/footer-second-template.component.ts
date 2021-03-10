@@ -17,6 +17,18 @@ export class FooterSecondTemplateComponent implements OnInit {
               private storeService: StoreService) { }
 
   ngOnInit(): void {
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        switch (event.data.type) {
+          case 'color':
+            this.storeService.changeColorTheme(this.el, event.data.subj);
+            break;
+          case 'font':
+            this.storeService.changeFontTheme(this.el, event.data.subj);
+            break;
+        }
+      } else { return; }
+    });
     this.store = encryptStorage.getItem('store');
     this.storeService.changeTheme(this.el, this.store);
   }

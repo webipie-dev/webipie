@@ -14,54 +14,96 @@
             <!-- ESTIMATE SHIPPING & TAX -->
             <div class="col-sm-7">
               <h6>BILLING DETAILS</h6>
-              <form [formGroup]="clientForm"  (submit)="onSubmit()">
+              <form [formGroup]="clientForm" (submit)="onSubmit()">
                 <ul class="row">
 
                   <!-- NAME -->
                   <li class="col-md-6">
                     <label> *FIRST NAME
-                      <input type="text" formControlName="firstname"  placeholder="foulen">
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.firstname.touched) && clientFormControl.firstname.errors?.required">
+                        First Name is required
+                      </p>
+                      <input type="text" id="nameCheckout" formControlName="firstname" placeholder="foulen">
                     </label>
                   </li>
                   <!-- LAST NAME -->
                   <li class="col-md-6">
                     <label> *LAST NAME
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.lastname.touched) && clientFormControl.lastname.errors?.required">
+                        Last Name is required
+                      </p>
                       <input type="text" formControlName="lastname" value="" placeholder="ben foulen">
                     </label>
                   </li>
                   <!-- PHONE -->
                   <li class="col-md-12">
                     <label> *PHONE
-                      <input type="number" formControlName="phoneNumber" value="" placeholder="21234567">
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.phoneNumber.touched) && clientFormControl.phoneNumber.errors?.required">
+                        Phone is required
+                      </p>
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.phoneNumber.touched) &&
+                         (clientFormControl.phoneNumber.errors?.minlength
+                         || clientFormControl.phoneNumber.errors?.maxlength
+                         || clientFormControl.phoneNumber.errors?.pattern)">
+                        Please enter a valid Phone Number ( 8 Digits )
+                      </p>
+                      <input type="text" formControlName="phoneNumber" value="" placeholder="21234567">
                     </label>
                   </li>
                   <!-- STATE -->
                   <li class="col-md-6">
                     <label>*STREET
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.street.touched) && clientFormControl.street.errors?.required">
+                        Street is required
+                      </p>
                       <input type="text" formControlName="street" value="" placeholder="15 rue de liberté">
                     </label>
                   </li>
                   <!-- CITY -->
                   <li class="col-md-6">
                     <label> *CITY
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.city.touched) && clientFormControl.city.errors?.required">
+                        City is required
+                      </p>
                       <input type="text" formControlName="city" value="" placeholder="BJ">
                     </label>
                   </li>
                   <!-- STREET -->
                   <li class="col-md-6">
                     <label>*STATE
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.state.touched) && clientFormControl.state.errors?.required">
+                        State is required
+                      </p>
                       <input type="text" formControlName="state" value="" placeholder="Ariana">
                     </label>
                   </li>
                   <!-- ZIPCODE -->
                   <li class="col-md-6">
                     <label> ZIPCODE
-                      <input type="number" formControlName="zipcode" value="" placeholder="2073">
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.zipcode.touched) && clientFormControl.zipcode.errors?.required">
+                        Zip Code is required
+                      </p>
+                      <p class="text-danger font-weight-bold"
+                         *ngIf="(clientFormControl.zipcode.touched) &&
+                         (clientFormControl.zipcode.errors?.minlength
+                         || clientFormControl.zipcode.errors?.maxlength
+                         || clientFormControl.phoneNumber.errors?.pattern)">
+                        Please enter a valid Zipcode ( 4 Digits )
+                      </p>
+                      <input type="text" formControlName="zipcode" value="" placeholder="2073">
                     </label>
                   </li>
                   <!-- SUBMIT-->
                   <li class="col-md-12 mx-auto text-center">
-                    <button type="submit" class="btn" >ORDER</button>
+                    <button type="submit" class="btn" [disabled]="!clientForm.valid">ORDER</button>
                   </li>
                 </ul>
               </form>

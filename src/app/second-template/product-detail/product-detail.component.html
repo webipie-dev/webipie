@@ -24,7 +24,6 @@
                   </li>
                 </ul>
               </div>
-
               <div class="feedback" style="display: block; margin-top: 60px">
                 <!-- Item Detail -->
                 <h5>• Description:</h5>
@@ -87,19 +86,13 @@
 
                 <!-- INFOMATION -->
                 <div class="inner-info">
-                  <h6>DELIVERY INFORMATION</h6>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus ligula a scelerisque
-                    gravida. Nullam laoreet tortor ac maximus alique met, consectetur adipiscing elit. </p>
-                  <h6>SHIPPING & RETURNS</h6>
-                  <h6>SHARE THIS PRODUCT</h6>
+                  <h6>PRODUCT DESCRIPTION</h6>
+                  <p [innerHTML]="product.description"></p>
 
                   <!-- Social Icons -->
                   <ul class="social_icons">
-                    <li><a href="#."><i class="icon-social-facebook"></i></a></li>
-                    <li><a href="#."><i class="icon-social-twitter"></i></a></li>
-                    <li><a href="#."><i class="icon-social-tumblr"></i></a></li>
-                    <li><a href="#."><i class="icon-social-youtube"></i></a></li>
-                    <li><a href="#."><i class="icon-social-dribbble"></i></a></li>
+                    <li><a href="{{store.contact.facebookPage}}"><i class="icon-social-facebook"></i></a></li>
+                    <li><a href="{{store.contact.instagramPage}}"><i class="fab fa-instagram"></i></a></li>
                   </ul>
                 </div>
               </div>
@@ -113,7 +106,7 @@
           <ul class="nav nav-tabs animate fadeInUp" data-wow-delay="0.4s" role="tablist">
             <!-- <li role="presentation" class="active"><a href="#descr" role="tab" data-toggle="tab">DESCRIPTION</a></li> -->
             <li role="presentation" class="active"><a href="#review" role="tab" data-toggle="tab">REVIEW</a></li>
-            <li role="presentation"><a href="#tags" role="tab" data-toggle="tab">INFORMATION</a></li>
+<!--            <li role="presentation"><a href="#tags" role="tab" data-toggle="tab">INFORMATION</a></li>-->
           </ul>
 
           <!-- Tab panes -->
@@ -200,8 +193,8 @@
                     <!-- Rating Stars -->
 
                     <div>
-                      <div class="stars font"><span>YOUR RATING</span></div>
-                      <div class="rating mt-3">
+                      <div class="stars font mt-3"><span>YOUR RATING</span></div>
+                      <div class="rating">
                         <input type="radio" name="rating" [value]="5" [(ngModel)]="review.rating" id="rating-5">
                         <label for="rating-5"></label>
                         <input type="radio" name="rating" [value]="4" [(ngModel)]="review.rating" id="rating-4">
