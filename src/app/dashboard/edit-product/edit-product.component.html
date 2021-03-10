@@ -1,0 +1,310 @@
+<!-- edit or add product -->
+<div class="sales-header mt-3">
+  <h1 class="big-titles text-center mb-3">Add Edit One Product</h1>
+</div>
+
+<form (submit)="onSubmit()" [formGroup]="productForm">
+<!--  <div>-->
+<!--    <div class="col-12 text-center my-2">-->
+<!--      <a class="py-2 button-generic button-delete text-size" (click)="deletePhotoOpen()">-->
+<!--        <i class="fa fa-trash-alt" id="delete-icon"></i> Delete-->
+<!--        Photos</a>-->
+<!--    </div>-->
+<!--    <h3 class="mx-auto font-weight-bold my-1" style="color: darkred;" *ngIf="deletePhotos">Clickez maintenant sur l'image que vous voulez supprimer</h3>-->
+<!--  </div>-->
+
+  <div class="margin-top" [ngClass]="{'d-flex' : windwosWidth > 990}">
+    <div class="col-lg-8 col-12 mt-5 mb-5">
+      <div class="container upload-images product-description py-5">
+        <div class="col-12 mb-5" style="padding: 0">
+          <div>
+            <div class="d-flex upload-images" style="  text-align: -webkit-center; border: 2px solid rgba(45,52,56,0.3); padding: 20px 0;">
+              <div>
+                <input
+                  (change)="onImagePicked($event)"
+                  id="hiddenImageInput"
+                  accept="image/*"
+                  class="form-control fileInput" style="display: none"
+                  multiple
+                  name="imgs" type="file"/>
+                <!--            *********************-->
+                <div id="wrapper" class="my-2 mx-1" (click)="clickAddPhotos();">
+                  <a class="my-super-cool-btn">
+                    <div class="dots-container">
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                      <div class="dot"></div>
+                    </div>
+                    <span>
+                 <div class="text-center">
+                   <i class="fas fa-arrow-circle-up fa-2x"></i>
+                    <br>
+                   Upload
+                   <br>
+                   a Photo
+                 </div>
+                </span>
+                  </a>
+                </div>
+
+              </div>
+              <div class='col-md-9 col-8 mt-3'>
+                <!--Carousel Wrapper-->
+                <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+                  <!--Slides-->
+                  <div class="carousel-inner" role="listbox">
+                    <div class=" d-lg-none ">
+                      <!--First slide-->
+                      <div *ngFor="let image of imageObject; let i = index;"
+                           [ngClass]="{'active' : i === 0}"
+                           class="carousel-item ">
+
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="card mb-2">
+                              <img class="card-img-top my-auto" [src]="image.image"
+                                   alt="Card image cap">
+                              <div class="card-body">
+                                <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+
+<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 1]">-->
+<!--                            <div class="card mb-2">-->
+<!--                              <img class="card-img-top" [src]="imageObject[i+1].image" *ngIf="i + 1 < imageObject.length"-->
+<!--                                   alt="Card image cap">-->
+<!--                              <div class="card-body">-->
+<!--                                <a class="btn button-delete" (click)="deletePhoto(i+1)">Delete</a>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+
+<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 2]">-->
+<!--                            <div class="card mb-2">-->
+<!--                              <img class="card-img-top" [src]="imageObject[i+2].image" *ngIf="i + 2 < imageObject.length"-->
+<!--                                   alt="Card image cap">-->
+<!--                              <div class="card-body">-->
+<!--                                <a class="btn button-delete" (click)="deletePhoto(i+2)">Delete</a>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+                        </div>
+
+                      </div>
+                      <!--/.First slide-->
+
+                    </div>
+                    <div class="d-none d-lg-block">
+                      <!--First slide-->
+                      <div *ngFor="let imageArr of imageObjectToShow; let i = index;"
+                           [ngClass]="{'active' : i === 0}"
+                           class="carousel-item ">
+
+                        <div class="row">
+                          <div *ngFor="let image of imageArr" class="col-lg-4">
+                            <div class="card mb-2">
+                              <img class="card-img-top my-auto" [src]="image.image"
+                                   alt="Card image cap">
+                              <div class="card-body">
+                                <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+
+<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 1]">-->
+<!--                            <div class="card mb-2">-->
+<!--                              <img class="card-img-top" [src]="imageObject[i+1].image" *ngIf="i + 1 < imageObject.length"-->
+<!--                                   alt="Card image cap">-->
+<!--                              <div class="card-body">-->
+<!--                                <a class="btn button-delete" (click)="deletePhoto(i+1)">Delete</a>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+
+<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 2]">-->
+<!--                            <div class="card mb-2">-->
+<!--                              <img class="card-img-top" [src]="imageObject[i+2].image" *ngIf="i + 2 < imageObject.length"-->
+<!--                                   alt="Card image cap">-->
+<!--                              <div class="card-body">-->
+<!--                                <a class="btn button-delete" (click)="deletePhoto(i+2)">Delete</a>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+                        </div>
+
+                      </div>
+                      <!--/.First slide-->
+
+                    </div>
+                  </div>
+                  <!--/.Slides-->
+                  <div class="controls-top" *ngIf="imageObject.length">
+                    <a style="color: #2d3438" class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-circle-left fa-3x mx-4 my-2"></i></a>
+                    <a style="color: #2d3438" class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-circle-right fa-3x mx-4 my-2"></i></a>
+                  </div>
+                  <!--/.Controls-->
+                </div>
+                <!--/.Carousel Wrapper-->
+
+<!--                <ng-image-slider-->
+<!--                  [imageSize]="{width: 150, height: 150, space: 4}"-->
+<!--                  [images]="imageObject"-->
+<!--                  [imagePopup]="!deletePhotos"-->
+<!--                  [infinite]="false" (imageClick)=" deletePhotos ? deletePhoto($event) : null"></ng-image-slider>-->
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+<!--          <div class="col-md-6 col-12 mb-3">-->
+<!--            <div class="col-12">-->
+<!--              <label class="text-size pl-2">Name</label>-->
+<!--            </div>-->
+<!--            <div class="col-12">-->
+<!--              <input-->
+<!--                [ngModel]="singleProduct.name"-->
+<!--                class="text-size product-input"-->
+<!--                formControlName="name" type="text">-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="col-md-3 col-6">-->
+<!--            <div class="col-12">-->
+<!--              <label class="text-size pl-2">Quantity</label>-->
+<!--            </div>-->
+<!--            <div class="col-12">-->
+<!--              <input-->
+<!--                [ngModel]="singleProduct.quantity"-->
+<!--                class="width-100 text-size product-input"-->
+<!--                formControlName="quantity"-->
+<!--                min="0" type="number">-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          <div class="col-md-3 col-6">-->
+<!--            <div class="col-12">-->
+<!--              <label class="text-size pl-2">Price</label>-->
+<!--            </div>-->
+<!--            <div class="col-12">-->
+<!--              <input-->
+<!--                [ngModel]="singleProduct.price"-->
+<!--                class="text-size product-input"-->
+<!--                formControlName="price"-->
+<!--                min="0" type="number">-->
+<!--            </div>-->
+<!--          </div>-->
+          <div class="col-12 mt-3">
+            <div class="col-12">
+              <label class="text-size pl-2">Description</label>
+              <p class="text-danger font-weight-bold"
+                 *ngIf="(productFormControl.description.touched) && productFormControl.description.errors?.required">
+                Description is required
+              </p>
+            </div>
+            <div class="col-12">
+              <!-- <textarea class="description-area"
+                        formControlName="description" [ngModel]="singleProduct.description"></textarea> -->
+              <quill-editor formControlName="description" [modules]="config" [ngModel]="singleProduct.description"></quill-editor>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-12 mt-5 mb-5">
+      <div class="row upload-images mr-1 px-3 py-4 mx-auto mb-3">
+        <div class="col-12">
+          <label class="text-size pl-2">Name</label>
+          <p class="text-danger font-weight-bold"
+             *ngIf="(productFormControl.name.touched) && productFormControl.name.errors?.required">
+            Name is required
+          </p>
+        </div>
+        <div class="col-12 mb-3">
+          <input
+            [ngModel]="singleProduct.name"
+            class="text-size product-input"
+            formControlName="name" type="text">
+        </div>
+        <div class="col-12">
+          <label class="text-size pl-2">Quantity</label>
+          <p class="text-danger font-weight-bold"
+             *ngIf="(productFormControl.quantity.touched) && productFormControl.quantity.errors?.required">
+            Quantity is required
+          </p>
+        </div>
+        <div class="col-12 mb-3">
+          <input
+            [ngModel]="singleProduct.quantity"
+            style="width: 90% !important;"
+            class="width-100 text-size product-input"
+            formControlName="quantity"
+            min="0" type="number">
+        </div>
+        <div class="col-12">
+          <label class="text-size pl-2">Price</label>
+          <p class="text-danger font-weight-bold"
+             *ngIf="(productFormControl.price.touched) && productFormControl.price.errors?.required">
+            Price is required
+          </p>
+        </div>
+        <div class="col-12 mb-3">
+          <input
+            [ngModel]="singleProduct.price"
+            class="text-size product-input"
+            formControlName="price"
+            min="0" type="number">
+        </div>
+        <div class="col-12">
+          <label class="text-size pl-2">Status</label>
+        </div>
+        <div class="col-12">
+          <select [(ngModel)]="singleProduct.status" formControlName="status" class="text-size product-input" id="status" name="status">
+            <option value="disponible" >Disponible</option>
+            <option value="in arrival" >In arrival</option>
+            <option value="out of stock">Out of stock</option>
+          </select>
+        </div>
+          <div class="col-12 mt-3">
+            <div class="tg-list">
+              <div class="tg-list-item">
+                <h4>Allow Reviews</h4>
+                <input class="tgl tgl-ios"
+                       formControlName="openReview" (click)="onReviews($event)" [(ngModel)]="isChecked"
+                       id="allowReviews" type="checkbox"/>
+                <label class="tgl-btn" for="allowReviews"></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="tg-list">
+              <div class="tg-list-item">
+                <h4>Display on popular products</h4>
+                <input class="tgl tgl-ios"
+                       formControlName="popular" (click)="onPopular($event)" [(ngModel)]="isPopular"
+                       id="popularProd" type="checkbox"/>
+                <label class="tgl-btn" for="popularProd"></label>
+              </div>
+            </div>
+          </div>
+      </div>
+
+
+      <div class="col-12 text-center my-1">
+        <button class="button-generic button-blue form-button text-size" type="submit">Save Changes</button>
+      </div>
+      <div class="col-12 text-center mt-1">
+        <button class="button-generic button-blue form-button text-size">Reset</button>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+
+

@@ -1,0 +1,142 @@
+#sidebar-header ul p, #sidebar-header-non-active ul p {
+  color: #fff;
+  padding: 10px;
+  padding-bottom: 0 !important;
+}
+
+#sidebar-header ul li a {
+  padding: 10px 10px 10px 35px;
+  display: block;
+}
+
+.external {
+  padding: 10px 10px 10px 10px !important;
+  color: #007500 !important;
+}
+
+#sidebar-header-non-active ul li a {
+  padding: 20px;
+  display: block;
+}
+
+#sidebar-header ul li a:hover, #sidebar-header-non-active ul li a:hover, .back-button:hover {
+  color: var(--white-color);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+#sidebar-header ul li.active > a, a[aria-expanded="true"], #sidebar-header-non-active ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: var(--light-black-color);
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.nav-link-sidebar {
+  text-decoration: none !important;
+  color: white;
+  transition: all 200ms linear;
+  margin-top: -5px
+}
+
+.child-elem {
+  padding-left: 60px !important;
+}
+
+.sidenav-elem {
+  width: 90%;
+  margin: auto;
+  border-top: solid 2px var(--white-color);;
+}
+
+/******** header *******/
+.input{
+    border-color: white;
+}
+.input:focus-within {
+    /* background-color: var(--blue-color); */
+    background-color: inherit;
+    transition: all 0.2s ease-out;
+    color: white;
+}
+
+.sidenav-input-item {
+  background-color: var(--light-black-color);
+  border: solid 2px rgba(248,248,248,0.5);
+  color: var(--white-color);
+  border-radius: 10px;
+  transition: all 0.2s ease-out;
+}
+
+.fileInput {
+    cursor: pointer;
+    height: 100%;
+    position:absolute;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    /*This makes the button huge. If you want a bigger button, increase the font size*/
+    /* font-size:50px; */
+    /*Opacity settings for all browsers*/
+    opacity: 0;
+    -moz-opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    /* outline:none; */
+}
+
+
+.background{
+    position: relative;
+}
+
+.image{
+    position: sticky;
+    border-radius: 8px;
+    width: 100%;
+    filter: blur(1px);
+    -webkit-filter: blur(1px);
+    z-index: 1;
+}
+
+.upload-image{
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    left: 230px;
+    top: 5%;
+    z-index: 2;
+}
+
+.button-black:disabled,
+.button-black[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+.upload-back {
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #ffffff;
+  background-color: #51c2d5;
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: 0 0 10px 5px rgba(10, 10, 10, 0.3);
+}

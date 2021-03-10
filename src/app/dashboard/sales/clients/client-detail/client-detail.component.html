@@ -1,0 +1,40 @@
+<a data-toggle="modal" (click)="open(content)" class="button-generic button-white-border-blue detail-button">Details</a>
+<ng-template #content let-modal class="order-detail-modal">
+  <div class="modal-header">
+    <h5 class="modal-title my-auto" id="exampleModalLabel">Client ID: {{rowData.id}} </h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true" class="close-x">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="row">
+      <div class="col-12">
+        <p class="small-titles">Name: </p>
+        <p class="text-size">{{ rowData.firstname }} {{ rowData.lastname}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="small-titles">Phone Number: </p>
+        <p class="text-size">{{ rowData.phoneNumber }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="small-titles">Email: </p>
+        <p class="text-size">{{ rowData.email}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p class="small-titles">Address: </p>
+        <p class="text-size">{{ fullAddress }}</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="text-size button-generic button-white-border-blue" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+

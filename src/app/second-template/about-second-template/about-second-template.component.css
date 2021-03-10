@@ -1,0 +1,38 @@
+:host {
+  --font-color: #171e27;
+  --font-choice: 'Montserrat';
+  --bg-color: #fff;
+}
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+.small-about {
+  border-top: 1px solid var(--bg-color);
+}
+.small-about h4 {
+  font-family: var(--font-choice), sans-serif !important;
+  color: var(--font-color);
+}
+.small-about .social_icons {
+  text-align: center;
+}
+.small-about .social_icons li {
+  display: inline-block;
+}
+.small-about .social_icons li a {
+  font-size: 16px;
+  margin: 0 5px;
+  color: var(--font-color);
+}
+.small-about .social_icons li a:hover {
+  color: var(--secondary-color);
+}
+.small-about p {
+  font-family: var(--font-choice), serif !important;
+  color: #4d4d4d;
+  font-size: 14px;
+  line-height: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}

@@ -1,0 +1,86 @@
+<header>
+  <div class="sticky">
+    <div class="container d-md-block d-flex">
+
+      <!-- Logo -->
+      <div class="logo d-block d-lg-block d-md-none"> <a href="index.html"><h6 class="logo">STORE</h6></a></div>
+      <nav class="navbar ownmenu">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-open-btn" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"><i class="fas fa-bars"></i></span> </button>
+        </div>
+
+        <!-- NAV -->
+        <div class="collapse navbar-collapse" id="nav-open-btn">
+          <ul class="nav">
+
+            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <a routerLink="">Home</a>
+            </li>
+            <li routerLinkActive="active">
+              <a routerLink="products" routerLinkActive="active">Products</a>
+            </li>
+            <li  routerLinkActive="active">
+              <a routerLink="cart">Cart</a>
+            </li>
+<!--            <li  routerLinkActive="active">-->
+<!--              <a routerLink="checkout">Checkout</a>-->
+<!--            </li>-->
+          </ul>
+        </div>
+
+        <!-- Nav Right -->
+        <div class="nav-right d-sm-none d-md-block d-none">
+          <ul class="navbar-right">
+
+            <!-- USER BASKET -->
+            <li class="dropdown user-basket"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><i class="icon-basket-loaded"></i> </a>
+              <ul class="dropdown-menu">
+                <div>
+                <li>
+                  <div *ngFor="let element of cart">
+                  <div class="media-left">
+                    <div class="cart-img"> <button href="#" style="margin: 0">
+                      <img class="media-object img-responsive" [src]="element.product.imgs[0]" alt="..."> </button> </div>
+                  </div>
+
+                  <div class="media-body">
+                    <h6 class="media-heading">{{element.product.name}}</h6>
+                    <span class="price">{{element.product.price}} DT</span> <span class="qty">QTY: {{element.quantity}}</span> </div>
+                    <i (click)="deleteProduct(element.product)" class="icon-close"></i>
+                  </div>
+                </li>
+
+                <li>
+                  <h5 class="text-center">SUBTOTAL: {{totalPrice}}</h5>
+                </li>
+                <li class="margin-0">
+                  <div class="row">
+                    <div class="col-xs-6"> <a class="btn" routerLink="cart">VIEW CART</a></div>
+                    <div class="col-xs-6 "> <a class="btn" routerLink="checkout">CHECK OUT</a></div>
+                  </div>
+                </li>
+
+                </div>
+              </ul>
+            </li>
+
+            <!-- SEARCH BAR -->
+            <li class="dropdown"> <a href="javascript:void(0);" class="search-open"><i class=" icon-magnifier"></i></a>
+              <div class="search-inside animated bounceInUp"> <i class="icon-close search-close"></i>
+                <div class="search-overlay"></div>
+                <div class="position-center-center">
+                  <div class="search">
+                    <form>
+                      <input type="search" placeholder="Search Shop">
+                      <button type="submit"><i class="icon-check"></i></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>

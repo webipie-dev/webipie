@@ -1,0 +1,63 @@
+<div class="content">
+  <!-- card -->
+  <div class="card" routerLink="/dashboard/sales/clients">
+
+    <div class="icon">
+      <i class="fas fa-users md-36 fa-2x"></i>
+    </div>
+    <p class="title">Clients</p>
+    <h1 id="clients-number" class="counter-number mt-1">0</h1>
+    <p class="text">Click to see all your clients.</p>
+
+  </div>
+  <!-- end card -->
+  <!-- card -->
+  <div class="card" routerLink="/dashboard/sales/orders">
+
+    <div class="icon">
+      <i class="fas fa-list-alt md-36 fa-2x"></i>
+    </div>
+    <p class="title">Orders</p>
+    <p id="orders-number" class="counter-number">0</p>
+
+    <p class="text">Check all your Orders.</p>
+
+  </div>
+  <!-- end card -->
+  <!-- card -->
+  <div class="card" routerLink="/dashboard/products">
+
+    <div class="icon">
+      <i class="fas fa-shopping-bag md-36 fa-2x"></i>
+    </div>
+    <p class="title">Products</p>
+    <p id="products-number" class="counter-number">0</p>
+    <p class="text">Add or change your Products.</p>
+
+  </div>
+  <!-- end card -->
+</div>
+
+
+<!--********************** Popular Product ********************-->
+
+<div class="content-popular">
+  <div class="card-popular transition-popular" *ngIf="!isLoading && popularProduct">
+    <h2 class="transition-popular">{{popularProduct.name}}</h2>
+    <p>{{popularProduct.description}}</p>
+    <div class="card_circle transition-popular"
+         [ngStyle]="{'background' : popularProduct ? 'url(' + popularProduct.imgs[0]+ ') no-repeat center ' : null}"></div>
+    <div class="bought-prod">Most Bought Product</div>
+
+  </div>
+  <!--********************** Preview Template ********************-->
+  <div class="card" style="height: 300px; max-width: 592px" *ngIf="!isLoading">
+    <iframe src="http://store.webipie.com:4200/"
+            class="iframe-home"
+            frameborder="0" width="550px" height="250px"></iframe>
+    <div class="bought-prod" routerLink="/store">edit store</div>
+
+  </div>
+</div>
+
+

@@ -1,0 +1,132 @@
+
+@media screen and (max-width: 576px){
+  .margin-on-mobile {
+    margin-top: 55px !important;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1300px){
+  .dashboard-medium-lg {
+    padding-left: 100px !important;
+  }
+}
+
+
+
+/*--------------- Input ---------------*/
+input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer;
+  border: 2px solid;
+}
+
+.input {
+  width: 100%;
+  color: var(--black-color);
+  background-color: transparent;
+  display: block;
+  border: 3px solid var(--blue-color);
+  padding: 5px 15px;
+  border-radius: 12px;
+  transition: .4s transform ease-in-out;
+  font-size: var(--text-desktop);
+}
+@media screen and (max-width: 990px){
+  .input {
+    font-size: var(--text-tablet);
+  }
+}
+@media screen and (max-width: 768px){
+  .input {
+    font-size: var(--small-titles-mobile);
+  }
+}
+
+.input:focus-within {
+  background-color: var(--blue-color);
+  transition: all 0.2s ease-out;
+  color: white;
+}
+
+.input::-webkit-input-placeholder {
+  color: dimgrey;
+}
+
+.input:focus::-webkit-input-placeholder {
+  color: white;
+}
+
+/* Firefox < 19 */
+.input:-moz-placeholder {
+  color: transparent;
+}
+
+input:focus:-moz-placeholder {
+  color: white;
+}
+
+/* Firefox > 19 */
+input::-moz-placeholder {
+  color: transparent;
+}
+
+input:focus::-moz-placeholder {
+  color: white;
+}
+
+/* Internet Explorer 10 */
+input:-ms-input-placeholder {
+  color: transparent;
+}
+
+input:focus:-ms-input-placeholder {
+  color: white;
+}
+
+.input-wrapper {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.upload-icon {
+  color: var(--blue-color) !important;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 13px;
+}
+.border-none {
+  border: none !important;
+}
+
+
+/***************** New sidebar *********************/
+::ng-deep aside {
+  background-color: #2D3438;
+  padding: 2em 1em;
+}
+
+:host >>> .ng-sidebar {
+  max-width: 280px;
+  min-width: 90px;
+  overflow-y: hidden;
+  scrollbar-width: thin;          /* "auto" or "thin" */
+  scrollbar-color: #888;
+}
+
+
+:host >>> .ng-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+:host >>> .ng-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+:host >>> .ng-sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 50px;
+}
+:host >>> .ng-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.toggle-mobile {
+  background-color: var(--black-color);
+  color: #ffffff;
+}

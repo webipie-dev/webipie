@@ -1,0 +1,113 @@
+/* ***************** SideNav ****************** */
+
+#sidebar-font .sidebar-header {
+  padding: 20px;
+  background: var(--light-black-color);
+}
+
+#sidebar-font ul p, #sidebar-font-non-active ul p {
+  color: #fff;
+  padding: 10px;
+  /*padding-bottom: 0 !important;*/
+}
+
+#sidebar-font ul li a {
+  padding: 10px 10px 10px 35px;
+  display: block;
+}
+
+#sidebar-font-non-active ul li a {
+  padding: 20px;
+  display: block;
+}
+
+#sidebar-font ul li a:hover, #sidebar-font-non-active ul li a:hover, .back-button:hover {
+  color: var(--white-color);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+#sidebar-font ul li.active > a, a[aria-expanded="true"], #sidebar-font-non-active ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: var(--light-black-color);
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.nav-link-sidebar {
+  text-decoration: none !important;
+  color: white;
+  transition: all 200ms linear;
+  margin-top: -5px
+}
+
+.child-elem {
+  padding-left: 60px !important;
+}
+
+.sidenav-elem {
+  width: 90%;
+  margin: auto;
+  border-top: solid 2px var(--white-color);;
+}
+
+.font-weight-lighter {
+  font-weight: lighter !important;
+}
+
+.sidenav-input-item {
+  background-color: var(--light-black-color);
+  border: solid 2px rgba(248,248,248,0.5);
+  color: var(--white-color);
+  border-radius: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.font-item-selected {
+  background-color: #03A9F4;
+  border-radius: 2px;
+  border-style: solid;
+  border-width: thin;
+}
+
+.text-shadow{
+  width: 20%;
+}
+
+.alignment{
+  background-color: #03A9F4;
+  border-radius: 2px;
+  border-style: solid;
+  border-width: thin;
+}
+
+
+.button-black:disabled,
+.button-black[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+.font-style{
+  background-color: #ffffff;
+  padding: 20px !important;
+  border-radius: 15px;
+  color: #2D3438 !important;
+  text-align: center;
+  font-size: 15px;
+}

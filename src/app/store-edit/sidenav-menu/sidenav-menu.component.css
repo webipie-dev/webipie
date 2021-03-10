@@ -1,0 +1,73 @@
+#sidebar-menu::-webkit-scrollbar {
+  display: none;
+  z-index: 1000;
+}
+
+#sidebar-menu {
+  top: 0;
+  bottom: 0;
+  min-width: 80px;
+  min-height: 80vh;
+  height: auto;
+  background: var(--light-black-color);
+  color: #fff;
+  transition: all 0.3s;
+}
+
+
+#sidebar-menu .sidebar-header {
+  padding: 20px;
+  background: var(--light-black-color);
+}
+
+#sidebar-menu ul p {
+  color: #fff;
+  padding: 10px;
+  padding-bottom: 0 !important;
+}
+
+#sidebar-menu ul li a {
+  padding: 10px 10px 10px 35px;
+  display: block;
+}
+
+
+#sidebar-menu ul li a:hover{
+  color: var(--white-color);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+#sidebar-menu ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: var(--light-black-color);
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+}
+
+.nav-link-sidebar {
+  text-decoration: none !important;
+  color: white;
+  transition: all 200ms linear;
+  margin-top: -5px
+}
+
+.child-elem {
+  padding-left: 60px !important;
+}
+
+.sidenav-elem {
+  width: 90%;
+  margin: auto;
+  border-top: solid 2px var(--white-color);;
+}
