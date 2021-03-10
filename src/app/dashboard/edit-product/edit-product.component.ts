@@ -7,6 +7,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import uniqueSlug from 'unique-slug';
 
+
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 
@@ -37,10 +38,16 @@ export class EditProductComponent implements OnInit {
 
   config = {
     toolbar: [
-      ['bold', 'italic', 'underline'],        // toggled buttons
+      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
 
-      [{ header: 1 }, { header: 2 }],               // custom button values
       [{ list: 'ordered'}, { list: 'bullet' }],
+      [{ indent: '-1'}, { indent: '+1' }],          // outdent/indent
+
+      [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
+
+      [{ color: [] }, { background: [] }],          // dropdown with defaults from theme
+
+
     ]
   };
 
@@ -94,7 +101,9 @@ export class EditProductComponent implements OnInit {
 
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
-      console.log(data);
+      if (data.quantity < 0) {
+        data.quantity = 0;
+      }
       this.singleProduct = data;
       this.isChecked = data.openReview;
       this.isPopular = data.popular;
@@ -145,7 +154,12 @@ export class EditProductComponent implements OnInit {
       if (field !== 'openReview' && field !== 'popular') {
         const control = this.productForm.get(field);
         if (control.value) {
-          this.postData.append(field, control.value);
+          if (  (field === 'quantity' || field === 'price') && +(control.value) < 0){
+            this.postData.append(field, '0');
+          }
+          else {
+            this.postData.append(field, control.value);
+          }
         } else {
           if (field !== 'imgs' && field !== 'store') {
             this.postData.append(field, '');
@@ -165,7 +179,12 @@ export class EditProductComponent implements OnInit {
       if (field !== 'openReview' && field !== 'popular') {
         const control = this.productForm.get(field);
         if (control.value) {
-          this.postData.append(field, control.value);
+          if (  (field === 'quantity' || field === 'price') && control.value <= 0){
+            this.postData.append(field, '0');
+          }
+          else {
+            this.postData.append(field, control.value);
+          }
         } else {
           if (field !== 'imgs' && field !== 'store') {
             this.postData.append(field, '');

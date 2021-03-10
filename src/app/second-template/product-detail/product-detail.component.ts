@@ -24,6 +24,8 @@ export class ProductDetailComponent implements OnInit {
   disabled = false;
   quantity = 1;
   productId = this.activatedRoute.snapshot.paramMap.get('id');
+  addDisabled = false;
+  outOfStock = false;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -32,6 +34,7 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
+    this.store = encryptStorage.getItem('store');
     window.addEventListener('message', event => {
       if (event.origin.startsWith('http://webipie.com:4200')) {
         switch (event.data.type) {
@@ -44,19 +47,20 @@ export class ProductDetailComponent implements OnInit {
         }
       } else { return; }
     });
+
     const cartData: [{product, quantity}] = encryptLocalStorage.getItem('cart') || [];
 
     cartData.forEach(data => {
       if (this.productId === data.product.id){
-        this.disabled = true;
+        this.addDisabled = true;
       }
     });
-
-    this.store = encryptStorage.getItem('store');
 
     this.review = new Review();
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
+
+      this.product.reviews = this.product.reviews.reverse();
       console.log(this.product.description);
       this.externalFilesService.loadScripts();
     });
@@ -64,20 +68,35 @@ export class ProductDetailComponent implements OnInit {
   }
 
   counter(i: number): Array<number> {
+    if ( i <= 0) {
+      this.addDisabled = true;
+      this.outOfStock = true;
+      return [];
+    }
     const count =  [];
     for(let j = 1; count.push(j++) < i;);
     return count;
 }
 
   sendReview(): void{
-    this.productService.addReview(this.product.id, this.review);
+    this.productService.addReview(this.product.id, this.review).subscribe(data => {
+      const rev: Review = {
+        name: this.review.name,
+        rating: this.review.rating,
+        review: this.review.review,
+        email: this.review.email,
+        date: new Date(),
+      };
+      this.product.reviews.push(rev);
+      this.disabled = true;
+    });
   }
 
   addToCart(product: Product): void {
-    this.disabled = true;
     const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
     cart.push({product, quantity: this.quantity});
     this.storeService.updateCart(cart);
     encryptLocalStorage.setItem('cart', cart);
+    this.addDisabled = true;
   }
 }

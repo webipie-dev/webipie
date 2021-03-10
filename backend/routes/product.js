@@ -56,7 +56,7 @@ router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
   productValidator.quantity,
   productValidator.description,
   productValidator.name,
-], validateRequest, clearCache, productService.addProduct);
+], validateRequest, productService.addProduct);
 
 router.patch('/:id/review', productService.addReview);
 
@@ -65,10 +65,10 @@ router.patch('/:id/delete/image', passportJWT, [
 ], validateRequest, productService.deleteImage);
 
 // deleteManyProducts
-router.delete('', validation.ids, passportJWT, clearCache, productService.deleteManyProducts);
+router.delete('', validation.ids, passportJWT, productService.deleteManyProducts);
 
 //deleteAllProducts
-router.delete('/delete', passportJWT, clearCache, productService.deleteAllProducts);
+router.delete('/delete', passportJWT, productService.deleteAllProducts);
 
 
 router.patch('/:id', passportJWT, multer({storage: storage}).any("productImgs", 5), [

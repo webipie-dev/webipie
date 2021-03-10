@@ -16,13 +16,7 @@ export class ProductService extends GenericService<any>{
   }
 
   public addReview(id: string, body): Observable<any> {
-    let httpOptions: any;
-    if ( localStorage.getItem('token') ){
-      httpOptions = {
-        headers: { Authorization: localStorage.getItem('token') },
-      };
-    }
-    return this.http.patch(this.getUrl() + this.suffix + '/' + id + '/review', body, httpOptions) as unknown as Observable<any>;
+    return this.http.patch(this.getUrl() + this.suffix + '/' + id + '/review', body) as Observable<any>;
   }
 
 }

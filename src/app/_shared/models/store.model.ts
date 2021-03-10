@@ -5,7 +5,7 @@ export class Store extends GenericModel{
   public url: string;
   public name: string;
   public logo: string;
-  public description: string;
+  public about: string;
   public creationDate: Date;
   public contact: {
     phoneNumber: number,

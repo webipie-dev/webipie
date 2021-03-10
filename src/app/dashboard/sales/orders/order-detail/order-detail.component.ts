@@ -23,6 +23,7 @@ export class OrderDetailComponent implements OnInit {
   orderProductsQuantity = [];
   closeResult;
   orderStatus;
+  currentStatus;
 
   constructor(private http: HttpClient,
               private orderService: OrderService,
@@ -34,6 +35,7 @@ export class OrderDetailComponent implements OnInit {
   ngOnInit(): void {
     this.editMode = this.value;
     this.displayMode = !this.editMode;
+    this.currentStatus = this.rowData.orderStatus;
     this.orderStatus = this.rowData.orderStatus;
   }
 

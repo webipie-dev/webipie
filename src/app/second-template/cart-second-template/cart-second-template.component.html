@@ -140,7 +140,6 @@
                 <li class="col-sm-1 col-xs-1">
                   <div class="position-center-center"> <a (click)="deleteProduct(element.product)"><i class="icon-close"></i></a> </div>
                 </li>
-
               </ul>
             </div>
           </div>
@@ -165,7 +164,8 @@
               </div>-->
 
               <!-- SUB TOTAL -->
-              <div class="col-12">
+
+              <div class="col-12 col-lg-6">
                 <h6>grand total</h6>
                 <div class="grand-total">
                   <div class="order-detail">
@@ -173,10 +173,11 @@
                       <p>{{element.product.name}} <span>{{element.quantity}}x  {{element.product.price}} DT</span></p>
                     </div>
                     <!-- SUB TOTAL -->
-                    <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span>
-                    </p>
+                    <p class="all-total">TOTAL COST <span> {{totalPrice}} DT</span></p>
                   </div>
                 </div>
+
+                <li class="col-xs-6"> <button class="btn" [disabled]="totalPrice <= 0" (click)="save()">SAVE</button> </li>
               </div>
             </div>
           </div>

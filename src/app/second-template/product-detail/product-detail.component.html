@@ -24,6 +24,12 @@
                   </li>
                 </ul>
               </div>
+              <div class="feedback" style="display: block; margin-top: 60px">
+                <!-- Item Detail -->
+                <h5>• Description:</h5>
+                <div [innerHTML]="product.description"></div>
+
+              </div>
             </div>
 
             <!-- COntent -->
@@ -41,7 +47,8 @@
                 <li>Designer :<span> ABC Art</span></li>
                 <li>Brand:<span> LimeWood</span></li>
               </ul> -->
-
+              <p *ngIf="outOfStock">out of stock</p>
+              <p *ngIf="!outOfStock && addDisabled "> the product is in your cart already </p>
               <!-- Short By -->
               <div class="some-info">
                 <ul class="row margin-top-30">
@@ -71,7 +78,7 @@
                   </li> -->
 
                   <!-- ADD TO CART -->
-                  <li class="col-xs-6"> <button class="add-to-cart btn" [disabled]="disabled" (click)="addToCart(product)">ADD TO CART</button> </li>
+                  <li class="col-xs-6"> <button class="btn"  (click)="addToCart(product)" [disabled]="addDisabled">ADD TO CART</button> </li>
 
                   <!-- LIKE -->
                   <li class="col-xs-6"><a href="#." class="like-us"><i class="icon-heart"></i></a></li>
@@ -134,7 +141,7 @@
 
             <!-- REVIEW -->
             <div *ngIf='product.openReview' role="tabpanel" class="tab-pane fade in active feedback" id="review">
-              <h6 class="font">{{ product.reviews ? product.reviews.length : '0' }} REVIEWS FOR SHIP YOUR IDEA</h6>
+              <h6 class="font">{{ product.reviews ? product.reviews.length : '0' }} REVIEWS FOR {{product.name}}</h6>
 
               <!-- REVIEW PEOPLE 1 -->
 
@@ -146,15 +153,15 @@
                 </div>
                 <!--  Details -->
                 <div class="media-body">
+                  <h6 class="font"> {{oneReview.name}} <span class="pull-right">{{oneReview.date| date:'short'}}</span></h6>
                   <p class="font-playfair">{{oneReview.review}}</p>
-                  <h6 class="font"> {{oneReview.name}} <span class="pull-right">{{oneReview.date | date}}</span></h6>
                 </div>
               </div>
 
 
               <!-- ADD REVIEW -->
               <h6 class="margin-t-40 font">ADD REVIEW</h6>
-              <form>
+              <form *ngIf="!disabled">
                 <ul class="row">
                   <li class="col-sm-6">
                     <label for="name"> *NAME</label>
@@ -203,7 +210,7 @@
                   </li>
                   <li class="col-sm-6">
                     <button type="submit" class="btn-font btn btn-dark btn-small pull-right no-margin"
-                            [disabled]="!product.openReview" (submit)='sendReview()'>POST REVIEW
+                             (click)='sendReview()'>POST REVIEW
                     </button>
                   </li>
                 </ul>
