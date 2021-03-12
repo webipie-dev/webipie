@@ -15,6 +15,9 @@ footer h6 {
   margin-bottom: 42px;
   letter-spacing: 1.5px;
 }
+footer h4 {
+  color: var(--bg-color);
+}
 footer {
   padding: 120px 0;
   padding-bottom: 60px;
@@ -183,11 +186,18 @@ img {
 
 li:first-child {
   font-size: 21px !important;
-  font-weight: bold;
-  margin-bottom: calc(40px + (48 - 40) * ((100vw - 360px) / (1600 - 360))) !important;
-  color: #757575 !important
+  /*font-weight: bold;*/
+  /* margin-bottom: calc(40px + (48 - 40) * ((100vw - 360px) / (1600 - 360))) !important;*/
+  /*color: #757575 !important*/
 }
 
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+.active-link {
+  font-weight: bold;
+}
 
 .social {
   position: relative;

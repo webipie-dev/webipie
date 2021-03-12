@@ -16,7 +16,6 @@ import {StoreEditModule} from './store-edit/store-edit.module';
 import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {TemplateModule} from './template/template.module';
 import {QuillModule} from 'ngx-quill';
 import {SecondTemplateModule} from './second-template/second-template.module';
 import {SpinnerModule} from './spinner/spinner.module';
@@ -44,7 +43,6 @@ export let InjectorInstance: Injector;
     FormsModule,
     DashboardModule,
     StoreEditModule,
-    TemplateModule,
     HttpClientModule,
     SocialLoginModule,
     NgxSpinnerModule,

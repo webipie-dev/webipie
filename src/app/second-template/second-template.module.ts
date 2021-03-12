@@ -35,12 +35,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         ProductDetailComponent,
         SubHeaderSecondTemplateComponent,
     ],
-  exports: [
-    SecondTemplateComponent,
-    HomeSecondTemplateComponent,
-    FooterSecondTemplateComponent,
-    HeaderSecondTemplateComponent
-  ],
+    exports: [
+      SecondTemplateComponent,
+    ],
     imports: [
         CommonModule,
         SecondTemplateRoutingModule,
