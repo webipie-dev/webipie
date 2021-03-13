@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
 import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import Swal from 'sweetalert2';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 declare var $: any;
 
