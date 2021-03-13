@@ -18,12 +18,14 @@ import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 })
 export class EditProductComponent implements OnInit {
   // array to store the images of the product
-  imageObject: Array<object> = [];
+  imageObject: Array<{ image: string, thumbImage: string }> = [];
   imageObjectToShow: Array<any> = [];
   productForm: FormGroup;
   postData = new FormData();
   singleProduct: Product = new Product();
   allProducts: Product[] = [];
+  deletedImages = [];
+  savedImages = {};
   edit = false;
   productId = '';
   url;
@@ -68,7 +70,6 @@ export class EditProductComponent implements OnInit {
     });
     // if we're in the edit page
     if (this.edit) {
-      console.log('aaaaaa');
       this.getProductById(this.productId);
     }
     this.productForm = new FormGroup({
@@ -85,17 +86,16 @@ export class EditProductComponent implements OnInit {
 
   }
 
+  // tslint:disable-next-line:typedef
   get productFormControl() {
     return this.productForm.controls;
   }
 
-  divideImageObject() {
+  divideImageObject(): void {
     const imageCopy = this.imageObject.slice();
     this.imageObjectToShow = new Array(Math.ceil(imageCopy.length / 3))
       .fill(imageCopy)
       .map(() => imageCopy.splice(0, 3));
-    console.log(this.imageObjectToShow);
-    console.log(this.imageObject);
   }
 
 
@@ -130,13 +130,11 @@ export class EditProductComponent implements OnInit {
         this.url = reader.result;
         this.imageObject.push({image: this.url, thumbImage: this.url});
         this.divideImageObject();
+        this.savedImages[this.url] = file[item];
+
       };
     });
 
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < file.length; i++) {
-      this.postData.append('imgs', file[i], uniqueSlug() + file[i].name);
-    }
   }
 
   onReviews(event): void {
@@ -148,6 +146,11 @@ export class EditProductComponent implements OnInit {
   }
 
   addProduct(): void {
+    // add the images to postdata
+    for (const [key, value] of Object.entries(this.savedImages)) {
+      // @ts-ignore
+      this.postData.append('imgs', value, uniqueSlug() + value.name);
+    }
 
     // tslint:disable-next-line:forin
     for (const field in this.productForm.controls) {
@@ -175,6 +178,7 @@ export class EditProductComponent implements OnInit {
 
   editProduct(id): void {
     // tslint:disable-next-line:forin
+
     for (const field in this.productForm.controls) {
       if (field !== 'openReview' && field !== 'popular') {
         const control = this.productForm.get(field);
@@ -192,6 +196,9 @@ export class EditProductComponent implements OnInit {
         }
       }
     }
+    console.log(this.postData.get('status'));
+
+    this.postData.append('deletedImages', JSON.stringify(this.deletedImages));
     this.editProductService.edit(id, this.postData).subscribe(() => {
       this.router.navigate(['dashboard/products']);
     });
@@ -219,7 +226,7 @@ export class EditProductComponent implements OnInit {
       imagesArray.forEach((item, i) => {
         const template = document.createElement('div');
         const htmlString = `<i id='delete-${i}' class="fas fa-minus-circle fa-3x mt-2 ml-2"
-                            style="color: #ffffff; position: relative;"></i>`;
+                            style="color: #ffffff; position: relative;"/>`;
         template.innerHTML = htmlString.trim();
         item.parentNode.appendChild(template);
       });
@@ -240,20 +247,12 @@ export class EditProductComponent implements OnInit {
   }
 
   deletePhoto(i): void {
+    // if edit product
+    this.deletedImages.push(this.imageObject[i].image);
     this.imageObject.splice(i, 1);
     this.divideImageObject();
-    // const images = document.getElementsByClassName('image');
-    // const imagesArray = Array.from(images);
-    // if (imagesArray.length === 1 ) {
-    //   console.log('hhhhhhhhhhhhhhhhhh');
-    // } else {
-    //   this.imageObject.splice(e, 1);
-    //
-    // }
-    console.log(this.imageObject);
-    console.log(i);
-    console.log(this.imageObject);
-    // this.deletePhotoClose();
+    // if add product
+    delete this.savedImages[this.imageObject[i].image];
   }
 
 

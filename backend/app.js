@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const morgan = require('morgan');
 const helmet = require('helmet')
+const path = require('path')
 
 const app = express();
 
@@ -38,13 +38,7 @@ const swaggerOptions = {
 
 app.use(morgan('common'));
 app.use(helmet());
-//enable cors
-// var corsOptions = {
-//   "origin": true,
-//   "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   "preflightContinue": true,
-//   "optionsSuccessStatus": 204
-// }
+
 app.use(cors());
 
 //swagger documentation
@@ -53,8 +47,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
 app
-  .use('/backend/images',express.static('images'))
-  .use('/backend/images/logos',express.static('images/logos'))
+  .use('/backend/images',express.static(path.join(__dirname,'images')))
+  .use('/backend/images/logos',express.static(path.join(__dirname,'images/logos')))
   .use(bodyParser.urlencoded({extended: true}))
   .use(bodyParser.json())
   .use('/storeOwner', storeOwnerRoutes)
