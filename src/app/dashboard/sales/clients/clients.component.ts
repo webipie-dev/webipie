@@ -80,6 +80,7 @@ export class ClientsComponent implements OnInit {
         console.log(aux.fullAddress);
         this.clients.push(aux);
       });
+      this.clients.reverse();
       this.loading = false;
     });
   }
