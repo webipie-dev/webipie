@@ -22,15 +22,16 @@ export class StoreService extends GenericService<any>{
 
   getStoreByUrl() {
     return new Promise(resolve => {
-      if (encryptStorage.getItem('store')?.url === window.location.hostname || window.location.hostname === 'webipie.com') {
+      if (window.location.hostname === 'webipie.com' || window.location.hostname === 'www.webipie.com') {
         resolve(true);
+      } else {
+        this.http.get<Store>(this.getUrl() + this.suffix + '/url/' + window.location.hostname).subscribe( store => {
+          if (store){
+            encryptStorage.setItem('store', store);
+          }
+          resolve(true);
+        });
       }
-      this.http.get<Store>(this.getUrl() + this.suffix + '/url/' + window.location.hostname).subscribe( store => {
-        if (store){
-          encryptStorage.setItem('store', store);
-        }
-        resolve(true);
-      });
     });
   }
 

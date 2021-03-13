@@ -5,6 +5,15 @@
   --font-choice: 'montserrat';
   --bg-color-rgba: rgba(255,255,255,0.95);
 }
+.btn {
+  font-family: var(--font-choice), sans-serif !important;
+  background-color: var(--font-color) !important;
+  font-size: 14px;
+  padding: 0px 30px;
+}
+.btn:hover {
+  background: var(--secondary-color) !important;
+}
 .icon-close {
   color: var(--font-color);
 }

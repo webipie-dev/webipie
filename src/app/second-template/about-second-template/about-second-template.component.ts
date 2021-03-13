@@ -11,6 +11,7 @@ import {ExternalFilesService} from '../../_shared/services/external-files.servic
 })
 export class AboutSecondTemplateComponent implements OnInit {
   store: Store;
+  about: string;
 
   constructor(private el: ElementRef,
               private storeService: StoreService) { }
@@ -25,10 +26,14 @@ export class AboutSecondTemplateComponent implements OnInit {
           case 'font':
             this.storeService.changeFontTheme(this.el, event.data.subj);
             break;
+          case 'about':
+            this.about = event.data.subj;
+            break;
         }
       } else { return; }
     });
     this.store = encryptStorage.getItem('store');
+    this.about = this.store.about;
     this.storeService.changeTheme(this.el, this.store);
   }
 }

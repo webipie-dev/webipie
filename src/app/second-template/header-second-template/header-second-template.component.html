@@ -11,16 +11,15 @@
 
         <!-- NAV -->
         <div class="collapse navbar-collapse" id="nav-open-btn">
-          <ul class="nav">
-
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <ul class="nav" data-toggle="collapse" data-target="#nav-open-btn" aria-expanded="false">
+            <li routerLinkActive="active" (click)="scrollToTop()" [routerLinkActiveOptions]="{ exact: true }">
               <a routerLink="">Home</a>
             </li>
             <li routerLinkActive="active">
-              <a routerLink="products" routerLinkActive="active">Products</a>
+              <a routerLink="products" (click)="scrollToTop()" routerLinkActive="active">Products</a>
             </li>
             <li  routerLinkActive="active">
-              <a routerLink="cart">Cart</a>
+              <a routerLink="cart" (click)="scrollToTop()">Cart</a>
             </li>
 <!--            <li  routerLinkActive="active">-->
 <!--              <a routerLink="checkout">Checkout</a>-->

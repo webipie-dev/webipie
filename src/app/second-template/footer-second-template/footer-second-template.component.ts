@@ -32,4 +32,8 @@ export class FooterSecondTemplateComponent implements OnInit {
     this.store = encryptStorage.getItem('store');
     this.storeService.changeTheme(this.el, this.store);
   }
+
+  scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
 }

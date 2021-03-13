@@ -30,26 +30,31 @@ const routes: Routes = [
 
 const templateRoutes: Routes = [
   {
-    path: '',
-    loadChildren: () => {
-      const template = encryptStorage.getItem('store').template.name;
-      if (template === 'template1') {
-        return import('./second-template/second-template.module')
-          .then(m => m.SecondTemplateModule);
-      }
-      else {
-        return import('./template/template.module')
-          .then(m => m.TemplateModule);
-      }
-    },
-  },
-  {
-    path: '**',
+    path: 'not-found',
     component: PageNotFoundComponent
   },
+  {
+    path: '',
+    loadChildren: () => {
+      const store = encryptStorage.getItem('store');
+      if (store) {
+        const template = encryptStorage.getItem('store').template.name;
+        if (template === 'template1') {
+          return import('./second-template/second-template.module')
+            .then(m => m.SecondTemplateModule);
+        }
+        else {
+          window.location.href = '/not-found';
+        }
+      }
+      else {
+        window.location.href = '/not-found';
+      }
+    },
+  }
 ];
 
-const isCurrentDomainWebipie = (window.location.hostname === 'webipie.com');
+const isCurrentDomainWebipie = (window.location.hostname === 'webipie.com' || window.location.hostname === 'www.webipie.com');
 
 @NgModule({
   imports: [RouterModule.forRoot(isCurrentDomainWebipie ? routes : templateRoutes)],
