@@ -400,7 +400,7 @@
 }
 
 .price {
-  background-color: #830A48;
+  background-color: var(--secondary-color);
   width: auto !important;
   padding: 8px;
   border-radius: 10px;

@@ -2,7 +2,6 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {encryptStorage} from '../../_shared/utils/encrypt-storage';
-import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 @Component({
   selector: 'app-about-second-template',

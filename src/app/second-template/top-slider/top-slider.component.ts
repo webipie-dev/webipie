@@ -24,7 +24,6 @@ export class TopSliderComponent implements OnInit {
   ngOnInit(): void {
     window.addEventListener('message', event => {
       if (event.origin.startsWith('http://webipie.com:4200')) {
-        console.log(event.data);
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

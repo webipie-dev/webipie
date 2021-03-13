@@ -13,65 +13,49 @@ import Swal from "sweetalert2";
 })
 export class ChangeContactComponent implements OnInit {
 
+  // set initial and default values to test whether the user has made any changes
+  // whether we should send modifications to back
   defaultEmail = encryptStorage.getItem('store').contact.email;
   initialEmail = encryptStorage.getItem('store').contact.email;
   defaultNumber = encryptStorage.getItem('store').contact.phoneNumber;
   initialNumber = encryptStorage.getItem('store').contact.phoneNumber;
   defaultLocation = encryptStorage.getItem('store').contact.location;
   initialLocation = encryptStorage.getItem('store').contact.location;
-  defaultAbout = encryptStorage.getItem('store').about;
-  initialAbout = encryptStorage.getItem('store').about;
+
   storeId = encryptStorage.getItem('store').id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService,
-              private router: Router) {
-  }
+              private router: Router) {}
 
-  ngOnInit(): void {
-    console.log(this.initialAbout);
-    console.log(this.defaultAbout);
-  }
+  ngOnInit(): void {}
 
   testChange(): boolean {
     return (this.initialNumber === this.defaultNumber &&
       this.initialLocation === this.defaultLocation &&
-      this.initialEmail === this.defaultEmail && this.initialAbout === this.defaultAbout);
+      this.initialEmail === this.defaultEmail);
   }
+
   submit(): void {
 
     const postData = {
       'contact.location': this.defaultLocation,
       'contact.email': this.defaultEmail,
-      'contact.phoneNumber': this.defaultNumber,
-      about: this.defaultAbout
+      'contact.phoneNumber': this.defaultNumber
     };
-    this.storeService.edit(this.storeId, postData).subscribe(store => {
-      encryptStorage.setItem('store', store);
-      this.initialEmail = this.defaultEmail;
-      this.initialNumber = this.defaultNumber;
-      this.initialLocation = this.defaultLocation;
-      this.initialAbout = this.defaultAbout;
-      this.router.navigateByUrl('/store');
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'bottom-start',
-        showConfirmButton: false,
-        timer: 3500,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
-      });
-
-      Toast.fire({
-        icon: 'success',
-        title: 'Saved successfully'
-      });
-    });
+    this.initialEmail = this.defaultEmail;
+    this.initialNumber = this.defaultNumber;
+    this.initialLocation = this.defaultLocation;
+    this.storeService.onSubmit(this.storeId, postData);
   }
 
+  resetContact(): void{
+    this.defaultEmail = this.initialEmail;
+    this.defaultLocation = this.initialLocation;
+    this.defaultNumber = this.initialNumber;
+  }
+
+  // in case the user changed values and didn't click on save
   returnToEditStore(): void {
     if (!this.testChange()) {
       Swal.fire({

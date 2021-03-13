@@ -41,7 +41,7 @@ a[data-toggle="collapse"] {
   text-decoration: none !important;
   color: white;
   transition: all 200ms linear;
-  margin-top: -5px
+  margin-top: -5px;
 }
 
 .child-elem {
@@ -56,20 +56,6 @@ a[data-toggle="collapse"] {
 
 
 /*********** contact *********/
-/*input {
-    background-color:rgba(0, 0, 0, 0);
-    color:white;
-    outline:none;
-    height:30px;
-    transition:height 1s;
-    -webkit-transition:height 1s;
-    border-color : white;
-    border-radius: 9px;
-}
-input:focus {
-    height:50px;
-    font-size:16px;
-}*/
 
 .circle {
   border-style: solid;
@@ -86,12 +72,6 @@ input:focus {
   border: solid 2px rgba(248,248,248,0.5);
   color: var(--white-color);
   border-radius: 10px;
-}
-.button-black:disabled,
-.button-black[disabled]{
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
 }
 
 ::ng-deep .swal2-content {

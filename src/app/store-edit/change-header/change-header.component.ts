@@ -4,7 +4,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {Store} from '../../_shared/models/store.model';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 declare var $: any;
 
@@ -15,19 +15,21 @@ declare var $: any;
 })
 export class ChangeHeaderComponent implements OnInit {
 
-  constructor(private storeService: StoreService,
-              private router: Router) {
-  }
-
-  storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
+  storeId: string;
   headerForm: FormGroup;
   initialHeaderForm: FormGroup;
   postData = new FormData();
   imgSrc = encryptStorage.getItem('store').template.header.img;
   store: Store;
 
+  constructor(private storeService: StoreService,
+              private router: Router) {}
+
   ngOnInit(): void {
     this.store = encryptStorage.getItem('store');
+    this.storeId = this.store.id;
+    // set initial and default values to test whether the user has made any changes
+    // whether we should send modifications to back
     this.headerForm = new FormGroup({
       title: new FormControl(this.store.template.header.title),
       description: new FormControl(this.store.template.header.description),
@@ -42,15 +44,16 @@ export class ChangeHeaderComponent implements OnInit {
     });
   }
 
-  changeHeaderOnChange() {
+  // real time header change
+  changeHeader(data?: FormGroup): void {
     const subjectToChange = {
-      subj: this.headerForm.value,
+      subj: data || this.headerForm.value,
       type: 'header',
     };
-    console.log(subjectToChange);
     $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
   }
 
+  // image change
   onFileChanged(event): void {
     const file = event.target.files[0];
     this.postData.append('img', file, file.name);
@@ -59,22 +62,27 @@ export class ChangeHeaderComponent implements OnInit {
     reader.onload = (events) => {
       this.imgSrc = reader.result.toString();
       this.headerForm.value.img = this.imgSrc;
-      this.changeHeaderOnChange();
+      this.changeHeader();
     };
   }
 
-  testSame(): boolean {
+  testChange(): boolean {
     return this.initialHeaderForm.get('description').value === this.headerForm.get('description').value &&
       this.initialHeaderForm.get('title').value === this.headerForm.get('title').value &&
       this.initialHeaderForm.get('mainButton').value === this.headerForm.get('mainButton').value &&
-      this.initialHeaderForm.get('img').value === this.headerForm.get('img').value;
+      this.initialHeaderForm.get('img').value === this.imgSrc;
+  }
+
+  resetHeader(): void {
+    this.headerForm.reset(this.initialHeaderForm.value);
+    this.imgSrc = this.initialHeaderForm.get('img').value;
+    this.changeHeader(this.initialHeaderForm.value);
   }
 
   onSubmit(): void {
     for (const field in this.headerForm.controls) {
       if (field !== 'img') {
         const control = this.headerForm.get(field);
-        console.log('I am here');
         if (control.value) {
           const head = 'template.header.' + field;
           this.postData.append(head, control.value);
@@ -106,8 +114,9 @@ export class ChangeHeaderComponent implements OnInit {
     });
   }
 
+  // in case the user changed values and didn't click on save
   returnToEditStore(): void {
-    if (!this.testSame()) {
+    if (!this.testChange()) {
       Swal.fire({
         title: 'Be Careful!',
         text: 'You have unsaved changes, Would you continue to discard these changes or save them before proceeding ?',
@@ -119,6 +128,7 @@ export class ChangeHeaderComponent implements OnInit {
         if (result.value) {
           this.onSubmit();
         } else {
+          this.changeHeader(this.initialHeaderForm.value);
           Swal.close();
         }
         this.router.navigateByUrl('/store');
@@ -127,5 +137,4 @@ export class ChangeHeaderComponent implements OnInit {
       this.router.navigateByUrl('/store');
     }
   }
-
 }
