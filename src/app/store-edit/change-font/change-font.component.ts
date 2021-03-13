@@ -66,7 +66,6 @@ export class ChangeFontComponent implements OnInit {
       subj: this.fontType,
       type: 'font',
     };
-    console.log(subjectToChange);
     $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
   }
 

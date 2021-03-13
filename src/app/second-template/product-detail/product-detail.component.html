@@ -44,7 +44,8 @@
 
                   <!-- ADD TO CART -->
                   <li class="col-xs-6">
-                    <button class="fit btn" (click)="addToCart(product)" [disabled]="addDisabled">ADD TO CART</button>
+                    <button *ngIf="!addDisabled" class="fit btn" (click)="addToCart(product)">ADD TO CART</button>
+                    <button *ngIf="addDisabled" class="fit btn" routerLink="/cart">CHECK CART</button>
                     <p *ngIf="!outOfStock && addDisabled ">* This product is already in your cart</p>
                   </li>
                   <!-- LIKE -->
