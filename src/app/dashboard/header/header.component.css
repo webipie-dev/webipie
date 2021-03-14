@@ -213,3 +213,16 @@ li{
   transition: 0.3s all;
   color: var(--blue-color);
 }
+
+/******************************/
+.notification-group {
+  border-bottom: 1px solid #e3e3e3;
+  overflow: hidden;
+  min-height: 65px;
+}
+
+.notification-group:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
