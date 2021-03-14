@@ -49,29 +49,7 @@ export class StoreEditComponent implements OnInit {
       this.urlToPreview = 'http://' + this.store.url + ':4200';
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
       encryptStorage.setItem('store', this.store);
-      // $('#iframe').on('load', () => {
-      //   $('#iframe')[0].contentWindow.postMessage('red', 'http://store.webipie.com:4200/');
-      // });
     });
-
-    // if (document.getElementById('sidebar').classList.contains('active')) {
-    //  this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    // } else {
-    //   this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    // }
-    // document.getElementById('iframe').style.width = this.newWidth.toString();
-    // window.addEventListener('resize', () => {
-    //   if (document.getElementById('sidebar').classList.contains('active')) {
-    //     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    //   } else {
-    //     this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    //   }
-    //   document.getElementById('iframe').style.width = this.newWidth.toString();
-    // });
-
-    // $('#iframe').on( 'load', () => {
-    //   console.log($('#iframe')[0].contentWindow.getElementById('undefined-sticky-wrapper'));
-    // });
   }
 
   public uploadDone() {

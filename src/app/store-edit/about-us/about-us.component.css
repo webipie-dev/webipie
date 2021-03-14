@@ -41,7 +41,7 @@ a[data-toggle="collapse"] {
   text-decoration: none !important;
   color: white;
   transition: all 200ms linear;
-  margin-top: -5px
+  margin-top: -5px;
 }
 
 .child-elem {
@@ -56,33 +56,19 @@ a[data-toggle="collapse"] {
 
 
 /*********** contact *********/
-/*input {
-    background-color:rgba(0, 0, 0, 0);
-    color:white;
-    outline:none;
-    height:30px;
-    transition:height 1s;
-    -webkit-transition:height 1s;
-    border-color : white;
-    border-radius: 9px;
-}
-input:focus {
-    height:50px;
-    font-size:16px;
-}*/
 
 .circle {
-    border-style: solid;
-    /* background-color: white; */
-    height: 2em;
-    width: 2em;
-    border-color: white;
-    border-radius: 100%;
+  border-style: solid;
+  /* background-color: white; */
+  height: 2em;
+  width: 2em;
+  border-color: white;
+  border-radius: 100%;
 }
 
-.sidenav-input-item {
+.sidenav-text-item {
   background-color: var(--light-black-color);
-  width: 65%;
+  width: 100%;
   border: solid 2px rgba(248,248,248,0.5);
   color: var(--white-color);
   border-radius: 10px;

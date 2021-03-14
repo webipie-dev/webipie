@@ -50,6 +50,7 @@
 
               </div>
               <div class='col-md-9 col-8 mt-3'>
+
                 <!--Carousel Wrapper-->
                 <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
                   <!--Slides-->
@@ -70,26 +71,6 @@
                               </div>
                             </div>
                           </div>
-
-<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 1]">-->
-<!--                            <div class="card mb-2">-->
-<!--                              <img class="card-img-top" [src]="imageObject[i+1].image" *ngIf="i + 1 < imageObject.length"-->
-<!--                                   alt="Card image cap">-->
-<!--                              <div class="card-body">-->
-<!--                                <a class="btn button-delete" (click)="deletePhoto(i+1)">Delete</a>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
-
-<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 2]">-->
-<!--                            <div class="card mb-2">-->
-<!--                              <img class="card-img-top" [src]="imageObject[i+2].image" *ngIf="i + 2 < imageObject.length"-->
-<!--                                   alt="Card image cap">-->
-<!--                              <div class="card-body">-->
-<!--                                <a class="btn button-delete" (click)="deletePhoto(i+2)">Delete</a>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
                         </div>
 
                       </div>
@@ -112,26 +93,6 @@
                               </div>
                             </div>
                           </div>
-
-<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 1]">-->
-<!--                            <div class="card mb-2">-->
-<!--                              <img class="card-img-top" [src]="imageObject[i+1].image" *ngIf="i + 1 < imageObject.length"-->
-<!--                                   alt="Card image cap">-->
-<!--                              <div class="card-body">-->
-<!--                                <a class="btn button-delete" (click)="deletePhoto(i+1)">Delete</a>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
-
-<!--                          <div class="col-lg-4 clearfix d-none d-md-block" *ngIf="imageObject[i + 2]">-->
-<!--                            <div class="card mb-2">-->
-<!--                              <img class="card-img-top" [src]="imageObject[i+2].image" *ngIf="i + 2 < imageObject.length"-->
-<!--                                   alt="Card image cap">-->
-<!--                              <div class="card-body">-->
-<!--                                <a class="btn button-delete" (click)="deletePhoto(i+2)">Delete</a>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
                         </div>
 
                       </div>
@@ -145,6 +106,7 @@
                     <a style="color: #2d3438" class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-circle-right fa-3x mx-4 my-2"></i></a>
                   </div>
                   <!--/.Controls-->
+
                 </div>
                 <!--/.Carousel Wrapper-->
 
@@ -158,6 +120,8 @@
             </div>
           </div>
         </div>
+        <p *ngIf="imageObject.length <= 0" class="text-danger font-weight-bold">
+          you need to upload at least one picture</p>
 
         <div class="row">
 <!--          <div class="col-md-6 col-12 mb-3">-->
@@ -295,7 +259,7 @@
 
 
       <div class="col-12 text-center my-1">
-        <button class="button-generic button-blue form-button text-size" type="submit">Save Changes</button>
+        <button class="button-generic button-blue form-button text-size" [disabled]="imageObject.length <= 0" type="submit">Save Changes</button>
       </div>
       <div class="col-12 text-center mt-1">
         <button class="button-generic button-blue form-button text-size">Reset</button>

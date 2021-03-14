@@ -1,0 +1,24 @@
+<!-- Sidebar -->
+<div id="sidebar-contact">
+  <ul class="list-unstyled components text-size">
+    <li class="sidenav-elem">
+      <a class="cursor-pointer my-4 py-3 px-1 back-button nav-link-sidebar" (click)="returnToEditStore()">
+        <i class="fa fa-chevron-left"></i>
+        <span class="ml-3">Edit your store</span>
+      </a>
+      <a class="nav-link-sidebar mt-1 big-titles">
+        <i class="fa fa-book mr-3"></i> About US
+      </a>
+      <div>
+        <div class="row mt-4 text-center">
+          <textarea (input)="changeAbout()" class='sidenav-text-item text-size px-3 d-block' style="height: 100px;" type="text" [(ngModel)]="defaultAbout"></textarea>
+        </div>
+      </div>
+      <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
+    </li>
+  </ul>
+  <div class="text-center my-5">
+    <button class="button-generic button-black text-size mr-2" [disabled]="testChange()" (click)="submit()">Save</button>
+    <button class="button-generic button-black text-size" [disabled]="testChange()" (click)="resetAbout()">Reset</button>
+  </div>
+</div>

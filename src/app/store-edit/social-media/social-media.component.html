@@ -2,7 +2,7 @@
 <div id="sidebar-social-media">
   <ul class="list-unstyled components">
     <li class="sidenav-elem">
-      <a class="my-4 py-3 px-1 back-button nav-link-sidebar text-size cursor-pointer" (click)="returnToEditStore()">
+      <a class="cursor-pointer my-4 py-3 px-1 back-button nav-link-sidebar text-size" (click)="returnToEditStore()">
         <i class="fa fa-chevron-left"></i>
         <span class="ml-3">Edit your store</span>
       </a>
@@ -30,8 +30,9 @@
   </ul>
   <div class="text-center my-5">
     <button class="button-generic button-black text-size mr-2"
-            [disabled]="initialInstagram === defaultInstagram && initialFacebook === defaultFacebook"
+            [disabled]="testChanges()"
             (click)="submit()">Save</button>
-    <button class="button-generic button-black text-size">Reset</button>
+    <button class="button-generic button-black text-size" [disabled]="testChanges()"
+            (click)="resetMedia()">Reset</button>
   </div>
 </div>

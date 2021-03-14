@@ -16,6 +16,7 @@ const productSchema = mongoose.Schema({
   imgs: {type: [String], required: false, default: ''},
   price: {type: Number, required: false, default: 0},
   quantity: {type: Number, required: false, default: 0, min: 0},
+  status: {type: String, required: false, default: ''},
   popular: {type: Boolean, required: false, default: false},
   openReview: {type: Boolean, required: false, default: true},
   reviews: [review],

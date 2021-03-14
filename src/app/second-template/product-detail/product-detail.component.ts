@@ -7,7 +7,6 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
-import {log} from "util";
 
 
 @Component({
@@ -61,7 +60,6 @@ export class ProductDetailComponent implements OnInit {
       this.product = data;
 
       this.product.reviews = this.product.reviews.reverse();
-      console.log(this.product.description);
       this.externalFilesService.loadScripts();
     });
     this.storeService.changeTheme(this.el, this.store);

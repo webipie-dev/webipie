@@ -1,7 +1,7 @@
 <ng-sidebar-container style="height: 100vh;">
   <!-- A sidebar -->
   <ng-sidebar [(opened)]="opened" [mode]="mode" *ngIf="opened">
-    <div class="sidebar-header">-->
+    <div class="sidebar-header">
       <h3 class="huge-titles text-center py-2">{{store ? store.name : null}}</h3>
     </div>
     <router-outlet></router-outlet>
@@ -16,6 +16,9 @@
   </ng-sidebar>
   <ng-sidebar [(opened)]="minimized" [mode]="mode" *ngIf="minimized">
     <!--    <app-side-nav [toggleS]="_toggleSidebar"></app-side-nav>-->
+    <div class="sidebar-header">
+      <h3 class="huge-titles text-center py-2">{{store ? store.logo : null}}</h3>
+    </div>
     <nav id="sidebar-non-active" class="active">
       <ul class="list-unstyled text-size text-center">
         <li class="sidenav-elem mb-3">
@@ -30,6 +33,9 @@
           </a>
           <a (click)="switchAndToggleS('/store/header')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
             <i class="fa fa-align-left"></i>
+          </a>
+          <a (click)="switchAndToggleS('/store/about-us')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
+            <i class="fa fa-book"></i>
           </a>
           <a (click)="switchAndToggleS('/store/contact')" data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar cursor-pointer">
             <i class="fa fa-phone"></i>
@@ -47,13 +53,6 @@
       </span>
       </div>
     </div>
-    <!--      <div id="sidebar-non-active2" class="container only-mobile active  " style="color: #ffffff">-->
-    <!--        <div class="row text-center">-->
-    <!--      <span class="mx-auto" (click)="_toggleSidebar()">-->
-    <!--        <i class="fa fa-toggle-off fa-3x white-colored" aria-hidden="true" ></i>-->
-    <!--      </span>-->
-    <!--        </div>-->
-    <!--      </div>-->
   </ng-sidebar>
 
   <!-- Page content -->

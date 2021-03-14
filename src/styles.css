@@ -7,6 +7,22 @@
   font-size: 10px;
 }
 
+/* width */
+body::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: #d9d9d9 !important;
+  border-radius: 50px !important;
+}
+
 /* ***************** Global Variables ****************** */
 body {
   --huge-titles-desktop: 3.5rem;
@@ -250,6 +266,18 @@ hr {
 .button-black:hover {
   color: var(--light-black-color) !important;
   background-color: var(--white-color);
+}
+
+.button-black:disabled,
+.button-black[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
 }
 
 /* end Buttons */

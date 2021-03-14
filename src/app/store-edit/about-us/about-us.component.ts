@@ -1,29 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
-import {encryptStorage} from '../../_shared/utils/encrypt-storage';
-import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 declare var $: any;
 
 @Component({
-  selector: 'app-change-color',
-  templateUrl: './change-color.component.html',
-  styleUrls: ['./change-color.component.css']
+  selector: 'app-about-us',
+  templateUrl: './about-us.component.html',
+  styleUrls: ['./about-us.component.css']
 })
-export class ChangeColorComponent implements OnInit {
+export class AboutUsComponent implements OnInit {
 
-  store = encryptStorage.getItem('store');
   // set initial and default values to test whether the user has made any changes
   // whether we should send modifications to back
-  defaultColor = this.store.template.colorChart;
-  initialColor = this.store.template.colorChart;
-  storeId = this.store.id;
+  defaultAbout = encryptStorage.getItem('store').about;
+  initialAbout = encryptStorage.getItem('store').about;
 
-  public show = false;
-  public defaultColors = this.store.template.colorChartOptions;;
-
+  storeId = encryptStorage.getItem('store').id;
 
   constructor(private http: HttpClient,
               private storeService: StoreService,
@@ -31,32 +27,29 @@ export class ChangeColorComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // real time color change
-  changeColor(color): void {
-    if (JSON.stringify(color) !== JSON.stringify(this.defaultColor)) {
-      const subjectToChange = {
-        subj: color,
-        type: 'color',
-      };
-      $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
-      this.defaultColor = color;
-    }
+  // real time about change
+  changeAbout(data?: string): void {
+    const subjectToChange = {
+      subj: data || this.defaultAbout,
+      type: 'about',
+    };
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
   }
 
   testChange(): boolean {
-    return (JSON.stringify(this.initialColor) === JSON.stringify(this.defaultColor));
+    return (this.initialAbout === this.defaultAbout);
   }
 
-  resetColor(): void {
-    this.changeColor(this.initialColor);
-    this.defaultColor = this.initialColor;
+  resetAbout(): void {
+    this.defaultAbout = this.initialAbout;
+    this.changeAbout(this.initialAbout);
   }
 
   submit(): void {
     const postData = {
-      'template.colorChart': this.defaultColor
+      about: this.defaultAbout
     };
-    this.initialColor = this.defaultColor;
+    this.initialAbout = this.defaultAbout;
     this.storeService.onSubmit(this.storeId, postData);
   }
 
@@ -74,7 +67,7 @@ export class ChangeColorComponent implements OnInit {
         if (result.value) {
           this.submit();
         } else {
-          this.changeColor(this.initialColor);
+          this.changeAbout(this.initialAbout);
           Swal.close();
         }
         this.router.navigateByUrl('/store');

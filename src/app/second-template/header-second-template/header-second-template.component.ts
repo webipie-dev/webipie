@@ -20,7 +20,12 @@ export class HeaderSecondTemplateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.storeService.cart.subscribe(cart => this.cart = cart);
+    this.storeService.cart.subscribe(cart => {
+      this.cart = cart;
+      cart.forEach(data => {
+        this.totalPrice += +data.product.price * data.product.quantity;
+      });
+    });
     window.addEventListener('message', event => {
       if (event.origin.startsWith('http://webipie.com:4200')) {
         switch (event.data.type) {
@@ -31,13 +36,17 @@ export class HeaderSecondTemplateComponent implements OnInit {
             this.storeService.changeFontTheme(this.el, event.data.subj);
             break;
         }
-      } else { return; }
+      }
     });
     this.store = encryptStorage.getItem('store');
     this.storeService.changeTheme(this.el, this.store);
     this.cart.forEach(data => {
-      this.totalPrice += +data.product.price;
+      this.totalPrice += +data.product.price * data.quantity;
     });
+  }
+
+  scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
   deleteProduct(event): void {

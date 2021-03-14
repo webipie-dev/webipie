@@ -5,7 +5,7 @@
     <div class="row">
       <!--======= PAGES INNER =========-->
       <section class="padding-top-100 padding-bottom-100 pages-in chart-page col-lg-7 col-12">
-        <h6 class="title-cart">grand total</h6>
+        <h6 class="title-cart">Cart</h6>
 
         <div class="container col-12">
 
@@ -37,56 +37,6 @@
                 <li class="col-sm-1"> </li>
               </ul>
             </div>
-
-            <!-- Cart Details -->
-<!--            <ul class="row cart-details">-->
-<!--              <li class="col-sm-6">-->
-<!--                <div> &lt;!&ndash; Hne kenet fama class="media" fasa5tha&ndash;&gt;-->
-<!--                  &lt;!&ndash; Media Image &ndash;&gt;-->
-<!--                  <div class="media-left media-middle">-->
-<!--                    <a href="#" class="item-img">-->
-<!--                      <img class="media-object" src="../../../assets/second-template/images/cart-img-1.jpg" alt="">-->
-<!--                    </a>-->
-<!--                  </div>-->
-<!--                  &lt;!&ndash; Item Name &ndash;&gt;-->
-<!--                  <div class="media-body">-->
-<!--                    <div class="position-center-center">-->
-<!--                      <h5>wood chair</h5>-->
-<!--                      <p>Lorem ipsum dolor sit amet</p>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </li>-->
-
-<!--              &lt;!&ndash; PRICE &ndash;&gt;-->
-<!--              <li class="col-sm-2">-->
-<!--                <div class="position-center-center"> <span class="price"><small>$</small>299</span> </div>-->
-<!--              </li>-->
-
-<!--              &lt;!&ndash; QTY &ndash;&gt;-->
-<!--              <li class="col-sm-1">-->
-<!--                <div class="position-center-center">-->
-<!--                  <div class="quinty">-->
-<!--                    &lt;!&ndash; QTY &ndash;&gt;-->
-<!--                    <select class="selectpicker">-->
-<!--                      <option>1</option>-->
-<!--                      <option>2</option>-->
-<!--                      <option>3</option>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </li>-->
-
-<!--              &lt;!&ndash; TOTAL PRICE &ndash;&gt;-->
-<!--              <li class="col-sm-2">-->
-<!--                <div class="position-center-center"> <span class="price"><small>$</small>299</span> </div>-->
-<!--              </li>-->
-
-<!--              &lt;!&ndash; REMOVE &ndash;&gt;-->
-<!--              <li class="col-sm-1">-->
-<!--                <div class="position-center-center"> <a href="#"><i class="icon-close"></i></a> </div>-->
-<!--              </li>-->
-<!--            </ul>-->
             <div *ngFor="let element of cart">
               <!-- Cart Details -->
               <ul class="row cart-details">
@@ -102,7 +52,6 @@
                     <div class="media-body">
                       <div class="position-center-center">
                         <h5>{{element.product.name}}</h5>
-                        <p [innerHTML]="element.product.description"></p>
                       </div>
                     </div>
                   </div>
@@ -165,7 +114,7 @@
 
               <!-- SUB TOTAL -->
 
-              <div class="col-12 col-lg-6">
+              <div class="col-12">
                 <h6>grand total</h6>
                 <div class="grand-total">
                   <div class="order-detail">
@@ -177,7 +126,7 @@
                   </div>
                 </div>
 
-                <li class="col-xs-6"> <button class="btn" [disabled]="totalPrice <= 0" (click)="save()">SAVE</button> </li>
+                <li class="col-xs-6"> <button class="btn mt-5" [disabled]="totalPrice <= 0" (click)="save()">SAVE</button> </li>
               </div>
             </div>
           </div>
