@@ -101,6 +101,7 @@ exports.addProduct = async (req, res, next) => {
 };
 
 exports.editOneProduct = async (req, res, next) => {
+  console.log(req.body)
   // separating the id
   const { id } = req.params;
   const product = await Product.findById(id)
@@ -112,7 +113,9 @@ exports.editOneProduct = async (req, res, next) => {
     next(ApiError.NotFound('Product Not Found'));
     return;
   }
+
   const deletedImages = JSON.parse(req.body.deletedImages)
+
 
   //separating the updates
   const edits = {};
@@ -121,7 +124,7 @@ exports.editOneProduct = async (req, res, next) => {
         edits[key] = req.body[key];
       }
   }
-
+  console.log(edits)
   // adding the images
   const url = req.protocol + '://' +req.get('host');
   let images = [];
@@ -156,18 +159,16 @@ exports.editOneProduct = async (req, res, next) => {
     }
   })
 
-
   const productEdited = await Product.bulkWrite(bulkQueries, {ordered: false})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  if (productEdited){
-    if (productEdited.nModified === 0) {
-      next(ApiError.NotFound('No Products modified'));
-      return;
-    }
-  }
+  // set status to out of stock
+  await Product.updateMany({quantity: {$lte: 0}}, {status: 'out of stock'})
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
 
   res.status(200).send(productEdited);
 };

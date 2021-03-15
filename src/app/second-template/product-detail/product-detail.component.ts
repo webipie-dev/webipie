@@ -67,7 +67,7 @@ export class ProductDetailComponent implements OnInit {
 
   counter(i: number): Array<number> {
     if ( i <= 0) {
-      this.addDisabled = true;
+      // this.addDisabled = true;
       this.outOfStock = true;
       return [];
     }
