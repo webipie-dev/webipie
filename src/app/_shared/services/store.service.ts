@@ -29,8 +29,8 @@ export class StoreService extends GenericService<any>{
       if (
         window.location.hostname === 'webipie.com' ||
         window.location.hostname === 'www.webipie.com' ||
-        window.location.hostname === encryptStorage.getItem('store').url)
-      {
+        window.location.hostname === encryptStorage.getItem('store')?.url
+      ) {
         resolve(true);
       } else {
         this.http.get<Store>(this.getUrl() + this.suffix + '/url/' + window.location.hostname).subscribe( store => {
