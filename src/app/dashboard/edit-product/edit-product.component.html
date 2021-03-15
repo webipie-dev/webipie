@@ -206,7 +206,8 @@
             style="width: 90% !important;"
             class="width-100 text-size product-input"
             formControlName="quantity"
-            min="0" type="number">
+            type="number"
+            oninput="this.value =!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
         </div>
         <div class="col-12">
           <label class="text-size pl-2">Price</label>
@@ -220,7 +221,8 @@
             [ngModel]="singleProduct.price"
             class="text-size product-input"
             formControlName="price"
-            min="0" type="number">
+            min="0" type="number"
+            oninput="this.value =!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
         </div>
         <div class="col-12">
           <label class="text-size pl-2">Status</label>
@@ -228,7 +230,7 @@
         <div class="col-12">
           <select [(ngModel)]="singleProduct.status" formControlName="status" class="text-size product-input" id="status" name="status">
             <option value="disponible" >Disponible</option>
-            <option value="in arrival" >In arrival</option>
+<!--            <option value="in arrival" >In arrival</option>-->
             <option value="out of stock">Out of stock</option>
           </select>
         </div>

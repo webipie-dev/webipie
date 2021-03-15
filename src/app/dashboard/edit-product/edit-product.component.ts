@@ -10,6 +10,7 @@ import uniqueSlug from 'unique-slug';
 
 import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-product',
@@ -30,6 +31,7 @@ export class EditProductComponent implements OnInit {
   productId = '';
   url;
   msg = '';
+  initialQuantity;
 
   isChecked = true;
   isPopular = false;
@@ -42,12 +44,12 @@ export class EditProductComponent implements OnInit {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
 
-      [{ list: 'ordered'}, { list: 'bullet' }],
-      [{ indent: '-1'}, { indent: '+1' }],          // outdent/indent
+      [{list: 'ordered'}, {list: 'bullet'}],
+      [{indent: '-1'}, {indent: '+1'}],          // outdent/indent
 
-      [{ size: ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{size: ['small', false, 'large', 'huge']}],  // custom dropdown
 
-      [{ color: [] }, { background: [] }],          // dropdown with defaults from theme
+      [{color: []}, {background: []}],          // dropdown with defaults from theme
 
 
     ]
@@ -101,12 +103,13 @@ export class EditProductComponent implements OnInit {
 
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
-      if (data.quantity < 0) {
+      if (data.quantity <= 0) {
         data.quantity = 0;
       }
       this.singleProduct = data;
       this.isChecked = data.openReview;
       this.isPopular = data.popular;
+      this.initialQuantity = data.quantity;
       this.singleProduct.imgs.forEach((elt) => {
         this.imageObject.push({
           image: elt,
@@ -156,13 +159,9 @@ export class EditProductComponent implements OnInit {
     for (const field in this.productForm.controls) {
       if (field !== 'openReview' && field !== 'popular') {
         const control = this.productForm.get(field);
-        if (control.value) {
-          if (  (field === 'quantity' || field === 'price') && +(control.value) < 0){
-            this.postData.append(field, '0');
-          }
-          else {
-            this.postData.append(field, control.value);
-          }
+        if (control.value || control.value === 0) {
+          console.log(field, control.value);
+          this.postData.append(field, control.value);
         } else {
           if (field !== 'imgs' && field !== 'store') {
             this.postData.append(field, '');
@@ -180,15 +179,11 @@ export class EditProductComponent implements OnInit {
     // tslint:disable-next-line:forin
 
     for (const field in this.productForm.controls) {
-      if (field !== 'openReview' && field !== 'popular') {
+      if (field !== 'openReview' && field !== 'popular' && field !== 'status') {
         const control = this.productForm.get(field);
-        if (control.value) {
-          if (  (field === 'quantity' || field === 'price') && control.value <= 0){
-            this.postData.append(field, '0');
-          }
-          else {
-            this.postData.append(field, control.value);
-          }
+        if (control.value || control.value === 0) {
+          console.log(field, control.value);
+          this.postData.append(field, control.value);
         } else {
           if (field !== 'imgs' && field !== 'store') {
             this.postData.append(field, '');
@@ -196,12 +191,41 @@ export class EditProductComponent implements OnInit {
         }
       }
     }
-    console.log(this.postData.get('status'));
 
     this.postData.append('deletedImages', JSON.stringify(this.deletedImages));
+
+    // change status to disponible if quantity > 0
+    if (this.initialQuantity === 0 && this.postData.get('quantity') !== '0' && this.productForm.get('status').value === 'out of stock') {
+      Swal.fire({
+        title: 'Product status is changed to Disponible',
+        text: 'Check product status',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Okay, got it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Done!',
+            'Your product has been updated.',
+            'success'
+          );
+        }
+      });
+    } else {
+
+      this.postData.set('status', this.productForm.get('status').value);
+      this.editProductService.edit(id, this.postData).subscribe(() => {
+        this.router.navigate(['dashboard/products']);
+      });
+
+    }
+
+    this.postData.set('status', 'disponible');
     this.editProductService.edit(id, this.postData).subscribe(() => {
       this.router.navigate(['dashboard/products']);
     });
+
   }
 
   onSubmit(): void {
@@ -240,7 +264,7 @@ export class EditProductComponent implements OnInit {
     this.deletePhotos = false;
     const images = document.getElementsByClassName('image');
     const imagesArray = Array.from(images);
-    for (let i = 0 ; i < imagesArray.length ; i++) {
+    for (let i = 0; i < imagesArray.length; i++) {
       document.getElementById('delete-' + i).remove();
     }
 
@@ -254,7 +278,6 @@ export class EditProductComponent implements OnInit {
     // if add product
     delete this.savedImages[this.imageObject[i].image];
   }
-
 
 
   @HostListener('window:resize') windwosResize(): void {

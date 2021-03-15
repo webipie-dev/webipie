@@ -99,12 +99,17 @@ exports.addOrder = async (req, res, next) => {
       }
     })
   });
-  Product
-    .bulkWrite(bulkQueries, {ordered: false})
+
+  await Product.bulkWrite(bulkQueries, {ordered: false})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
+  // set status to out of stock
+  await Product.updateMany({quantity: {$lte: 0}}, {status: 'out of stock'})
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
 
   // send notification
   const io = req.app.get('socketio');
@@ -112,14 +117,14 @@ exports.addOrder = async (req, res, next) => {
 
   // send mail to storeowner
 
-  var mailOptions = {
+  const mailOptions = {
     from: config.EMAIL.USER,
     to: storeOwner.local.email || storeOwner.google.email || storeOwner.facebook.email,
     subject: 'New order',
     text: 'You have a new order from ' +
       String(client.firstname) + ' ' +
       String(client.lastname) +
-      '. You can call your client on '+
+      '. You can call your client on ' +
       String(client.phoneNumber) +
       ' and contact him on ' +
       String(client.email),
