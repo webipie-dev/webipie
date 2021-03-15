@@ -60,7 +60,6 @@ export class ProductDetailComponent implements OnInit {
       this.product = data;
 
       this.product.reviews = this.product.reviews.reverse();
-      console.log(this.product.description);
       this.externalFilesService.loadScripts();
     });
     this.storeService.changeTheme(this.el, this.store);
@@ -68,7 +67,7 @@ export class ProductDetailComponent implements OnInit {
 
   counter(i: number): Array<number> {
     if ( i <= 0) {
-      this.addDisabled = true;
+      // this.addDisabled = true;
       this.outOfStock = true;
       return [];
     }
