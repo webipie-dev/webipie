@@ -14,41 +14,55 @@ declare var $: any;
 })
 export class ChangeColorComponent implements OnInit {
 
-  constructor(private http: HttpClient,
-              private storeService: StoreService,
-              private router: Router) {
-  }
-
-  defaultColor;
-  usedChart;
   store = encryptStorage.getItem('store');
+  // set initial and default values to test whether the user has made any changes
+  // whether we should send modifications to back
+  defaultColor = this.store.template.colorChart;
+  initialColor = this.store.template.colorChart;
+  storeId = this.store.id;
 
   public show = false;
-  public defaultColors = [];
+  public defaultColors = this.store.template.colorChartOptions;;
 
-  ngOnInit(): void {
-    this.defaultColors = this.store.template.colorChartOptions;
-    this.usedChart = this.store.template.colorChart;
-    this.defaultColor = this.store.template.colorChart;
+
+  constructor(private http: HttpClient,
+              private storeService: StoreService,
+              private router: Router) {}
+
+  ngOnInit(): void {}
+
+  // real time color change
+  changeColor(color): void {
+    if (JSON.stringify(color) !== JSON.stringify(this.defaultColor)) {
+      const subjectToChange = {
+        subj: color,
+        type: 'color',
+      };
+      $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
+      this.defaultColor = color;
+    }
   }
 
-  public toggleColors(): void {
-    this.show = !this.show;
+  testChange(): boolean {
+    return (JSON.stringify(this.initialColor) === JSON.stringify(this.defaultColor));
   }
 
-  colorChange(color): void {
-    const subjectToChange = {
-      subj: color,
-      type: 'color',
+  resetColor(): void {
+    this.changeColor(this.initialColor);
+    this.defaultColor = this.initialColor;
+  }
+
+  submit(): void {
+    const postData = {
+      'template.colorChart': this.defaultColor
     };
-    $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
-    this.defaultColor = color;
-    this.store.template.colorChart = color;
+    this.initialColor = this.defaultColor;
+    this.storeService.onSubmit(this.storeId, postData);
   }
 
-
+  // in case the user changed values and didn't click on save
   returnToEditStore(): void {
-    if (this.usedChart !== this.defaultColor) {
+    if (!this.testChange()) {
       Swal.fire({
         title: 'Be Careful!',
         text: 'You have unsaved changes, Would you continue to discard these changes or save them before proceeding ?',
@@ -60,6 +74,7 @@ export class ChangeColorComponent implements OnInit {
         if (result.value) {
           this.submit();
         } else {
+          this.changeColor(this.initialColor);
           Swal.close();
         }
         this.router.navigateByUrl('/store');
@@ -67,32 +82,5 @@ export class ChangeColorComponent implements OnInit {
     } else {
       this.router.navigateByUrl('/store');
     }
-  }
-  submit(): void {
-    const postData = {
-      'template.colorChart': this.defaultColor
-    };
-
-    this.storeService.edit(this.store.id, postData).subscribe(store => {
-      encryptStorage.setItem('store', store);
-      this.usedChart = this.store.template.colorChart;
-      this.router.navigateByUrl('/store');
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'bottom-start',
-        showConfirmButton: false,
-        timer: 3500,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
-      });
-
-      Toast.fire({
-        icon: 'success',
-        title: 'Saved successfully'
-      });
-    });
   }
 }
