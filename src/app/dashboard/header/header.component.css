@@ -226,3 +226,34 @@ li{
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
+
+/* .notification-group .notification-tab:before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: 15px;
+  border: 10px solid;
+  border-color: transparent transparent #fff transparent;
+  transition: 0.3s all ease-in-out;
+} */
+
+/* .notification-group .notification-tab{
+  position: absolute;
+  top: 48px;
+  right: -15px;
+  user-select: none;
+  background: #fff;
+  border: 1px solid #c7d8e2;
+  width: 350px;
+  height: auto;
+  display: none;
+  border-radius: 15px;
+  box-shadow: 10px 10px 35px rgba(0,0,0,0.125),
+  -10px -10px 35px rgba(0,0,0,0.125);
+  z-index: 10001;
+  transition: 0.3s all ease-in-out;
+} */
+
+.notification-group.expanded .notification-tab{
+  display: none;
+}

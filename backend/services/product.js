@@ -211,6 +211,10 @@ exports.addReview = async (req,res,next) => {
     }
   }
 
+   // send notification
+   const io = req.app.get('socketio');
+   io.emit('new review', productUpdate);
+
   res.status(200).send(review);
 };
 
