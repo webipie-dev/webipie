@@ -16,6 +16,7 @@ const orderRoutes = require('./routes/order');
 const storeRoutes = require('./routes/store')
 const templateRoutes = require('./routes/template')
 const storeOwnerRoutes = require('./routes/storeOwner');
+const uploadRoutes = require('./routes/upload');
 
 const errorHandler = require('./middlewares/error-handler')
 const ApiError = require("./errors/api-error");
@@ -56,7 +57,8 @@ app
   .use('/client', clientRoutes)
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
-  .use('/template',templateRoutes);
+  .use('/template',templateRoutes)
+  .use('/upload',uploadRoutes);
 
 app.all('*', async (req, res, next) => {
   next(ApiError.NotFound('Route Not Found'))

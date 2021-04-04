@@ -58,20 +58,8 @@ exports.getManyProductById = async (req, res, next) => {
 
 
 exports.addProduct = async (req, res, next) => {
-  const url = req.protocol + '://' +req.get('host');
-  let images = [];
-  //check if there are any images uploaded
-  if (req.files)
-  {
-    req.files.map(fileimg => {
-      images.push(url + '/backend/images/' + fileimg.filename)
-    });
-  }
-  else {
-    console.log('no files uploaded')
-  }
+  let { name, description, price, quantity, imgs, status, popular, openReview, storeId } = req.body
 
-  let { name, description, price, quantity, status, popular, openReview, storeId } = req.body
   const store = await Store.findById(storeId)
 
   if (!store) {
@@ -82,11 +70,10 @@ exports.addProduct = async (req, res, next) => {
   // convert the values from strings to booleans
   openReview = openReview === 'true';
   popular = popular === 'true';
-
   const product = new Product({
     name,
     description,
-    imgs: images,
+    imgs,
     price,
     quantity,
     status,
@@ -114,30 +101,18 @@ exports.editOneProduct = async (req, res, next) => {
     return;
   }
 
-  const deletedImages = JSON.parse(req.body.deletedImages)
+  const { imgs , deletedImages } = req.body;
 
 
   //separating the updates
   const edits = {};
   for(let key in req.body) {
-      if(key !== 'id'){
+      if(key !== 'imgs' && key !== 'deletedImages'){
         edits[key] = req.body[key];
       }
   }
   console.log(edits)
-  // adding the images
-  const url = req.protocol + '://' +req.get('host');
-  let images = [];
-  if(req.files){
-    if (req.files.length === 0){
-      console.log('No images uploaded')
-    }
-    req.files.map(fileimg => {
-      images.push(url + '/backend/images/' + fileimg.filename)
-    });
-  } else {
-    console.log("no files uploaded")
-  }
+
 
   let bulkQueries = [];
     await bulkQueries.push({
@@ -149,7 +124,7 @@ exports.editOneProduct = async (req, res, next) => {
    await bulkQueries.push({
       updateOne: {
         "filter": { _id: id},
-        "update": { $addToSet: {imgs: {$each: images} } }
+        "update": { $addToSet: {imgs: {$each: imgs} } }
       }
     })
   await bulkQueries.push({

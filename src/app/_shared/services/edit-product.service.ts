@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Product} from '../models/product.model';
-import {observable, Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {Observable, observable, Subject} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {GenericService} from './generic.service';
 
@@ -15,4 +15,24 @@ export class EditProductService extends GenericService<any> {
     this.suffix = '/product';
   }
 
+  public signedUrl(store): Promise<any>{
+    const httpOptions = {
+      headers: { 'Content-Type': 'application/json', authorization: localStorage.getItem('token')},
+      params: {store: store.name}
+    };
+    return this.http.get(this.getUrl() + '/upload', httpOptions).toPromise();
+
+  }
+
+  public upload(url, file): Promise<any>{
+    const httpOptions = {
+      headers: {
+        'Content-Type': file.type
+      },
+    };
+    return this.http.put(url, file, httpOptions).toPromise();
+
+  }
+
 }
+

@@ -10,6 +10,7 @@
 # dependencies
 *.rdb
 /backend/*.rdb
+/backend/configuration/index.js
 /node_modules
 /backend/node_modules
 
