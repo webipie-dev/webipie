@@ -34,7 +34,7 @@ export class SignInComponent implements OnInit {
       this.router.navigate(['dashboard']);
     }
 
-    const head = document.getElementById('headerr');
+    const head = document.getElementById('header');
     head.className += ' color-blue-header';
 
   }

@@ -72,12 +72,7 @@ exports.getStoreByUrl = async (req,res) => {
 
 exports.addStore = async (req, res, next) => {
   //check if a logo is uploaded
-  let logo;
-  if (req.file) {
-    logo = req.protocol + "://" + req.get("host") + "/images/logos/" + req.file.filename
-  } else {
-    logo = ''
-  }
+  let logo = '';
 
   const foundStore = await StoreOwner.findOne({name: req.body.name});
   if(foundStore){
@@ -175,21 +170,6 @@ exports.editStore = async (req, res, next) => {
   // getting the id
   const { id } = req.params;
   const edits = {};
-  let logoPath;
-  let headerPath;
-  let file;
-  if( req.files ){
-    if (req.files.length !== 0) {
-      file = req.files[0];
-      if(file.fieldname === 'logoImg') {
-        logoPath = req.protocol + "://" + req.get("host") + "/backend/images/logoImgs/" + file.filename
-        edits['logo'] = logoPath
-      } else if(file.fieldname === 'img') {
-        headerPath = req.protocol + "://" + req.get("host") + "/backend/images/" + file.filename
-        edits['template.header.img'] = headerPath
-      }
-    }
-  }
 
   if('name' in req.body){
     const store = await StoreOwner.findOne({name: req.body.name});

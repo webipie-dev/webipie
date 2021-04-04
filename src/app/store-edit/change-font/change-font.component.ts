@@ -45,7 +45,6 @@ export class ChangeFontComponent implements OnInit {
 
   onSubmit(): void {
     const postData = {
-      ids: this.storeId,
       'template.font': this.defaultFont,
     };
     this.initialFont = this.defaultFont;

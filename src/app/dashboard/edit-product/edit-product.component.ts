@@ -13,6 +13,7 @@ import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 import Swal from 'sweetalert2';
 import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
+import {UploadService} from '../../_shared/services/upload.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -75,6 +76,7 @@ export class EditProductComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
+              private uploadService: UploadService,
               private storeService: StoreService,
               private route: ActivatedRoute,
               private router: Router) {
@@ -167,10 +169,10 @@ export class EditProductComponent implements OnInit {
 
 
     for (const elt of files) {
-        this.uploadConfig = await this.editProductService.signedUrl(this.store);
+        this.uploadConfig = await this.uploadService.signedUrl(this.store);
         console.log(this.uploadConfig);
         console.log('2');
-        await this.editProductService.upload(this.uploadConfig.url, elt.file);
+        await this.uploadService.upload(this.uploadConfig.url, elt.file);
         console.log('3');
         this.savedImages[elt.url] = this.uploadConfig.key;
         this.progressBar += 1;
@@ -189,6 +191,8 @@ export class EditProductComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   addProduct() {
+    this.imagesToUpload = [];
+
     // add the images to postdata
     for (const [key, value] of Object.entries(this.savedImages)) {
       this.imagesToUpload.push('https://my-blog1-bucket-1.s3-us-west-2.amazonaws.com/' + value);

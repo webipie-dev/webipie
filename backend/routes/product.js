@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const productService = require('../services/product');
-const Store = require('../models/store');
-const clearCache = require('../middlewares/caching/clearCache');
 
 const passport = require('passport');
 const validateRequest = require("../middlewares/validate-request");
@@ -10,8 +8,6 @@ const validation = require("../middlewares/validation/validator");
 const productValidator = require("../middlewares/validation/product-validator");
 const passportJWT = passport.authenticate('jwt', { session: false });
 passportJWT.unless = require('express-unless');
-
-
 
 
 
@@ -32,7 +28,12 @@ router.get('/:id', [
 ], validateRequest, productService.getOneProduct)
 
 // addProduct
-router.post('', passportJWT, productService.addProduct);
+router.post('', passportJWT, [validation.storeId,
+  productValidator.price,
+  productValidator.quantity,
+  productValidator.description,
+  productValidator.name,
+], validateRequest, productService.addProduct);
 
 router.patch('/:id/review', productService.addReview);
 
@@ -49,7 +50,7 @@ router.delete('/delete', passportJWT, productService.deleteAllProducts);
 
 router.patch('/:id', passportJWT, [
   validation.id
-], validateRequest ,clearCache, productService.editOneProduct)
+], validateRequest , productService.editOneProduct)
 
 
 module.exports = router;

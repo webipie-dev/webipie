@@ -45,28 +45,31 @@ import {IndexModule} from '../index/index.module';
         SidebarModule,
         IndexModule,
     ],
-  declarations: [
-    DashboardComponent,
-    SideNavComponent,
-    SalesComponent,
-    SocialMediaComponent,
-    OrdersComponent,
-    MobileAppPageComponent,
-    EditProductComponent,
-    ClientsComponent,
-    ProductsComponent,
-    ProductDetailComponent,
-    OrderDetailComponent,
-    ClientDetailComponent,
-    StatisticsComponent,
-    ProfileComponent,
-    HeaderComponent,
-    SideNavMinimizedComponent,
-    DashboardHomeComponent
-  ],
-  providers: [
-    AuthGuard,
-  ]
+    declarations: [
+        DashboardComponent,
+        SideNavComponent,
+        SalesComponent,
+        SocialMediaComponent,
+        OrdersComponent,
+        MobileAppPageComponent,
+        EditProductComponent,
+        ClientsComponent,
+        ProductsComponent,
+        ProductDetailComponent,
+        OrderDetailComponent,
+        ClientDetailComponent,
+        StatisticsComponent,
+        ProfileComponent,
+        HeaderComponent,
+        SideNavMinimizedComponent,
+        DashboardHomeComponent
+    ],
+    exports: [
+        HeaderComponent
+    ],
+    providers: [
+        AuthGuard,
+    ]
 })
 export class DashboardModule {
 }

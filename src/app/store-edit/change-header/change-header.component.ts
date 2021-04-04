@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {Store} from '../../_shared/models/store.model';
 import Swal from 'sweetalert2';
+import {UploadService} from '../../_shared/services/upload.service';
+import {emit} from 'cluster';
 
 declare var $: any;
 
@@ -18,11 +20,24 @@ export class ChangeHeaderComponent implements OnInit {
   storeId: string;
   headerForm: FormGroup;
   initialHeaderForm: FormGroup;
-  postData = new FormData();
+  postData = {
+    template: {
+      header: {
+        img: '',
+        title: '',
+        description: '',
+        mainButton: ''
+      }
+    },
+  };
   imgSrc = encryptStorage.getItem('store').template.header.img;
   store: Store;
+  uploadConfig;
+  savedImage = '';
+
 
   constructor(private storeService: StoreService,
+              private uploadService: UploadService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -35,6 +50,11 @@ export class ChangeHeaderComponent implements OnInit {
       description: new FormControl(this.store.template.header.description),
       mainButton: new FormControl(this.store.template.header.mainButton),
       img: new FormControl(this.store.template.header.img),
+      name: new FormControl(this.store.template.name),
+      colorChart: new FormControl(this.store.template.colorChart),
+      colorChartOptions: new FormControl(this.store.template.colorChartOptions),
+      font: new FormControl(this.store.template.font),
+      fontOptions: new FormControl(this.store.template.fontOptions),
     });
     this.initialHeaderForm = new FormGroup({
       title: new FormControl(this.store.template.header.title),
@@ -54,15 +74,21 @@ export class ChangeHeaderComponent implements OnInit {
   }
 
   // image change
-  onFileChanged(event): void {
+  async onFileChanged(event) {
+
     const file = event.target.files[0];
-    this.postData.append('img', file, file.name);
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (events) => {
+    reader.onload = async (events) => {
       this.imgSrc = reader.result.toString();
       this.headerForm.value.img = this.imgSrc;
       this.changeHeader();
+      this.uploadConfig = await this.uploadService.signedUrl(this.store);
+      console.log('2');
+      await this.uploadService.upload(this.uploadConfig.url, file);
+      console.log('3');
+      this.savedImage = this.uploadConfig.key;
+      console.log(this.savedImage);
     };
   }
 
@@ -80,16 +106,26 @@ export class ChangeHeaderComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.savedImage !== '') {
+      this.postData.template.header.img = 'https://my-blog1-bucket-1.s3-us-west-2.amazonaws.com/' + this.savedImage;
+    }else {
+      this.postData.template.header.img = this.headerForm.get('img').value;
+    }
+
     for (const field in this.headerForm.controls) {
-      if (field !== 'img') {
-        const control = this.headerForm.get(field);
+      const control = this.headerForm.get(field);
+      if (field !== 'img' && ['mainButton', 'title', 'description'].includes(field)) {
         if (control.value) {
-          const head = 'template.header.' + field;
-          this.postData.append(head, control.value);
+          this.postData.template.header[field] = control.value;
+        }
+      }
+      else {
+        if (control.value && field !== 'img' ) {
+          this.postData.template[field] = control.value;
         }
       }
     }
-    this.postData.append('ids', this.storeId);
+    console.log(this.postData);
     this.storeService.edit(this.storeId, this.postData).subscribe(store => {
       encryptStorage.setItem('store', store);
       this.initialHeaderForm = this.headerForm;
