@@ -165,8 +165,9 @@ export class EditProductComponent implements OnInit {
          reader.onload = async (_event) => {
            this.msg = '';
            this.url = reader.result;
-           fileObject.url = this.url;
            this.imageObject.push({image: this.url, thumbImage: this.url});
+           console.log(this.imageObject);
+           fileObject.url = this.url;
            this.divideImageObject();
          };
          fileObject.file = file[item];
@@ -183,6 +184,8 @@ export class EditProductComponent implements OnInit {
          console.log('3');
          this.savedImages[elt.url] = this.uploadConfig.key;
          this.progressBar += 1;
+         document.getElementById('myCheck').click();
+
        }
      }
    }
