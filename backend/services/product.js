@@ -88,7 +88,7 @@ exports.addProduct = async (req, res, next) => {
 };
 
 exports.editOneProduct = async (req, res, next) => {
-  console.log(req.body)
+
   // separating the id
   const { id } = req.params;
   const product = await Product.findById(id)
@@ -111,7 +111,6 @@ exports.editOneProduct = async (req, res, next) => {
         edits[key] = req.body[key];
       }
   }
-  console.log(edits)
 
 
   let bulkQueries = [];

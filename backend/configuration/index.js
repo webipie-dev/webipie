@@ -5,8 +5,7 @@ module.exports = {
         USER: 'webipie@gmail.com',
         PASSWORD: 'webipie4win',
     },
-  accessKeyId: "AKIAVXPMBOFRNXGVXJHB",
-  secretAccessKey: "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"
+
 }
 
 //google

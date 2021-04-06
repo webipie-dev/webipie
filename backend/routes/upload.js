@@ -15,18 +15,20 @@ const s3 = new AWS.S3({
     accessKeyId: keys.accessKeyId,
     secretAccessKey: keys.secretAccessKey,
   },
-  region: 'us-west-2',
+  // region: 'us-west-2',
+  region: 'eu-west-3',
   signatureVersion: 'v4',
 })
 
 router.get('', passportJWT, async (req, res) => {
-  const {store}  = req.query;
+  const {store, fileType}  = req.query;
 
-  const key = `${store}/${uuid()}.png`
+  const ext = fileType.split('/')[1];
+  const key = `${store}/${uuid()}.${ext}`
 
   s3.getSignedUrl('putObject', {
-    Bucket: 'my-blog1-bucket-1',
-    ContentType: 'image/png',
+    Bucket: 'webipie-images',
+    ContentType: fileType,
     Key: key
   }, (err, url) => res.send({key, url}))
 

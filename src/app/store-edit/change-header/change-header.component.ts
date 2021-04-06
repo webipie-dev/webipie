@@ -21,14 +21,12 @@ export class ChangeHeaderComponent implements OnInit {
   headerForm: FormGroup;
   initialHeaderForm: FormGroup;
   postData = {
-    template: {
-      header: {
+      'template.header': {
         img: '',
         title: '',
         description: '',
         mainButton: ''
       }
-    },
   };
   imgSrc = encryptStorage.getItem('store').template.header.img;
   store: Store;
@@ -50,11 +48,6 @@ export class ChangeHeaderComponent implements OnInit {
       description: new FormControl(this.store.template.header.description),
       mainButton: new FormControl(this.store.template.header.mainButton),
       img: new FormControl(this.store.template.header.img),
-      name: new FormControl(this.store.template.name),
-      colorChart: new FormControl(this.store.template.colorChart),
-      colorChartOptions: new FormControl(this.store.template.colorChartOptions),
-      font: new FormControl(this.store.template.font),
-      fontOptions: new FormControl(this.store.template.fontOptions),
     });
     this.initialHeaderForm = new FormGroup({
       title: new FormControl(this.store.template.header.title),
@@ -77,19 +70,24 @@ export class ChangeHeaderComponent implements OnInit {
   async onFileChanged(event) {
 
     const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = async (events) => {
-      this.imgSrc = reader.result.toString();
-      this.headerForm.value.img = this.imgSrc;
-      this.changeHeader();
-      this.uploadConfig = await this.uploadService.signedUrl(this.store);
-      console.log('2');
-      await this.uploadService.upload(this.uploadConfig.url, file);
-      console.log('3');
-      this.savedImage = this.uploadConfig.key;
-      console.log(this.savedImage);
-    };
+    const check = this.uploadService.imageCheckType(file.type);
+
+    if (check) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async (events) => {
+        this.imgSrc = reader.result.toString();
+        this.headerForm.value.img = this.imgSrc;
+        this.changeHeader();
+        this.uploadConfig = await this.uploadService.signedUrl(this.store, file.type);
+        console.log('2');
+        await this.uploadService.upload(this.uploadConfig.url, file);
+        console.log('3');
+        this.savedImage = this.uploadConfig.key;
+        console.log(this.savedImage);
+      };
+    }
+
   }
 
   testChange(): boolean {
@@ -107,21 +105,16 @@ export class ChangeHeaderComponent implements OnInit {
 
   onSubmit(): void {
     if (this.savedImage !== '') {
-      this.postData.template.header.img = 'https://my-blog1-bucket-1.s3-us-west-2.amazonaws.com/' + this.savedImage;
+      this.postData['template.header'].img = 'https://webipie-images.s3.eu-west-3.amazonaws.com/' + this.savedImage;
     }else {
-      this.postData.template.header.img = this.headerForm.get('img').value;
+      this.postData['template.header'].img = this.headerForm.get('img').value;
     }
 
     for (const field in this.headerForm.controls) {
       const control = this.headerForm.get(field);
-      if (field !== 'img' && ['mainButton', 'title', 'description'].includes(field)) {
+      if (field !== 'img' ) {
         if (control.value) {
-          this.postData.template.header[field] = control.value;
-        }
-      }
-      else {
-        if (control.value && field !== 'img' ) {
-          this.postData.template[field] = control.value;
+          this.postData['template.header'][field] = control.value;
         }
       }
     }

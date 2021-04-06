@@ -145,41 +145,47 @@ export class EditProductComponent implements OnInit {
     });
   }
 
+  // tslint:disable-next-line:typedef
+
+
   // adding images to the postForm and displaying them
   // tslint:disable-next-line:typedef
    async onImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files;
-    const files = [];
-    for (const item of Object.keys(file)) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file[item]);
-      const fileObject = {file: {}, url: ''};
-      // tslint:disable-next-line:variable-name
-      reader.onload = (_event) => {
-        this.msg = '';
-        this.url = reader.result;
-        fileObject.url = this.url;
-        this.imageObject.push({image: this.url, thumbImage: this.url});
-        this.divideImageObject();
-      };
-      fileObject.file = file[item];
-      files.push(fileObject);
-    }
-    console.log(files);
+     const file = (event.target as HTMLInputElement).files;
+     const files = [];
+     for (const item of Object.keys(file)) {
+       // Check the image type
+       const check = this.uploadService.imageCheckType(file[item].type);
+       // If check passed
+       if (check) {
+         const reader = new FileReader();
+         reader.readAsDataURL(file[item]);
+         const fileObject = {file: {}, url: ''};
+         // tslint:disable-next-line:variable-name
+         reader.onload = async (_event) => {
+           this.msg = '';
+           this.url = reader.result;
+           fileObject.url = this.url;
+           this.imageObject.push({image: this.url, thumbImage: this.url});
+           this.divideImageObject();
+         };
+         fileObject.file = file[item];
+         files.push(fileObject);
+       }
+       console.log(files);
 
 
-    for (const elt of files) {
-        this.uploadConfig = await this.uploadService.signedUrl(this.store);
-        console.log(this.uploadConfig);
-        console.log('2');
-        await this.uploadService.upload(this.uploadConfig.url, elt.file);
-        console.log('3');
-        this.savedImages[elt.url] = this.uploadConfig.key;
-        this.progressBar += 1;
+       for (const elt of files) {
+         this.uploadConfig = await this.uploadService.signedUrl(this.store, elt.file.type);
+         console.log(this.uploadConfig);
+         console.log('2');
+         await this.uploadService.upload(this.uploadConfig.url, elt.file);
+         console.log('3');
+         this.savedImages[elt.url] = this.uploadConfig.key;
+         this.progressBar += 1;
+       }
      }
-
-    console.log(this.progressBar);
-  }
+   }
 
   onReviews(event): void {
     this.isChecked = event.target.checked;
@@ -195,7 +201,7 @@ export class EditProductComponent implements OnInit {
 
     // add the images to postdata
     for (const [key, value] of Object.entries(this.savedImages)) {
-      this.imagesToUpload.push('https://my-blog1-bucket-1.s3-us-west-2.amazonaws.com/' + value);
+      this.imagesToUpload.push('https://webipie-images.s3.eu-west-3.amazonaws.com/' + value);
     }
 
     for (const field in this.productForm.controls) {
@@ -222,7 +228,7 @@ export class EditProductComponent implements OnInit {
   editProduct(id): void {
 
     for (const [key, value] of Object.entries(this.savedImages)) {
-      this.imagesToUpload.push('https://my-blog1-bucket-1.s3-us-west-2.amazonaws.com/' + value);
+      this.imagesToUpload.push('https://webipie-images.s3.eu-west-3.amazonaws.com/' + value);
     }
 
     for (const field in this.productForm.controls) {

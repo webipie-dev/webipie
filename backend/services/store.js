@@ -184,7 +184,7 @@ exports.editStore = async (req, res, next) => {
       edits[key] = req.body[key];
     }
   }
-
+  console.log()
   const store = await Store.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
