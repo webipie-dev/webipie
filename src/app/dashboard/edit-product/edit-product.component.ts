@@ -226,7 +226,6 @@ export class EditProductComponent implements OnInit {
   }
 
   editProduct(id): void {
-
     for (const [key, value] of Object.entries(this.savedImages)) {
       this.imagesToUpload.push('https://webipie-images.s3.eu-west-3.amazonaws.com/' + value);
     }
