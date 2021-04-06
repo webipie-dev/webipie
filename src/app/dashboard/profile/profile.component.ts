@@ -3,6 +3,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import { AuthService } from '../../_shared/services/auth.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
+import {UploadService} from '../../_shared/services/upload.service';
 
 
 @Component({
@@ -13,7 +14,6 @@ import 'sweetalert2/src/sweetalert2.scss';
 export class ProfileComponent implements OnInit {
 
   public windwosWidth = window.innerWidth;
-
   oldPassword: string;
   newPassword: string;
   checked: boolean;
@@ -30,8 +30,8 @@ export class ProfileComponent implements OnInit {
     this.checked = false;
     this.validation = false;
   }
+
   validateEmail(email) {
-    console.log(email);
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
@@ -86,4 +86,11 @@ export class ProfileComponent implements OnInit {
     this.windwosWidth = window.innerWidth;
   }
 
+  uploadLogo($event: Event): void {
+    console.log('i got here');
+  }
+
+  clickAddPhotos(): void {
+    document.getElementById('hiddenLogoInput').click();
+  }
 }
