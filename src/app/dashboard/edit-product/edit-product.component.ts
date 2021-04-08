@@ -3,7 +3,7 @@ import {Product} from '../../_shared/models/product.model';
 import {Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Route, Router} from '@angular/router';
 import uniqueSlug from 'unique-slug';
 
@@ -115,8 +115,7 @@ export class EditProductComponent implements OnInit {
 
   }
 
-  // tslint:disable-next-line:typedef
-  get productFormControl() {
+  get productFormControl(): {[p: string]: AbstractControl} {
     return this.productForm.controls;
   }
 
@@ -167,8 +166,9 @@ export class EditProductComponent implements OnInit {
         reader.onload = async (_event) => {
           this.msg = '';
           this.url = reader.result;
-          fileObject.url = this.url;
           this.imageObject.push({image: this.url, thumbImage: this.url});
+          console.log(this.imageObject);
+          fileObject.url = this.url;
           this.divideImageObject();
         };
         fileObject.file = file[item];
@@ -185,9 +185,10 @@ export class EditProductComponent implements OnInit {
         console.log('3');
         this.savedImages[elt.url] = this.uploadConfig.key;
         this.progressBar += 1;
+        document.getElementById('myCheck').click();
       }
     }
-   }
+  }
 
   onReviews(event): void {
     this.isChecked = event.target.checked;
@@ -197,8 +198,7 @@ export class EditProductComponent implements OnInit {
     this.isPopular = event.target.checked;
   }
 
-  // tslint:disable-next-line:typedef
-  addProduct() {
+  addProduct(): void {
     this.imagesToUpload = [];
 
     // add the images to postdata
