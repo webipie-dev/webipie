@@ -21,7 +21,8 @@ router.get('/url/:url', StoreService.getStoreByUrl);
 
 router.get('/all/names', StoreService.getStoreNames);
 
-// router.get('/:name/:location', StoreService.getStoreByNameAndLocation);
+router.get('/all/urls', StoreService.getStoreUrls);
+
 // addStore
 router.post('', [
   storeValidation.name,

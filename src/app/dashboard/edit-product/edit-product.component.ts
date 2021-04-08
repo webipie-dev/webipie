@@ -49,6 +49,7 @@ export class EditProductComponent implements OnInit {
 
   isChecked = true;
   isPopular = false;
+  editAddPage = 'Add';
 
   deletePhotos = false;
   addIconDelete = false;
@@ -73,6 +74,7 @@ export class EditProductComponent implements OnInit {
     ]
   };
 
+  imagesTouched = false;
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -92,6 +94,7 @@ export class EditProductComponent implements OnInit {
       if (params.id) {
         this.productId = params.id;
         this.edit = true;
+        this.editAddPage = 'Edit';
       }
     });
     // if we're in the edit page
@@ -124,7 +127,6 @@ export class EditProductComponent implements OnInit {
       .map(() => imageCopy.splice(0, 3));
   }
 
-
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
       console.log(data);
@@ -145,46 +147,46 @@ export class EditProductComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line:typedef
+  clickAddPhotos(): void {
+    this.imagesTouched = true;
+    document.getElementById('hiddenImageInput').click();
+  }
+
+  async onImagePicked(event: Event): Promise<any> {
+    const file = (event.target as HTMLInputElement).files;
+    const files = [];
+    for (const item of Object.keys(file)) {
+      // Check the image type
+      const check = this.uploadService.imageCheckType(file[item].type);
+      // If check passed
+      if (check) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file[item]);
+        const fileObject = {file: {}, url: ''};
+        // tslint:disable-next-line:variable-name
+        reader.onload = async (_event) => {
+          this.msg = '';
+          this.url = reader.result;
+          fileObject.url = this.url;
+          this.imageObject.push({image: this.url, thumbImage: this.url});
+          this.divideImageObject();
+        };
+        fileObject.file = file[item];
+        files.push(fileObject);
+      }
+      console.log(files);
 
 
-  // adding images to the postForm and displaying them
-  // tslint:disable-next-line:typedef
-   async onImagePicked(event: Event) {
-     const file = (event.target as HTMLInputElement).files;
-     const files = [];
-     for (const item of Object.keys(file)) {
-       // Check the image type
-       const check = this.uploadService.imageCheckType(file[item].type);
-       // If check passed
-       if (check) {
-         const reader = new FileReader();
-         reader.readAsDataURL(file[item]);
-         const fileObject = {file: {}, url: ''};
-         // tslint:disable-next-line:variable-name
-         reader.onload = async (_event) => {
-           this.msg = '';
-           this.url = reader.result;
-           fileObject.url = this.url;
-           this.imageObject.push({image: this.url, thumbImage: this.url});
-           this.divideImageObject();
-         };
-         fileObject.file = file[item];
-         files.push(fileObject);
-       }
-       console.log(files);
-
-
-       for (const elt of files) {
-         this.uploadConfig = await this.uploadService.signedUrl(this.store, elt.file.type);
-         console.log(this.uploadConfig);
-         console.log('2');
-         await this.uploadService.upload(this.uploadConfig.url, elt.file);
-         console.log('3');
-         this.savedImages[elt.url] = this.uploadConfig.key;
-         this.progressBar += 1;
-       }
-     }
+      for (const elt of files) {
+        this.uploadConfig = await this.uploadService.signedUrl(this.store, elt.file.type);
+        console.log(this.uploadConfig);
+        console.log('2');
+        await this.uploadService.upload(this.uploadConfig.url, elt.file);
+        console.log('3');
+        this.savedImages[elt.url] = this.uploadConfig.key;
+        this.progressBar += 1;
+      }
+    }
    }
 
   onReviews(event): void {
@@ -294,33 +296,6 @@ export class EditProductComponent implements OnInit {
     this.progressBar = 0;
   }
 
-  deletePhotoOpen(): void {
-    const images = document.getElementsByClassName('image');
-    const imagesArray = Array.from(images);
-    if (!this.addIconDelete) {
-      imagesArray.forEach((item, i) => {
-        const template = document.createElement('div');
-        const htmlString = `<i id='delete-${i}' class="fas fa-minus-circle fa-3x mt-2 ml-2"
-                            style="color: #ffffff; position: relative;"/>`;
-        template.innerHTML = htmlString.trim();
-        item.parentNode.appendChild(template);
-      });
-    }
-    this.addIconDelete = true;
-    this.deletePhotos = true;
-  }
-
-  deletePhotoClose(): void {
-    this.addIconDelete = false;
-    this.deletePhotos = false;
-    const images = document.getElementsByClassName('image');
-    const imagesArray = Array.from(images);
-    for (let i = 0; i < imagesArray.length; i++) {
-      document.getElementById('delete-' + i).remove();
-    }
-
-  }
-
   deletePhoto(i): void {
     // if edit product
     this.deletedImages.push(this.imageObject[i].image);
@@ -330,12 +305,7 @@ export class EditProductComponent implements OnInit {
     delete this.savedImages[this.imageObject[i].image];
   }
 
-
   @HostListener('window:resize') windwosResize(): void {
     this.windwosWidth = window.innerWidth;
-  }
-
-  clickAddPhotos(): void {
-    document.getElementById('hiddenImageInput').click();
   }
 }

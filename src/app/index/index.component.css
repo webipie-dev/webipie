@@ -562,6 +562,7 @@ input:focus:-ms-input-placeholder {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   vertical-align: middle;
   padding: 15px;
+  height: 200px;
   background: var(--white-color );
 }
 .card-background-image {

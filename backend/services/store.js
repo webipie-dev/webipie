@@ -28,6 +28,15 @@ exports.getStoreNames = async (req,res) => {
   res.status(200).send(names);
 }
 
+exports.getStoreUrls = async (req,res) => {
+  const names =await Store.find({}).select({ "url": 1, "_id": 0})
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
+  res.status(200).send(names);
+}
+
 exports.getOneStore = async (req, res) => {
   // We need to check if user is authenticated
 
@@ -60,7 +69,6 @@ exports.getStoreByNameAndLocation = async (req,res) => {
   res.status(200).send(store);
 }
 
-
 exports.getStoreByUrl = async (req,res) => {
   const { url } = req.params;
   const store = await Store.findOne({url})
@@ -91,16 +99,14 @@ exports.addStore = async (req, res, next) => {
   getTemplate.id= templateId
 
   const store = new Store({
-    // id,
     name,
-    url: name.toLowerCase().replace(/\s/g, ''),
+    url: name.toLowerCase().replace(/\s/g, '').replace(/'/, '') + '.webipie.com',
     logo,
     description,
     location,
     storeType,
     contact,
-    template: getTemplate,
-
+    template: getTemplate
   });
 
   // update storeowner with its id
