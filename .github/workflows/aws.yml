@@ -1,0 +1,70 @@
+on:
+  push:
+    branches:
+      - devops
+      - master
+      
+name: Project Deployment
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: AKIAZNH4SLOQBOKX3VEB
+        aws-secret-access-key: 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
+        aws-region: eu-central-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: webipieecr_dev
+        APP_PORT: ${{ secrets.APP_PORT }}
+        AWS_ACCESS_KEY_ID: AKIAZNH4SLOQBOKX3VEB
+        AWS_SECRET_ACCESS_KEY: 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
+        REGION: eu-central-1
+      run: |
+        # Build a docker container and
+        # push it to ECR so that it can
+        # be deployed to ECS.
+        cd backend
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:latest"
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: backend/task-definition.json
+        container-name: webipieecr_dev
+        image: ${{ steps.build-image.outputs.image }}
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: webipie
+        cluster: webipie
+        wait-for-service-stability: true
+    
+    - name: Build and deploy front-end
+      run: |
+        npm install
+        ng build
+        aws s3 cp --profile webipie dist/savvy "s3://webipie.com" --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+        aws cloudfront create-invalidation --profile webipie --distribution-id E2NVJ1Y83LPCU7 --paths "/*"
+        
+    
