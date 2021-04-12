@@ -63,6 +63,7 @@ jobs:
     - name: Build and deploy front-end
       run: |
         npm install
+        npm install -g angular-cli
         ng build
         aws s3 cp --profile webipie dist/savvy "s3://webipie.com" --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
         aws cloudfront create-invalidation --profile webipie --distribution-id E2NVJ1Y83LPCU7 --paths "/*"
