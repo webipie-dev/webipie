@@ -62,10 +62,10 @@ jobs:
     
     - name: Build and deploy front-end
       run: |
-        echo "installing dependencies"
-        npm install
         echo "installing angular"
         npm install angular-cli
+        echo "installing dependencies"
+        npm install
         echo "building project"
         npm run build
         aws s3 cp --profile webipie dist/savvy "s3://webipie.com" --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
