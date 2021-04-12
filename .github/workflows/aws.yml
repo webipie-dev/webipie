@@ -63,7 +63,7 @@ jobs:
     - name: Build and deploy front-end
       run: |
         echo "installing angular"
-        npm install angular-cli
+        npm install @angular/cli
         echo "installing dependencies"
         npm install
         echo "building project"
