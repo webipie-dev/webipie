@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/_shared/models/product.model';
 import { ProductService } from 'src/app/_shared/services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { encryptStorage } from 'src/app/_shared/utils/encrypt-storage';
 import { Store } from 'src/app/_shared/models/store.model';
 
@@ -18,14 +18,18 @@ export class SearchSecondTemplateComponent implements OnInit {
   listView: boolean;
 
   constructor(private productService: ProductService,
-              private activatedRoute: ActivatedRoute
+              private activatedRoute: ActivatedRoute,
+              private router: Router
   ) { }
 
   ngOnInit(): void {
     this.listView = true;
     this.store = encryptStorage.getItem('store');
     this.productService.search({store: this.store.id}, this.activatedRoute.snapshot.paramMap.get('term'))
-    .subscribe(prods => this.products = prods);
+    .subscribe(prods => {
+      this.products = prods;
+      console.log(prods);
+    });
   }
 
   search(): void{

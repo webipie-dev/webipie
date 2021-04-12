@@ -155,7 +155,6 @@ li{
   user-select: none;
   background: #fff;
   border: 1px solid #c7d8e2;
-  width: 350px;
   height: auto;
   display: none;
   border-radius: 15px;
@@ -176,8 +175,15 @@ li{
   transition: 0.3s all ease-in-out;
 }
 
-.notification .notification_dd{
-  width: 225px;
+.notification_dd{
+  width: 22vw !important;
+}
+
+@media  screen and (max-width: 768px) {
+
+  .notification_dd{
+    width: 15vw !important;
+  }
 }
 
 .notification .notification_ul{
@@ -187,8 +193,8 @@ li{
 .notification .notification_dd ul li {
   /*border-bottom: 1px solid #f1f2f4;*/
   list-style-type: none;
-  text-align: center;
-  padding: 20px;
+  /* text-align: center; */
+  padding: 20px 5px;
   font-size: medium;
 
 }
@@ -207,11 +213,17 @@ li{
 
 .notification .notification_dd ul li a{
   display: block;
-  padding: 15px 35px;
+  padding: 20px 0 0 0;
   position: relative;
   text-decoration: none;
   transition: 0.3s all;
   color: var(--blue-color);
+  transition: 0.3s all ease-in-out;
+}
+
+.notification .notification_dd ul li a:hover{
+  color: #000 !important;
+  transition: 0.3s all ease-in-out i !important;
 }
 
 /******************************/
@@ -254,6 +266,12 @@ li{
   transition: 0.3s all ease-in-out;
 } */
 
-.notification-group.expanded .notification-tab{
+.notification-group.active .notification-list{
+  display: block;
+}
+
+.notification-group .notification-list{
   display: none;
+  user-select: none;
+  transition: 0.3s all ease-in-out;
 }

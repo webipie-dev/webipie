@@ -6,6 +6,7 @@ import {Product} from '../../_shared/models/product.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
 import { encryptLocalStorage } from 'src/app/_shared/utils/encrypt-storage';
+import { MaxLengthValidator } from '@angular/forms';
 
 declare var $: any;
 
@@ -116,5 +117,30 @@ export class DashboardHomeComponent implements OnInit {
       $('#products-number').jQuerySimpleCounter({end: this.productLength  , duration: 1500});
       this.isLoading = false;
     });
+  }
+
+  toggleCarousel(event): void{
+    // const $card = $('.card-movie--active');
+    const $navigation = document.getElementsByClassName('card-movie-navigation__list')[0];
+    const $cards = document.getElementsByClassName('card-movie-carousel')[0].children;
+    for (let i = 0; i < $navigation.children.length; i++){
+      if ($navigation.children[i] === event.target){
+        const siblings = n => [...n.parentElement.children].filter(c => c !== n);
+
+        $cards[i].classList.add('card-movie--active');
+        siblings($cards[i]).forEach(e => e.classList.remove('card-movie--active'));
+
+        event.target.classList.add('is-active');
+        siblings(event.target).forEach(e => e.classList.remove('is-active'));
+        break;
+      }
+    }
+  }
+
+  resize(e): void{
+    const iFrame = e.target;
+    console.log(e.target.parentNode.getBoundingClientRect());
+    // iFrame.width  = iFrame.parentElement.width;
+    // iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
   }
 }

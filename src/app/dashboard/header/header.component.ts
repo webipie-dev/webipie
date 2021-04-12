@@ -40,12 +40,15 @@ export class HeaderComponent implements OnInit {
         this.orderNum += 1;
 
         // d1.insertAdjacentHTML('beforeend', '<div id="two">two</div>');
-        const element = document.getElementsByClassName('notification_list')[0];
-        element.insertAdjacentHTML('afterbegin', '<li><a routerLink="/dashboard/sales/orders"' +
-        'style="display: block; padding: 15px 35px 0px 35px; position: relative; text-decoration: none;transition: 0.3s all; color: var(--blue-color);">' +
-        '<i class="fas fa-user-alt mx-2"></i>' +
-        'You have new order from ' + msg.client.firstname + ' ' + msg.client.lastname + '</a></li>' +
-        '<hr class="mt-0 mb-2" style="width: 80%">');
+        const element = document.getElementsByClassName('notification-list')[0];
+        console.log(element);
+        element.insertAdjacentHTML('afterbegin', '<li style="display: flex; justify-content: flex-end;   display: block; padding: 40px 0 5px 5px;'+
+        'position: relative; text-decoration: none;'+ 
+        ' color: var(--blue-color); transition: 0.3s all ease-in-out;">' +
+        '<a routerLink="/dashboard/sales/orders"'+
+        'style="text-decoration: none;transition: 0.3s all; color: var(--blue-color);">'+
+        '<i class="fas fa-user-alt mx-2"></i>'+
+         'You have new order from' +msg.client.firstname + ' ' + msg.client.lastname +' </a></li>');
       });
     });
 
@@ -73,16 +76,9 @@ export class HeaderComponent implements OnInit {
     document.getElementById('dropdown-notification').parentElement.classList.toggle('active');
   }
 
-  open(){
-    $('.notification-tab').click(function(e){
-      if($(e.currentTarget).parent().hasClass('expanded')){
-        $('.notification-group').removeClass('expanded');
-      }
-      else{
-        $('.notification-group').removeClass('expanded');
-        $(e.currentTarget).parent().toggleClass('expanded');
-      }
-    });
+  open(event){
+    event.stopPropagation();
+    document.getElementById('orders-tab').parentElement.classList.toggle('active');
   }
 
   logOut(): void{

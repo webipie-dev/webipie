@@ -17,8 +17,8 @@
         </div>
      </div>
 
-    <!-- list-view -->
-    <div *ngIf="!listView" class="papular-block row">
+    <!-- grid-view -->
+    <div *ngIf="!listView" class="papular-block row" style="margin-left: 10%; margin-right: 10%;">
         <div *ngFor="let product of products" class="col-md-3">
             <!-- Item -->
             <div class="item">
@@ -48,10 +48,10 @@
         </div>
     </div>
 
-    <!-- grid-view -->
+    <!-- list-view -->
     <div *ngIf="listView" class="all mx-auto">
         <div class="cards">
-          <div class="card shadow-1" *ngFor="let prod of products">
+          <div class="cursor-pointer card shadow-1" *ngFor="let prod of products">
             <div class="row no-gutters">
                 <div class="col-md-4">
                   <img [src]="prod.imgs[0]" class="card-img card-img-top" alt="...">
@@ -59,8 +59,10 @@
                 <div class="col-md-8">
                   <div class="card-body">
                     <h5 class="card-title">{{prod.name}}</h5>
-                    <p class="card-text">{{prod.description}}</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <p class="card-text" [innerHTML]="prod.description"></p>
+                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                    <p>Price: {{prod.price}}</p>
+                    <p>Quantity: {{prod.quantity}}</p>
                   </div>
                 </div>
             </div>

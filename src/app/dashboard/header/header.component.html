@@ -20,21 +20,28 @@
       <div class="notification_dd">
         <ul class="notification_ul">
           <!-- <li *ngIf='!newOrder' calss='my-2'> You have no notifications </li> -->
-          <li class="notification-group" (click)='open()'>
-            <div class="notification-tab" id='orders-tab' (click)='open()'>
-              <i class="fa fa-flag"></i>
-              <h4>Orders</h4>
-              <span class="label">{{orderNum}}</span>
+          <li class="notification-group" (click)='open($event)'>
+            <div class="notification-tab d-flex justify-content-center" id='orders-tab'>
+              <div class="row" style="left: 30px; position: absolute;">
+                <i class="fa fa-flag mx-1"></i>
+                <h4 class="mx-1">Orders</h4>
+              </div>
+              <span class="label mx-1" style="position: absolute; right: 20px;">{{orderNum}}</span>
             </div>
             <ul class="notification-list">
-              <li>hhhh</li>
+              
             </ul>
           </li>
+
           <li class="notification-group">
-            <div class="notification-tab">
-              <i class="fa fa-bug"></i>
-                <h4>Reviews</h4>
-                <span class="label">{{reviewNum}}</span>
+            <div class="notification-tab  d-flex">
+              <div class="row" style="left: 30px; position: absolute;">
+                <i class="fa fa-bug mx-1"></i>
+                <h4 class="mx-1">Reviews</h4>
+              </div>
+              <span class="label mx-1" style="position: absolute; right: 20px;">{{reviewNum}}</span>
+
+
             </div>
             <ul class="notification-list"></ul>
           </li>

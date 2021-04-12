@@ -300,7 +300,44 @@
 
 }
 
+.modal-dialog-margin{
+  margin-left:25vw;
+  margin-top:5vh;
+}
 
+.modal-content-size{
+  width: 50vw;
+  height: 80vh;
+}
+
+
+@media screen and (max-width: 767px) {
+  .modal-content-size{
+    width:90vw; 
+    height:80vh;
+  }
+  .modal-dialog-margin{
+    margin-left:5vw;
+    /* margin-right:0vw; */
+    margin-top:5vh;
+  }
+}
+
+.modal-button{
+  padding: 1.5em auto;
+  color: white;
+  background-color: #8b98e4;
+  border: none;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  transition: all 0.2s cubic-bezier(.4,0,.2,1);
+}
+
+.modal-button:hover{
+  letter-spacing: 0.8em;
+  background-color: #F08C99;
+}
 
 /****************cool-carousel-instructions****************/
 .card-movie__details:after, .card-movie__details-list:after {
@@ -310,18 +347,22 @@
 }
 .card-movie-wrapper {
   box-shadow: 0px 0px 100px 25px rgba(0, 0, 0, 0.2);
-  /* height: 440px; */
+  /* height: 440px;
+  width: 840px; */
   height: 30%;
   position: relative;
-  /* width: 840px; */
-  width: 80%;
+  height: 60vh;
+  width: 60vw;
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 .card-movie-wrapper:hover .card-movie-carousel {
   -webkit-transition: all 250ms ease-in-out;
   -moz-transition: all 250ms ease-in-out;
   transition: all 250ms ease-in-out;
-  bottom: 60px;
-  right: 40px;
+  bottom: 30px;
+  right: 30px;
 }
 /* .card-movie-wrapper--centered {
   -webkit-transform: translate(-50%, -50%);
@@ -337,10 +378,10 @@
   -webkit-transition: all 250ms ease-in-out 250ms;
   -moz-transition: all 250ms ease-in-out 250ms;
   transition: all 250ms ease-in-out 250ms;
-  height: 440px;
-  width: 840px;
-  /* height: 30%;
-  width: 80%; */
+  /* height: 440px;
+  width: 840px; */
+  height: 60vh;
+  width: 60vw;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -374,16 +415,17 @@
   background-color: #ccc;
   border-radius: 100%;
   cursor: pointer;
-  height: 12px;
+  height: 8px;
   margin: 0 auto 6px;
-  width: 12px;
+  width: 8px;
+  list-style-type: none;
 }
 .card-movie-navigation__list li:last-child {
   margin-bottom: 0;
 }
 .card-movie-navigation__list li.is-active {
-  height: 18px;
-  width: 18px;
+  height: 12px;
+  width: 12px;
 }
 .card-movie-navigation__list li:hover {
   background-color: #bbb;
@@ -456,7 +498,7 @@
   top: 150px;
 }
 .card-movie__title {
-  font-size: 60px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1;
   margin-left: -4px;
@@ -554,7 +596,7 @@
   color: #fff;
 }
 .card-movie--looper {
-  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/43525/looper.png');
+  background-image: url("src/assets/images/fb-instagram-card.png") !important;
 }
 .card-movie--tron {
   background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/43525/tron.png');
