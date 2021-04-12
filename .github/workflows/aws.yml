@@ -49,7 +49,7 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: backend/task-definition.json
-        container-name: webipieecr_dev
+        container-name: webipie
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
