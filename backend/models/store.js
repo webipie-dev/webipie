@@ -31,7 +31,8 @@ const ExSchema = new Schema({
   url: {type: String, required: true, unique: true},
   name: {type: String, required: true, unique: true},
   logo: {type: String, default: ''},
-  description: {type: String, default: ''},
+  about: {type: String, default: 'Our Store provides high quality products with affordable prices.\n' +
+      ' Contact us on Facebook or Instagram for more information'},
   storeType: {type: String, default: ''},
   creationDate: {type: Date, default: Date.now()},
   contact: contact,

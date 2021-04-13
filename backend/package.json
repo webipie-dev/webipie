@@ -16,19 +16,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.878.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
-    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-formidable": "^1.2.0",
     "express-promise-router": "^4.0.1",
     "express-unless": "^0.5.0",
     "express-validator": "^6.9.2",
     "helmet": "^4.3.1",
     "joi": "^17.2.1",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.20",
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
@@ -41,15 +39,15 @@
     "passport-google-plus-token": "^2.1.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "redis": "^3.0.2",
     "socket.io": "^3.1.1",
     "swagger-jsdoc": "^6.0.0-rc.5",
-    "swagger-ui-express": "^4.1.5"
+    "swagger-ui-express": "^4.1.5",
+    "uuid": "^8.3.2",
+    "uuidv4": "^6.2.7"
   },
   "devDependencies": {
     "jest": "^26.6.3",
-    "mongodb-memory-server": "^6.9.3",
-    "mongodb-server": "^1.0.0",
+    "mongodb-memory-server": "^6.9.6",
     "supertest": "^6.0.1"
   }
 }

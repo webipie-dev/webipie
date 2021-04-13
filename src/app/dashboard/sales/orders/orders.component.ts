@@ -7,6 +7,7 @@ import { WebSocketService } from '../../../_shared/services/web-socket.service';
 import { Router } from '@angular/router';
 import { NgZone } from '@angular/core';
 import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
   selector: 'app-orders',
@@ -14,6 +15,7 @@ import {encryptLocalStorage} from '../../../_shared/utils/encrypt-storage';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit{
+  source: LocalDataSource;
   windowWidth = window.screen.width;
   // settings for the web version of the table
   settings = {
@@ -68,8 +70,13 @@ export class OrdersComponent implements OnInit{
           return this.edit;
         },
         renderComponent: OrderDetailComponent,
+        onComponentInitFunction: (instance) => {
+          instance.updateResult.subscribe(newOrderStatus => {
+            this.updateOrder(newOrderStatus);
+          });
+        },
+        confirmEdit: true,
       },
-
     },
     actions: {
       position: 'right',
@@ -106,7 +113,7 @@ export class OrdersComponent implements OnInit{
       },
       clientName: {
         title: 'Client',
-        width: '50%'
+        width: '40%'
       },
       details: {
         title: '',
@@ -118,6 +125,22 @@ export class OrdersComponent implements OnInit{
         },
         renderComponent: OrderDetailComponent,
       },
+      edit: {
+        title: '',
+        width: '10%',
+        type: 'custom',
+        valuePrepareFunction: (cell, row) => {
+          this.edit = true;
+          return this.edit;
+        },
+        renderComponent: OrderDetailComponent,
+        onComponentInitFunction: (instance) => {
+          instance.updateResult.subscribe(newOrderStatus => {
+            this.updateOrder(newOrderStatus);
+          });
+        },
+        confirmEdit: true,
+      },
     },
     actions: false,
     noDataMessage: 'Oups, no Data yet !'
@@ -128,6 +151,7 @@ export class OrdersComponent implements OnInit{
   selectedRows = [];
   showDeleteManyButton = false;
   newOrder = true;
+  loading = true;
 
   constructor(private http: HttpClient,
               private orderService: OrderService,
@@ -190,6 +214,8 @@ export class OrdersComponent implements OnInit{
         }
       });
       this.orders = this.orders.reverse();
+      this.source = new LocalDataSource(this.orders);
+      this.loading = false;
     });
   }
 
@@ -199,7 +225,7 @@ export class OrdersComponent implements OnInit{
   }
 
   onDeleteOne(event): void {
-
+    console.log(event.data);
     this.orderService.deleteModal.fire({
       title: 'Are you sure?',
       text: 'You won\'t be able to revert this!',
@@ -215,9 +241,18 @@ export class OrdersComponent implements OnInit{
           // delete the order from orders displayed
           this.orders = this.orders.filter(prod => prod.id !== event.data.id);
           event.confirm.resolve();
-
-
         });
+
+        if (event.data.orderStatus !== 'accepted'){
+          const refundProducts = event.data.products.map(element => ({
+            id: element._id,
+            quantity: element.quantity
+          }));
+          this.orderService.refundProduct(refundProducts).subscribe((elem) => {
+            console.log(elem);
+          });
+        }
+
         // const index = this.selectedRows.indexOf(event.data);
         // if (index > -1) {
         //   this.selectedRows.splice(index, 1);
@@ -256,7 +291,14 @@ export class OrdersComponent implements OnInit{
       if (result.isConfirmed) {
 
         const ids = [];
+        const refundProducts = [];
         this.selectedRows.forEach(elt => {
+          if (elt.orderStatus !== 'accepted'){
+            elt.products.forEach(element => refundProducts.push({
+              id: element._id,
+              quantity: element.quantity
+            }));
+          }
           ids.push(elt.id);
         });
         ids.forEach(elt => {
@@ -267,6 +309,11 @@ export class OrdersComponent implements OnInit{
           this.changeShowDeleteManyButton();
         });
 
+        // if (refundProducts.length > 0){
+        //   this.orderService.refundProduct(refundProducts).subscribe((elem) => {
+        //     console.log(elem);
+        //   });
+        // }
 
       } else if (
         /* Read more about handling dismissals below */
@@ -282,11 +329,15 @@ export class OrdersComponent implements OnInit{
 
   }
 
-
   reload(): void{
     const currentUrl = this.router.url;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
+  }
+
+  updateOrder(order) {
+    const orderToUpdate = this.orders.find(x => x.id === order.id);
+    this.source.update(orderToUpdate, order);
   }
 }

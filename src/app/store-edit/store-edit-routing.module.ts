@@ -7,6 +7,7 @@ import {ChangeContactComponent} from './change-contact/change-contact.component'
 import {ChangeHeaderComponent} from './change-header/change-header.component';
 import {SocialMediaComponent} from './social-media/social-media.component';
 import {SidenavMenuComponent} from './sidenav-menu/sidenav-menu.component';
+import {AboutUsComponent} from './about-us/about-us.component';
 
 
 const routes: Routes = [{
@@ -36,6 +37,10 @@ const routes: Routes = [{
       {
         path: 'social-media',
         component: SocialMediaComponent
+      },
+      {
+        path: 'about-us',
+        component: AboutUsComponent
       }
     ]
   }]

@@ -1,64 +1,56 @@
 <div>
   <div id="sidebar-next">
-    <!-- Web Version -->
-    <div class="container web-show">
-      <div class="big-titles my-3 text-center">Enjoy the flexibility in customizing your products</div>
-      <div class="text-size mb-3 text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-        alias aliquam delectus dolorum eligendi esse est fugiat id libero minima non optio possimus quaerat quo
-        recusandae rerum unde, vitae voluptatibus.
+    <div class="big-titles my-3 text-center">Enjoy the flexibility in customizing your products</div>
+    <div class="text-size mb-3 text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+      alias aliquam delectus dolorum eligendi esse est fugiat id libero minima non optio possimus quaerat quo
+      recusandae rerum unde, vitae voluptatibus.
+    </div>
+    <div class="container row mt-5">
+      <div class="col-md-6">
+        <a class="ml-5 button-generic py-2 button-edit mr-2 text-size" routerLink="../product-add">
+          <i class="fa fa-plus-circle" id="edit-icon"></i>
+          Add</a>
       </div>
-      <div class="row mt-5">
-        <div class="col-md-6">
-          <a class="ml-5 button-generic py-2 button-edit mr-2 text-size" routerLink="../product-add">
-            <i class="fa fa-plus-circle" id="edit-icon"></i>
-            Add</a>
-        </div>
-        <div class="col-md-6">
-          <button (click)="onDeleteMany()" [disabled]="!showDeleteManyButton" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}"
-             class="mr-5 float-right py-2 button-generic button-delete text-size">
-            <i class="fa fa-trash-alt" id="delete-icon"></i> Delete
-            Selected</button>
-        </div>
-      </div>
-      <div class="my-5 mx-auto px-5 py-3 table-shadow ">
-        <ng2-smart-table (custom)="onEditSelect($event)"
-                         (deleteConfirm)="onDeleteOne($event)"
-                         (userRowSelect)="onRowSelect($event)"
-                         *ngIf="products.length > 0"
-                         [settings]="settings"
-                         [source]="products"
-                         class="text-size text-center"
-        ></ng2-smart-table>
+      <div class="col-md-6">
+        <button (click)="onDeleteMany()" [disabled]="!showDeleteManyButton" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}"
+                class="mr-5 float-right py-2 button-generic button-delete text-size">
+          <i class="fa fa-trash-alt" id="delete-icon"></i> Delete
+          Selected</button>
       </div>
     </div>
-    <!-- Mobile & Tablet Version -->
-    <div class="container other-show">
-      <div class="big-titles my-3 text-center">Enjoy the flexibility in customizing your products</div>
-      <div class="text-size mb-3 text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-        alias aliquam delectus dolorum eligendi esse est fugiat id libero minima non optio possimus quaerat quo
-        recusandae rerum unde, vitae voluptatibus.
-      </div>
-      <div class="row mt-5">
-        <div class="col-12 text-center">
-          <a class="mx-auto button-generic py-2 button-edit text-size" routerLink="../product-add"><i
-            class="fa fa-plus-circle" id="edit-icon-mobile"></i> Add</a>
+    <div class="mt-5" *ngIf="loading">
+      <app-spinner></app-spinner>
+    </div>
+    <div *ngIf="!loading">
+      <!-- Web Version -->
+      <div class="container web-show">
+        <div class="my-5 mx-auto px-5 py-3 table-shadow" *ngIf="products.length > 0">
+          <ng2-smart-table (custom)="onEditSelect($event)"
+                           (deleteConfirm)="onDeleteOne($event)"
+                           (userRowSelect)="onRowSelect($event)"
+                           [settings]="settings"
+                           [source]="products"
+                           class="text-size text-center"
+          ></ng2-smart-table>
         </div>
-        <div class="col-12 mt-3 mx-auto text-center" style="">
-          <a (click)="onDeleteMany()" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}"
-             class="mx-auto py-2 button-generic button-delete text-size"><i class="fa fa-trash-alt"
-                                                                                     id="delete-icon"></i> Delete
-            Selected</a>
+        <div class="container" *ngIf="products.length === 0">
+          <div class="mx-auto w-75 alert alert-success mt-5 small-titles text-center">Oups no products yet, Start Adding Products and Making Sales !</div>
         </div>
       </div>
-      <div class="my-5 mx-auto px-2 py-3 table-shadow ">
-        <ng2-smart-table (custom)="onEditSelect($event)"
-                         (deleteConfirm)="onDeleteOne($event)"
-                         (userRowSelect)="onRowSelect($event)"
-                         *ngIf="products.length > 0"
-                         [settings]="settingsMobile"
-                         [source]="products"
-                         class="text-size text-center"
-        ></ng2-smart-table>
+      <!-- Mobile & Tablet Version -->
+      <div class="container other-show">
+        <div class="my-5 mx-auto px-2 py-3 table-shadow" *ngIf="products.length > 0">
+          <ng2-smart-table (custom)="onEditSelect($event)"
+                           (deleteConfirm)="onDeleteOne($event)"
+                           (userRowSelect)="onRowSelect($event)"
+                           [settings]="settingsMobile"
+                           [source]="products"
+                           class="text-size text-center"
+          ></ng2-smart-table>
+        </div>
+        <div class="container" *ngIf="products.length === 0">
+          <div class="mx-auto w-75 alert alert-success mt-5 small-titles text-center">Oups no products yet, Start Adding Products and Making Sales !</div>
+        </div>
       </div>
     </div>
   </div>

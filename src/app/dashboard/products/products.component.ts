@@ -77,6 +77,7 @@ export class ProductsComponent implements OnInit {
   selectedRows = [];
   showDeleteManyButton = false;
   products = [];
+  loading = true;
 
   constructor(private http: HttpClient,
               private productService: ProductService,
@@ -90,6 +91,7 @@ export class ProductsComponent implements OnInit {
 
   getAllProducts(): void {
     this.productService.getAll({store: encryptLocalStorage.decryptString(localStorage.getItem('storeID'))}).subscribe((data) => {
+      console.log(data);
       let quant;
       let aux;
       data.forEach((element) => {
@@ -107,6 +109,7 @@ export class ProductsComponent implements OnInit {
         aux.quantity = quant;
         this.products.push(aux);
       });
+      this.loading = false;
     });
   }
 

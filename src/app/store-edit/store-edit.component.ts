@@ -5,6 +5,7 @@ import {StoreService} from '../_shared/services/store.service';
 import {Store} from '../_shared/models/store.model';
 import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-storage';
 
+declare var $: any;
 @Component({
   selector: 'app-store-edit',
   templateUrl: './store-edit.component.html',
@@ -14,21 +15,16 @@ import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-stor
 export class StoreEditComponent implements OnInit {
   urlToPreview: string;
   urlSafe: SafeResourceUrl;
-  windowHeight = window.innerHeight;
+  windowHeight = 0;
   newWidth;
   storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
-
   store: Store;
-  iframe = '<app-second-template></app-second-template>';
-
-
-
   public opened = true;
   public minimized = false;
   public mobileOpen = false;
   public mode = 'push';
   public windwosWidth = window.innerWidth;
-
+  loading = true;
 
   constructor(public sanitizer: DomSanitizer,
               private router: Router,
@@ -54,21 +50,11 @@ export class StoreEditComponent implements OnInit {
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
       encryptStorage.setItem('store', this.store);
     });
+  }
 
-    // if (document.getElementById('sidebar').classList.contains('active')) {
-    //  this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    // } else {
-    //   this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    // }
-    // document.getElementById('iframe').style.width = this.newWidth.toString();
-    // window.addEventListener('resize', () => {
-    //   if (document.getElementById('sidebar').classList.contains('active')) {
-    //     this.newWidth = window.screen.width - document.getElementById('sidebar-non-active').offsetWidth + 'px';
-    //   } else {
-    //     this.newWidth = window.screen.width - document.getElementById('sidebar').offsetWidth + 'px';
-    //   }
-    //   document.getElementById('iframe').style.width = this.newWidth.toString();
-    // });
+  public uploadDone() {
+    this.windowHeight = window.innerHeight;
+    this.loading = false;
   }
 
   public _toggleSidebar(): void {

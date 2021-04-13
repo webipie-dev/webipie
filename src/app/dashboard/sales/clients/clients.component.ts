@@ -53,6 +53,7 @@ export class ClientsComponent implements OnInit {
     noDataMessage: 'Oups, no Data yet !'
   };
   clients = [];
+  loading = true;
 
 
   constructor(private http: HttpClient,
@@ -79,6 +80,8 @@ export class ClientsComponent implements OnInit {
         console.log(aux.fullAddress);
         this.clients.push(aux);
       });
+      this.clients.reverse();
+      this.loading = false;
     });
   }
 }

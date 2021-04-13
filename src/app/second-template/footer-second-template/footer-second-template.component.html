@@ -3,10 +3,10 @@
 
     <!-- ABOUT Location -->
     <div class="col-md-6 text-center">
-      <div class="about-footer"> <img class="margin-bottom-30" src="../../../assets/second-template/images/logo-foot.png" alt="" >
-        <p><i class="icon-pointer"></i> {{store.contact.location}} <br></p>
-        <p><i class="icon-call-end"></i> {{store.contact.phoneNumber}}</p>
-        <p><i class="icon-envelope"></i> {{store.contact.email}}</p>
+      <div class="about-footer">
+        <h6 *ngIf="store.contact"><i class="icon-pointer"></i> {{store.contact.location}} <br></h6>
+        <h6 *ngIf="store.contact"><i class="icon-call-end"></i> {{store.contact.phoneNumber}}</h6>
+        <h6 *ngIf="store.contact"><i class="icon-envelope"></i> {{store.contact.email}}</h6>
       </div>
     </div>
 
@@ -14,17 +14,16 @@
     <div class="col-md-6 text-center">
       <h6 class="font">HELPFUL LINKS</h6>
       <ul class="link">
-        <li><a href="/second-template/home"> Home</a></li>
-        <li><a routerLink="/second-template/products"> Products</a></li>
-        <li><a routerLink="/second-template/cart"> Cart</a></li>
-        <li><a routerLink="/second-template/checkout"> Checkout</a></li>
+        <li><a routerLink="/" (click)="scrollToTop()" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"> Home</a></li>
+        <li><a routerLink="/products" (click)="scrollToTop()" routerLinkActive="active-link"> Products</a></li>
+        <li><a routerLink="/cart" (click)="scrollToTop()" routerLinkActive="active-link"> Cart</a></li>
       </ul>
     </div>
     <!-- Rights -->
 
     <div class="rights">
       <p>©  2020 Webipie All right reserved. </p>
-      <div class="scroll"> <a href="#wrap" class="go-up"><i class="lnr lnr-arrow-up"></i></a> </div>
+      <div class="smooth-scroll"> <a (click)="scrollToTop()" class="go-up"><i class="lnr lnr-arrow-up"></i></a> </div>
     </div>
   </div>
 </footer>

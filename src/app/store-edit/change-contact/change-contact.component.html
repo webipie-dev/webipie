@@ -2,7 +2,7 @@
 <div id="sidebar-contact">
   <ul class="list-unstyled components text-size">
     <li class="sidenav-elem">
-      <a class="my-4 py-3 px-1 back-button nav-link-sidebar cursor-pointer" routerLink="/store">
+      <a class="cursor-pointer my-4 py-3 px-1 back-button nav-link-sidebar" (click)="returnToEditStore()">
         <i class="fa fa-chevron-left"></i>
         <span class="ml-3">Edit your store</span>
       </a>
@@ -11,27 +11,28 @@
       </a>
       <div>
         <div class="row mt-4">
-          <i class="far fa-envelope fa-lg circle py-3 px-3 mx-4"></i>
+          <i class="far fa-envelope fa-lg circle py-3 px-3 mx-4" style="color: #ffffff;"></i>
           <input class='sidenav-input-item text-size px-3' placeholder="email here" type="text" [(ngModel)]="defaultEmail">
         </div>
       </div>
       <div>
         <div class="row mt-4">
-          <i class="fas fa-phone-alt fa-lg circle py-3 px-3 mx-4"></i>
+          <i class="fas fa-phone-alt fa-lg circle py-3 px-3 mx-4" style="color: #ffffff;"></i>
           <input class='sidenav-input-item text-size px-3' placeholder="+216 99 999 999" type="text" [(ngModel)]="defaultNumber">
         </div>
       </div>
 
       <div>
         <div class="row mt-4">
-          <i class="fas fa-map-marker-alt fa-lg circle py-3 px-3 mx-4"></i>
+          <i class="fas fa-map-marker-alt fa-lg circle py-3 px-3 mx-4" style="color: #ffffff !important;"></i>
           <input class='sidenav-input-item text-size px-3' placeholder="location ....." type="text" [(ngModel)]="defaultLocation">
         </div>
       </div>
+      <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
     </li>
   </ul>
   <div class="text-center my-5">
     <button class="button-generic button-black text-size mr-2" [disabled]="testChange()" (click)="submit()">Save</button>
-    <button class="button-generic button-black text-size">Reset</button>
+    <button class="button-generic button-black text-size" [disabled]="testChange()" (click)="resetContact()">Reset</button>
   </div>
 </div>

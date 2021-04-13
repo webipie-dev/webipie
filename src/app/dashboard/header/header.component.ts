@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../_shared/services/auth.service';
 import {StoreService} from '../../_shared/services/store.service';
-import {Store} from '../../_shared/models/store.model';
 import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 import { WebSocketService } from 'src/app/_shared/services/web-socket.service';
 import { NgZone } from '@angular/core';
+import {environment} from '../../../environments/environment';
 
 declare var $;
+
 
 @Component({
   selector: 'app-header',
@@ -89,7 +90,7 @@ export class HeaderComponent implements OnInit {
   preview() {
     const storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.storeService.getById(storeId).subscribe(store => {
-      const url = 'http://' + store.url + ':4200';
+      const url = 'http://' + store.url + environment.urlToPreview;
       window.open(url, '_blank');
     });
   }

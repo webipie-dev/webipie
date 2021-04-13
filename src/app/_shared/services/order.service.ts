@@ -30,4 +30,13 @@ export class OrderService extends GenericService<any>{
     return this.http.delete(this.getUrl() + this.suffix + '/delete/product', options) as Observable<any>;
   }
 
+  public refundProduct(products) {
+    const options = {
+      headers: {
+        Authorization: localStorage.getItem('token') || ''
+      },
+    };
+    return this.http.patch(this.getUrl() + this.suffix + '/refund/products', {products}, options) as Observable<any>;
+  }
+
 }

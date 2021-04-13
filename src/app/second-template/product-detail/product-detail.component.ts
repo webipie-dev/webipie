@@ -23,6 +23,8 @@ export class ProductDetailComponent implements OnInit {
   disabled = false;
   quantity = 1;
   productId = this.activatedRoute.snapshot.paramMap.get('id');
+  addDisabled = false;
+  outOfStock = false;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -31,25 +33,45 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
-    const cartData: [{product, quantity}] = [] || JSON.parse(localStorage.getItem('cart'));
+
+    this.store = encryptStorage.getItem('store');
+    window.addEventListener('message', event => {
+      if (event.origin.startsWith('http://webipie.com:4200')) {
+        switch (event.data.type) {
+          case 'color':
+            this.storeService.changeColorTheme(this.el, event.data.subj);
+            break;
+          case 'font':
+            this.storeService.changeFontTheme(this.el, event.data.subj);
+            break;
+        }
+      } else { return; }
+    });
+
+    const cartData: [{product, quantity}] = encryptLocalStorage.getItem('cart') || [];
 
     cartData.forEach(data => {
       if (this.productId === data.product.id){
-        this.disabled = true;
+        this.addDisabled = true;
       }
     });
-
-    this.store = encryptStorage.getItem('store');
 
     this.review = new Review();
     this.productService.getById(this.activatedRoute.snapshot.paramMap.get('id')).subscribe( data => {
       this.product = data;
+
+      this.product.reviews = this.product.reviews.reverse();
       this.externalFilesService.loadScripts();
     });
     this.storeService.changeTheme(this.el, this.store);
   }
 
   counter(i: number): Array<number> {
+    if ( i <= 0) {
+      // this.addDisabled = true;
+      this.outOfStock = true;
+      return [];
+    }
     const count =  [];
     for (let j = 1; count.push(j++) < i;) {}
     return count;
@@ -57,9 +79,23 @@ export class ProductDetailComponent implements OnInit {
 
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review).subscribe(data => {
-      console.log(data);
+      const rev: Review = {
+        name: this.review.name,
+        rating: this.review.rating,
+        review: this.review.review,
+        email: this.review.email,
+        date: new Date(),
+      };
+      this.product.reviews.push(rev);
+      this.disabled = true;
     });
   }
 
-  addToCart(product): void{}
+  addToCart(product: Product): void {
+    const cart: [{product: Product, quantity: number}] = encryptLocalStorage.getItem('cart') || [];
+    cart.push({product, quantity: this.quantity});
+    this.storeService.updateCart(cart);
+    encryptLocalStorage.setItem('cart', cart);
+    this.addDisabled = true;
+  }
 }

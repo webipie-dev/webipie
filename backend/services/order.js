@@ -13,32 +13,25 @@ let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
   auth: {
-    user: config.EMAIL.USER, 
-    pass: config.EMAIL.PASSWORD, 
+    user: config.EMAIL.USER,
+    pass: config.EMAIL.PASSWORD,
   },
 })
 );
 
 // getAndFilterOrder
-exports.getOrders = async (req, res) => {
-
-  // I THINK ORDERS NEED TO BE INDEXED BY STORE ID
-  // We need to check if the store id connected is the same store is provided in the requireAuth
-
-  const orders = await Order.find(req.query).populate('client');
-    // .catch((err) => {
-    //   res.status(400).json({errors: [{ message: err.message }]});
-    // });
+const getOrders = async (req, res) => {
+  const orders = await Order.find(req.query).populate('client')
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
 
   res.status(200).send(orders);
 }
 
 
 
-exports.getOneOrder = async (req, res) => {
-
-  // We need to check if the store id connected is the same store is provided in the requireAuth
-
+const getOneOrder = async (req, res) => {
   //get the order id
   const { id } = req.params;
 
@@ -55,9 +48,9 @@ exports.getOneOrder = async (req, res) => {
   res.status(200).send(order);
 }
 
-exports.addOrder = async (req, res, next) => {
+const addOrder = async (req, res, next) => {
 
-  const { orderStatus, paymentMethod, productsOrder, clientId, storeId } = req.body
+  const { orderStatus, paymentMethod, productsOrder, clientId, storeId, totalPrice } = req.body
 
   const store = await Store.findById(storeId)
   if (!store) {
@@ -79,15 +72,10 @@ exports.addOrder = async (req, res, next) => {
     return;
   }
 
-  let totalPrice = 0
-  for (let i=0; i < prods.length; i++) {
-      totalPrice += prods[i].price * prods[i].quantity
-  }
-
   const order = new Order({
     orderStatus,
     paymentMethod,
-    products: prods,
+    products: productsOrder.products,
     totalPrice,
     client,
     store,
@@ -96,54 +84,59 @@ exports.addOrder = async (req, res, next) => {
   await order.save();
 
   let bulkQueries = [];
-  prods.map(product => {
+  productsOrder.products.map(product => {
     bulkQueries.push({
       updateOne: {
-        "filter": { _id: product.id},
+        "filter": { _id: product._id},
         "update":{$inc: {quantity: -product.quantity}}
       }
     })
   });
-  Product
-    .bulkWrite(bulkQueries, {ordered: false})
+
+  await Product.bulkWrite(bulkQueries, {ordered: false})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
+  // set status to out of stock
+  await Product.updateMany({quantity: {$lte: 0}}, {status: 'out of stock'})
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
 
   // send notification
   const io = req.app.get('socketio');
   io.emit('new order', order);
 
-  // send mail to storeowner 
+  // send mail to storeowner
 
-  var mailOptions = {
+  const mailOptions = {
     from: config.EMAIL.USER,
     to: storeOwner.local.email || storeOwner.google.email || storeOwner.facebook.email,
     subject: 'New order',
-    text: 'You have a new order from ' + 
-      String(client.firstname) + ' ' + 
-      String(client.lastname) + 
-      '. You can call your client on '+
-      String(client.phoneNumber) + 
-      ' and contact him on ' + 
+    text: 'You have a new order from ' +
+      String(client.firstname) + ' ' +
+      String(client.lastname) +
+      '. You can call your client on ' +
+      String(client.phoneNumber) +
+      ' and contact him on ' +
       String(client.email),
   };
 
-  transporter.sendMail(mailOptions, function(error, info){
+  await transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
     } else {
       console.log('Email sent: ' + info.response);
     }
-  });  
+  });
 
   res.status(201).send(order);
 
 }
 
 
-exports.deleteManyOrders = async (req, res, next) => {
+const deleteManyOrders = async (req, res, next) => {
   //get orders ids
   const { ids } = req.body;
 
@@ -162,7 +155,7 @@ exports.deleteManyOrders = async (req, res, next) => {
   res.status(200).send(deletedOrders);
 };
 
-exports.deleteAllOrders = async (req, res, next) => {
+const deleteAllOrders = async (req, res, next) => {
   const deletedOrders = await Order.deleteMany({})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
@@ -172,10 +165,7 @@ exports.deleteAllOrders = async (req, res, next) => {
 };
 
 //edit many orders
-exports.editOrder = async (req, res, next) => {
-  // If you want to change something in the products or total price youll have to resend the whole document
-
-
+const editOrder = async (req, res, next) => {
   // separating the id
   const { id } = req.params;
 
@@ -200,30 +190,35 @@ exports.editOrder = async (req, res, next) => {
     }
   }
 
+  const order = await Order.findById(id)
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
   for(const key in req.body) {
     if(key ==='orderStatus'){
-      var mailOptions = {
+      const mailOptions = {
         from: config.EMAIL.USER,
-        to: orderEdited.client.email,
+        to: order.client.email,
         subject: 'Updated order',
-        text: 'You have an update to your order with status to ' + String(orderEdited.orderStatus), 
+        text: 'You have an update to your order with status to ' + String(order.orderStatus),
       };
-    
-      transporter.sendMail(mailOptions, function(error, info){
+
+      await transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
         } else {
           console.log('Email sent: ' + info.response);
         }
-      }); 
+      });
     }
   }
 
-  res.status(200).send(orderEdited);
+  res.status(200).send(order);
 };
 
 
-exports.deleteProductOrder = async (req,res, next) => {
+const deleteProductOrder = async (req,res, next) => {
   //get order id
   const { id } = req.body;
 
@@ -244,5 +239,35 @@ exports.deleteProductOrder = async (req,res, next) => {
 
 }
 
+const refundProducts = async (req, res, next) => {
+  const { products } = req.body
 
+  let bulkQueries = [];
+  products.map(product => {
+    bulkQueries.push({
+      updateOne: {
+        "filter": { _id: product.id},
+        "update":{$inc: {quantity: product.quantity}}
+      }
+    })
+  });
+  Product
+    .bulkWrite(bulkQueries, {ordered: false})
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
 
+  res.status(200).json('Products refunded');
+
+}
+
+module.exports = {
+  getOneOrder,
+  getOrders,
+  addOrder,
+  editOrder,
+  deleteProductOrder,
+  deleteAllOrders,
+  deleteManyOrders,
+  refundProducts
+};

@@ -3,6 +3,9 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
+
+declare var $: any;
 
 @Component({
   selector: 'app-change-font',
@@ -16,99 +19,70 @@ export class ChangeFontComponent implements OnInit {
     general settings to any template
   */
   fontTypes: Array<string> = encryptStorage.getItem('store').template.fontOptions;
-  /*
-    specific settings to user's template
-  */
 
-  fontType = encryptStorage.getItem('store').template.font;
+  // set initial and default values to test whether the user has made any changes
+  // whether we should send modifications to back
+  defaultFont = encryptStorage.getItem('store').template.font;
+
+  initialFont = encryptStorage.getItem('store').template.font;
 
   storeId = encryptStorage.getItem('store').id;
 
-  currentFont = encryptStorage.getItem('store').template.font;
-
   constructor(private http: HttpClient,
               private storeService: StoreService,
-              private router: Router) {
-  }
+              private router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
+  // real time font change
+  changeFont(data?: string): void {
+    const subjectToChange = {
+      subj: data || this.defaultFont,
+      type: 'font',
+    };
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
   }
 
   onSubmit(): void {
     const postData = {
-      ids: this.storeId,
-      'template.font': this.fontType,
-
+      'template.font': this.defaultFont,
     };
-    this.storeService.edit(this.storeId, postData).subscribe(store => {
-      this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['store/font']);
-        encryptStorage.setItem('store', store);
+    this.initialFont = this.defaultFont;
+
+    // submit changes
+    this.storeService.onSubmit(this.storeId, postData);
+  }
+
+  resetFont(): void {
+    this.defaultFont = this.initialFont;
+    this.changeFont();
+  }
+
+  testChange(): boolean {
+    return (this.initialFont === this.defaultFont);
+  }
+
+  // in case the user changed values and didn't click on save
+  returnToEditStore(): void {
+    if (!this.testChange()) {
+      Swal.fire({
+        title: 'Be Careful!',
+        text: 'You have unsaved changes, Would you continue to discard these changes or save them before proceeding ?',
+        icon: 'warning',
+        showDenyButton: true,
+        confirmButtonText: 'Save Changes',
+        denyButtonText: 'Discard Changes'
+      }).then(result => {
+        if (result.value) {
+          this.onSubmit();
+        } else {
+          this.changeFont(this.initialFont);
+          Swal.close();
+        }
+        this.router.navigateByUrl('/store');
       });
-    });
+    } else {
+      this.router.navigateByUrl('/store');
+    }
   }
-
-  resetFont() {
-    this.fontType = this.currentFont;
-  }
-
 }
-
-
-//
-// sizeChange(value): void {
-//   console.log('the size value is' + value);
-//   this.fontSize = value;
-// }
-//
-// shadowChange(value): void {
-//   this.textShadow = (value === '1');
-// }
-//
-// alignChange(event, value): void {
-//
-//   let target = event.target;
-//   if (event.target.tagName === 'path') {
-//   target = event.target.parentNode;
-// }
-//
-// console.log(target);
-// // add the css effects
-// target.classList.add('alignment');
-//
-// const icons = document.querySelectorAll('.alignment');
-//
-// // tslint:disable-next-line:prefer-for-of
-// for (let i = 0; i < icons.length; i++) {
-//
-//   // If the icon is the one clicked, skip it
-//   if (icons[i] === event.target) {
-//     continue;
-//   }
-//
-//   // Remove the .alignment class
-//   icons[i].classList.remove('alignment');
-//
-// }
-//
-// this.textAlign = value;
-// }
-//
-// onSelect(event, value): void {
-//   let target = event.target;
-//   if (event.target.tagName === 'path') {
-//   target = event.target.parentNode;
-// }
-//
-// if (value === 'font-size') {
-//   this.fontSize += 2;
-//   return;
-// }
-//
-// target.classList.toggle('font-item-selected');
-//
-// if (value === 'italic') {
-//   this.textItalic = !this.textItalic;
-// }
-// }

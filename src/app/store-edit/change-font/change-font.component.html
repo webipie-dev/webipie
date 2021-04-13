@@ -1,7 +1,7 @@
 <div id="sidebar-font">
   <ul class="list-unstyled components">
     <li class="sidenav-elem">
-      <a class="my-4 py-3 px-1 back-button nav-link-sidebar text-size cursor-pointer" routerLink="/store">
+      <a class="my-4 py-3 px-1 back-button nav-link-sidebar text-size cursor-pointer" (click)="returnToEditStore()">
         <i class="fa fa-chevron-left"></i>
         <span class="ml-3">Edit your store</span>
       </a>
@@ -13,7 +13,8 @@
         <!--        <label class="text-size mt-2 col-3">Type</label>-->
         <select
           #types
-          [(ngModel)]="fontType"
+          [(ngModel)]="defaultFont"
+          (change)="changeFont()"
           class="sidenav-input-item col-8 text-size ml-3 px-2 py-1"
           name="types" style="padding: 8px !important;">
           <option *ngFor="let type of fontTypes" class="option" value="{{type}}">{{type}}</option>
@@ -22,17 +23,19 @@
       <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
       <p
         class="font-style"
-        [style.font-family]=fontType
+        [style.font-family]=defaultFont
       >
-        Lorem ipsum dolor sit amet!
+       {{defaultFont}} Lorem ipsum dolor sit amet!
       </p>
     </li>
   </ul>
   <div class="text-center my-5">
-    <button class="button-generic button-black text-size mr-2" [disabled]="currentFont === fontType"
+    <button class="button-generic button-black text-size mr-2" [disabled]="testChange()"
             (click)="onSubmit()">Save
     </button>
-    <button class="button-generic button-black text-size" (click)="resetFont()">Reset</button>
+    <button class="button-generic button-black text-size" [disabled]="testChange()"
+            (click)="resetFont()" >Reset
+    </button>
   </div>
 
 </div>

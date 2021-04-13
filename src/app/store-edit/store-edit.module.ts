@@ -9,35 +9,36 @@ import {ChangeFontComponent} from './change-font/change-font.component';
 import {ChangeColorComponent} from './change-color/change-color.component';
 import {ChangeContactComponent} from './change-contact/change-contact.component';
 import {ChangeHeaderComponent} from './change-header/change-header.component';
-import {ColorPickerComponent} from './change-color/color-picker/color-picker.component';
 import {SocialMediaComponent} from './social-media/social-media.component';
 import {SidenavMenuComponent} from './sidenav-menu/sidenav-menu.component';
-import {TemplateModule} from '../template/template.module';
-import {SidebarModule} from "ng-sidebar";
+import {SidebarModule} from 'ng-sidebar';
+import {KeysPipe} from '../_shared/utils/KeysPipe';
+import {SpinnerModule} from '../spinner/spinner.module';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 @NgModule({
-  imports: [
-    StoreEditRoutingModule,
-    HttpClientModule,
-    Ng2SmartTableModule,
-    ReactiveFormsModule,
-    CommonModule,
-    TemplateModule,
-    FormsModule,
-    SidebarModule
-  ],
-
-  declarations: [
-    StoreEditComponent,
-    ChangeFontComponent,
-    ChangeColorComponent,
-    ChangeContactComponent,
-    ChangeHeaderComponent,
-    ColorPickerComponent,
-    SocialMediaComponent,
-    SidenavMenuComponent,
-  ]
+    imports: [
+        StoreEditRoutingModule,
+        HttpClientModule,
+        Ng2SmartTableModule,
+        ReactiveFormsModule,
+        CommonModule,
+        FormsModule,
+        SidebarModule,
+        SpinnerModule
+    ],
+    declarations: [
+      StoreEditComponent,
+      ChangeFontComponent,
+      ChangeColorComponent,
+      ChangeContactComponent,
+      ChangeHeaderComponent,
+      SocialMediaComponent,
+      SidenavMenuComponent,
+      KeysPipe,
+      AboutUsComponent
+    ]
 })
 export class StoreEditModule {
 }

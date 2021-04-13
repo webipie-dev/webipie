@@ -1,9 +1,9 @@
 <!-- Sidebar -->
 <div id="sidebar-header">
-  <form (submit)="onSubmit()" [formGroup]="headerForm">
+  <form [formGroup]="headerForm">
     <ul class="list-unstyled components text-size" style="color: #ffffff;">
       <li class="sidenav-elem">
-        <a class="cursor-pointer my-4 py-3 px-1 back-button nav-link-sidebar" routerLink="/store">
+        <a class="cursor-pointer my-4 py-3 px-1 back-button nav-link-sidebar" routerLink="/store" (click)="returnToEditStore()">
           <i class="fa fa-chevron-left"></i>
           <span class="ml-3">Edit your store</span>
         </a>
@@ -16,6 +16,7 @@
             <label class="d-block label-input-edit">Big Title</label>
             <input
               placeholder="title"
+              (input)="changeHeader()"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               type='text'
               formControlName="title"
@@ -28,6 +29,7 @@
               placeholder="description"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               style="height: 100px;"
+              (input)="changeHeader()"
               formControlName="description"
             ></textarea>
           </div>
@@ -36,6 +38,7 @@
             <label class="d-block label-input-edit">Main Button</label>
             <input
               placeholder="main button"
+              (input)="changeHeader()"
               class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
               type='text'
               formControlName="mainButton"
@@ -50,14 +53,13 @@
                 class="fileInput"
                 name="img"
                 type="file"
-                (change)="onFileChanged($event)"
+                (input)="onFileChanged($event)"
               >
               <div class="img-fluid img-product">
                 <img alt="" class="image" [src]="imgSrc">
               </div>
               <button class=" mb-3 mt-2 upload-back d-flex mx-auto">
                 Upload Background
-<!--                <img alt="" class='ml-6 upload-image ' src="../../../assets/images/upload-image.png">-->
               </button>
               <div class="alert alert-danger text-center mt-4">
                 • NOTICE: Image Resolution should be
@@ -79,9 +81,9 @@
       </li>
     </ul>
     <div class="text-center my-5">
-      <button class="button-generic button-black text-size mr-2" [disabled]="testSame()"
-              type="submit">Save</button>
-      <button class="button-generic button-black text-size">Reset</button>
+      <button class="button-generic button-black text-size mr-2" [disabled]="testChange()"
+              (click)="onSubmit()">Save</button>
+      <button class="button-generic button-black text-size" [disabled]="testChange()" (click)="resetHeader()">Reset</button>
     </div>
   </form>
 </div>
