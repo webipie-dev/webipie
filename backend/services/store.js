@@ -60,7 +60,6 @@ exports.getStoreByNameAndLocation = async (req,res) => {
   res.status(200).send(store);
 }
 
-
 exports.getStoreByUrl = async (req,res) => {
   const { url } = req.params;
   const store = await Store.findOne({url})
