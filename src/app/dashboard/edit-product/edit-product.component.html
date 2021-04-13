@@ -1,18 +1,9 @@
 <!-- edit or add product -->
 <div class="sales-header mt-3">
-  <h1 class="big-titles text-center mb-3">Add Edit One Product</h1>
+  <h1 class="big-titles text-center mb-3">{{editAddPage}} One Product </h1>
 </div>
 
 <form (submit)="onSubmit()" [formGroup]="productForm">
-<!--  <div>-->
-<!--    <div class="col-12 text-center my-2">-->
-<!--      <a class="py-2 button-generic button-delete text-size" (click)="deletePhotoOpen()">-->
-<!--        <i class="fa fa-trash-alt" id="delete-icon"></i> Delete-->
-<!--        Photos</a>-->
-<!--    </div>-->
-<!--    <h3 class="mx-auto font-weight-bold my-1" style="color: darkred;" *ngIf="deletePhotos">Clickez maintenant sur l'image que vous voulez supprimer</h3>-->
-<!--  </div>-->
-
   <div class="margin-top" [ngClass]="{'d-flex' : windwosWidth > 990}">
     <div class="col-lg-8 col-12 mt-5 mb-5">
       <div class="container upload-images product-description py-5">
@@ -23,7 +14,7 @@
                 <input
                   (change)="onImagePicked($event)"
                   id="hiddenImageInput"
-                  accept="image/*"
+                  accept="image/jpg,image/jpeg,image/png,image/tiff,image/tif,image/bmp"
                   class="form-control fileInput" style="display: none"
                   multiple
                   name="imgs" type="file"/>
@@ -42,7 +33,7 @@
                     <br>
                    Upload
                    <br>
-                   a Photo
+                   Photos
                  </div>
                 </span>
                   </a>
@@ -106,71 +97,26 @@
                     <a style="color: #2d3438" class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-circle-right fa-3x mx-4 my-2"></i></a>
                   </div>
                   <!--/.Controls-->
-
                 </div>
                 <!--/.Carousel Wrapper-->
-
-<!--                <ng-image-slider-->
-<!--                  [imageSize]="{width: 150, height: 150, space: 4}"-->
-<!--                  [images]="imageObject"-->
-<!--                  [imagePopup]="!deletePhotos"-->
-<!--                  [infinite]="false" (imageClick)=" deletePhotos ? deletePhoto($event) : null"></ng-image-slider>-->
               </div>
 
             </div>
           </div>
         </div>
-        <p *ngIf="imageObject.length <= 0" class="text-danger font-weight-bold">
+        <p *ngIf="imageObject.length <= 0 && imagesTouched" class="text-danger font-weight-bold text-uppercase">
           you need to upload at least one picture</p>
 
         <div class="row">
-<!--          <div class="col-md-6 col-12 mb-3">-->
-<!--            <div class="col-12">-->
-<!--              <label class="text-size pl-2">Name</label>-->
-<!--            </div>-->
-<!--            <div class="col-12">-->
-<!--              <input-->
-<!--                [ngModel]="singleProduct.name"-->
-<!--                class="text-size product-input"-->
-<!--                formControlName="name" type="text">-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="col-md-3 col-6">-->
-<!--            <div class="col-12">-->
-<!--              <label class="text-size pl-2">Quantity</label>-->
-<!--            </div>-->
-<!--            <div class="col-12">-->
-<!--              <input-->
-<!--                [ngModel]="singleProduct.quantity"-->
-<!--                class="width-100 text-size product-input"-->
-<!--                formControlName="quantity"-->
-<!--                min="0" type="number">-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--          <div class="col-md-3 col-6">-->
-<!--            <div class="col-12">-->
-<!--              <label class="text-size pl-2">Price</label>-->
-<!--            </div>-->
-<!--            <div class="col-12">-->
-<!--              <input-->
-<!--                [ngModel]="singleProduct.price"-->
-<!--                class="text-size product-input"-->
-<!--                formControlName="price"-->
-<!--                min="0" type="number">-->
-<!--            </div>-->
-<!--          </div>-->
           <div class="col-12 mt-3">
             <div class="col-12">
               <label class="text-size pl-2">Description</label>
-              <p class="text-danger font-weight-bold"
+              <p class="text-danger font-weight-bold text-uppercase"
                  *ngIf="(productFormControl.description.touched) && productFormControl.description.errors?.required">
                 Description is required
               </p>
             </div>
             <div class="col-12">
-              <!-- <textarea class="description-area"
-                        formControlName="description" [ngModel]="singleProduct.description"></textarea> -->
               <quill-editor formControlName="description" [modules]="config" [ngModel]="singleProduct.description"></quill-editor>
             </div>
           </div>
@@ -182,7 +128,7 @@
       <div class="row upload-images mr-1 px-3 py-4 mx-auto mb-3">
         <div class="col-12">
           <label class="text-size pl-2">Name</label>
-          <p class="text-danger font-weight-bold"
+          <p class="text-danger font-weight-bold text-uppercase"
              *ngIf="(productFormControl.name.touched) && productFormControl.name.errors?.required">
             Name is required
           </p>
@@ -195,7 +141,7 @@
         </div>
         <div class="col-12">
           <label class="text-size pl-2">Quantity</label>
-          <p class="text-danger font-weight-bold"
+          <p class="text-danger font-weight-bold text-uppercase"
              *ngIf="(productFormControl.quantity.touched) && productFormControl.quantity.errors?.required">
             Quantity is required
           </p>
@@ -206,11 +152,12 @@
             style="width: 90% !important;"
             class="width-100 text-size product-input"
             formControlName="quantity"
-            min="0" type="number">
+            type="number"
+            oninput="this.value =!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
         </div>
         <div class="col-12">
           <label class="text-size pl-2">Price</label>
-          <p class="text-danger font-weight-bold"
+          <p class="text-danger font-weight-bold text-uppercase"
              *ngIf="(productFormControl.price.touched) && productFormControl.price.errors?.required">
             Price is required
           </p>
@@ -220,15 +167,15 @@
             [ngModel]="singleProduct.price"
             class="text-size product-input"
             formControlName="price"
-            min="0" type="number">
+            min="0" type="number"
+            oninput="this.value =!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
         </div>
         <div class="col-12">
           <label class="text-size pl-2">Status</label>
         </div>
         <div class="col-12">
           <select [(ngModel)]="singleProduct.status" formControlName="status" class="text-size product-input" id="status" name="status">
-            <option value="disponible" >Disponible</option>
-            <option value="in arrival" >In arrival</option>
+            <option value="disponible">Available</option>
             <option value="out of stock">Out of stock</option>
           </select>
         </div>
@@ -266,7 +213,6 @@
       </div>
     </div>
   </div>
-
 </form>
 
 

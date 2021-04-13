@@ -6,15 +6,13 @@
     <!-- Main Heading -->
     <div class="heading text-center">
       <h4>about {{store.name}}</h4>
-      <p>{{about}}</p>
+      <p *ngIf="about">{{about}}</p>
     </div>
 
     <!-- Social Icons -->
     <ul class="social_icons">
-      <li><a [class.disabled]="!store.contact.facebookPage" [href]="store.contact.facebookPage"><i class="icon-social-facebook"></i></a></li>
-      <li><a [class.disabled]="!store.contact.instagramPage" [href]="store.contact.instagramPage"><i class="fab fa-instagram icon-social-instagram"></i></a></li>
-<!--      <li><a [class.disabled]="!store.contact.twitterPage" [href]="store.contact.twitterPage"><i class="icon-social-twitter"></i></a></li>-->
-<!--      <li><a [class.disabled]="!store.contact.youtubePage" [href]="store.contact.youtubePage"><i class="icon-social-youtube"></i></a></li>-->
+      <li *ngIf="store.contact"><a [class.disabled]="!store.contact.facebookPage" [href]="store.contact.facebookPage"><i class="icon-social-facebook"></i></a></li>
+      <li *ngIf="store.contact"><a [class.disabled]="!store.contact.instagramPage" [href]="store.contact.instagramPage"><i class="fab fa-instagram icon-social-instagram"></i></a></li>
     </ul>
   </div>
 </section>

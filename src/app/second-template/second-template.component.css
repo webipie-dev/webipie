@@ -2,9 +2,9 @@
 @import "../../assets/second-template/css/bootstrap.min.css";
 @import "../../assets/second-template/css/font-awesome.min.css";
 @import "../../assets/second-template/css/ionicons.min.css";
-@import "../../assets/second-template/css/main.css";
-@import "../../assets/second-template/css/style.css";
-@import "../../assets/second-template/css/responsive.css";
+@import "../../assets/second-template/css/main.min.css";
+@import "../../assets/second-template/css/style.min.css";
+@import "../../assets/second-template/css/responsive.min.css";
 
 .dropdown-toggle::after {
   display: none;

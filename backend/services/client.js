@@ -3,9 +3,7 @@ const Store = require('../models/store')
 const ApiError = require("../errors/api-error");
 
 // FilterClients
-exports.getClients = async (req, res, next) => {
-  // I THINK CLIENTS NEED TO BE INDEXED BY STORE ID
-  // We need to check if the store id connected is the same store is provided in the requireAuth
+const getClients = async (req, res, next) => {
 
 
   const clients = await Client.find(req.query)
@@ -22,10 +20,7 @@ exports.getClients = async (req, res, next) => {
 
 
 //getOneClient
-exports.getOneClient = async (req, res, next) => {
-
-  // We need to check if the store id connected is the same store is provided in the params
-
+const getOneClient = async (req, res, next) => {
   //get client id
   const { id } = req.params;
 
@@ -44,8 +39,8 @@ exports.getOneClient = async (req, res, next) => {
 }
 
 //addOneClient
-exports.addClient = async (req, res, next) => {
-  const { firstname, lastname, phoneNumber, email, fullAddress, storeId} = req.body
+const addClient = async (req, res, next) => {
+  const { firstname, lastname, phoneNumber, email, fullAddress, storeId } = req.body
 
   const store = await Store.findById(storeId)
 
@@ -87,7 +82,7 @@ exports.addClient = async (req, res, next) => {
 
 
 //deleteManyClients
-exports.deleteManyClients = async (req, res, next) => {
+const deleteManyClients = async (req, res, next) => {
   //get clients ids
   const { ids } = req.body;
 
@@ -111,7 +106,7 @@ exports.deleteManyClients = async (req, res, next) => {
 
 
 //deleteAllClients
-exports.deleteAllClients = async (req, res, next) => {
+const deleteAllClients = async (req, res, next) => {
 
   const deletedClients = await Client.deleteMany({})
     .catch((err) => {
@@ -122,7 +117,7 @@ exports.deleteAllClients = async (req, res, next) => {
 };
 
 //editManyClients
-exports.editClient = async (req, res, next) => {
+const editClient = async (req, res, next) => {
   // separating the ids
   const { id } = req.params;
 
@@ -130,7 +125,6 @@ exports.editClient = async (req, res, next) => {
   const edits = {};
   for(const key in req.body) {
     if(req.body.hasOwnProperty(key)) {
-      // WE NEED TO FIX THE FULLADDRESS EDIT
       if(key !== 'id'){
         edits[key] = req.body[key];
       }
@@ -155,3 +149,11 @@ exports.editClient = async (req, res, next) => {
 };
 
 
+module.exports = {
+  getOneClient,
+  getClients,
+  addClient,
+  deleteAllClients,
+  deleteManyClients,
+  editClient
+};

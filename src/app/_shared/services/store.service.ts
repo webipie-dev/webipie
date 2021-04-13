@@ -24,13 +24,17 @@ export class StoreService extends GenericService<any>{
     return this.http.get(this.getUrl() + this.suffix + '/all/names') as unknown as Observable<any>;
   }
 
+  getStoreUrls(): Observable<any> {
+    return this.http.get(this.getUrl() + this.suffix + '/all/urls') as unknown as Observable<any>;
+  }
+
   getStoreByUrl(): Promise<boolean> {
     return new Promise(resolve => {
       if (
         window.location.hostname === 'webipie.com' ||
         window.location.hostname === 'www.webipie.com' ||
-        window.location.hostname === encryptStorage.getItem('store').url)
-      {
+        window.location.hostname === encryptStorage.getItem('store')?.url
+      ) {
         resolve(true);
       } else {
         this.http.get<Store>(this.getUrl() + this.suffix + '/url/' + window.location.hostname).subscribe( store => {
