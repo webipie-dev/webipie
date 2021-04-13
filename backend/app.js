@@ -59,7 +59,7 @@ app
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
   .use('/template',templateRoutes)
-  .use('/health_check', healthcheckRoutes);
+  .use('/health_check', healthcheckRoutes)
   .use('/upload',uploadRoutes);
 
 

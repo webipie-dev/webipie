@@ -17,7 +17,7 @@ const getProducts = async (req, res, next) => {
   res.status(200).send(products);
 };
 
-exports.getSearch = async (req, res, next) => {
+const getSearch = async (req, res, next) => {
   const store = req.query.store;
   const searchTerm = req.params.searchTerm;
 
@@ -307,5 +307,6 @@ module.exports = {
   editOneProduct,
   deleteAllProducts,
   deleteImage,
-  deleteManyProducts
+  deleteManyProducts,
+  getSearch
 };

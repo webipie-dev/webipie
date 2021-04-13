@@ -5,7 +5,7 @@ import { Review } from '../../_shared/models/review.model';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
-import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 

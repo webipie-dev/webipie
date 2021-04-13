@@ -33,7 +33,7 @@ import { SearchSecondTemplateComponent } from './search-second-template/search-s
         CartSecondTemplateComponent,
         CheckoutSecondTemplateComponent,
         ProductDetailComponent,
-        SubHeaderSecondTemplateComponent,
+        // SubHeaderSecondTemplateComponent,
         SearchSecondTemplateComponent,
 
     ],
