@@ -17,6 +17,28 @@ const getProducts = async (req, res, next) => {
   res.status(200).send(products);
 };
 
+exports.getSearch = async (req, res, next) => {
+  const store = req.query.store;
+  const searchTerm = req.params.searchTerm;
+
+  if(!store){
+    return next(ApiError.BadRequest('you have to pass the storeID'));
+  }
+
+  const products = await Product.find({
+    store, 
+    $or:[
+      {name: { "$regex": searchTerm.toLowerCase(), "$options": "i" }}, 
+      {description: { "$regex": searchTerm.toLowerCase(), "$options": "i" }}
+    ]
+  })
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
+  res.status(200).send(products);
+};
+
 
 const getOneProduct = async (req, res, next) => {
   //get product id
@@ -167,7 +189,12 @@ const addReview = async (req,res,next) => {
     }
   }
 
-  res.status(200).send(productUpdate);
+   // send notification
+   const io = req.app.get('socketio');
+   io.emit('new review', productUpdate);
+
+  res.status(200).send(review);
+
 };
 
 const deleteImage = async (req, res, next) => {

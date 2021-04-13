@@ -48,16 +48,113 @@
     <div class="card_circle transition-popular"
          [ngStyle]="{'background' : popularProduct ? 'url(' + popularProduct.imgs[0]+ ') no-repeat center ' : null}"></div>
     <div class="bought-prod">Most Bought Product</div>
-
   </div>
   <!--********************** Preview Template ********************-->
   <div class="card" style="height: 300px; max-width: 592px" *ngIf="!isLoading">
-    <iframe src="http://store.webipie.com:4200/"
-            class="iframe-home"
-            frameborder="0" width="550px" height="250px"></iframe>
+      <button  class="modal-button" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+        <div class="modal-dialog modal-dialog-margin" role="document">
+          <div class="modal-content modal-content-size">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Your Store</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <iframe src="http://store.webipie.com:4200/"
+                  class="iframe-home"
+                  frameborder="0" width="100%" height="100%" (load)="resize($event)"></iframe>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
     <div class="bought-prod" routerLink="/store">edit store</div>
+  </div>
+</div>
+
+<!-- *******************cool-carousel-instructions *******************-->
+<div class="card-movie-wrapper card-movie-wrapper--centered">
+  <div class="card-movie-carousel">       
+      
+    <div class="card-movie card-movie--light card-movie--looper card-movie--active">          
+      <div class="card-movie__content">          
+        <div class="card-movie__title">Online Presence</div>          
+        <div class="card-movie__details">          
+          <span class="card-movie__details-item">facebook</span>          
+          <span class="card-movie__details-item">Instagram</span>          
+          <!-- <ul class="card-movie__details-item card-movie__details-list">
+            <li>Action</li>
+            <li>Crime</li>
+            <li>Sci-fi</li>
+          </ul>           -->
+        </div>
+        <!-- /.card-movie__details -->
+        <div class="card-movie__description">          
+          <p>Connect your store to your facebook and instagram shops. Make it simple and synchronous.</p>          
+        </div>
+        <!-- /.card-movie__description -->          
+      </div>
+      <!-- /.card-movie__content -->          
+      <div class="card-movie__rating">1</div>          
+      <div class="card-movie__player" data-trailer="5kGFyVKmqA0">          
+      </div>
+      <!-- /.card-movie__player -->          
+    </div>
+    <!-- /.card-movie card-movie--looper -->
+
+    <div class="card-movie card-movie--dark card-movie--tron">      
+      <div class="card-movie__content">     
+        <div class="card-movie__title">Tron: Legacy</div>      
+        <div class="card-movie__details">      
+          <span class="card-movie__details-item">2010</span>      
+          <span class="card-movie__details-item">125 mins</span>     
+          <!-- <ul class="card-movie__details-item card-movie__details-list">
+            <li>Action</li>
+            <li>Adventure</li>
+            <li>Fantasy</li>
+            <li>Sci-fi</li>
+          </ul>       -->
+        </div>
+        <!-- /.card-movie__details -->  
+        <div class="card-movie__description">
+          <p>The son of a virtual world designer goes looking for his father and ends up inside the digital world that his father designed. He meets his father's corrupted creation and a unique ally who was born inside the digital world.</p>
+        </div>
+        <!-- /.card-movie__description -->
+      </div>
+      <!-- /.card-movie__content -->
+      <div class="card-movie__rating">6.8</div>
+      <div class="card-movie__player" data-trailer="L9szn1QQfas">
+      </div>
+      <!-- /.card-movie__player -->
+    </div>
+    <!-- /.card-movie card-movie--tron -->
+  </div>
+
+  <div class="card-movie-navigation">
+          
+    <ul class="card-movie-navigation__list" data-navigation>
+      <li class="is-active" (click)='toggleCarousel($event)'></li>
+      <li (click)='toggleCarousel($event)'></li>
+      <li (click)='toggleCarousel($event)'></li>
+      <li (click)='toggleCarousel($event)'></li>
+      <li (click)='toggleCarousel($event)'></li>
+      <li (click)='toggleCarousel($event)'></li>
+    </ul>
+    <!-- /.card-movie-navigation__list -->
+
+    <button type="button" data-play></button>
 
   </div>
 </div>
+<!-- </div> -->
 
 

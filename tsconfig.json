@@ -14,7 +14,8 @@
     "module": "esnext",
     "lib": [
       "es2018",
-      "dom"
+      "dom",
+      "es2017"
     ]
   }
 }

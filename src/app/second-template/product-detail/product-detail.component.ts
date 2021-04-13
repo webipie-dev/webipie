@@ -5,7 +5,7 @@ import { Review } from '../../_shared/models/review.model';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
-import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 
@@ -33,6 +33,7 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
+
     this.store = encryptStorage.getItem('store');
     window.addEventListener('message', event => {
       if (event.origin.startsWith('http://webipie.com:4200')) {
@@ -72,9 +73,9 @@ export class ProductDetailComponent implements OnInit {
       return [];
     }
     const count =  [];
-    for(let j = 1; count.push(j++) < i;);
+    for (let j = 1; count.push(j++) < i;) {}
     return count;
-}
+  }
 
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review).subscribe(data => {
