@@ -10,6 +10,7 @@ const review = new Schema({
   date: {type: Date, default: Date.now()},
 });
 
+
 const productSchema = mongoose.Schema({
   name: {type: String, required: false, default: ''},
   description: {type: String, required: false, default: ''},

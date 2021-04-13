@@ -21,7 +21,7 @@
             <input type="email" id="email" class="input" [ngClass]="invalidEmail? 'red-border': ''" placeholder="Email"
                    [(ngModel)]="storeOwner.email" name="email" (keyup)="onInputFocus($event)">
             <p class="mt-2 red-color shake delay-300" *ngIf="invalidEmail">* {{emailError | titlecase}}</p>
-            
+
             <label for="password" class="text-size ml-5 mt-3">Password</label>
             <input type="password" id="password" class="input" placeholder="Password"
                    [ngClass]="invalidPassword? 'red-border': ''" [(ngModel)]="storeOwner.password" name="password"
@@ -36,7 +36,7 @@
           </form>
           <div class="row text-center text-size d-flex justify-content-center">
             <div class="line-login my-3 mr-2"></div>
-            Or login with
+            Or sign in with
             <div class="line-login my-3 ml-2"></div>
           </div>
           <div class="row my-3">

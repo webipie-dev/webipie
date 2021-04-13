@@ -66,13 +66,13 @@ export class GenericService<T extends GenericModel> {
   }
 
   public addOne(body: T): Observable<T> {
-    let httpOptions: any;
-    httpOptions = {
+    console.log(body);
+    const httpOptions = {
       headers: {
         Authorization: localStorage.getItem('token') || ''
       },
     };
-    return this.http.post(this.getUrl() + this.suffix, body, httpOptions) as unknown as Observable<T>;
+    return this.http.post(this.getUrl() + this.suffix, body, httpOptions) as Observable<T>;
   }
 
   public edit(id: string, body: T): Observable<T> {
