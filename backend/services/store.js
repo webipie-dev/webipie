@@ -56,6 +56,7 @@ const getStoreByNameAndLocation = async (req,res) => {
 }
 
 const addStore = async (req, res, next) => {
+
   //check if a logo is uploaded
   let logo = '';
 
