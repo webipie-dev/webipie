@@ -7,8 +7,6 @@ const { StoreOwner } = require('../models/storeOwner');
 
 // getAndFilter
 const getStores = async (req, res) => {
-  // MUST BE AUTHENTICATED AS THE ADMIN
-
   const stores = await Store.find(req.query)
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
@@ -28,8 +26,6 @@ const getStoreNames = async (req,res) => {
 }
 
 const getOneStore = async (req, res) => {
-  // We need to check if user is authenticated
-
   //get store id
   const { id } = req.params;
   const store = await Store.findById(id)

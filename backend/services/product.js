@@ -4,11 +4,6 @@ const ApiError = require("../errors/api-error");
 
 
 const getProducts = async (req, res, next) => {
-  // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
-  // We need to check if the store id connected is the same store is provided in the requireAuth
-
-  // add the storeid to the query
-  // req.query.store = req.params.store;
   if(!req.query.store){
     return next(ApiError.BadRequest('you have to pass the storeID'));
   }
@@ -37,7 +32,6 @@ const getOneProduct = async (req, res, next) => {
 
 const getManyProductById = async (req, res, next) => {
   let { ids } = req.query
-  // console.log(req.query)
   ids = JSON.parse(ids)
   for(var property in ids[0]) {
     // console.log(property + "=" + ids[0][property]);
@@ -150,7 +144,6 @@ const editOneProduct = async (req, res, next) => {
 
 const addReview = async (req,res,next) => {
   const {id} = req.params;
-  console.log(req.body)
 
   const { name, email, review, rating} = req.body;
 
@@ -276,13 +269,6 @@ filterProducts = (req => {
   return query;
 });
 
-// function renameKey ( obj, old_key, new_key ) {
-//   if (old_key !== new_key) {
-//     Object.defineProperty(obj, new_key,
-//         Object.getOwnPropertyDescriptor(obj, old_key));
-//     delete o[old_key];
-//   }
-// }
 
 
 module.exports = {

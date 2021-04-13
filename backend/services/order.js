@@ -21,14 +21,10 @@ let transporter = nodemailer.createTransport(smtpTransport({
 
 // getAndFilterOrder
 const getOrders = async (req, res) => {
-
-  // I THINK ORDERS NEED TO BE INDEXED BY STORE ID
-  // We need to check if the store id connected is the same store is provided in the requireAuth
-
-  const orders = await Order.find(req.query).populate('client');
-    // .catch((err) => {
-    //   res.status(400).json({errors: [{ message: err.message }]});
-    // });
+  const orders = await Order.find(req.query).populate('client')
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
 
   res.status(200).send(orders);
 }
@@ -36,9 +32,6 @@ const getOrders = async (req, res) => {
 
 
 const getOneOrder = async (req, res) => {
-
-  // We need to check if the store id connected is the same store is provided in the requireAuth
-
   //get the order id
   const { id } = req.params;
 
@@ -130,7 +123,7 @@ const addOrder = async (req, res, next) => {
       String(client.email),
   };
 
-  transporter.sendMail(mailOptions, function(error, info){
+  await transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
     } else {
@@ -173,9 +166,6 @@ const deleteAllOrders = async (req, res, next) => {
 
 //edit many orders
 const editOrder = async (req, res, next) => {
-  // If you want to change something in the products or total price youll have to resend the whole document
-
-
   // separating the id
   const { id } = req.params;
 
@@ -207,14 +197,14 @@ const editOrder = async (req, res, next) => {
 
   for(const key in req.body) {
     if(key ==='orderStatus'){
-      var mailOptions = {
+      const mailOptions = {
         from: config.EMAIL.USER,
         to: order.client.email,
         subject: 'Updated order',
         text: 'You have an update to your order with status to ' + String(order.orderStatus),
       };
 
-      transporter.sendMail(mailOptions, function(error, info){
+      await transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           console.log(error);
         } else {
@@ -251,7 +241,6 @@ const deleteProductOrder = async (req,res, next) => {
 
 const refundProducts = async (req, res, next) => {
   const { products } = req.body
-  console.log(req.body)
 
   let bulkQueries = [];
   products.map(product => {

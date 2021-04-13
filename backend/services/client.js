@@ -4,8 +4,6 @@ const ApiError = require("../errors/api-error");
 
 // FilterClients
 const getClients = async (req, res, next) => {
-  // I THINK CLIENTS NEED TO BE INDEXED BY STORE ID
-  // We need to check if the store id connected is the same store is provided in the requireAuth
 
 
   const clients = await Client.find(req.query)
@@ -23,9 +21,6 @@ const getClients = async (req, res, next) => {
 
 //getOneClient
 const getOneClient = async (req, res, next) => {
-
-  // We need to check if the store id connected is the same store is provided in the params
-
   //get client id
   const { id } = req.params;
 
@@ -45,7 +40,7 @@ const getOneClient = async (req, res, next) => {
 
 //addOneClient
 const addClient = async (req, res, next) => {
-  const { firstname, lastname, phoneNumber, email, fullAddress, storeId} = req.body
+  const { firstname, lastname, phoneNumber, email, fullAddress, storeId } = req.body
 
   const store = await Store.findById(storeId)
 
@@ -130,7 +125,6 @@ const editClient = async (req, res, next) => {
   const edits = {};
   for(const key in req.body) {
     if(req.body.hasOwnProperty(key)) {
-      // WE NEED TO FIX THE FULLADDRESS EDIT
       if(key !== 'id'){
         edits[key] = req.body[key];
       }
