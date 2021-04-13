@@ -18,8 +18,8 @@ export class AfterSigninComponent implements OnInit {
 
   loading = true;
   storeName: string;
-  storeType: string;
-  names: Array<string>;
+  storeType = 'clothes';
+  urls: Array<string>;
   invalidName = false;
   nameError: string;
 
@@ -28,25 +28,20 @@ export class AfterSigninComponent implements OnInit {
     if (!templateId){
       this.router.navigate(['templates']);
     }
-
     $( document ).ready(() => {
       this.loading = false;
     });
-
-    this.storeService.getStoreNames().subscribe( data => {
-      this.names = data.map(obj => {
-        return obj.name.toLowerCase();
+    this.storeService.getStoreUrls().subscribe( data => {
+      this.urls = data.map(obj => {
+        return obj.url;
       });
-      console.log(this.names);
+      console.log(this.urls);
     });
-
-    // setTimeout(() => {
-    //   this.loading = false;
-    // }, 2000);
   }
 
   onInputFocus(event): void{
-    if (this.names.indexOf(event.target.value.toLowerCase().replace(/\s/g, '')) > -1){
+    const url = event.target.value.toLowerCase().replace(/\s/g, '').replace(/'/, '') + '.webipie.com';
+    if (this.urls.indexOf(url) > -1){
       this.invalidName = true;
       this.nameError = 'Name should be unique';
     }else{
@@ -58,12 +53,10 @@ export class AfterSigninComponent implements OnInit {
   submit(): void {
     this.route.queryParams.subscribe((params) => {
       const templateId = params.templateId;
-
-      if ( localStorage.getItem('token') && !localStorage.getItem('storeID')) {
+      if (localStorage.getItem('token') && !localStorage.getItem('storeID')) {
         console.log('here to create store!');
         this.storeService.addOne({ templateId, name: this.storeName, storeType: this.storeType }).subscribe( store => {
           localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
-
         });
         this.router.navigate(['dashboard']);
       } else {
@@ -71,6 +64,4 @@ export class AfterSigninComponent implements OnInit {
       }
     });
   }
-
-
 }

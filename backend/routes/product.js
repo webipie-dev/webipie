@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const productService = require('../services/product');
-const multer = require('multer');
-const clearCache = require('../middlewares/caching/clearCache');
 
 const passport = require('passport');
 const validateRequest = require("../middlewares/validate-request");
@@ -11,27 +9,7 @@ const productValidator = require("../middlewares/validation/product-validator");
 const passportJWT = passport.authenticate('jwt', { session: false });
 passportJWT.unless = require('express-unless');
 
-const MIME_TYPE_MAP = {
-  'image/png': 'png',
-  'image/jpeg': 'jpg',
-  'image/jpg': 'jpg'
-};
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const isValid = MIME_TYPE_MAP[file.mimetype];
-    let error = new Error('Invalid Mime Type');
-    if (isValid) {
-      error = null;
-    }
-    cb(error, "images");
-  },
-  filename: (req, file, cb) => {
-    const name = file.originalname.toLowerCase().split(' ').join('-');
-    const ext = MIME_TYPE_MAP[file.mimetype];
-    cb(null, `${Date.now()}-${name}`);
-  }
-});
 
 //get all products
 router.get('', passportJWT.unless(function(req){
@@ -40,6 +18,8 @@ router.get('', passportJWT.unless(function(req){
   }
 }), productService.getProducts)
 
+//search through products
+router.get('/search/:searchTerm', productService.getSearch);
 
 //getManyProducts
 router.get('/many', productService.getManyProductById)
@@ -50,8 +30,7 @@ router.get('/:id', [
 ], validateRequest, productService.getOneProduct)
 
 // addProduct
-router.post('', passportJWT, multer({storage: storage}).any("productImgs", 5), [
-  validation.storeId,
+router.post('', passportJWT, [validation.storeId,
   productValidator.price,
   productValidator.quantity,
   productValidator.description,
@@ -71,9 +50,9 @@ router.delete('', validation.ids, passportJWT, productService.deleteManyProducts
 router.delete('/delete', passportJWT, productService.deleteAllProducts);
 
 
-router.patch('/:id', passportJWT, multer({storage: storage}).any("productImgs", 5), [
+router.patch('/:id', passportJWT, [
   validation.id
-], validateRequest ,clearCache, productService.editOneProduct)
+], validateRequest , productService.editOneProduct)
 
 
 module.exports = router;

@@ -3,7 +3,7 @@
     <div class="container d-md-block d-flex">
 
       <!-- Logo -->
-      <div class="logo d-block d-lg-block d-md-none"> <a href="index.html"><h6 class="logo">STORE</h6></a></div>
+      <div class="logo d-block d-lg-block d-md-none"> <a href="index.html"><h6 class="logo">{{store.name}}</h6></a></div>
       <nav class="navbar ownmenu">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-open-btn" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"><i class="fas fa-bars"></i></span> </button>
@@ -64,14 +64,14 @@
             </li>
 
             <!-- SEARCH BAR -->
-            <li class="dropdown"> <a href="javascript:void(0);" class="search-open"><i class=" icon-magnifier"></i></a>
+            <li class="dropdown"> <a class="search-open" style="cursor: pointer;"><i class=" icon-magnifier"></i></a>
               <div class="search-inside animated bounceInUp"> <i class="icon-close search-close"></i>
                 <div class="search-overlay"></div>
                 <div class="position-center-center">
                   <div class="search">
                     <form>
-                      <input type="search" placeholder="Search Shop">
-                      <button type="submit"><i class="icon-check"></i></button>
+                      <input type="search" placeholder="Search Shop" [(ngModel)]="searchTerm" name="searchTerm">
+                      <button type="submit" (click)='search()'><i class="icon-check"></i></button>
                     </form>
                   </div>
                 </div>
