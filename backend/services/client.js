@@ -3,7 +3,7 @@ const Store = require('../models/store')
 const ApiError = require("../errors/api-error");
 
 // FilterClients
-exports.getClients = async (req, res, next) => {
+const getClients = async (req, res, next) => {
   // I THINK CLIENTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
@@ -22,7 +22,7 @@ exports.getClients = async (req, res, next) => {
 
 
 //getOneClient
-exports.getOneClient = async (req, res, next) => {
+const getOneClient = async (req, res, next) => {
 
   // We need to check if the store id connected is the same store is provided in the params
 
@@ -44,7 +44,7 @@ exports.getOneClient = async (req, res, next) => {
 }
 
 //addOneClient
-exports.addClient = async (req, res, next) => {
+const addClient = async (req, res, next) => {
   const { firstname, lastname, phoneNumber, email, fullAddress, storeId} = req.body
 
   const store = await Store.findById(storeId)
@@ -87,7 +87,7 @@ exports.addClient = async (req, res, next) => {
 
 
 //deleteManyClients
-exports.deleteManyClients = async (req, res, next) => {
+const deleteManyClients = async (req, res, next) => {
   //get clients ids
   const { ids } = req.body;
 
@@ -111,7 +111,7 @@ exports.deleteManyClients = async (req, res, next) => {
 
 
 //deleteAllClients
-exports.deleteAllClients = async (req, res, next) => {
+const deleteAllClients = async (req, res, next) => {
 
   const deletedClients = await Client.deleteMany({})
     .catch((err) => {
@@ -122,7 +122,7 @@ exports.deleteAllClients = async (req, res, next) => {
 };
 
 //editManyClients
-exports.editClient = async (req, res, next) => {
+const editClient = async (req, res, next) => {
   // separating the ids
   const { id } = req.params;
 
@@ -155,3 +155,11 @@ exports.editClient = async (req, res, next) => {
 };
 
 
+module.exports = {
+  getOneClient,
+  getClients,
+  addClient,
+  deleteAllClients,
+  deleteManyClients,
+  editClient
+};

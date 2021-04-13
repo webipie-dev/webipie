@@ -20,7 +20,7 @@ let transporter = nodemailer.createTransport(smtpTransport({
 );
 
 // getAndFilterOrder
-exports.getOrders = async (req, res) => {
+const getOrders = async (req, res) => {
 
   // I THINK ORDERS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
@@ -35,7 +35,7 @@ exports.getOrders = async (req, res) => {
 
 
 
-exports.getOneOrder = async (req, res) => {
+const getOneOrder = async (req, res) => {
 
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
@@ -55,7 +55,7 @@ exports.getOneOrder = async (req, res) => {
   res.status(200).send(order);
 }
 
-exports.addOrder = async (req, res, next) => {
+const addOrder = async (req, res, next) => {
 
   const { orderStatus, paymentMethod, productsOrder, clientId, storeId, totalPrice } = req.body
 
@@ -143,7 +143,7 @@ exports.addOrder = async (req, res, next) => {
 }
 
 
-exports.deleteManyOrders = async (req, res, next) => {
+const deleteManyOrders = async (req, res, next) => {
   //get orders ids
   const { ids } = req.body;
 
@@ -162,7 +162,7 @@ exports.deleteManyOrders = async (req, res, next) => {
   res.status(200).send(deletedOrders);
 };
 
-exports.deleteAllOrders = async (req, res, next) => {
+const deleteAllOrders = async (req, res, next) => {
   const deletedOrders = await Order.deleteMany({})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
@@ -172,7 +172,7 @@ exports.deleteAllOrders = async (req, res, next) => {
 };
 
 //edit many orders
-exports.editOrder = async (req, res, next) => {
+const editOrder = async (req, res, next) => {
   // If you want to change something in the products or total price youll have to resend the whole document
 
 
@@ -228,7 +228,7 @@ exports.editOrder = async (req, res, next) => {
 };
 
 
-exports.deleteProductOrder = async (req,res, next) => {
+const deleteProductOrder = async (req,res, next) => {
   //get order id
   const { id } = req.body;
 
@@ -249,7 +249,7 @@ exports.deleteProductOrder = async (req,res, next) => {
 
 }
 
-exports.refundProducts = async (req, res, next) => {
+const refundProducts = async (req, res, next) => {
   const { products } = req.body
   console.log(req.body)
 
@@ -272,3 +272,13 @@ exports.refundProducts = async (req, res, next) => {
 
 }
 
+module.exports = {
+  getOneOrder,
+  getOrders,
+  addOrder,
+  editOrder,
+  deleteProductOrder,
+  deleteAllOrders,
+  deleteManyOrders,
+  refundProducts
+};

@@ -3,7 +3,7 @@ const Store = require('../models/store');
 const ApiError = require("../errors/api-error");
 
 
-exports.getProducts = async (req, res, next) => {
+const getProducts = async (req, res, next) => {
   // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
   // We need to check if the store id connected is the same store is provided in the requireAuth
 
@@ -23,7 +23,7 @@ exports.getProducts = async (req, res, next) => {
 };
 
 
-exports.getOneProduct = async (req, res, next) => {
+const getOneProduct = async (req, res, next) => {
   //get product id
   const { id } = req.params;
 
@@ -35,7 +35,7 @@ exports.getOneProduct = async (req, res, next) => {
 
 };
 
-exports.getManyProductById = async (req, res, next) => {
+const getManyProductById = async (req, res, next) => {
   let { ids } = req.query
   // console.log(req.query)
   ids = JSON.parse(ids)
@@ -57,7 +57,7 @@ exports.getManyProductById = async (req, res, next) => {
 }
 
 
-exports.addProduct = async (req, res, next) => {
+const addProduct = async (req, res, next) => {
   let { name, description, price, quantity, imgs, status, popular, openReview, storeId } = req.body
 
   const store = await Store.findById(storeId)
@@ -87,7 +87,7 @@ exports.addProduct = async (req, res, next) => {
 
 };
 
-exports.editOneProduct = async (req, res, next) => {
+const editOneProduct = async (req, res, next) => {
 
   // separating the id
   const { id } = req.params;
@@ -148,7 +148,7 @@ exports.editOneProduct = async (req, res, next) => {
 };
 
 
-exports.addReview = async (req,res,next) => {
+const addReview = async (req,res,next) => {
   const {id} = req.params;
   console.log(req.body)
 
@@ -177,7 +177,7 @@ exports.addReview = async (req,res,next) => {
   res.status(200).send(productUpdate);
 };
 
-exports.deleteImage = async (req, res, next) => {
+const deleteImage = async (req, res, next) => {
   const { id } = req.params;
   const { url } = req.body
 
@@ -204,7 +204,7 @@ exports.deleteImage = async (req, res, next) => {
 }
 
 
-exports.deleteManyProducts = async (req, res, next) => {
+const deleteManyProducts = async (req, res, next) => {
   //get products ids
   const { ids } = req.body;
 
@@ -226,7 +226,7 @@ exports.deleteManyProducts = async (req, res, next) => {
   res.status(200).send(deletedProducts);
 };
 
-exports.deleteAllProducts = async (req, res, next) => {
+const deleteAllProducts = async (req, res, next) => {
 
   const deletedProducts = await Product.deleteMany({})
     .catch((err) => {
@@ -283,3 +283,16 @@ filterProducts = (req => {
 //     delete o[old_key];
 //   }
 // }
+
+
+module.exports = {
+  getProducts,
+  getOneProduct,
+  getManyProductById,
+  addProduct,
+  addReview,
+  editOneProduct,
+  deleteAllProducts,
+  deleteImage,
+  deleteManyProducts
+};

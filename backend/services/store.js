@@ -7,7 +7,7 @@ const ApiError = require("../errors/api-error");
 const { StoreOwner } = require('../models/storeOwner');
 
 // getAndFilter
-exports.getStores = async (req, res) => {
+const getStores = async (req, res) => {
   // MUST BE AUTHENTICATED AS THE ADMIN
 
   const stores = await Store.find(req.query)
@@ -19,7 +19,7 @@ exports.getStores = async (req, res) => {
 
 }
 
-exports.getStoreNames = async (req,res) => {
+const getStoreNames = async (req,res) => {
   const names =await Store.find({}).select({ "name": 1, "_id": 0})
     .catch((err) => {
     res.status(400).json({errors: [{ message: err.message }]});
@@ -28,7 +28,7 @@ exports.getStoreNames = async (req,res) => {
   res.status(200).send(names);
 }
 
-exports.getOneStore = async (req, res) => {
+const getOneStore = async (req, res) => {
   // We need to check if user is authenticated
 
   //get store id
@@ -41,7 +41,7 @@ exports.getOneStore = async (req, res) => {
   res.status(200).send(store);
 }
 
-exports.getStoreByUrl = async (req,res) => {
+const getStoreByUrl = async (req,res) => {
   const { url } = req.params;
   const store = await Store.findOne({url})
     .catch((err) => {
@@ -50,7 +50,7 @@ exports.getStoreByUrl = async (req,res) => {
   res.status(200).send(store);
 }
 
-exports.getStoreByNameAndLocation = async (req,res) => {
+const getStoreByNameAndLocation = async (req,res) => {
   const { name,location } = req.params;
   const store = await Store.findOne({name, "contact.location": location})
     .catch((err) => {
@@ -61,16 +61,7 @@ exports.getStoreByNameAndLocation = async (req,res) => {
 }
 
 
-exports.getStoreByUrl = async (req,res) => {
-  const { url } = req.params;
-  const store = await Store.findOne({url})
-    .catch((err) => {
-      res.status(400).json({errors: err.message});
-    });
-  res.status(200).send(store);
-}
-
-exports.addStore = async (req, res, next) => {
+const addStore = async (req, res, next) => {
   //check if a logo is uploaded
   let logo = '';
 
@@ -118,7 +109,7 @@ exports.addStore = async (req, res, next) => {
 
 }
 
-exports.deleteManyStores = async (req, res, next) => {
+const deleteManyStores = async (req, res, next) => {
   const { ids } = req.body;
 
   const deletedStores = await Store.deleteMany({_id: {$in: ids}})
@@ -157,7 +148,7 @@ exports.deleteManyStores = async (req, res, next) => {
 
 }
 
-exports.deleteAllStores = async (req, res, next) => {
+const deleteAllStores = async (req, res, next) => {
   const deletedStores = await Store.deleteMany({})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
@@ -166,7 +157,7 @@ exports.deleteAllStores = async (req, res, next) => {
   res.status(200).send(deletedStores);
 };
 
-exports.editStore = async (req, res, next) => {
+const editStore = async (req, res, next) => {
   // getting the id
   const { id } = req.params;
   const edits = {};
@@ -203,7 +194,7 @@ exports.editStore = async (req, res, next) => {
 
 };
 
-exports.changeTemplate = async (req, res, next) => {
+const changeTemplate = async (req, res, next) => {
   const { id } = req.params
   let templateId = req.body.templateId;
   let template = await Template.findById(templateId)
@@ -227,4 +218,18 @@ exports.changeTemplate = async (req, res, next) => {
   const storeEdited = await Store.findById(id)
   res.status(200).send(storeEdited)
 };
+
+module.exports = {
+  getOneStore,
+  getStoreByNameAndLocation,
+  getStoreByUrl,
+  getStoreNames,
+  getStores,
+  addStore,
+  editStore,
+  deleteManyStores,
+  deleteAllStores,
+  changeTemplate
+};
+
 

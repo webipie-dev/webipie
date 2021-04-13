@@ -1,7 +1,7 @@
 const Template = require('../models/template')
 
 
-exports.getTemplates = async (req, res) => {
+const getTemplates = async (req, res) => {
 
   const templates = await Template.find(req.query)
     .catch((err) => {
@@ -12,7 +12,7 @@ exports.getTemplates = async (req, res) => {
 }
 
 
-exports.getOneTemplate = async (req, res) => {
+const getOneTemplate = async (req, res) => {
   //get template id
   const { id } = req.params;
 
@@ -24,7 +24,7 @@ exports.getOneTemplate = async (req, res) => {
   res.status(200).send(template);
 }
 
-exports.addTemplate = async (req, res) => {
+const addTemplate = async (req, res) => {
   const { name, header, colorChartOptions, fontOptions} = req.body
 
   const template = new Template({
@@ -42,7 +42,7 @@ exports.addTemplate = async (req, res) => {
 
 }
 
-exports.deleteManyTemplates = async (req, res, next) => {
+const deleteManyTemplates = async (req, res, next) => {
   //get stores ids
   const { ids } = req.body;
 
@@ -63,7 +63,7 @@ exports.deleteManyTemplates = async (req, res, next) => {
   res.status(200).send(deletedTemplates);
 };
 
-exports.deleteAllTemplates = async (req, res, next) => {
+const deleteAllTemplates = async (req, res, next) => {
   const deletedTemplates = await Template.deleteMany({})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
@@ -72,7 +72,7 @@ exports.deleteAllTemplates = async (req, res, next) => {
   res.status(200).send(deletedTemplates);
 };
 
-exports.editTemplate = async (req, res, next) => {
+const editTemplate = async (req, res, next) => {
   // separating the id
   const { id } = req.params;
   // separating the updates
@@ -101,3 +101,11 @@ exports.editTemplate = async (req, res, next) => {
 };
 
 
+module.exports = {
+  getOneTemplate,
+  getTemplates,
+  addTemplate,
+  editTemplate,
+  deleteAllTemplates,
+  deleteManyTemplates
+};
