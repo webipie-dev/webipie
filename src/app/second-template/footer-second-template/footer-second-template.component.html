@@ -3,10 +3,10 @@
 
     <!-- ABOUT Location -->
     <div class="col-md-6 text-center">
-      <div class="about-footer"> <img class="margin-bottom-30" src="../../../assets/second-template/images/logo-foot.png" alt="" >
-        <h6><i class="icon-pointer"></i> {{store.contact.location}} <br></h6>
-        <h6><i class="icon-call-end"></i> {{store.contact.phoneNumber}}</h6>
-        <h6><i class="icon-envelope"></i> {{store.contact.email}}</h6>
+      <div class="about-footer">
+        <h6 *ngIf="store.contact"><i class="icon-pointer"></i> {{store.contact.location}} <br></h6>
+        <h6 *ngIf="store.contact"><i class="icon-call-end"></i> {{store.contact.phoneNumber}}</h6>
+        <h6 *ngIf="store.contact"><i class="icon-envelope"></i> {{store.contact.email}}</h6>
       </div>
     </div>
 

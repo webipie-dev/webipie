@@ -1,4 +1,3 @@
-
 const Store = require('../models/store')
 const Order = require('../models/order')
 const Product = require('../models/store')
@@ -60,7 +59,6 @@ const getStoreByNameAndLocation = async (req,res) => {
   res.status(200).send(store);
 }
 
-
 const addStore = async (req, res, next) => {
   //check if a logo is uploaded
   let logo = '';
@@ -82,16 +80,14 @@ const addStore = async (req, res, next) => {
   getTemplate.id= templateId
 
   const store = new Store({
-    // id,
     name,
-    url: name.toLowerCase().replace(/\s/g, ''),
+    url: name.toLowerCase().replace(/\s/g, '').replace(/'/, '') + '.webipie.com',
     logo,
     description,
     location,
     storeType,
     contact,
-    template: getTemplate,
-
+    template: getTemplate
   });
 
   // update storeowner with its id
