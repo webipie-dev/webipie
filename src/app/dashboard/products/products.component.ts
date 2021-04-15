@@ -91,7 +91,6 @@ export class ProductsComponent implements OnInit {
 
   getAllProducts(): void {
     this.productService.getAll({store: encryptLocalStorage.decryptString(localStorage.getItem('storeID'))}).subscribe((data) => {
-      console.log(data);
       let quant;
       let aux;
       data.forEach((element) => {

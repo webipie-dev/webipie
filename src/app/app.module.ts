@@ -1,3 +1,4 @@
+import { MbscModule } from '@mobiscroll/angular';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Injector, APP_INITIALIZER} from '@angular/core';
@@ -33,7 +34,8 @@ export let InjectorInstance: Injector;
     AppComponent,
     PageNotFoundComponent,
   ],
-  imports: [
+  imports: [ 
+    MbscModule, 
     BrowserModule,
     CommonModule,
     BrowserAnimationsModule,
