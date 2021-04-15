@@ -26,6 +26,7 @@ export class SecondTemplateComponent implements OnInit {
       if (event.origin.startsWith('http://webipie.com:4200')) {
         switch (event.data.type) {
           case 'store':
+            console.log('i got here');
             encryptStorage.setItem('store', event.data.subj);
             break;
         }

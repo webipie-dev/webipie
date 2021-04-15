@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../_shared/services/auth.service';
+import { mobiscroll, MbscSelectOptions } from '@mobiscroll/angular';
+
+mobiscroll.settings = {
+  theme: 'ios',
+  themeVariant: 'light',
+  display: 'bubble'
+};
+
 
 @Component({
   selector: 'app-header',
@@ -8,6 +16,46 @@ import { AuthService } from '../../_shared/services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+
+  items = [{
+    value: 1,
+    text: 'Atlanta'
+  }, {
+    value: 2,
+    text: 'Berlin'
+  }, {
+    value: 3,
+    text: 'Boston'
+  }, {
+    value: 4,
+    text: 'Chicago'
+  }, {
+    value: 5,
+    text: 'London'
+  }, {
+    value: 6,
+    text: 'Los Angeles'
+  }, {
+    value: 7,
+    text: 'New York'
+  }, {
+    value: 8,
+    text: 'Paris'
+  }, {
+    value: 9,
+    text: 'San Francisco'
+  }];
+
+  englishSettings: MbscSelectOptions = {
+    lang: 'en'
+  };
+
+  arabicSettings: MbscSelectOptions = {
+    lang: 'ar'
+  };
+  english = '';
+  arabic = '';
+
   route = this.router.url;
   changeable = this.route === '/' || this.route.indexOf('/#') !== -1;
   token;

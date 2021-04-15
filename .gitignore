@@ -11,6 +11,7 @@
 *.rdb
 /backend/*.rdb
 /backend/configuration/index.js
+/backend/configuration
 /node_modules
 /backend/node_modules
 
