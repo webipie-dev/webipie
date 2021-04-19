@@ -3,6 +3,7 @@
   <h1 class="big-titles text-center mb-3">{{editAddPage}} One Product </h1>
 </div>
 
+<h6 id="myCheck"></h6>
 <form (submit)="onSubmit()" [formGroup]="productForm">
   <div class="margin-top" [ngClass]="{'d-flex' : windwosWidth > 990}">
     <div class="col-lg-8 col-12 mt-5 mb-5">
@@ -55,10 +56,14 @@
                         <div class="row">
                           <div class="col-lg-4">
                             <div class="card mb-2">
-                              <img class="card-img-top my-auto" [src]="image.image"
-                                   alt="Card image cap">
-                              <div class="card-body">
-                                <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
+                              <div class="my-img-container">
+                                <img class="card-img-top my-auto" [src]="image.image"
+                                     [class.blurImage]="loading"
+                                     alt="Card image cap">
+                                <div *ngIf="loading" class="loader"></div>
+                                <div class="card-body">
+                                  <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -78,7 +83,9 @@
                           <div *ngFor="let image of imageArr" class="col-lg-4">
                             <div class="card mb-2">
                               <img class="card-img-top my-auto" [src]="image.image"
+                                   [class.blurImage]="loading"
                                    alt="Card image cap">
+                              <div *ngIf="loading" class="loader"></div>
                               <div class="card-body">
                                 <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
                               </div>
@@ -203,10 +210,8 @@
             </div>
           </div>
       </div>
-
-
       <div class="col-12 text-center my-1">
-        <button class="button-generic button-blue form-button text-size" [disabled]="imageObject.length <= 0" type="submit">Save Changes</button>
+        <button class="button-generic button-blue form-button text-size" [disabled]="imageObject.length === 0 || loading" type="submit">Save Changes</button>
       </div>
       <div class="col-12 text-center mt-1">
         <button class="button-generic button-blue form-button text-size">Reset</button>

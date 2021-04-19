@@ -6,10 +6,57 @@
     <div class="text-center ml-3">
       <button (click)="preview()" class="button-generic button-blue form-button text-size"> Preview</button>
     </div>
-
+    <div class="text-center ml-3 mt-5">
+      <select (change)="onEditClick($event.target)" class="select" name="lang" id="lang">
+        <option value="en">en</option>
+        <option value="fr">fr</option>
+        <option value="ar">ar</option>
+      </select>
+    </div>
   </div>
 
   <div class="d-flex" style="margin-left: auto;">
+
+    <div (click)="openNotification()" class="notification text-size mr-4" >
+      <div id="dropdown-notification">
+        <i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+        <span class="badge" *ngIf="notifNum>0">{{notifNum}}</span>
+      </div>
+
+      <div class="notification_dd">
+        <ul class="notification_ul">
+          <!-- <li *ngIf='!newOrder' calss='my-2'> You have no notifications </li> -->
+          <li class="notification-group" (click)='open($event)'>
+            <div class="notification-tab d-flex justify-content-center" id='orders-tab'>
+              <div class="row" style="left: 30px; position: absolute;">
+                <i class="fa fa-flag mx-1"></i>
+                <h4 class="mx-1">Orders</h4>
+              </div>
+              <span class="label mx-1" style="position: absolute; right: 20px;">{{orderNum}}</span>
+            </div>
+            <ul class="notification-list">
+
+            </ul>
+          </li>
+
+          <li class="notification-group">
+            <div class="notification-tab  d-flex">
+              <div class="row" style="left: 30px; position: absolute;">
+                <i class="fa fa-bug mx-1"></i>
+                <h4 class="mx-1">Reviews</h4>
+              </div>
+              <span class="label mx-1" style="position: absolute; right: 20px;">{{reviewNum}}</span>
+
+
+            </div>
+            <ul class="notification-list"></ul>
+          </li>
+          <!-- <li *ngIf='newOrder'><a routerLink='/dashboard/sales/orders'> You have new orders</a></li> -->
+        </ul>
+      </div>
+    </div>
+
+
     <div (click)="openDropDown()" class="profile text-size">
       <div class="icon_wrap" id="dropdown-profile">
         <i class="fas fa-chevron-down"></i>

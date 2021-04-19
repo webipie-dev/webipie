@@ -15,6 +15,7 @@ import {IndexRoutingModule} from './index-routing.module';
 import { LoadingSpinnerComponent } from '../_shared/loading-spinner/loading-spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MbscModule } from '@mobiscroll/angular';
 
 
 
@@ -38,7 +39,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         SpinnerModule,
         HttpClientModule,
         IndexRoutingModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        MbscModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [

@@ -5,10 +5,6 @@ import {HttpClient} from '@angular/common/http';
 import {EditProductService} from '../../_shared/services/edit-product.service';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Route, Router} from '@angular/router';
-import uniqueSlug from 'unique-slug';
-
-
-import {createLogErrorHandler} from '@angular/compiler-cli/ngcc/src/execution/tasks/completion';
 import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 import Swal from 'sweetalert2';
 import {StoreService} from '../../_shared/services/store.service';
@@ -52,7 +48,6 @@ export class EditProductComponent implements OnInit {
   editAddPage = 'Add';
 
   deletePhotos = false;
-  addIconDelete = false;
   public windwosWidth = window.innerWidth;
 
   uploadConfig;
@@ -64,17 +59,17 @@ export class EditProductComponent implements OnInit {
   config = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-
       [{list: 'ordered'}, {list: 'bullet'}],
       [{indent: '-1'}, {indent: '+1'}],          // outdent/indent
-
       [{size: ['small', false, 'large', 'huge']}],  // custom dropdown
-
       [{color: []}, {background: []}],          // dropdown with defaults from theme
     ]
   };
 
   imagesTouched = false;
+
+  // wait for the images to upload on AWS, before submitting the form
+  loading = false;
 
   constructor(private http: HttpClient,
               private editProductService: EditProductService,
@@ -128,7 +123,6 @@ export class EditProductComponent implements OnInit {
 
   getProductById(id): void {
     this.editProductService.getById(id).subscribe(data => {
-      console.log(data);
       if (data.quantity <= 0) {
         data.quantity = 0;
       }
@@ -167,27 +161,22 @@ export class EditProductComponent implements OnInit {
           this.msg = '';
           this.url = reader.result;
           this.imageObject.push({image: this.url, thumbImage: this.url});
-          console.log(this.imageObject);
           fileObject.url = this.url;
           this.divideImageObject();
         };
         fileObject.file = file[item];
         files.push(fileObject);
       }
-      console.log(files);
-
-
-      for (const elt of files) {
-        this.uploadConfig = await this.uploadService.signedUrl(this.store, elt.file.type);
-        console.log(this.uploadConfig);
-        console.log('2');
-        await this.uploadService.upload(this.uploadConfig.url, elt.file);
-        console.log('3');
-        this.savedImages[elt.url] = this.uploadConfig.key;
-        this.progressBar += 1;
-        document.getElementById('myCheck').click();
-      }
     }
+    for (const elt of files) {
+      this.uploadConfig = await this.uploadService.signedUrl(this.store, elt.file.type);
+      this.loading = true;
+      document.getElementById('myCheck').click();
+      await this.uploadService.upload(this.uploadConfig.url, elt.file);
+      this.savedImages[elt.url] = this.uploadConfig.key;
+    }
+    this.loading = false;
+    document.getElementById('myCheck').click();
   }
 
   onReviews(event): void {
@@ -210,7 +199,6 @@ export class EditProductComponent implements OnInit {
       if (field !== 'openReview' && field !== 'popular') {
         const control = this.productForm.get(field);
         if (control.value || control.value === 0) {
-          console.log(field, control.value);
           this.postData[field] = control.value;
         } else {
           if (field !== 'imgs' && field !== 'store') {
@@ -220,8 +208,6 @@ export class EditProductComponent implements OnInit {
       }
     }
     this.postData.imgs = this.imagesToUpload;
-
-    // this.productForm.reset();
     this.editProductService.addOne(this.postData).subscribe((data) => {
       this.router.navigate(['dashboard/products']);
     });

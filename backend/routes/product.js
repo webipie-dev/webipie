@@ -18,6 +18,8 @@ router.get('', passportJWT.unless(function(req){
   }
 }), productService.getProducts)
 
+//search through products
+router.get('/search/:searchTerm', productService.getSearch);
 
 //getManyProducts
 router.get('/many', productService.getManyProductById)

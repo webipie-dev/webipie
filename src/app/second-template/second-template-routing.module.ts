@@ -6,6 +6,7 @@ import {HomeSecondTemplateComponent} from './home-second-template/home-second-te
 import {CartSecondTemplateComponent} from './cart-second-template/cart-second-template.component';
 import {CheckoutSecondTemplateComponent} from './checkout-second-template/checkout-second-template.component';
 import {ProductDetailComponent} from './product-detail/product-detail.component';
+import { SearchSecondTemplateComponent } from './search-second-template/search-second-template.component';
 
 
 
@@ -33,6 +34,10 @@ const routes: Routes = [{
     {
       path: 'product-detail/:id',
       component: ProductDetailComponent
+    },
+    {
+      path: 'search/:term',
+      component: SearchSecondTemplateComponent
     }
   ]
 }];

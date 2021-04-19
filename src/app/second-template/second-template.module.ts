@@ -15,6 +15,7 @@ import {SecondTemplateComponent} from './second-template.component';
 import { CheckoutSecondTemplateComponent } from './checkout-second-template/checkout-second-template.component';
 import {SpinnerModule} from '../spinner/spinner.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { SearchSecondTemplateComponent } from './search-second-template/search-second-template.component';
 
 // https://docs.google.com/document/d/18aZNjQb-RWodUCqOi0Yzu2EhecNpA94TJXMs8vrbUMc/edit?usp=sharing
 
@@ -32,6 +33,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
         CartSecondTemplateComponent,
         CheckoutSecondTemplateComponent,
         ProductDetailComponent,
+        // SubHeaderSecondTemplateComponent,
+        SearchSecondTemplateComponent,
+
     ],
     exports: [
       SecondTemplateComponent,

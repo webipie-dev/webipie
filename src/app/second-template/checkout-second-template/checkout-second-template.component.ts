@@ -83,7 +83,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
       this.totalPrice += +data.product.price * data.quantity;
     });
 
-    const postData = new FormData();
+    const postData = {};
     let fullAddress = '';
 
     // tslint:disable-next-line:forin
@@ -95,7 +95,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
       const exclude = new Set(['street', 'city', 'state', 'zipcode']);
       if (!exclude.has(field)) {
         if (control) {
-          postData.append(field, control);
+          postData[field] = control;
         }
       } else {
         if (control) {
@@ -108,8 +108,9 @@ export class CheckoutSecondTemplateComponent implements OnInit {
       }
     }
 
-    postData.append('fullAddress', fullAddress.trim());
-    postData.append('storeId', this.store.id);
+    postData['fullAddress'] = fullAddress.trim();
+    postData['storeId'] = this.store.id;
+    console.log(postData);
 
     this.clientService.addOne(postData).subscribe((data) => {
 
