@@ -68,6 +68,7 @@ jobs:
         npm install
         echo "building project"
         npm run build
+        npm run build --prod --i18n-locale fr --i18n-format xlf --i18n-file src/locale/messages.fr.xlf --output-path=dist/fr --baseHref /fr/
         aws s3 cp dist/savvy "s3://webipie.com" --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
         aws cloudfront create-invalidation --distribution-id E1I2SE2EV9U0ML --paths "/*"
 
