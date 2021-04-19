@@ -275,3 +275,15 @@ li{
   user-select: none;
   transition: 0.3s all ease-in-out;
 }
+.select {
+  background-color: transparent !important;
+  border-radius: 10px;
+  border-color: var(--blue-color);
+  color: var(--blue-color);
+  padding: 3px;
+}
+
+select option {
+  color: var(--blue-color);
+  border-radius: 10px;
+}

@@ -52,16 +52,13 @@
                   </div>
                 </li>
                 <li>
-                  <mbsc-form input-style="box" class="md-localization">
-                    <div>
-                      <div class="mbsc-row">
-                        <mbsc-select [(ngModel)]="english" [options]="englishSettings" [data]="items">
-                          <span class="flag flag-en"></span> English
-                        </mbsc-select>
-
-                      </div>
-                    </div>
-                  </mbsc-form>
+                  <div class="text-center mt-1 mr-5">
+                    <select (change)="onEditClick($event.target)" class="select" name="lang" id="lang">
+                      <option value="en">en</option>
+                      <option value="fr">fr</option>
+                      <option value="ar">ar</option>
+                    </select>
+                  </div>
                 </li>
               </ul>
             </div>
