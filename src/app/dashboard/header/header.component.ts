@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
         const element = document.getElementsByClassName('notification-list')[0];
         console.log(element);
         element.insertAdjacentHTML('afterbegin', '<li style="display: flex; justify-content: flex-end;   display: block; padding: 40px 0 5px 5px;'+
-        'position: relative; text-decoration: none;'+ 
+        'position: relative; text-decoration: none;'+
         ' color: var(--blue-color); transition: 0.3s all ease-in-out;">' +
         '<a routerLink="/dashboard/sales/orders"'+
         'style="text-decoration: none;transition: 0.3s all; color: var(--blue-color);">'+
@@ -69,7 +69,13 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  openDropDown() {
+  onEditClick(target: EventTarget): void {
+    this.router.navigateByUrl('/' + ( target as HTMLInputElement).value + this.router.url).then(() => {
+      window.location.reload();
+    });
+  }
+
+  openDropDown(): void {
     document.getElementById('dropdown-profile').parentElement.classList.toggle('active');
   }
 

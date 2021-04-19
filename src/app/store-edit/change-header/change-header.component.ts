@@ -2,11 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
-import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {Store} from '../../_shared/models/store.model';
 import Swal from 'sweetalert2';
 import {UploadService} from '../../_shared/services/upload.service';
-import {emit} from 'cluster';
 
 declare var $: any;
 
@@ -32,7 +31,7 @@ export class ChangeHeaderComponent implements OnInit {
   store: Store;
   uploadConfig;
   savedImage = '';
-
+  loading = false;
 
   constructor(private storeService: StoreService,
               private uploadService: UploadService,
@@ -68,7 +67,7 @@ export class ChangeHeaderComponent implements OnInit {
 
   // image change
   async onFileChanged(event) {
-
+    this.loading = true;
     const file = event.target.files[0];
     const check = this.uploadService.imageCheckType(file.type);
 
@@ -80,14 +79,10 @@ export class ChangeHeaderComponent implements OnInit {
         this.headerForm.value.img = this.imgSrc;
         this.changeHeader();
         this.uploadConfig = await this.uploadService.signedUrl(this.store, file.type);
-        console.log('2');
         await this.uploadService.upload(this.uploadConfig.url, file);
-        console.log('3');
         this.savedImage = this.uploadConfig.key;
-        console.log(this.savedImage);
       };
     }
-
   }
 
   testChange(): boolean {
@@ -118,29 +113,8 @@ export class ChangeHeaderComponent implements OnInit {
         }
       }
     }
-    console.log(this.postData);
-    this.storeService.edit(this.storeId, this.postData).subscribe(store => {
-      encryptStorage.setItem('store', store);
-      this.initialHeaderForm = this.headerForm;
-
-      this.router.navigateByUrl('/store');
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'bottom-start',
-        showConfirmButton: false,
-        timer: 3500,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
-      });
-
-      Toast.fire({
-        icon: 'success',
-        title: 'Saved successfully'
-      });
-    });
+    this.storeService.onSubmit(this.storeId, this.postData);
+    this.initialHeaderForm = this.headerForm;
   }
 
   // in case the user changed values and didn't click on save
