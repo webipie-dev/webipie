@@ -68,6 +68,6 @@ jobs:
         npm install
         echo "building project"
         npm run build
-        aws s3 cp dist/** "s3://webipie.com" --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+        aws s3 cp dist "s3://webipie.com" --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
         aws cloudfront create-invalidation --distribution-id E1I2SE2EV9U0ML --paths "/*"
 
