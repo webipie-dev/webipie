@@ -48,7 +48,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onEditClick(target: EventTarget): void {
-    console.log(( target as HTMLInputElement).value);
     this.router.navigateByUrl('/' + ( target as HTMLInputElement).value).then(() => {
       window.location.reload();
     });
