@@ -57,7 +57,7 @@ resource "aws_cloudfront_distribution" "this" {
   comment             = "Managed by Terraform"
   default_root_object = "index.html"
 
-  aliases = [aws_s3_bucket.this.bucket, "www.${var.website_domain_name}"]
+  aliases = [aws_s3_bucket.this.bucket, "www.${var.website_domain_name}", "*.${var.website_domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
