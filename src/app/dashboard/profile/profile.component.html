@@ -8,7 +8,7 @@
       vitae voluptatibus.
     </div>
   </div>
-  <div class="mt-5" [ngClass]="{'d-flex' : windwosWidth > 991}">
+  <div class="mt-5" [ngClass]="{'d-flex' : windowsWidth > 991}">
     <div class="col-lg-6 col-12">
       <div class="margin-top width mx-auto mb-5">
         <div class="border-shadow px-5 py-5 white-background card-profile">
@@ -50,41 +50,6 @@
                      type="email" class="input"
                      placeholder="Hackover@gmail.com">
             </div>
-          </div>
-          <div class="row my-5">
-            <div class="col-md-3 col-12 mb-3">
-              <label class="text-size">Store Name</label>
-            </div>
-            <div class="col-md-9 col-12">
-              <div *ngIf="storeProf.invalid && (storeProf.dirty || storeProf.touched)"
-                   class="alert alert-danger">
-
-                <div *ngIf="storeProf.errors.required">
-                  Store Name is required.
-                </div>
-              </div>
-              <input [(ngModel)]="storeName" name="storeProf"
-                     #storeProf="ngModel" required
-                     type="text" class="input" placeholder="Hackover">
-            </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col-md-3 col-12 mb-3">
-              <label class="text-size">Store Logo</label>
-            </div>
-            <div class="col-md-9 col-12">
-              <input
-                (change)="uploadLogo($event)"
-                id="hiddenLogoInput"
-                accept="image/jpg,image/jpeg,image/png,image/tiff,image/tif,image/bmp"
-                class="form-control fileInput" style="display: none"
-                name="imgs" type="file"/>
-              <img src="" alt="">
-              <button (click)="clickAddPhotos()" class="upload-icon border-none shadow-none text-size mx-auto d-flex px-4 py-1">
-                <i class="fas fa-cloud-upload-alt fa-2x mr-4"></i>
-                <p class="mt-2" style="font-size: 13px"> Upload new logo</p>
-              </button>
-            </div>
             <button
               class="upload-icon border-none shadow-none text-size mx-auto d-flex  mt-5 px-4 py-1"
               [disabled]="!checked"
@@ -92,7 +57,6 @@
               type="submit">Submit</button>
           </div>
         </div>
-        <div class="password-info"></div>
       </div>
 
     </div>
@@ -136,6 +100,67 @@
           </div>
         </div>
         <div class="password-info"></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="mt-5" [ngClass]="{'d-flex' : windowsWidth > 991}">
+    <div class="col-lg-12 col-12">
+      <div class="margin-top width mx-auto mb-5">
+        <div class="border-shadow px-5 py-5 white-background card-profile">
+          <h3 class="big-titles mb-5">Profile infos</h3>
+          <div class="row my-5">
+            <div class="col-md-3 col-12 mb-3">
+              <label class="text-size">Store Name</label>
+            </div>
+            <div class="col-md-9 col-12">
+              <div *ngIf="storeProf.invalid && (storeProf.dirty || storeProf.touched)"
+                   class="alert alert-danger">
+
+                <div *ngIf="storeProf.errors.required">
+                  Store Name is required.
+                </div>
+              </div>
+              <input [(ngModel)]="storeName" name="storeProf"
+                     #storeProf="ngModel" required
+                     type="text" class="input" placeholder="Store Name">
+            </div>
+            <button
+              class="upload-icon border-none shadow-none text-size mx-auto d-flex  mt-5 px-4 py-1"
+              [disabled]="(prevName === storeName)"
+              (click)="onChangeName()"
+              type="submit">Submit</button>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-3 col-12 mb-3">
+              <label class="text-size">Store Logo</label>
+            </div>
+            <div class="col-md-9 col-12 ">
+              <input
+                id="hiddenImageInput"
+                accept="image/png"
+                class="form-control fileInput" style="display: none"
+                name="img"
+                type="file"
+                (input)="onFileChanged($event)"
+              >
+              <div class="img-fluid img-product">
+                <img alt="" class="image" [src]="imgSrc">
+              </div>
+              <button class="upload-icon border-none shadow-none text-size mx-auto d-flex px-4 py-1" (click)="clickAddPhotos();">
+                <i class="fas fa-cloud-upload-alt fa-2x mr-4"></i>
+                <p class="mt-2" style="font-size: 13px"> Upload new logo</p>
+              </button>
+              <div class="row my-4 mx-auto">
+                <button
+                  class="upload-icon border-none shadow-none text-size mx-auto d-flex px-4 py-1"
+                  [disabled]="submitLogo"
+                  (click)="onSubmit()"
+                  type="submit">Change logo</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
