@@ -2,6 +2,13 @@ const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 const mongoose = require('mongoose');
+const {
+  mongoURL,
+  port: appPort,
+  httpProtocol,
+  clientHostname,
+  clientPort
+} = require("./configuration");
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
@@ -39,7 +46,7 @@ const onError = error => {
 };
 
 // change the db
-mongoose.connect('mongodb+srv://ostuser:ostuser@cluster0.mrzjp.mongodb.net/OSTteam?retryWrites=true&w=majority', {
+mongoose.connect(`mongodb+srv://${mongoURL}/OSTteam?retryWrites=true&w=majority`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -57,13 +64,13 @@ const onListening = () => {
   debug("Listening on " + bind);
 };
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(process.env.PORT || appPort);
 app.set("port", port);
 
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
   cors: {
-    origin: "http://webipie.com:4200",
+    origin: `${httpProtocol}://${clientHostname}:${clientPort}`,
     methods: ["GET", "POST"]
   }
 });
