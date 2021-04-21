@@ -51,6 +51,15 @@
                     <a (click)='logOut()' class="button-generic button-border-white small-titles py-2 ">Logout</a>
                   </div>
                 </li>
+                <li>
+                  <div class="text-center mt-1 mr-5">
+                    <select (change)="onEditClick($event.target)" class="select" name="lang" id="lang">
+                      <option value="en">en</option>
+                      <option value="fr">fr</option>
+                      <option value="ar">ar</option>
+                    </select>
+                  </div>
+                </li>
               </ul>
             </div>
           </nav>

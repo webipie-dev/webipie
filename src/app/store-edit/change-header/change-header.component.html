@@ -10,7 +10,6 @@
         <a class="nav-link-sidebar mt-1 big-titles">
           <i class="fas fa-heading mr-3"></i> Header
         </a>
-        <p class="text-center">Lorem ipsum dolor sit amet!</p>
         <div>
           <div class="my-3">
             <label class="d-block label-input-edit">Big Title</label>
@@ -81,7 +80,7 @@
       </li>
     </ul>
     <div class="text-center my-5">
-      <button class="button-generic button-black text-size mr-2" [disabled]="testChange()"
+      <button  id="myCheck" class="button-generic button-black text-size mr-2" [disabled]="testChange()"
               (click)="onSubmit()">Save</button>
       <button class="button-generic button-black text-size" [disabled]="testChange()" (click)="resetHeader()">Reset</button>
     </div>

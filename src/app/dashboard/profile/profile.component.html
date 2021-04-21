@@ -73,7 +73,14 @@
               <label class="text-size">Store Logo</label>
             </div>
             <div class="col-md-9 col-12">
-              <button class="upload-icon border-none shadow-none text-size mx-auto d-flex px-4 py-1">
+              <input
+                (change)="uploadLogo($event)"
+                id="hiddenLogoInput"
+                accept="image/jpg,image/jpeg,image/png,image/tiff,image/tif,image/bmp"
+                class="form-control fileInput" style="display: none"
+                name="imgs" type="file"/>
+              <img src="" alt="">
+              <button (click)="clickAddPhotos()" class="upload-icon border-none shadow-none text-size mx-auto d-flex px-4 py-1">
                 <i class="fas fa-cloud-upload-alt fa-2x mr-4"></i>
                 <p class="mt-2" style="font-size: 13px"> Upload new logo</p>
               </button>
@@ -121,10 +128,10 @@
             </div>
           </div>
           <div class="row my-4 mx-auto">
-            <button  
+            <button
               class="upload-icon border-none shadow-none text-size mx-auto d-flex px-4 py-1"
               [disabled]="!checked"
-              (click)="changePwd()" 
+              (click)="changePwd()"
               type="submit">Submit new password</button>
           </div>
         </div>

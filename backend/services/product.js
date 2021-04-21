@@ -3,12 +3,7 @@ const Store = require('../models/store');
 const ApiError = require("../errors/api-error");
 
 
-exports.getProducts = async (req, res, next) => {
-  // I THINK PRODUCTS NEED TO BE INDEXED BY STORE ID
-  // We need to check if the store id connected is the same store is provided in the requireAuth
-
-  // add the storeid to the query
-  // req.query.store = req.params.store;
+const getProducts = async (req, res, next) => {
   if(!req.query.store){
     return next(ApiError.BadRequest('you have to pass the storeID'));
   }
@@ -22,8 +17,30 @@ exports.getProducts = async (req, res, next) => {
   res.status(200).send(products);
 };
 
+const getSearch = async (req, res, next) => {
+  const store = req.query.store;
+  const searchTerm = req.params.searchTerm;
 
-exports.getOneProduct = async (req, res, next) => {
+  if(!store){
+    return next(ApiError.BadRequest('you have to pass the storeID'));
+  }
+
+  const products = await Product.find({
+    store, 
+    $or:[
+      {name: { "$regex": searchTerm.toLowerCase(), "$options": "i" }}, 
+      {description: { "$regex": searchTerm.toLowerCase(), "$options": "i" }}
+    ]
+  })
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
+  res.status(200).send(products);
+};
+
+
+const getOneProduct = async (req, res, next) => {
   //get product id
   const { id } = req.params;
 
@@ -35,9 +52,8 @@ exports.getOneProduct = async (req, res, next) => {
 
 };
 
-exports.getManyProductById = async (req, res, next) => {
+const getManyProductById = async (req, res, next) => {
   let { ids } = req.query
-  // console.log(req.query)
   ids = JSON.parse(ids)
   for(var property in ids[0]) {
     // console.log(property + "=" + ids[0][property]);
@@ -57,21 +73,9 @@ exports.getManyProductById = async (req, res, next) => {
 }
 
 
-exports.addProduct = async (req, res, next) => {
-  const url = req.protocol + '://' +req.get('host');
-  let images = [];
-  //check if there are any images uploaded
-  if (req.files)
-  {
-    req.files.map(fileimg => {
-      images.push(url + '/backend/images/' + fileimg.filename)
-    });
-  }
-  else {
-    console.log('no files uploaded')
-  }
+const addProduct = async (req, res, next) => {
+  let { name, description, price, quantity, imgs, status, popular, openReview, storeId } = req.body
 
-  let { name, description, price, quantity, status, popular, openReview, storeId } = req.body
   const store = await Store.findById(storeId)
 
   if (!store) {
@@ -82,11 +86,10 @@ exports.addProduct = async (req, res, next) => {
   // convert the values from strings to booleans
   openReview = openReview === 'true';
   popular = popular === 'true';
-
   const product = new Product({
     name,
     description,
-    imgs: images,
+    imgs,
     price,
     quantity,
     status,
@@ -100,7 +103,8 @@ exports.addProduct = async (req, res, next) => {
 
 };
 
-exports.editOneProduct = async (req, res, next) => {
+const editOneProduct = async (req, res, next) => {
+
   // separating the id
   const { id } = req.params;
   const product = await Product.findById(id)
@@ -112,29 +116,18 @@ exports.editOneProduct = async (req, res, next) => {
     next(ApiError.NotFound('Product Not Found'));
     return;
   }
-  const deletedImages = JSON.parse(req.body.deletedImages)
+
+  const { imgs , deletedImages } = req.body;
+
 
   //separating the updates
   const edits = {};
   for(let key in req.body) {
-      if(key !== 'id'){
+      if(key !== 'imgs' && key !== 'deletedImages'){
         edits[key] = req.body[key];
       }
   }
 
-  // adding the images
-  const url = req.protocol + '://' +req.get('host');
-  let images = [];
-  if(req.files){
-    if (req.files.length === 0){
-      console.log('No images uploaded')
-    }
-    req.files.map(fileimg => {
-      images.push(url + '/backend/images/' + fileimg.filename)
-    });
-  } else {
-    console.log("no files uploaded")
-  }
 
   let bulkQueries = [];
     await bulkQueries.push({
@@ -146,7 +139,7 @@ exports.editOneProduct = async (req, res, next) => {
    await bulkQueries.push({
       updateOne: {
         "filter": { _id: id},
-        "update": { $addToSet: {imgs: {$each: images} } }
+        "update": { $addToSet: {imgs: {$each: imgs} } }
       }
     })
   await bulkQueries.push({
@@ -156,26 +149,23 @@ exports.editOneProduct = async (req, res, next) => {
     }
   })
 
-
   const productEdited = await Product.bulkWrite(bulkQueries, {ordered: false})
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
 
-  if (productEdited){
-    if (productEdited.nModified === 0) {
-      next(ApiError.NotFound('No Products modified'));
-      return;
-    }
-  }
+  // set status to out of stock
+  await Product.updateMany({quantity: {$lte: 0}}, {status: 'out of stock'})
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
 
   res.status(200).send(productEdited);
 };
 
 
-exports.addReview = async (req,res,next) => {
+const addReview = async (req,res,next) => {
   const {id} = req.params;
-  console.log(req.body)
 
   const { name, email, review, rating} = req.body;
 
@@ -199,10 +189,15 @@ exports.addReview = async (req,res,next) => {
     }
   }
 
-  res.status(200).send(productUpdate);
+   // send notification
+   const io = req.app.get('socketio');
+   io.emit('new review', productUpdate);
+
+  res.status(200).send(review);
+
 };
 
-exports.deleteImage = async (req, res, next) => {
+const deleteImage = async (req, res, next) => {
   const { id } = req.params;
   const { url } = req.body
 
@@ -229,7 +224,7 @@ exports.deleteImage = async (req, res, next) => {
 }
 
 
-exports.deleteManyProducts = async (req, res, next) => {
+const deleteManyProducts = async (req, res, next) => {
   //get products ids
   const { ids } = req.body;
 
@@ -251,7 +246,7 @@ exports.deleteManyProducts = async (req, res, next) => {
   res.status(200).send(deletedProducts);
 };
 
-exports.deleteAllProducts = async (req, res, next) => {
+const deleteAllProducts = async (req, res, next) => {
 
   const deletedProducts = await Product.deleteMany({})
     .catch((err) => {
@@ -301,10 +296,17 @@ filterProducts = (req => {
   return query;
 });
 
-// function renameKey ( obj, old_key, new_key ) {
-//   if (old_key !== new_key) {
-//     Object.defineProperty(obj, new_key,
-//         Object.getOwnPropertyDescriptor(obj, old_key));
-//     delete o[old_key];
-//   }
-// }
+
+
+module.exports = {
+  getProducts,
+  getOneProduct,
+  getManyProductById,
+  addProduct,
+  addReview,
+  editOneProduct,
+  deleteAllProducts,
+  deleteImage,
+  deleteManyProducts,
+  getSearch
+};

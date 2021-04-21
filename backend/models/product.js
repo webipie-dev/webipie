@@ -10,13 +10,14 @@ const review = new Schema({
   date: {type: Date, default: Date.now()},
 });
 
+
 const productSchema = mongoose.Schema({
   name: {type: String, required: false, default: ''},
   description: {type: String, required: false, default: ''},
   imgs: {type: [String], required: false, default: ''},
   price: {type: Number, required: false, default: 0},
   quantity: {type: Number, required: false, default: 0, min: 0},
-  status: {type: String, required: false, default: ''},
+  status: {type: String, required: false, default: 'disponible'},
   popular: {type: Boolean, required: false, default: false},
   openReview: {type: Boolean, required: false, default: true},
   reviews: [review],

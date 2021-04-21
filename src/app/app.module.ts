@@ -1,3 +1,4 @@
+import { MbscModule } from '@mobiscroll/angular';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA, Injector, APP_INITIALIZER} from '@angular/core';
@@ -20,7 +21,6 @@ import {QuillModule} from 'ngx-quill';
 import {SecondTemplateModule} from './second-template/second-template.module';
 import {SpinnerModule} from './spinner/spinner.module';
 import {CommonModule} from '@angular/common';
-import { ErrorsComponent } from './errors/errors.component';
 import {ErrorInterceptor} from './error-interceptor';
 import { SidebarModule } from 'ng-sidebar';
 import {StoreService} from './_shared/services/store.service';
@@ -33,9 +33,9 @@ export let InjectorInstance: Injector;
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    ErrorsComponent,
   ],
-  imports: [
+  imports: [ 
+    MbscModule, 
     BrowserModule,
     CommonModule,
     BrowserAnimationsModule,

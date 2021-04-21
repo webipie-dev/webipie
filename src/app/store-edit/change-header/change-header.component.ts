@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
-import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {Store} from '../../_shared/models/store.model';
 import Swal from 'sweetalert2';
+import {UploadService} from '../../_shared/services/upload.service';
 
 declare var $: any;
 
@@ -18,11 +19,22 @@ export class ChangeHeaderComponent implements OnInit {
   storeId: string;
   headerForm: FormGroup;
   initialHeaderForm: FormGroup;
-  postData = new FormData();
+  postData = {
+      'template.header': {
+        img: '',
+        title: '',
+        description: '',
+        mainButton: ''
+      }
+  };
   imgSrc = encryptStorage.getItem('store').template.header.img;
   store: Store;
+  uploadConfig;
+  savedImage = '';
+  loading = false;
 
   constructor(private storeService: StoreService,
+              private uploadService: UploadService,
               private router: Router) {}
 
   ngOnInit(): void {
@@ -54,16 +66,23 @@ export class ChangeHeaderComponent implements OnInit {
   }
 
   // image change
-  onFileChanged(event): void {
+  async onFileChanged(event) {
+    this.loading = true;
     const file = event.target.files[0];
-    this.postData.append('img', file, file.name);
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (events) => {
-      this.imgSrc = reader.result.toString();
-      this.headerForm.value.img = this.imgSrc;
-      this.changeHeader();
-    };
+    const check = this.uploadService.imageCheckType(file.type);
+
+    if (check) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async (events) => {
+        this.imgSrc = reader.result.toString();
+        this.headerForm.value.img = this.imgSrc;
+        this.changeHeader();
+        this.uploadConfig = await this.uploadService.signedUrl(this.store, file.type);
+        await this.uploadService.upload(this.uploadConfig.url, file);
+        this.savedImage = this.uploadConfig.key;
+      };
+    }
   }
 
   testChange(): boolean {
@@ -80,38 +99,22 @@ export class ChangeHeaderComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.savedImage !== '') {
+      this.postData['template.header'].img = 'https://webipie-images.s3.eu-west-3.amazonaws.com/' + this.savedImage;
+    }else {
+      this.postData['template.header'].img = this.headerForm.get('img').value;
+    }
+
     for (const field in this.headerForm.controls) {
-      if (field !== 'img') {
-        const control = this.headerForm.get(field);
+      const control = this.headerForm.get(field);
+      if (field !== 'img' ) {
         if (control.value) {
-          const head = 'template.header.' + field;
-          this.postData.append(head, control.value);
+          this.postData['template.header'][field] = control.value;
         }
       }
     }
-    this.postData.append('ids', this.storeId);
-    this.storeService.edit(this.storeId, this.postData).subscribe(store => {
-      encryptStorage.setItem('store', store);
-      this.initialHeaderForm = this.headerForm;
-
-      this.router.navigateByUrl('/store');
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'bottom-start',
-        showConfirmButton: false,
-        timer: 3500,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
-      });
-
-      Toast.fire({
-        icon: 'success',
-        title: 'Saved successfully'
-      });
-    });
+    this.storeService.onSubmit(this.storeId, this.postData);
+    this.initialHeaderForm = this.headerForm;
   }
 
   // in case the user changed values and didn't click on save

@@ -23,8 +23,8 @@ import {NgImageSliderModule} from 'ng-image-slider';
 import {ProfileComponent} from './profile/profile.component';
 import {AuthGuard} from '../_shared/services/auth-guard.service';
 import {HeaderComponent} from './header/header.component';
-import {SpinnerModule} from "../spinner/spinner.module";
-import {SidebarModule} from "ng-sidebar";
+import {SpinnerModule} from '../spinner/spinner.module';
+import {SidebarModule} from 'ng-sidebar';
 import { SideNavMinimizedComponent } from './side-nav-minimized/side-nav-minimized.component';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 import {IndexModule} from '../index/index.module';
@@ -45,28 +45,31 @@ import {IndexModule} from '../index/index.module';
         SidebarModule,
         IndexModule,
     ],
-  declarations: [
-    DashboardComponent,
-    SideNavComponent,
-    SalesComponent,
-    SocialMediaComponent,
-    OrdersComponent,
-    MobileAppPageComponent,
-    EditProductComponent,
-    ClientsComponent,
-    ProductsComponent,
-    ProductDetailComponent,
-    OrderDetailComponent,
-    ClientDetailComponent,
-    StatisticsComponent,
-    ProfileComponent,
-    HeaderComponent,
-    SideNavMinimizedComponent,
-    DashboardHomeComponent
-  ],
-  providers: [
-    AuthGuard,
-  ]
+    declarations: [
+        DashboardComponent,
+        SideNavComponent,
+        SalesComponent,
+        SocialMediaComponent,
+        OrdersComponent,
+        MobileAppPageComponent,
+        EditProductComponent,
+        ClientsComponent,
+        ProductsComponent,
+        ProductDetailComponent,
+        OrderDetailComponent,
+        ClientDetailComponent,
+        StatisticsComponent,
+        ProfileComponent,
+        HeaderComponent,
+        SideNavMinimizedComponent,
+        DashboardHomeComponent
+    ],
+    exports: [
+        HeaderComponent
+    ],
+    providers: [
+        AuthGuard,
+    ]
 })
 export class DashboardModule {
 }

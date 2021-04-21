@@ -9,7 +9,6 @@ const path = require('path')
 
 const app = express();
 
-
 const productsRoutes = require('./routes/product');
 const clientRoutes = require('./routes/client');
 const orderRoutes = require('./routes/order');
@@ -17,6 +16,8 @@ const storeRoutes = require('./routes/store')
 const templateRoutes = require('./routes/template')
 const storeOwnerRoutes = require('./routes/storeOwner');
 const healthcheckRoutes = require('./routes/healthCheck');
+const uploadRoutes = require('./routes/upload');
+
 
 const errorHandler = require('./middlewares/error-handler')
 const ApiError = require("./errors/api-error");
@@ -58,7 +59,9 @@ app
   .use('/order', orderRoutes)
   .use('/store', storeRoutes)
   .use('/template',templateRoutes)
-  .use('/health_check', healthcheckRoutes);
+  .use('/health_check', healthcheckRoutes)
+  .use('/upload',uploadRoutes);
+
 
 app.all('*', async (req, res, next) => {
   next(ApiError.NotFound('Route Not Found'))

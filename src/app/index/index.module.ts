@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FooterComponent} from './footer/footer.component';
 import {HeaderComponent} from './header/header.component';
 import {AfterSigninComponent} from './after-signin/after-signin.component';
 import {PricingComponent} from './pricing/pricing.component';
@@ -16,13 +15,13 @@ import {IndexRoutingModule} from './index-routing.module';
 import { LoadingSpinnerComponent } from '../_shared/loading-spinner/loading-spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MbscModule } from '@mobiscroll/angular';
 
 
 
 @NgModule({
     declarations: [
         IndexComponent,
-        FooterComponent,
         HeaderComponent,
         AfterSigninComponent,
         PricingComponent,
@@ -40,7 +39,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         SpinnerModule,
         HttpClientModule,
         IndexRoutingModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        MbscModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [

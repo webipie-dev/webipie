@@ -33,6 +33,7 @@ export class ProductDetailComponent implements OnInit {
               private externalFilesService: ExternalFilesService) { }
 
   ngOnInit(): void {
+
     this.store = encryptStorage.getItem('store');
     window.addEventListener('message', event => {
       if (event.origin.startsWith('http://webipie.com:4200')) {
@@ -67,14 +68,14 @@ export class ProductDetailComponent implements OnInit {
 
   counter(i: number): Array<number> {
     if ( i <= 0) {
-      this.addDisabled = true;
+      // this.addDisabled = true;
       this.outOfStock = true;
       return [];
     }
     const count =  [];
-    for(let j = 1; count.push(j++) < i;);
+    for (let j = 1; count.push(j++) < i;) {}
     return count;
-}
+  }
 
   sendReview(): void{
     this.productService.addReview(this.product.id, this.review).subscribe(data => {
