@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 
 const config = require('../configuration');
 const {StoreOwner} = require('../models/storeOwner');
-
+const ApiError = require("../errors/api-error");
 
 // JSON WEB TOKENS STRATEGY
 passport.use(new JwtStrategy({
@@ -24,6 +24,11 @@ passport.use(new JwtStrategy({
       // If storeOwner doesn't exists, handle it
       if (!storeOwner) {
         return done(null, false);
+      }
+
+      // If storeOwner's email is not verified it, return error
+      if(storeOwner.methods.includes("local") && storeOwner.local.verified == false){
+        return done(ApiError.Forbidden('email must be verified!'), false);
       }
 
       // Otherwise, return the storeOwner

@@ -28,6 +28,10 @@ export class AuthService {
     return this.http.post(this.getUrl() + '/storeOwner/oauth/facebook', {access_token: credentials});
   }
 
+  resendLink(token){
+    return this.http.post(this.getUrl() + '/storeOwner/confirmation/resend/' + token, null);
+  }
+
   loginWithGoogle(credentials){
     // text/plain
     let httpOptions: any;

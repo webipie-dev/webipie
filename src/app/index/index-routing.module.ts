@@ -5,6 +5,7 @@ import {TemplatesPageComponent} from "./templates-page/templates-page.component"
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {AfterSigninComponent} from "./after-signin/after-signin.component";
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'signin',
     component: SignInComponent
+  },
+  {
+    path: 'confirmation',
+    component: ConfirmationComponent
   },
   {
     path: 'after-signin',

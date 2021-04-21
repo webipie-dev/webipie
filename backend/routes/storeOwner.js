@@ -19,6 +19,12 @@ router.route('/signup')
 router.route('/signin')
     .post(passportSignIn, storeOwnerService.signIn);
 
+router.route('/confirmation/:token')
+    .post(storeOwnerService.confirmEmail);
+
+router.route('/confirmation/resend/:token')
+    .post(storeOwnerService.resend);
+
 router.route('/oauth/google')
     .post(passport.authenticate('googleToken', { session: false }), storeOwnerService.googleOAuth);
 

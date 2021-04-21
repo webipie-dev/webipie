@@ -5,6 +5,7 @@ import {Product} from '../../_shared/models/product.model';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import { ProductService } from '../../_shared/services/product.service';
 import { ConsoleLogger } from '@angular/compiler-cli/src/ngtsc/logging';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class HeaderSecondTemplateComponent implements OnInit {
 
   constructor(private el: ElementRef,
               private storeService: StoreService,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class HeaderSecondTemplateComponent implements OnInit {
 
 
   search(): void{
-    this.productService.search({store: this.store.id}, this.searchTerm).subscribe(data => console.log(data));
+    this.router.navigate(['search', this.searchTerm]);
   }
   
   scrollToTop() {
