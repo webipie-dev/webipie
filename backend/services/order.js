@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 const smtpTransport = require('nodemailer-smtp-transport');
 const config = require('../configuration/index');
 const { StoreOwner } = require('../models/storeOwner');
+const { sendSMS } = require('./sms')
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport(smtpTransport({
@@ -82,7 +83,7 @@ const addOrder = async (req, res, next) => {
 
   });
   await order.save();
-  sendSMS(client.phoneNumber, 
+  sendSMS('+216' + client.phoneNumber,
     `Client: ${client.firstname} ${client.lastname}\n` +
     `Store: ${store.name}/${store.url}\n` +
     `Price: ${totalPrice}`
