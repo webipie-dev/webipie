@@ -54,18 +54,33 @@ export class SignInComponent implements OnInit {
         // redirect to dashboard in case of storeID
         if (result['storeId']){
           localStorage.setItem('storeID', encryptLocalStorage.encryptString(result['storeId']));
-          this.router.navigate([returnUrl || 'dashboard']);
+          if (result['verified'] === false){
+            this.router.navigate(['confirmation']);
+          }
+          else{
+            this.router.navigate([returnUrl || 'dashboard']);
+          }
         }
         // create store and redirect to dashboard
         else if (templateId && storeName && storeType){
           this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
             localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
           });
-          this.router.navigate(['dashboard']);
+          if (result['verified'] === false){
+            this.router.navigate(['confirmation']);
+          }
+          else{
+            this.router.navigate(['dashboard']);
+          }
         }
         // redirect to templates
         else{
-          this.router.navigate(['templates']);
+          if (result['verified'] === false){
+            this.router.navigate(['confirmation']);
+          }
+          else{
+            this.router.navigate(['templates']);
+          }
         }
 
         // spinner

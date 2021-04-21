@@ -2,7 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
-const { string } = require('joi');
+const { string, boolean } = require('joi');
 
 const storeOwnerSchema = new Schema({
   methods: {
@@ -21,6 +21,10 @@ const storeOwnerSchema = new Schema({
     },
     password: {
       type: String, default: ''
+    },
+    verified: {
+      type: Boolean,
+      default: false
     }
   },
   google: {

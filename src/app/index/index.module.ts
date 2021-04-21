@@ -15,6 +15,7 @@ import {IndexRoutingModule} from './index-routing.module';
 import { LoadingSpinnerComponent } from '../_shared/loading-spinner/loading-spinner.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 
@@ -28,6 +29,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         SignUpComponent,
         TemplatesPageComponent,
         LoadingSpinnerComponent,
+        ConfirmationComponent,
     ],
     imports: [
         CommonModule,

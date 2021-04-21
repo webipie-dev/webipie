@@ -17,7 +17,7 @@ const routes: Routes = [{
     {
       path: '',
       component: HomeSecondTemplateComponent,
-      // pathMatch: 'full',
+      pathMatch: 'full',
     },
     {
       path: 'products',
@@ -37,7 +37,7 @@ const routes: Routes = [{
     },
     {
       path: 'search/:term',
-      component: SearchSecondTemplateComponent
+      component: SearchSecondTemplateComponent,
     }
   ]
 }];
