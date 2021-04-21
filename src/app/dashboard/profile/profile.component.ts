@@ -4,6 +4,9 @@ import { AuthService } from '../../_shared/services/auth.service';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import {UploadService} from '../../_shared/services/upload.service';
+import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {Store} from '../../_shared/models/store.model';
+import {StoreService} from '../../_shared/services/store.service';
 
 
 @Component({
@@ -13,7 +16,7 @@ import {UploadService} from '../../_shared/services/upload.service';
 })
 export class ProfileComponent implements OnInit {
 
-  public windwosWidth = window.innerWidth;
+  public windowsWidth = window.innerWidth;
   oldPassword: string;
   newPassword: string;
   checked: boolean;
@@ -22,17 +25,45 @@ export class ProfileComponent implements OnInit {
   email = '';
   name = '';
   storeName = '';
+  prevName = '';
+  storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
+  store: Store;
+  imgSrc = '';
+  uploadConfig;
+  savedImage = '';
+  submitLogo = false;
 
-  constructor(private authService: AuthService) { }
+
+
+  constructor(private authService: AuthService,
+              private uploadService: UploadService,
+              private storeService: StoreService) { }
 
 
   ngOnInit(): void {
     this.checked = false;
     this.validation = false;
+
+    if (encryptStorage.getItem('store')) {
+      this.imgSrc = encryptStorage.getItem('store').logo;
+      this.store = encryptStorage.getItem('store');
+      this.storeName = this.store.name;
+      this.prevName = this.store.name;
+
+    } else {
+      this.storeService.getById(this.storeId).subscribe( store => {
+        this.store = store;
+        encryptStorage.setItem('store', this.store);
+        this.imgSrc = store.logo;
+        this.storeName = this.store.name;
+        this.prevName = this.store.name;
+      });
+    }
+
   }
 
   validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
   validatePwd(event: any): void{
@@ -83,14 +114,64 @@ export class ProfileComponent implements OnInit {
 
 
   @HostListener('window:resize') windwosResize(): void {
-    this.windwosWidth = window.innerWidth;
-  }
-
-  uploadLogo($event: Event): void {
-    console.log('i got here');
+    this.windowsWidth = window.innerWidth;
   }
 
   clickAddPhotos(): void {
-    document.getElementById('hiddenLogoInput').click();
+    document.getElementById('hiddenImageInput').click();
+  }
+
+
+  onFileChanged(event): void {
+    const file = event.target.files[0];
+    const check = this.uploadService.imageCheckType(file.type);
+
+    if (check) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async (events) => {
+        this.imgSrc = reader.result.toString();
+        console.log(this.store);
+        this.uploadConfig = await this.uploadService.signedUrl(this.store, file.type);
+        await this.uploadService.upload(this.uploadConfig.url, file);
+        this.savedImage = this.uploadConfig.key;
+      };
+    }
+  }
+
+  onChangeName(): void{
+    this.prevName = this.storeName;
+    this.storeService.edit(this.store.id, {name: this.storeName}).subscribe(data => {
+      console.log(data);
+      this.store.name = this.storeName;
+      encryptStorage.setItem('store', this.store);
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: 'Store name has been changed',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    });
+  }
+
+
+  onSubmit(): void {
+    this.submitLogo = true;
+    if (this.savedImage !== '') {
+      const logo = 'https://webipie-images.s3.eu-west-3.amazonaws.com/' + this.savedImage;
+      this.storeService.edit(this.store.id, {logo}).subscribe(data => {
+        console.log(data);
+        this.store.logo = logo;
+        encryptStorage.setItem('store', this.store);
+        Swal.fire({
+          position: 'top',
+          icon: 'success',
+          title: 'Your Logo has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
+    }
   }
 }
