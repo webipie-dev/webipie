@@ -26,6 +26,7 @@ data "aws_iam_policy_document" "website_policy" {
 resource "aws_s3_bucket" "this" {
   bucket = var.website_bucket_name
   acl    = "public-read"
+  force_destroy = true
 
   cors_rule {
     allowed_headers = ["*"]
@@ -56,7 +57,7 @@ resource "aws_cloudfront_distribution" "this" {
   comment             = "Managed by Terraform"
   default_root_object = "index.html"
 
-  aliases = [aws_s3_bucket.this.bucket]
+  aliases = [aws_s3_bucket.this.bucket, "www.${var.website_domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -121,8 +122,20 @@ resource "aws_route53_record" "website-a-record" {
   }
 }
 
+resource "aws_route53_record" "website-a-record-www" {
+  zone_id = var.zone_id
+  name    = "www.${var.website_domain_name}"
+  type    = "A"
+  alias {
+    name                   = aws_cloudfront_distribution.this.domain_name
+    zone_id                = aws_cloudfront_distribution.this.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
 resource "aws_acm_certificate" "this" {
   domain_name       = var.website_domain_name
+  subject_alternative_names = ["*.${var.website_domain_name}"]
   validation_method = "DNS"
   provider          = aws.virginia
   tags              = local.tags
