@@ -53,10 +53,10 @@
                 </li>
                 <li>
                   <div class="text-center mt-1 mr-5">
-                    <select name="language" id="language">
-                      <option value="ar" style="background-image: url('../../../assets/images/tinified/tunisia.png')"><a href=""><img src="../../../assets/images/tinified/tunisia.png"></a></option>
-                      <option value="fr"><a href="\"><img src="src/assets/images/tinified/france.png" alt="v"></a></option>
-                      <option value="en"><a href="\"><img src="src/assets/images/tinified/united-states.png" alt="v"></a></option>
+                    <select (change)="onEditClick($event.target)" class="select" name="lang" id="lang">
+                      <option value="en">en</option>
+                      <option value="fr">fr</option>
+                      <option value="ar">ar</option>
                     </select>
                   </div>
                 </li>

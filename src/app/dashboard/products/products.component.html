@@ -1,17 +1,17 @@
 <div>
   <div id="sidebar-next">
     <div class="big-titles my-3 text-center">Enjoy the flexibility in customizing your products</div>
-    <div class="text-size mb-3 text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+    <div class="text-size mb-3 text-center container">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
       alias aliquam delectus dolorum eligendi esse est fugiat id libero minima non optio possimus quaerat quo
       recusandae rerum unde, vitae voluptatibus.
     </div>
-    <div class="container row mt-5">
-      <div class="col-md-6">
+    <div class="px-2 row mt-5">
+      <div class="col-md-6 col-6">
         <a class="ml-5 button-generic py-2 button-edit mr-2 text-size" routerLink="../product-add">
           <i class="fa fa-plus-circle" id="edit-icon"></i>
           Add</a>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-6">
         <button (click)="onDeleteMany()" [disabled]="!showDeleteManyButton" [ngClass]="{'delete-many-disabled':!showDeleteManyButton}"
                 class="mr-5 float-right py-2 button-generic button-delete text-size">
           <i class="fa fa-trash-alt" id="delete-icon"></i> Delete

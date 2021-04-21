@@ -16,6 +16,8 @@ import { LoadingSpinnerComponent } from '../_shared/loading-spinner/loading-spin
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { MbscModule } from '@mobiscroll/angular';
+
 
 
 
@@ -40,7 +42,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
         SpinnerModule,
         HttpClientModule,
         IndexRoutingModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        MbscModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [

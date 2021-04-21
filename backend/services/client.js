@@ -41,7 +41,7 @@ const getOneClient = async (req, res, next) => {
 //addOneClient
 const addClient = async (req, res, next) => {
   const { firstname, lastname, phoneNumber, email, fullAddress, storeId } = req.body
-
+  console.log(req.body)
   const store = await Store.findById(storeId)
 
   if (!store) {

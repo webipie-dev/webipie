@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../_shared/services/auth.service';
+import { mobiscroll, MbscSelectOptions } from '@mobiscroll/angular';
+
+mobiscroll.settings = {
+  theme: 'ios',
+  themeVariant: 'light',
+  display: 'bubble'
+};
+
 
 @Component({
   selector: 'app-header',
@@ -39,4 +47,9 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  onEditClick(target: EventTarget): void {
+    this.router.navigateByUrl('/' + ( target as HTMLInputElement).value).then(() => {
+      window.location.reload();
+    });
+  }
 }
