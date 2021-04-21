@@ -4,6 +4,7 @@ const Product = require('../models/store')
 const Template = require('../models/template')
 const ApiError = require("../errors/api-error");
 const { StoreOwner } = require('../models/storeOwner');
+const { createDomain } = require('./domain');
 
 // getAndFilter
 const getStores = async (req, res) => {
@@ -75,10 +76,11 @@ const addStore = async (req, res, next) => {
   }
 
   getTemplate.id= templateId
+  const storeSubdomain = name.toLowerCase().replace(/\s/g, '').replace(/'/, '');
 
   const store = new Store({
     name,
-    url: name.toLowerCase().replace(/\s/g, '').replace(/'/, '') + '.webipie.com',
+    url: storeSubdomain + '.webipie.com',
     logo,
     description,
     location,
@@ -97,6 +99,7 @@ const addStore = async (req, res, next) => {
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
+  createDomain(storeSubdomain);
 
   res.status(201).send(store);
 
