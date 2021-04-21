@@ -82,6 +82,11 @@ const addOrder = async (req, res, next) => {
 
   });
   await order.save();
+  sendSMS(client.phoneNumber, 
+    `Client: ${client.firstname} ${client.lastname}\n` +
+    `Store: ${store.name}/${store.url}\n` +
+    `Price: ${totalPrice}`
+  )
 
   let bulkQueries = [];
   productsOrder.products.map(product => {
