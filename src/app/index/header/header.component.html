@@ -1,0 +1,70 @@
+<header>
+  <div class="navigation-wrap start-header start-style vivify fadeInTop delay-150" id="headerr"
+       [ngClass]="{'scroll-on' : !changeable, 'start-style' : changeable  }"
+  >
+    <div class="small-titles">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-md navbar-light">
+            <a class="navbar-brand" href="https://front.codes/" target="_blank">
+              <img alt="">
+            </a>
+            <button class="navbar-toggler mx-5" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon mt-2"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto py-4 py-md-0 ">
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
+                  <a class="nav-link active mx-4" href="#home"  style="cursor: pointer;">Home</a>
+                </li>
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
+                  <a class="nav-link mx-4" href="#aboutus"  style="cursor: pointer;">About Us</a>
+                </li>
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
+                  <a class="nav-link mx-4" href="#pricing"  style="cursor: pointer;">Pricing</a>
+                </li>
+                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4 my-auto">
+                  <a class="nav-link mx-4" href="#contactus"  style="cursor: pointer;">Contact Us</a>
+                </li>
+                <li *ngIf="!token">
+                  <div class="text-center mt-1 mx-5">
+                    <a routerLink="/signin" class="button-generic button-white small-titles py-2 ">Sign In</a>
+                  </div>
+                </li>
+                <li  *ngIf="!token">
+                  <div class="text-center mt-1 mr-5">
+                    <a routerLink="/signup" class="button-generic button-white small-titles py-2 ">Sign Up</a>
+                  </div>
+                </li>
+
+                <li  *ngIf="token">
+                  <div class="text-center mt-1 mx-5">
+                    <a routerLink='/dashboard' class="button-generic button-white small-titles py-2 ">Dashboard</a>
+                  </div>
+                </li>
+                <li  *ngIf="token">
+                  <div class="text-center mt-1 mr-5">
+                    <a (click)='logOut()' class="button-generic button-border-white small-titles py-2 ">Logout</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="text-center mt-1 mr-5">
+                    <select (change)="onEditClick($event.target)" class="select" name="lang" id="lang">
+                      <option value="en">en</option>
+                      <option value="fr">fr</option>
+                      <option value="ar">ar</option>
+                    </select>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

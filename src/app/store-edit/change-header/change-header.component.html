@@ -1,0 +1,88 @@
+<!-- Sidebar -->
+<div id="sidebar-header">
+  <form [formGroup]="headerForm">
+    <ul class="list-unstyled components text-size" style="color: #ffffff;">
+      <li class="sidenav-elem">
+        <a class="cursor-pointer my-4 py-3 px-1 back-button nav-link-sidebar" routerLink="/store" (click)="returnToEditStore()">
+          <i class="fa fa-chevron-left"></i>
+          <span class="ml-3">Edit your store</span>
+        </a>
+        <a class="nav-link-sidebar mt-1 big-titles">
+          <i class="fas fa-heading mr-3"></i> Header
+        </a>
+        <div>
+          <div class="my-3">
+            <label class="d-block label-input-edit">Big Title</label>
+            <input
+              placeholder="title"
+              (input)="changeHeader()"
+              class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
+              type='text'
+              formControlName="title"
+            >
+          </div>
+          <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
+          <div class="my-3">
+            <label class="d-block label-input-edit">Description</label>
+            <textarea
+              placeholder="description"
+              class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
+              style="height: 100px;"
+              (input)="changeHeader()"
+              formControlName="description"
+            ></textarea>
+          </div>
+          <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
+          <div class="my-3">
+            <label class="d-block label-input-edit">Main Button</label>
+            <input
+              placeholder="main button"
+              (input)="changeHeader()"
+              class='d-block sidenav-input-item text-size ml-1 px-3 py-1'
+              type='text'
+              formControlName="mainButton"
+            >
+          </div>
+          <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
+          <div class="my-3">
+            <label class="label-input-edit"> Background </label>
+            <div class="background">
+              <input
+                accept="image/jpg, image/jpeg"
+                class="fileInput"
+                name="img"
+                type="file"
+                (input)="onFileChanged($event)"
+              >
+              <div class="img-fluid img-product">
+                <img alt="" class="image" [src]="imgSrc">
+              </div>
+              <button class=" mb-3 mt-2 upload-back d-flex mx-auto">
+                Upload Background
+              </button>
+              <div class="alert alert-danger text-center mt-4">
+                • NOTICE: Image Resolution should be
+                <br>
+                1919px * 1055px
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-success my-3 text-center">
+            <label class="mb-2">• Choose pictures from here</label>
+            <small><a class="external nav-link-sidebar" href="https://pixabay.com/fr/photos/search/nature/?min_width=1919&min_height=1055&orientation=horizontal#" target="_blank">Pixabay</a></small>
+            <small><a class="external nav-link-sidebar" href="https://www.canva.com/photos/free/" target="_blank">Canva</a></small>
+            <small><a class="external nav-link-sidebar" href="https://unsplash.com/s/photos/picture?orientation=landscape" target="_blank">Unsplash</a></small>
+            <small><a class="external nav-link-sidebar" href="https://fr.freepik.com/search?dates=any&format=search&page=1&selection=1&sort=popular&type=photo" target="_blank">Freepik</a></small>
+          </div>
+          <hr style="border-color: white; margin: 15px !important; width: 88%; opacity: 0.5;">
+
+        </div>
+      </li>
+    </ul>
+    <div class="text-center my-5">
+      <button  id="myCheck" class="button-generic button-black text-size mr-2" [disabled]="testChange()"
+              (click)="onSubmit()">Save</button>
+      <button class="button-generic button-black text-size" [disabled]="testChange()" (click)="resetHeader()">Reset</button>
+    </div>
+  </form>
+</div>

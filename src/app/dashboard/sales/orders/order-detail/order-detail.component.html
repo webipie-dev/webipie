@@ -1,0 +1,89 @@
+<a *ngIf="!value" data-toggle="modal" (click)="open(content)" data-target="#order-detail-modal-{{rowData.id[rowData.id.length-1]}}"
+   class="button-generic button-white-border-blue detail-button">Details</a>
+
+<a *ngIf="value" data-toggle="modal" (click)="open(content)">
+  <i class="fa cursor-pointer icon-edit fa-edit ml-2 fa-lg"></i></a>
+
+<ng-template #content let-modal class="order-detail-modal">
+    <div class="modal-header">
+      <h5 class="modal-title my-auto" id="exampleModalLabel">Order ID: {{rowData.id}} </h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true" class="close-x">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center">
+      <div class="row">
+        <div class="col-6">
+          <p class="small-titles">Client: </p>
+          <p class="text-size">{{rowData.clientName}}</p>
+        </div>
+        <div class="col-6">
+          <p class="small-titles">Date: </p>
+          <p class="text-size">{{rowData.orderDate}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <p *ngIf="displayMode" class="small-titles">Status: </p>
+          <p *ngIf="editMode" class="small-titles">Change Status: </p>
+          <p *ngIf="displayMode" class="text-size">{{orderStatus}}</p>
+          <div *ngIf="editMode">
+            <select class="select text-size py-2 pl-2" name="status" id="status" [value]="rowData.orderStatus" [(ngModel)]='orderStatus'>
+              <option value="pending">pending</option>
+              <option value="accepted">accepted</option>
+              <option value="refused">refused</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="small-titles">Total Price: </p>
+          <p class="big-titles color-blue">{{rowData.totalPrice}}DT</p>
+        </div>
+      </div>
+      <div class="text-center big-titles my-3 pt-3 mx-auto border-top">List Of Products</div>
+      <div *ngIf="orderProducts.length > 0">
+      <div class="row my-3 mx-auto">
+        <div class="col-6">
+          <p class='small-titles text-center'>Product</p>
+        </div>
+        <div class="col-3 small-titles">Quantity</div>
+        <div class="col-3 small-titles my-auto">Unit Price</div>
+      </div>
+        <div *ngFor="let product of orderProducts; index as i">
+          <div class="row mx-auto text-size border-bottom pb-3 mt-3">
+        <div class="col-6">
+          <div class='row'>
+<!--            <a *ngIf="editMode" type="button" (click)="onDeleteProduct(rowData, product)">-->
+<!--              <span class="close-x huge-titles">&times;</span>-->
+<!--            </a>-->
+            <img class='product-image-table img-fluid ml-3 mr-3' [src]="product.imgs[0]">
+            <p class='my-auto text-center'>{{product.name}}</p>
+          </div>
+        </div>
+        <div class="col-3 my-auto">
+          <p *ngIf="displayMode">{{rowData.products[i].quantity}}</p>
+          <!-- <input *ngIf="editMode" type="number" class="change-quantity" [value]="rowData.products[i].quantity"> -->
+          <p  *ngIf='editMode' class="my-auto text-center"> {{rowData.products[i].quantity}} </p>
+        </div>
+        <div class="col-3 my-auto">{{product.price}}</div>
+      </div>
+        </div>
+      </div>
+      <div class="mt-3">
+        <div *ngIf="displayMode">
+<!--          <a class="button-generic button-edit py-2 mr-2 text-size" (click)="onSwitch()"><i id="edit-icon" class="fa fa-edit"></i> Edit</a>-->
+          <a class="button-generic button-delete py-2 text-size" (click)="onDeleteOrder(rowData.id)"><i id="delete-icon" class="fa fa-trash-alt" ></i> Delete</a>
+        </div>
+        <div *ngIf="editMode">
+          <button class="button-generic button-edit mr-2 py-2 text-size" (click)="onSwitch()"
+             [disabled]="currentStatus == orderStatus"><i id="save-icon" class="fa fa-check"></i> Save</button>
+<!--          <a class="button-generic button-cancel py-2 text-size" (click)="onSwitch()"><i id="backward-icon" class="fa fa-backward"></i> Cancel</a>-->
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="text-size button-generic button-white-border-blue" (click)="modal.close('Save click')">Close</button>
+    </div>
+</ng-template>
+

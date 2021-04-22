@@ -1,0 +1,49 @@
+<div *ngIf="loading">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div *ngIf="!loading">
+  <app-header></app-header>
+  <div class="container vivify fadeIn delay-300">
+      <div class="card-wrapper col-lg-10 col-12 mx-auto py-5">
+        <div class="card-background row mb-4">
+          <div class="card-background-image col-lg-5 col-12 ">
+            <div class="text-center big-titles white-colored mt-3">Logo Savvy</div>
+            <img src="./assets/images/store-make.svg" alt="" class="img-fluid my-5 img-login d-flex mx-auto">
+
+
+          </div>
+          <div class=" col-lg-7 col-12 padding-signup pt-5">
+            <div class="text-center big-titles mt-3">Start your own business</div>
+            <div class="text-center text-size mt-3">You can configure your store after creating your account.</div>
+            <label for="name" class="text-size ml-5 mt-3 color-blue text-bold">Store Name</label>
+            <div class="text-size">Choose your store name that will appear to your customers,
+              you can change it later at any time</div>
+            <input
+              type="text"
+              id="name"
+              class="input mt-2"
+              placeholder="Name"
+              [(ngModel)]='storeName' [ngClass]="invalidName? 'red-border': ''"
+              (keyup)="onInputFocus($event)">
+            <p class="mt-2 red-color shake delay-300" *ngIf="invalidName">* {{nameError | titlecase}}</p>
+
+            <label for="store-type" class="text-size ml-5 mt-3 color-blue text-bold">Store Type</label>
+            <div class="text-size">Tell us the type of your business so we can help you choose
+              the best template for your work</div>
+            <select [(ngModel)]='storeType' id="store-type" class="input mt-2">
+              <option selected value="clothes">Clothes</option>
+              <option value="jewerly">Jewerly</option>
+              <option value="tech">Tech</option>
+              <option value="kitchen">Kitchen</option>
+              <option value="homeDecoration">Home Decoration</option>
+              <option value="garden">Garden</option>
+              <option value="toys">Toys</option>
+            </select>
+            <div class="text-center mt-3">
+              <button class="button-generic button-blue small-titles " (click)='submit()' [disabled]="invalidName" >Get Your Store</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

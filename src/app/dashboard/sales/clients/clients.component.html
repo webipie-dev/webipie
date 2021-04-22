@@ -1,0 +1,30 @@
+<div>
+  <div class="container text-center">
+    <div class="big-titles mb-3">Manage your clients</div>
+    <div class="text-size mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias aliquam delectus dolorum eligendi esse est fugiat id libero minima non optio possimus quaerat quo recusandae rerum unde, vitae voluptatibus.</div>
+  </div>
+  <div class="mt-5" *ngIf="loading">
+    <app-spinner></app-spinner>
+  </div>
+  <div *ngIf="!loading">
+    <!--web version  -->
+    <div class="container web-show text-center">
+      <div class="my-5 mx-auto px-5 py-3 shadow" *ngIf="clients.length > 0">
+        <ng2-smart-table class="text-size text-center" [settings]="settings" [source]="clients"></ng2-smart-table>
+      </div>
+      <div class="container" *ngIf="clients.length === 0">
+        <div class="mx-auto w-75 alert alert-success mt-5 small-titles text-center">Oups no clients yet, Focus on your Marketing and Leave the rest for us !</div>
+      </div>
+    </div>
+    <!--mobile & tablet version-->
+    <div class="container other-show">
+      <div class="my-5 py-3 shadow" *ngIf="clients.length > 0">
+        <ng2-smart-table class="text-size text-center" [settings]="settingsMobile" [source]="clients"></ng2-smart-table>
+      </div>
+      <div class="container" *ngIf="clients.length === 0">
+        <div class="mx-auto w-75 alert alert-success mt-5 small-titles text-center">Oups no clients yet, Focus on your Marketing and Leave the rest for us !</div>
+      </div>
+    </div>
+  </div>
+</div>
+

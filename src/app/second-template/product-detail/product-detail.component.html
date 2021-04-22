@@ -1,0 +1,169 @@
+<div id="wrap">
+  <!-- Content -->
+  <div id="content">
+    <!-- Popular Products -->
+    <section *ngIf="product" class="padding-top-100 padding-bottom-100">
+      <div class="container">
+
+        <!-- SHOP DETAIL -->
+        <div class="shop-detail">
+          <div class="row">
+
+            <!-- Popular Images Slider -->
+            <div class="col-md-7">
+
+              <!-- Images Slider -->
+              <div class="images-slider mb-5">
+                <ul class="slides">
+                  <li *ngFor="let img of product.imgs" [attr.data-thumb]="img">
+                    <img class="img-responsive" src="{{img}}" alt="">
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="col-md-5 feedback" style="display: block">
+              <h4>{{product.name}}</h4>
+              <div class="price">
+                {{product.price}}
+                <small>dt</small>
+              </div>
+              <!-- Short By -->
+              <div class="some-info">
+                <ul class="row margin-top-30">
+                  <li class="col-xs-4">
+                    <div class="quinty">
+                      <!-- QTY -->
+                      <select class='customSelect' [(ngModel)]="quantity">
+                        <option *ngFor='let i of counter(product.quantity);'  [value]='i'>{{i}}</option>
+                      </select>
+                    </div>
+                  </li>
+
+                  <!-- ADD TO CART -->
+                  <li class="col-xs-6">
+                    <button *ngIf="outOfStock || product.status === 'out of stock';else cart" class="fit btn" disabled="true" >OUT OF STOCK</button>
+
+                    <ng-template #cart>
+                      <button *ngIf="!addDisabled" class="fit btn" (click)="addToCart(product)" >ADD TO CART</button>
+                      <button *ngIf="addDisabled" class="fit btn" routerLink="/cart">CHECK CART</button>
+                    </ng-template>
+
+                    <p *ngIf="addDisabled ">* This product is already in your cart</p>
+                  </li>
+
+                </ul>
+
+                <!-- INFOMATION -->
+                <div class="inner-info">
+                  <h6>PRODUCT DESCRIPTION</h6>
+                  <p [innerHTML]="product.description"></p>
+
+                  <!-- Social Icons -->
+                  <ul class="social_icons">
+                    <li><a href="{{store.contact.facebookPage}}"><i class="icon-social-facebook"></i></a></li>
+                    <li><a href="{{store.contact.instagramPage}}"><i class="fab fa-instagram"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--======= PRODUCT DESCRIPTION =========-->
+        <div class="item-decribe">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs animate fadeInUp" data-wow-delay="0.4s" role="tablist">
+            <li role="presentation" class="active"><a href="#review" role="tab" data-toggle="tab">REVIEW</a></li>
+<!--            <li role="presentation"><a href="#tags" role="tab" data-toggle="tab">INFORMATION</a></li>-->
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content animate fadeInUp" data-wow-delay="0.4s">
+            <!-- REVIEW -->
+            <div *ngIf='product.openReview' role="tabpanel" class="tab-pane fade in active feedback" id="review">
+              <h6 class="font">{{ product.reviews ? product.reviews.length : '0' }} REVIEWS FOR {{product.name}}</h6>
+
+              <!-- REVIEW PEOPLE 1 -->
+
+              <div class="media" *ngFor='let oneReview of product.reviews'>
+                <div class="media-left">
+                  <!--  Image -->
+                  <div class="avatar"><i class="fa fa-user fa-4x icon"></i></div>
+                </div>
+                <!--  Details -->
+                <div class="media-body">
+                  <h6 class="font"> {{oneReview.name}} <span class="pull-right">{{oneReview.date| date:'short'}}</span></h6>
+                  <p class="font-playfair">{{oneReview.review}}</p>
+                  <p style="color: #FCD93A"><i class="fa fa-star"></i> {{oneReview.rating}}</p>
+                </div>
+              </div>
+
+
+              <!-- ADD REVIEW -->
+              <h6 class="margin-t-40 font">ADD REVIEW</h6>
+              <form *ngIf="!disabled">
+                <ul class="row">
+                  <li class="col-sm-6">
+                    <label for="name"> *NAME</label>
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger py-3"> Name
+                      field is required
+                    </div>
+                    <input required name="name" #name="ngModel" id="name" type="text" value="" placeholder=""
+                           [(ngModel)]="review.name">
+
+                  </li>
+                  <li class="col-sm-6">
+                    <label for="email"> *EMAIL</label>
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger py-3"> Email
+                      field is required
+                    </div>
+                    <input required name="email" #email="ngModel" id="email" type="text" value="" placeholder=""
+                           [(ngModel)]="review.email">
+                  </li>
+
+                  <li class="col-sm-12">
+                    <label for="rev"> *YOUR REVIEW</label>
+                    <div *ngIf="rev.invalid && (rev.dirty || rev.touched)" class="alert alert-danger py-3"> Review field
+                      is required
+                    </div>
+                    <textarea required name="rev" #rev="ngModel" id="rev" placeholder=""
+                              [(ngModel)]="review.review"></textarea>
+                  </li>
+                  <li class="col-sm-6">
+                    <!-- Rating Stars -->
+
+                    <div>
+                      <div class="stars font mt-3"><span>YOUR RATING</span></div>
+                      <div class="rating">
+                        <input type="radio" name="rating" [value]="5" [(ngModel)]="review.rating" id="rating-5">
+                        <label for="rating-5"></label>
+                        <input type="radio" name="rating" [value]="4" [(ngModel)]="review.rating" id="rating-4">
+                        <label for="rating-4"></label>
+                        <input type="radio" name="rating" [value]="3" [(ngModel)]="review.rating" id="rating-3">
+                        <label for="rating-3"></label>
+                        <input type="radio" name="rating" [value]="2" [(ngModel)]="review.rating" id="rating-2">
+                        <label for="rating-2"></label>
+                        <input type="radio" name="rating" [value]="1" [(ngModel)]="review.rating" id="rating-1">
+                        <label for="rating-1"></label>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="col-sm-6">
+                    <button type="submit" class="btn-font btn btn-dark btn-small pull-right no-margin"
+                             (click)='sendReview()'>POST REVIEW
+                    </button>
+                  </li>
+                </ul>
+              </form>
+            </div>
+
+            <!-- TAGS -->
+            <div role="tabpanel" class="tab-pane fade" id="tags"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

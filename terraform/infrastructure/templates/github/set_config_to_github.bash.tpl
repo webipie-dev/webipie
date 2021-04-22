@@ -1,0 +1,6 @@
+echo "::set-output name=repository_url::${repository_url}"
+echo "::set-output name=bucket_name::${bucket_name}"
+echo "::set-output name=container_name::${container_name}"
+echo "::set-output name=service_name::${service_name}"
+echo "::set-output name=cluster_name::${cluster_name}"
+echo "::set-output name=aws_region::${aws_region}"

@@ -1,0 +1,60 @@
+<!-- Sidebar -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h3 routerLink="/dashboard" class="cursor-pointer huge-titles text-center">Hackover</h3>
+  </div>
+
+  <ul class="list-unstyled text-size ">
+    <li class="sidenav-elem mb-3">
+      <p>Store Configuration</p>
+      <a routerLink='/store' class="nav-link-sidebar">
+        <i class="fa fa-edit"></i> Edit your store
+      </a>
+    </li>
+    <li class="sidenav-elem mb-3">
+      <p>Marketing</p>
+      <a routerLink="social-media" class="nav-link-sidebar">
+        <i class="fa fa-share-alt"></i> Social Media
+      </a>
+    </li>
+    <li class="sidenav-elem mb-3">
+      <p>Store Management</p>
+      <a data-toggle="collapse" aria-expanded="false" href="#pageSubmenu"
+         class="dropdown-toggle nav-link-sidebar">
+        <i class="fa fa-cart-arrow-down"></i>
+        <span  class="ml-2" routerLink='/dashboard/sales'>Sales</span>
+      </a>
+      <ul class="collapse list-unstyled" id="pageSubmenu">
+        <li>
+          <a routerLink='sales/orders' class="nav-link-sidebar child-elem"><i class="fa fa-list-alt"></i> Orders</a>
+        </li>
+        <li>
+          <a routerLink='sales/clients' class="nav-link-sidebar child-elem"><i class="fa fa-users"></i> Clients</a>
+        </li>
+      </ul>
+      <a routerLink='products' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-warehouse"></i> Products
+      </a>
+      <a routerLink='mobile-app' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-mobile-alt"></i> Mobile Application
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar" disabled="'true'">
+        <i class="fa fa-money-check-alt"></i> Pricing
+      </a>
+      <a href="" data-toggle="collapse" aria-expanded="false" class="disabled-element nav-link-sidebar" disabled="'true'">
+        <i class="fa fa-chart-bar"></i> Statistics
+      </a>
+    </li>
+    <li class="sidenav-elem ">
+      <p class="text-size">Account Management</p>
+      <a routerLink='profile' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar">
+        <i class="fa fa-id-card"></i> Profile
+      </a>
+      <a (click)='logOut()' data-toggle="collapse" aria-expanded="false" class="nav-link-sidebar" style = "cursor: pointer">
+        <i class="fa fa-sign-out-alt"></i> Logout
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
