@@ -11,20 +11,16 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from 'angularx-social-login';
-import {DashboardModule} from './dashboard/dashboard.module';
 import {PageNotFoundComponent} from './index/page-not-found/page-not-found.component';
-import {StoreEditModule} from './store-edit/store-edit.module';
 import {JwtHelperService, JWT_OPTIONS} from '@auth0/angular-jwt';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {QuillModule} from 'ngx-quill';
-import {SecondTemplateModule} from './second-template/second-template.module';
 import {SpinnerModule} from './spinner/spinner.module';
 import {CommonModule} from '@angular/common';
 import {ErrorInterceptor} from './error-interceptor';
 import { SidebarModule } from 'ng-sidebar';
 import {StoreService} from './_shared/services/store.service';
-import {IndexModule} from './index/index.module';
 
 
 export let InjectorInstance: Injector;
@@ -43,6 +39,7 @@ export let InjectorInstance: Injector;
     FormsModule,
     SocialLoginModule,
     NgxSpinnerModule,
+    HttpClientModule,
     NgbModule,
     QuillModule.forRoot({
       modules: {
