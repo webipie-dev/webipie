@@ -41,9 +41,6 @@ export let InjectorInstance: Injector;
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    DashboardModule,
-    StoreEditModule,
-    HttpClientModule,
     SocialLoginModule,
     NgxSpinnerModule,
     NgbModule,
@@ -55,10 +52,8 @@ export let InjectorInstance: Injector;
         ]
       }
     }),
-    SecondTemplateModule,
     SpinnerModule,
     SidebarModule.forRoot(),
-    IndexModule,
   ],
   providers: [
     {
