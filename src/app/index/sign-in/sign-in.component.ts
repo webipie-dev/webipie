@@ -33,10 +33,6 @@ export class SignInComponent implements OnInit {
     if (localStorage.getItem('token')){
       this.router.navigate(['dashboard']);
     }
-
-    const head = document.getElementById('header');
-    head.className += ' color-blue-header';
-
   }
 
   signIn(): void {
