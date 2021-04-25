@@ -129,7 +129,6 @@ export class CheckoutSecondTemplateComponent implements OnInit {
           ids,
           products
         },
-        totalPrice: this.totalPrice,
         clientId: data.id,
         storeId: this.store.id
       };
