@@ -94,7 +94,7 @@ data "template_file" "index" {
     twilio_auth_token = var.twilio_auth_token
     mongo_db_url = var.mongo_db_url
     hosted_zone_id = module.network.zone_id
-    cloudfront_domain_name = local.vars.website.domain_name
+    cloudfront_domain_name = module.website.cloudfront_domain_name
     backend_hostname = local.vars.certificate_route53.certificate_domain
     backend_port = local.vars.app_port
     website_domain_name = local.vars.website.domain_name
