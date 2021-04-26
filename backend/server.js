@@ -68,7 +68,7 @@ const port = normalizePort(process.env.PORT || appPort);
 app.set("port", port);
 
 const server = http.createServer(app);
-const origin = `${httpProtocol}://${clientHostname}:${clientPort}`;
+var origin = `${httpProtocol}://${clientHostname}:${clientPort}`;
 if(httpProtocol ==="https")
   origin = `${httpProtocol}://${clientHostname}`
 const io = require('socket.io')(server, {
