@@ -1,5 +1,3 @@
-//google
-// 790108924491-t5da8keoe1srskluak4jpi4oue78gcai.apps.googleusercontent.
 module.exports = {
     JWT_SECRET : 'secretHERE',
 
@@ -8,26 +6,22 @@ module.exports = {
         PASSWORD: 'webipie4win',
     },
   awsEndPoint: 'https://webipie-images.s3.eu-west-3.amazonaws.com/',
-  accessKeyId: "${AWS_ACCESS_KEY_ID}",
-  secretAccessKey: "${AWS_SECRET_ACCESS_KEY}",
-  awsRegion: "${AWS_REGION}",
-  webipiePhoneNumber: "+18555501648",
-  twilioAccountSid: "${TWILIO_ACCOUNT_SID}",
-  twilioAuthToken: "${TWILIO_AUTH_TOKEN}",
-  hostedZone: "/hostedzone/${HOSTED_ZONE_ID}",
-  cloudfrontDomainName: "${CLOUDFRONT_DOMAIN_NAME}",
-  useSms: false,
-  hostname: "${BACKEND_HOSTNAME}",
-  port: "${BACKEND_PORT}",
-  httpProtocol: "https",
-  wsProtocol: "wss",
-  mongoURL: "${MONGO_DB_URL}",
+  accessKeyId: '"${aws_access_key}"',
+  secretAccessKey: '"${aws_secret_key}"',
+  awsRegion: '"${aws_region}"',
+  webipiePhoneNumber: '+18555501648',
+  twilioAccountSid: '"${twilio_account_sid}"',
+  twilioAuthToken: '"${twilio_auth_token}"',
+  hostedZone: '"/hostedzone/${hosted_zone_id}"',
+  cloudfrontDomainName: '"${cloudfront_domain_name}"',
+  useSms: true,
+  hostname: '"${backend_hostname}"',
+  port: "${backend_port}",
+  httpProtocol: 'https',
+  wsProtocol: 'wss',
+  mongoURL: '"${mongo_db_url}"',
   clientPort: "430",
-  clientHostname: "${WEBSITE_DOMAIN_NAME}"
+  clientHostname: '"${website_domain_name}"'
 
-  // accessKeyId: "AKIAVXPMBOFRNXGVXJHB",
-  // secretAccessKey: "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"
 }
 
-//google
-// 790108924491-t5da8keoe1srskluak4jpi4oue78gcai.apps.googleusercontent.

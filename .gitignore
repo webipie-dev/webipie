@@ -54,3 +54,4 @@ Thumbs.db
 dump.rdb
 backend/dump.rdb
 backend/*.rdb
+scripts/set_tf_vars.bash
