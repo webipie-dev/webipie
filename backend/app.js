@@ -65,7 +65,7 @@ app
 
 
 app.all('*', async (req, res, next) => {
-  next(ApiError.NotFound('Route Not Found'))
+  next(ApiError.NotFound(`Route Not Found. req: ${req}`))
 });
 
 app.use(errorHandler);
