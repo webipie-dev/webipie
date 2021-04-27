@@ -30,6 +30,17 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+    
+    - name: Set Infrastructure Configuration To Github
+      id: set-config
+      env:
+        TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        cd terraform/infrastructure
+        terraform init
+        terraform apply -target=null_resource.set_config_to_github -auto-approve -lock-timeout=120s
+        source set_config_to_github.bash
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
@@ -75,6 +86,8 @@ jobs:
         wait-for-service-stability: true
 
     - name: Build and deploy front-end
+      env:
+        CLOUDFRONT_DISTRIBUTION_ID: ${{ steps.set-config.outputs.cloudfront_distribution_id }}
       run: |
         echo "installing angular"
         npm install @angular/cli
@@ -83,5 +96,5 @@ jobs:
         echo "building project"
         npm run build
         aws s3 cp dist "s3://webipie.com" --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-        aws cloudfront create-invalidation --distribution-id E1MLM3K0KNSF88 --paths "/*"
+        aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
 
