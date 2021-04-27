@@ -110,29 +110,24 @@ resource "null_resource" "index" {
   }
 }
 
-# data "template_file" "set_config_to_github" {
-#   template = file("./templates/github/set_config_to_github.bash.tpl")
+data "template_file" "set_config_to_github" {
+  template = file("./templates/github/set_config_to_github.bash.tpl")
 
-#   vars = {
-#     repository_url    = module.task.repository_url
-#     bucket_name       = module.website.bucket_name
-#     container_name    = module.task.container_name
-#     service_name      = module.ecs.service_name
-#     cluster_name      = module.ecs.cluster_name
-#     aws_region        = local.vars.aws_region
-#   }
-# }
+  vars = {
+    cloudfront_distribution_id    = module.website.cloudfront_distribution_id
+  }
+}
 
-# resource "null_resource" "set_config_to_github" {
+resource "null_resource" "set_config_to_github" {
 
-#   triggers = {
-#     always_run = "${timestamp()}"
-#   }
-#   provisioner "local-exec" {
-#     command     = "echo '${data.template_file.set_config_to_github.rendered}' > set_config_to_github.bash"
-#     interpreter = ["/bin/bash", "-c"]
-#   }
-# }
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    command     = "echo '${data.template_file.set_config_to_github.rendered}' > set_config_to_github.bash"
+    interpreter = ["/bin/bash", "-c"]
+  }
+}
 
 data "template_file" "task_definition" {
   template = file("./templates/task-definition/task-definition.json.tpl")

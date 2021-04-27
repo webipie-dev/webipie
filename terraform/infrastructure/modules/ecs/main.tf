@@ -141,7 +141,7 @@ resource "aws_alb_target_group" "this" {
     healthy_threshold   = var.healthy_threshold
     interval            = var.health_check_interval
     protocol            = "HTTP"
-    matcher             = "200-299"
+    matcher             = "200-304"
     timeout             = var.health_check_timeout
     path                = var.health_check_path
     unhealthy_threshold = var.unhealthy_threshold
