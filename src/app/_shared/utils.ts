@@ -1,5 +1,5 @@
-import {backendProtocol, backendDomainName, backendHttpProtocol} from 'src/app/configuration';
+import {backendPort, backendDomainName, backendHttpProtocol} from 'src/app/configuration';
 export class Utils {
-  public static baseUrl = `${backendHttpProtocol}://${backendDomainName}:${backendProtocol}`;
+  public static baseUrl = `${backendHttpProtocol}://${backendDomainName}:${backendPort}`;
   public static url = Utils.baseUrl;
 }
