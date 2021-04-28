@@ -83,11 +83,11 @@ module.exports = {
             text: 'Hello '+ name +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/storeOwner\/confirmation\/' + email + '\/' + token + '\n\nThank You!\n' 
         };
 
-        transporter.sendMail(mailOptions, function (err) {
+        await transporter.sendMail(mailOptions, function (err) {
             if (err) { 
                 return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
-                }
-            return res.status(200).send('A verification email has been sent to ' + email + '. It will be expire after one day. If you not get verification Email click on resend token.');
+            }
+            // return res.status(200).send('A verification email has been sent to ' + email + '. It will be expire after one day. If you not get verification Email click on resend token.');
         });
       
         res.cookie('access_token', token, {
@@ -143,11 +143,11 @@ module.exports = {
                 text: 'Hello '+ storeOwner.local.name +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/storeOwner\/confirmation\/' + storeOwner.local.email + '\/' + token + '\n\nThank You!\n' 
             };
     
-            transporter.sendMail(mailOptions, function (err) {
+            await transporter.sendMail(mailOptions, function (err) {
                 if (err) { 
                     return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
                     }
-                return res.status(200).send('A verification email has been sent to ' + storeOwner.local.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
+                // return res.status(200).send('A verification email has been sent to ' + storeOwner.local.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
             });
         }
     },
