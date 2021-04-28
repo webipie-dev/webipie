@@ -7,6 +7,7 @@ import {Store} from '../../_shared/models/store.model';
 import Swal from 'sweetalert2';
 import {UploadService} from '../../_shared/services/upload.service';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+import {imagesBucket} from 'src/app/configuration';
 
 declare var $: any;
 
@@ -101,7 +102,7 @@ export class ChangeHeaderComponent implements OnInit {
 
   onSubmit(): void {
     if (this.savedImage !== '') {
-      this.postData['template.header'].img = 'https://webipie-images.s3.eu-west-3.amazonaws.com/' + this.savedImage;
+      this.postData['template.header'].img = imagesBucket; + this.savedImage;
     }else {
       this.postData['template.header'].img = this.headerForm.get('img').value;
     }
