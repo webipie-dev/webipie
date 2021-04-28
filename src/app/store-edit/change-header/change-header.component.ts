@@ -6,6 +6,7 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {Store} from '../../_shared/models/store.model';
 import Swal from 'sweetalert2';
 import {UploadService} from '../../_shared/services/upload.service';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 declare var $: any;
 
@@ -62,7 +63,7 @@ export class ChangeHeaderComponent implements OnInit {
       subj: data || this.headerForm.value,
       type: 'header',
     };
-    $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}:${port}/`);
   }
 
   // image change

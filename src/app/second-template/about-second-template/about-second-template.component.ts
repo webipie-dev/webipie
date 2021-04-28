@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 @Component({
   selector: 'app-about-second-template',
@@ -17,7 +18,7 @@ export class AboutSecondTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('message', event => {
-      if (event.origin.startsWith('http://webipie.com:4200')) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

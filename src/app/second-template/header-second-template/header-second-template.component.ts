@@ -6,6 +6,7 @@ import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-s
 import { ProductService } from '../../_shared/services/product.service';
 import { ConsoleLogger } from '@angular/compiler-cli/src/ngtsc/logging';
 import { Router } from '@angular/router';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class HeaderSecondTemplateComponent implements OnInit {
       });
     });
     window.addEventListener('message', event => {
-      if (event.origin.startsWith('http://webipie.com:4200')) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

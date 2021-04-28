@@ -4,6 +4,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
 import {Router} from '@angular/router';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class CartSecondTemplateComponent implements OnInit {
   ngOnInit(): void {
     this.storeService.cart.subscribe(cart => this.cart = cart);
     window.addEventListener('message', event => {
-      if (event.origin.startsWith('http://webipie.com:4200')) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 declare var $: any;
 
@@ -33,7 +34,7 @@ export class AboutUsComponent implements OnInit {
       subj: data || this.defaultAbout,
       type: 'about',
     };
-    $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}:${port}/`);
   }
 
   testChange(): boolean {

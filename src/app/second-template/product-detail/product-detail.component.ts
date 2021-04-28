@@ -7,6 +7,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Product} from '../../_shared/models/product.model';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class ProductDetailComponent implements OnInit {
 
     this.store = encryptStorage.getItem('store');
     window.addEventListener('message', event => {
-      if (event.origin.startsWith('http://webipie.com:4200')) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

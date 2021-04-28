@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
+import { wsProtocol, backendPort, backendDomainName } from 'src/app/configuration';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class WebSocketService {
 
   socket: Socket;
-  readonly url: string = 'ws://localhost:3000';
+  readonly url: string = `${wsProtocol}://${backendPort}:${backendDomainName}`;
 
   constructor() {
     this.socket = io(this.url);

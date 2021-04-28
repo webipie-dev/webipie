@@ -1,4 +1,5 @@
+import {backendProtocol, backendDomainName, backendHttpProtocol} from 'src/app/configuration';
 export class Utils {
-  public static baseUrl = 'http://localhost:3000';
+  public static baseUrl = `${backendHttpProtocol}://${backendDomainName}:${backendProtocol}`;
   public static url = Utils.baseUrl;
 }
