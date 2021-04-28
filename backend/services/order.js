@@ -51,7 +51,7 @@ const getOneOrder = async (req, res) => {
 
 const addOrder = async (req, res, next) => {
 
-  const { orderStatus, paymentMethod, productsOrder, clientId, storeId, totalPrice } = req.body
+  const { orderStatus, paymentMethod, productsOrder, clientId, storeId } = req.body
 
   const store = await Store.findById(storeId)
   if (!store) {
@@ -72,6 +72,11 @@ const addOrder = async (req, res, next) => {
     next(ApiError.NotFound('One or more products Not Found'));
     return;
   }
+
+  let totalPrice = 0;
+  productsOrder.products.forEach(data => {
+    totalPrice += +data.price * data.quantity;
+  });
 
   const order = new Order({
     orderStatus,
