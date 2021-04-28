@@ -119,7 +119,7 @@
     "requiresCompatibilities": [
       "EC2"
     ],
-    "networkMode": "awsvpc",
+    "networkMode": "bridge",
     "cpu": "256",
     "revision": 1,
     "status": "ACTIVE",
