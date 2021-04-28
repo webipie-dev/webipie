@@ -19,8 +19,8 @@ router.route('/signup')
 router.route('/signin')
     .post(passportSignIn, storeOwnerService.signIn);
 
-router.route('/confirmation/:token')
-    .post(storeOwnerService.confirmEmail);
+router.route('/confirmation/:email/:token')
+    .get(storeOwnerService.confirmEmail);
 
 router.route('/confirmation/resend/:token')
     .post(storeOwnerService.resend);
