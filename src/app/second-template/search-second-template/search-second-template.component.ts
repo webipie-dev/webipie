@@ -13,6 +13,7 @@ import { Store } from 'src/app/_shared/models/store.model';
 export class SearchSecondTemplateComponent implements OnInit {
 
   store: Store;
+  allproducts: Product[];
   products: Product[];
   searchTerm: string;
   listView: boolean;
@@ -25,16 +26,27 @@ export class SearchSecondTemplateComponent implements OnInit {
   ngOnInit(): void {
     this.listView = true;
     this.store = encryptStorage.getItem('store');
-    this.productService.search({store: this.store.id}, this.activatedRoute.snapshot.paramMap.get('term'))
-    .subscribe(prods => {
-      this.products = prods;
-      console.log(prods);
+    this.searchTerm = this.activatedRoute.snapshot.paramMap.get('term');
+    this.productService.getAll({store: this.store.id}, 'client').subscribe( prods => {
+      this.allproducts = prods;
+      this.products = prods.filter(it => {
+        return it.name.toLowerCase().includes(this.searchTerm)
+            || it.description.toLowerCase().includes(this.searchTerm);
+      });
+      console.log(this.products);
     });
   }
 
   search(): void{
-    this.productService.search({store: this.store.id}, this.activatedRoute.snapshot.paramMap.get('term'))
-    .subscribe(data => console.log(data));
+    this.products = this.allproducts.filter(it => {
+      return it.name.toLowerCase().includes(this.searchTerm)
+          || it.description.toLowerCase().includes(this.searchTerm);
+    });
+    console.log(this.products);
+
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // this.router.onSameUrlNavigation = 'reload';
+    // this.router.navigateByUrl('serach/' + this.searchTerm);
   }
 
   toggleView(type): void{

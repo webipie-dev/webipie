@@ -6,10 +6,13 @@ import {
 import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor() {
+  constructor(private router: Router) {
 
   }
 
@@ -25,11 +28,23 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else if (typeof error.error.errors === 'string') {
           errorMessage = error.error.errors;
         }
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: errorMessage,
-        });
+        if (errorMessage === 'email must be verified!'){
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: errorMessage,
+            confirmButtonText: `verify email`,
+          }).then((result => {
+            this.router.navigate(['confirmation']);
+          }));
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: errorMessage,
+          });
+        }
 
         return throwError(error);
       })

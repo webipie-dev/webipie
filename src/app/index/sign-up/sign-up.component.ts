@@ -66,18 +66,14 @@ export class SignUpComponent implements OnInit {
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
               localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
-              this.router.navigate(['dashboard']);
             });
             return;
           }
-          else{
-            this.router.navigate(['templates']);
-          }
+
+          this.router.navigate(['confirmation']);
 
           this.loading = false;
       }, err => {
-        // console.log(err);
-        // console.log(err.error.errors[0].message);
         Swal.fire({
           title: 'Error!',
           text: err.error.errors[0].message,
