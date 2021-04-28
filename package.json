@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --output-path=dist/savvy --baseHref / && ng build --prod --i18n-locale fr --i18n-format xlf --i18n-file src/locale/messages.fr.xlf --output-path=dist/fr --baseHref /fr/",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -30,6 +30,7 @@
     "bootstrap": "^4.5.3",
     "encrypt-storage": "^1.0.11",
     "flag-icon-css": "^3.5.0",
+    "http-server": "^0.12.3",
     "jquery": "^3.5.1",
     "ng-image-slider": "^2.6.4",
     "ng-sidebar": "^9.4.2",
