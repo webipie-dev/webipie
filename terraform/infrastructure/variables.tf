@@ -82,3 +82,13 @@ variable "aws_secret_key" {
   type        = string
   description = "aws secret key"
 }
+
+variable "mailgun_api_key" {
+  type        = string
+  description = "mailgun API Key"
+}
+
+variable "mailgun_domain_name" {
+  type        = string
+  description = "mailgun Domain Name"
+}

@@ -21,7 +21,9 @@ module.exports = {
   wsProtocol: 'wss',
   mongoURL: '"${mongo_db_url}"',
   clientPort: "430",
-  clientHostname: '"${website_domain_name}"'
+  clientHostname: '"${website_domain_name}"',
+  mailgunAPIKey: '"${mailgun_api_key}"',
+  mailgunDomainName: '"${mailgun_domain_name}"'
 
 }
 

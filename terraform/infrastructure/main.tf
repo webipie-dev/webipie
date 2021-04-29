@@ -98,6 +98,8 @@ data "template_file" "index" {
     backend_hostname = local.vars.certificate_route53.certificate_domain
     backend_port = local.vars.app_port
     website_domain_name = local.vars.website.domain_name
+    mailgun_api_key = var.mailgun_api_key
+    mailgun_domain_name = var.mailgun_domain_name
   }
 }
 
