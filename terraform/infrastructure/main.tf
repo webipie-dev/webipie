@@ -83,47 +83,53 @@ module "website" {
   stage               = local.vars.stage
 }
 
-# data "template_file" "api_url" {
-#   template = file("./templates/frontend/api_url.js.tpl")
+data "template_file" "index" {
+  template = file("./templates/backend/index.js.tpl")
 
-#   vars = {
-#     domain_name = module.certificate_route53.backend_domain_name
-#     app_port = local.vars.app_port
-#   }
-# }
+  vars = {
+    aws_access_key = var.aws_access_key
+    aws_secret_key = var.aws_secret_key
+    aws_region = local.vars.aws_region
+    twilio_account_sid = var.twilio_account_sid
+    twilio_auth_token = var.twilio_auth_token
+    mongo_db_url = var.mongo_db_url
+    hosted_zone_id = module.network.zone_id
+    cloudfront_domain_name = module.website.cloudfront_domain_name
+    backend_hostname = local.vars.certificate_route53.certificate_domain
+    backend_port = local.vars.app_port
+    website_domain_name = local.vars.website.domain_name
+    mailgun_api_key = var.mailgun_api_key
+    mailgun_domain_name = var.mailgun_domain_name
+  }
+}
 
-# resource "null_resource" "api_url" {
-#   triggers = {
-#     always_run = "${timestamp()}"
-#   }
-#   provisioner "local-exec" {
-#     command = "echo \"${data.template_file.api_url.rendered}\" > ../../client/src/config/index.js"
-#   }
-# }
+resource "null_resource" "index" {
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    command = "echo \"${data.template_file.index.rendered}\" > ../../backend/configuration/index.js"
+  }
+}
 
-# data "template_file" "set_config_to_github" {
-#   template = file("./templates/github/set_config_to_github.bash.tpl")
+data "template_file" "set_config_to_github" {
+  template = file("./templates/github/set_config_to_github.bash.tpl")
 
-#   vars = {
-#     repository_url    = module.task.repository_url
-#     bucket_name       = module.website.bucket_name
-#     container_name    = module.task.container_name
-#     service_name      = module.ecs.service_name
-#     cluster_name      = module.ecs.cluster_name
-#     aws_region        = local.vars.aws_region
-#   }
-# }
+  vars = {
+    cloudfront_distribution_id    = module.website.cloudfront_distribution_id
+  }
+}
 
-# resource "null_resource" "set_config_to_github" {
+resource "null_resource" "set_config_to_github" {
 
-#   triggers = {
-#     always_run = "${timestamp()}"
-#   }
-#   provisioner "local-exec" {
-#     command     = "echo '${data.template_file.set_config_to_github.rendered}' > set_config_to_github.bash"
-#     interpreter = ["/bin/bash", "-c"]
-#   }
-# }
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+  provisioner "local-exec" {
+    command     = "echo '${data.template_file.set_config_to_github.rendered}' > set_config_to_github.bash"
+    interpreter = ["/bin/bash", "-c"]
+  }
+}
 
 data "template_file" "task_definition" {
   template = file("./templates/task-definition/task-definition.json.tpl")

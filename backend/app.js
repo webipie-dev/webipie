@@ -21,6 +21,7 @@ const uploadRoutes = require('./routes/upload');
 
 const errorHandler = require('./middlewares/error-handler')
 const ApiError = require("./errors/api-error");
+const { httpProtocol, hostname, port } = require('./configuration');
 // require('./middlewares/caching/cache')
 
 // Extended: https://swagger.io/specification/#infoObject
@@ -32,7 +33,7 @@ const swaggerOptions = {
       version: "1.0.0",
       title: "Webipie API",
       description: "Webipie API Information",
-      servers: ["http://localhost:3000"]
+      servers: [`${httpProtocol}://${hostname}:${port}`]
     }
   },
   apis: ["./swagger-doc/*.js"]
@@ -64,7 +65,7 @@ app
 
 
 app.all('*', async (req, res, next) => {
-  next(ApiError.NotFound('Route Not Found'))
+  next(ApiError.NotFound(`Route Not Found. req: ${req}`))
 });
 
 app.use(errorHandler);

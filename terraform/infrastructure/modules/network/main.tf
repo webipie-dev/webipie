@@ -29,8 +29,8 @@ resource "aws_security_group" "sg" {
 
   ingress {
     description     = "Allows TCP traffic on the application port"
-    from_port       = var.app_port
-    to_port         = var.app_port
+    from_port       = 0
+    to_port         = 65535
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
   }

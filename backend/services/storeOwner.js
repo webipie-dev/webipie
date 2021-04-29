@@ -1,11 +1,12 @@
 const JWT = require('jsonwebtoken');
 const {validatestoreOwner , StoreOwner} = require('../models/storeOwner');
-const { JWT_SECRET, EMAIL } = require('../configuration');
+const { JWT_SECRET, EMAIL, httpProtocol, hostname, port } = require('../configuration');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const ApiError = require("../errors/api-error");
 const nodemailer = require("nodemailer");
 const smtpTransport = require('nodemailer-smtp-transport');
+const { sendEmail } = require('./email');
 
 let transporter = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
@@ -77,20 +78,14 @@ module.exports = {
         const token = signToken(newstoreOwner);
 
         // send mail of verification 
-        const mailOptions = { 
-            from: EMAIL.USER, 
-            to: email, 
-            subject: 'Account Verification', 
-            text: 'Hello '+ name +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/storeOwner\/confirmation\/' + email + '\/' + token + '\n\nThank You!\n' 
-        };
+        var emailError = sendEmail(
+            EMAIL.USER, email, 'Account Verification',
+            `Hello ${name},\n\nPlease verify your account by clicking the link: \n${httpProtocol}://${hostname}:${port}/storeOwner/confirmation/${email}/${token}\n\nThank You!\n`
+        )
+        // TODO: handle email failure correctly, this always returns undefined:
+        if (emailError)
+            return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
 
-        await transporter.sendMail(mailOptions, function (err) {
-            if (err) { 
-                return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
-            }
-            // return res.status(200).send('A verification email has been sent to ' + email + '. It will be expire after one day. If you not get verification Email click on resend token.');
-        });
-      
         res.cookie('access_token', token, {
             httpOnly: true
         });

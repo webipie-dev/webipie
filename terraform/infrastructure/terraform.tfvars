@@ -3,7 +3,7 @@ env = {
 
     ecs = {
       app_count                            = 1
-      instance_type = "t2.micro"
+      instance_type = "t2.small"
       ssh_pubkey_file = "id_rsa.pub"
       autoscaling_policy_name              = "ecs_autoscaling"
       autoscaling_request_per_target_value = "250"
@@ -49,7 +49,7 @@ env = {
 
     ecs = {
       app_count                            = 1
-      instance_type = "t2.micro"
+      instance_type = "t2.small"
       ssh_pubkey_file = "id_rsa.pub"
       autoscaling_policy_name              = "ecs_autoscaling"
       autoscaling_request_per_target_value = "250"

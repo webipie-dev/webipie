@@ -73,11 +73,11 @@ resource "aws_ecs_service" "this" {
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent = 200
 
-  network_configuration {
-    security_groups  = [var.sg_id]
-    subnets          = [var.subnet1_id, var.subnet2_id]
-    # assign_public_ip = true
-  }
+  # network_configuration {
+  #   security_groups  = [var.sg_id]
+  #   subnets          = [var.subnet1_id, var.subnet2_id]
+  #   # assign_public_ip = true
+  # }
 
   load_balancer {
     target_group_arn = aws_alb_target_group.this.id
@@ -134,14 +134,14 @@ resource "aws_alb_target_group" "this" {
   port        = var.app_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
-  target_type = "ip"
+  target_type = "instance"
 
   health_check {
-    port                = var.app_port
+    port                = "traffic-port"
     healthy_threshold   = var.healthy_threshold
     interval            = var.health_check_interval
     protocol            = "HTTP"
-    matcher             = "200-299"
+    matcher             = "200-304"
     timeout             = var.health_check_timeout
     path                = var.health_check_path
     unhealthy_threshold = var.unhealthy_threshold

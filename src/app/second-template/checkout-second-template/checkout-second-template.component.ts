@@ -7,6 +7,7 @@ import {ClientService} from '../../_shared/services/client.service';
 import {Product} from '../../_shared/models/product.model';
 import {OrderService} from '../../_shared/services/order.service';
 import {Router} from '@angular/router';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('message', event => {
-      if (event.origin.startsWith('http://webipie.com:4200')) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

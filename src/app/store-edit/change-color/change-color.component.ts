@@ -4,6 +4,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 declare var $: any;
 
@@ -38,7 +39,7 @@ export class ChangeColorComponent implements OnInit {
         subj: color,
         type: 'color',
       };
-      $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
+      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}:${port}/`);
       this.defaultColor = color;
     }
   }
