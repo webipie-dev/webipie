@@ -18,12 +18,6 @@
       "entryPoint": null,
       "portMappings": [
         {
-          "hostPort": 80,
-          "protocol": "tcp",
-          "containerPort": 80
-        },
-        {
-          "hostPort": ${app_port},
           "protocol": "tcp",
           "containerPort": ${app_port}
         }
