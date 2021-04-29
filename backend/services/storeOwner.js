@@ -1,6 +1,6 @@
 const JWT = require('jsonwebtoken');
 const {validatestoreOwner , StoreOwner} = require('../models/storeOwner');
-const { JWT_SECRET, EMAIL } = require('../configuration');
+const { JWT_SECRET, EMAIL, httpProtocol, hostname, port } = require('../configuration');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const ApiError = require("../errors/api-error");
@@ -80,14 +80,12 @@ module.exports = {
         // send mail of verification 
         var emailError = sendEmail(
             EMAIL.USER, email, 'Account Verification',
-            'Hello '+ name +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/storeOwner\/confirmation\/' + email + '\/' + token + '\n\nThank You!\n'
+            `Hello ${name},\n\nPlease verify your account by clicking the link: \n${httpProtocol}://${hostname}:${port}/storeOwner/confirmation/${email}/${token}\n\nThank You!\n`
         )
         // TODO: handle email failure correctly, this always returns undefined:
         if (emailError)
             return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
 
-
-      
         res.cookie('access_token', token, {
             httpOnly: true
         });
