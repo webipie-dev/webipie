@@ -137,7 +137,7 @@ resource "aws_alb_target_group" "this" {
   target_type = "instance"
 
   health_check {
-    port                = var.app_port
+    port                = "traffic-port"
     healthy_threshold   = var.healthy_threshold
     interval            = var.health_check_interval
     protocol            = "HTTP"
