@@ -1,8 +1,9 @@
-const { mailgunAPIKey, mailgunDomainName } = require('../configuration');
+const { mailgunAPIKey, mailgunDomainName, mailgunHost } = require('../configuration');
 
 var api_key = mailgunAPIKey;
 var domain = mailgunDomainName;
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+var host = mailgunHost;
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain, host: host});
  
 
 
@@ -15,7 +16,6 @@ const sendEmail = function (from, to, subject, text) {
     };
        
     mailgun.messages().send(data, function (error, body) {
-        console.log(body);
         if(error){
             console.log(error);
             return error;
@@ -24,6 +24,8 @@ const sendEmail = function (from, to, subject, text) {
             return null;
     });
 }
+
+sendEmail("webipie@gmail.com", "ala2017eddine@gmail.com", "test1", "test1")
 
 module.exports = {
     sendEmail

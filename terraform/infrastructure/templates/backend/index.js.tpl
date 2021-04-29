@@ -23,7 +23,8 @@ module.exports = {
   clientPort: "430",
   clientHostname: '"${website_domain_name}"',
   mailgunAPIKey: '"${mailgun_api_key}"',
-  mailgunDomainName: '"${mailgun_domain_name}"'
+  mailgunDomainName: '"${mailgun_domain_name}"',
+  mailgunHost: 'api.eu.mailgun.net'
 
 }
 
