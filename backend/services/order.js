@@ -79,7 +79,6 @@ const addOrder = async (req, res, next) => {
     totalPrice,
     client,
     store,
-
   });
   await order.save();
 

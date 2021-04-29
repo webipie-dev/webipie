@@ -45,6 +45,14 @@ const getStoreByUrl = async (req,res) => {
   res.status(200).send(store);
 }
 
+const getStoreUrls = async (req,res) => {
+  const urls = await Store.find({}).select({ "url": 1, "_id": 0})
+    .catch((err) => {
+      res.status(400).json({errors: err.message});
+    });
+  res.status(200).send(urls);
+}
+
 const getStoreByNameAndLocation = async (req,res) => {
   const { name,location } = req.params;
   const store = await Store.findOne({name, "contact.location": location})
@@ -168,7 +176,6 @@ const editStore = async (req, res, next) => {
       edits[key] = req.body[key];
     }
   }
-  console.log()
   const store = await Store.updateOne({_id: id}, { $set: edits })
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
@@ -216,6 +223,7 @@ module.exports = {
   getOneStore,
   getStoreByNameAndLocation,
   getStoreByUrl,
+  getStoreUrls,
   getStoreNames,
   getStores,
   addStore,

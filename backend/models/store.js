@@ -9,7 +9,6 @@ const contact = new Schema({
   facebookPage: {type: String, default: ''},
   instagramPage: {type: String, default: ''},
   location: {type: String, default: ''}
-
 });
 
 const template = new Schema({
