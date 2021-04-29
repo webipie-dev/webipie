@@ -2,7 +2,7 @@ module.exports = {
     JWT_SECRET : 'secretHERE',
 
     EMAIL: {
-        USER: 'webipie@gmail.com',
+        USER: 'confirmation@webipie.com',
         PASSWORD: 'webipie4win',
     },
   awsEndPoint: 'https://webipie-images.s3.eu-west-3.amazonaws.com/',
