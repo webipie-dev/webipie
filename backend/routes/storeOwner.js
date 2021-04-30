@@ -37,7 +37,7 @@ router.route('/changepwd')
         ], validateRequest, passportJWT, storeOwnerService.changePwd);
 
 router.post('/secret' , passportJWT , async (req,res) => {
-    res.send('resource');
+    res.send('authentified and verified!');
 });
 
 

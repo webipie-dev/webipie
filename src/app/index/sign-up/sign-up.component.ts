@@ -66,11 +66,11 @@ export class SignUpComponent implements OnInit {
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
               localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
+              this.router.navigate(['confirmation']);
             });
-            return;
+          }else{
+            this.router.navigate(['confirmation']);
           }
-
-          this.router.navigate(['confirmation']);
 
           this.loading = false;
       }, err => {

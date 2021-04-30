@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from '../../_shared/services/store.service';
 import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
+import { AuthService } from '../../_shared/services/auth.service';
 
 declare var $: any;
 
@@ -14,7 +15,8 @@ export class AfterSigninComponent implements OnInit {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              private storeService: StoreService) { }
+              private storeService: StoreService,
+              private authService: AuthService) { }
 
   loading = true;
   storeName: string;
@@ -54,11 +56,20 @@ export class AfterSigninComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const templateId = params.templateId;
       if (localStorage.getItem('token') && !localStorage.getItem('storeID')) {
-        console.log('here to create store!');
+        // this.authService.isVerified().subscribe(result => {
+        //   console.log(result);
+        // },
+        // error => {
+        //   console.log(error);
+        // });
         this.storeService.addOne({ templateId, name: this.storeName, storeType: this.storeType }).subscribe( store => {
           localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
+          console.log('here');
+          this.router.navigate(['dashboard']);
+        },
+        error => {
+          this.router.navigate(['confirmation'], { queryParams: { templateId, storeName: this.storeName, storeType: this.storeType }});
         });
-        this.router.navigate(['dashboard']);
       } else {
         this.router.navigate(['signup'], { queryParams: { templateId, storeName: this.storeName, storeType: this.storeType }});
       }
