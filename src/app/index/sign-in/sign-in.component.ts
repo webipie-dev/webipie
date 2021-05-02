@@ -46,10 +46,10 @@ export class SignInComponent implements OnInit {
         localStorage.setItem('token', result['token']);
         const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
 
-        // params in route
-        const templateId = this.route.snapshot.queryParamMap.get('templateId');
-        const storeName = this.route.snapshot.queryParamMap.get('storeName');
-        const storeType = this.route.snapshot.queryParamMap.get('storeType');
+        // params in localStorage
+        const templateId = localStorage.getItem('templateId');
+        const storeName = localStorage.getItem('storeName');
+        const storeType = localStorage.getItem('storeType');
 
         // redirect to dashboard in case of storeID
         if (result['storeId']){
@@ -131,10 +131,10 @@ export class SignInComponent implements OnInit {
             localStorage.setItem('token', result['token']);
             const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
 
-            // params in route
-            const templateId = this.route.snapshot.queryParamMap.get('templateId');
-            const storeName = this.route.snapshot.queryParamMap.get('storeName');
-            const storeType = this.route.snapshot.queryParamMap.get('storeType');
+            // params in localStorage
+            const templateId = localStorage.getItem('templateId');
+            const storeName = localStorage.getItem('storeName');
+            const storeType = localStorage.getItem('storeType');
 
             // redirect to dashboard in case of storeID
             if (result['storeID']){
@@ -166,10 +166,10 @@ export class SignInComponent implements OnInit {
           .subscribe(result => {
             localStorage.setItem('token', result['token']);
             const returnUrl = this.route.snapshot.queryParamMap.get('retrunUrl');
-            // params in route
-            const templateId = this.route.snapshot.queryParamMap.get('templateId');
-            const storeName = this.route.snapshot.queryParamMap.get('storeName');
-            const storeType = this.route.snapshot.queryParamMap.get('storeType');
+            // params in localStorage
+            const templateId = localStorage.getItem('templateId');
+            const storeName = localStorage.getItem('storeName');
+            const storeType = localStorage.getItem('storeType');
 
             // redirect to dashboard in case of storeID
             if (result['storeId']){
@@ -197,9 +197,10 @@ export class SignInComponent implements OnInit {
   }
 
   navigateToSignUp(): void{
-    const templateId = this.route.snapshot.queryParamMap.get('templateId');
-    const storeName = this.route.snapshot.queryParamMap.get('storeName');
-    const storeType = this.route.snapshot.queryParamMap.get('storeType');
+    const templateId = localStorage.getItem('templateId');
+    const storeName = localStorage.getItem('storeName');
+    const storeType = localStorage.getItem('storeType');
+
     this.router.navigate(['signup'], { queryParams: { templateId, storeName, storeType }});
   }
 

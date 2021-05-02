@@ -1,38 +1,61 @@
-<app-header></app-header>
+<app-loading-spinner></app-loading-spinner>
 
-<div class="container">
-    <div class="card-wrapper col-lg-10 col-12 mx-auto py-5">
-      <div class="card-background row">
-        <div class="card-background-image col-lg-5 col-12 ">
-          <div class="text-center big-titles white-colored mt-3">Logo Savvy</div>
-          <img src="../../../assets/images/403.png" alt="" class="img-fluid my-5 img-confirm d-flex mx-auto gandolf">
-          <div class="text-center big-titles white-colored mt-3" style="font-family: cursive;">YOU SHALL NOT PASS!</div>
-        </div>
-        <!-- <app-spinner
-          class="mx-auto my-auto"
-          *ngIf="loading">
-        </app-spinner> -->
-        <div class=" col-lg-7 col-12 padding-signup ">
+<div *ngIf='!isLoading'>
+  <app-header></app-header>
+
+  <div class="container">
+      <div class="card-wrapper col-lg-10 col-12 mx-auto py-5">
+        <div class="card-background row">
+          <div class="card-background-image col-lg-5 col-12 ">
+            <div class="text-center big-titles white-colored mt-3"><span style="color: cornflowerblue;">Webi</span>pie</div>
+            <img 
+              [src]='!isVerified ? "../../../assets/images/gandalf-403.png" : "../../../assets/images/access-allowed.png"' 
+              alt="" class="img-fluid my-5 img-confirm d-flex mx-auto gandolf">
+            <div *ngIf='!isVerified' class="text-center big-titles white-colored mt-3" style="font-family: cursive;">YOU SHALL NOT PASS!</div>
+          </div>
+          <!-- <app-spinner
+            class="mx-auto my-auto"
+            *ngIf="loading">
+          </app-spinner> -->
+          <div  *ngIf='!isVerified' class=" col-lg-7 col-12 padding-signup ">
             <div class="text-center big-titles mt-3">E-mail Confirmation</div>
-            <div class="text-center text-size mt-5">Hey, <br>
+            <div class="text-center text-size mt-5">
+              <div class='container'>
+                Hey, <br>
                 It looks like you just signed up for The App, that’s awesome! Can we ask you for email confirmation? Just click on the link sent to your email.
-                <button class="button-generic button-blue small-titles" (click)="navigateDashboard()">Go To Dashboard</button>
+              </div>
+              <button class="button-generic button-blue small-titles" (click)="navigateDashboard()">Go To Dashboard</button>
             </div>        
             <div class="row text-center text-size d-flex justify-content-center">
-                <div class="line-login my-3 mr-2"></div>
-                ***
-                <div class="line-login my-3 ml-2"></div>
+              <div class="line-login my-3 mr-2"></div>
+              ***
+              <div class="line-login my-3 ml-2"></div>
             </div> 
-            <div class="text-center text-size mt-3"> To resend the link, please click on the button below 
-                <button class="button-generic button-blue small-titles" (click)='resend()'>Resend link</button>
+            <div class="text-center text-size mt-3"> 
+              <div class="container">
+                To resend the link, please click on the button below 
+              </div> 
+              <button class="button-generic button-blue small-titles" (click)='resend()'>Resend link</button>
             </div> 
-                    
-
+          </div>
+  
+          <div *ngIf='isVerified' class="col-lg-7 col-12 padding-signup">
+            <div class="text-center big-titles mt-3">Welcome back</div>
+            <div class="text-center text-size mt-5">
+              <div class='container'>
+                Hey, <br>
+                It looks like you just signed up for The App, and now you have confirmed your email, that’s awesome! 
+                Now you can benefit from our services; head out to your dashboard and let's begin the journey!
+              </div>
+              <button class="button-generic button-blue small-titles" (click)="navigateDashboard()">Go To Dashboard</button>
+            </div>  
+          </div>
+        </div>
+        <div *ngIf='!isVerified' class="text-center text-size  pt-4 ">
+            <div class="text-center text-size dont-have-account ">You have already an account ?</div>
+            <div class="text-center text-size mb-2 dont-have-account" >Forgot your password ?</div>
         </div>
       </div>
-      <div class="text-center text-size  pt-4 ">
-          <div class="text-center text-size dont-have-account ">You have already an account ?</div>
-          <div class="text-center text-size mb-2 dont-have-account" >Forgot your password ?</div>
-      </div>
-    </div>
+  </div>
 </div>
+

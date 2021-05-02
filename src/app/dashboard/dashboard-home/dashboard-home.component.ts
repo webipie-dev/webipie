@@ -32,6 +32,10 @@ export class DashboardHomeComponent implements OnInit {
   isLoading = false;
 
   ngOnInit(): void {
+    localStorage.removeItem('templateId');
+    localStorage.removeItem('storeName');
+    localStorage.removeItem('storeType');
+
     this.getClientsLength();
     this.getStore();
   }

@@ -59,18 +59,18 @@ export class SignUpComponent implements OnInit {
           // set token in localStorage
           localStorage.setItem('token', result['token']);
 
-          // params in route
-          const templateId = this.route.snapshot.queryParamMap.get('templateId');
-          const storeName = this.route.snapshot.queryParamMap.get('storeName');
-          const storeType = this.route.snapshot.queryParamMap.get('storeType');
+          // params in localStorage
+          const templateId = localStorage.getItem('templateId');
+          const storeName = localStorage.getItem('storeName');
+          const storeType = localStorage.getItem('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
               localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
+              this.router.navigate(['confirmation']);
             });
-            return;
+          }else{
+            this.router.navigate(['confirmation']);
           }
-
-          this.router.navigate(['confirmation']);
 
           this.loading = false;
       }, err => {
@@ -147,10 +147,10 @@ export class SignUpComponent implements OnInit {
           // set token in localStorage
           localStorage.setItem('token', result['token']);
 
-          // params in route
-          const templateId = this.route.snapshot.queryParamMap.get('templateId');
-          const storeName = this.route.snapshot.queryParamMap.get('storeName');
-          const storeType = this.route.snapshot.queryParamMap.get('storeType');
+          // params in localStorage
+          const templateId = localStorage.getItem('templateId');
+          const storeName = localStorage.getItem('storeName');
+          const storeType = localStorage.getItem('storeType');
           if (templateId && storeType && storeName){
             this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
               localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
@@ -175,10 +175,11 @@ export class SignUpComponent implements OnInit {
             // set token in localStorage
             localStorage.setItem('token', result['token']);
 
-            // params in route
-            const templateId = this.route.snapshot.queryParamMap.get('templateId');
-            const storeName = this.route.snapshot.queryParamMap.get('storeName');
-            const storeType = this.route.snapshot.queryParamMap.get('storeType');
+            // params in localStorage
+            const storeName = localStorage.getItem('storeName');
+            const storeType = localStorage.getItem('storeType');
+            const templateId = localStorage.getItem('templateId');
+
             if (templateId && storeType && storeName){
               this.storeService.addOne({ templateId, name: storeName, storeType }).subscribe(store => {
                 localStorage.setItem('storeID', encryptLocalStorage.encryptString(store.id));
@@ -196,9 +197,9 @@ export class SignUpComponent implements OnInit {
   }
 
   navigateToSignIn(): void{
-    const templateId = this.route.snapshot.queryParamMap.get('templateId');
-    const storeName = this.route.snapshot.queryParamMap.get('storeName');
-    const storeType = this.route.snapshot.queryParamMap.get('storeType');
+    const templateId = localStorage.getItem('templateId');
+    const storeName = localStorage.getItem('storeName');
+    const storeType = localStorage.getItem('storeType');
     this.router.navigate(['signin'], { queryParams: { templateId, storeName, storeType }});
   }
 
