@@ -1,6 +1,6 @@
 const JWT = require('jsonwebtoken');
 const {validatestoreOwner , StoreOwner} = require('../models/storeOwner');
-const { JWT_SECRET, EMAIL, httpProtocol, hostname, port } = require('../configuration');
+const { JWT_SECRET, EMAIL, httpProtocol, clientHostname, clientPort } = require('../configuration');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const ApiError = require("../errors/api-error");
@@ -67,7 +67,7 @@ module.exports = {
         // send mail of verification 
         var emailError = sendEmail(
             EMAIL.USER, email, 'Account Verification',
-            `Hello ${name},\n\nPlease verify your account by clicking the link: \n${httpProtocol}://${hostname}:${port}/storeOwner/confirmation/${email}/${token}\n\nThank You!\n`
+            `Hello ${name},\n\nPlease verify your account by clicking the link: \n${httpProtocol}://${clientHostname}:${clientPort}/confirmation?token=${token}\n\nThank You!\n`
         )
         // TODO: handle email failure correctly, this always returns undefined:
         if (emailError)
@@ -101,7 +101,7 @@ module.exports = {
             storeOwner.local.verified = true;
             await storeOwner.save();
 
-            res.send(200).json({message: "successful confirmation!"});
+            res.status(200).json({message: "successful confirmation!"});
         } catch(err) {
             return next(ApiError.BadRequest('Your verification link may have expired. Please click on resend for verify your Email.'));
         }      
@@ -122,11 +122,11 @@ module.exports = {
             // send mail of verification 
             var emailError = sendEmail(
                 EMAIL.USER, storeOwner.local.email, 'Account Verification',
-                `Hello ${storeOwner.local.name},\n\nPlease verify your account by clicking the link: \n${httpProtocol}://${hostname}:${port}/storeOwner/confirmation/${storeOwner.local.email}/${token}\n\nThank You!\n`
+                `Hello ${storeOwner.local.name},\n\nPlease verify your account by clicking the link: \n${httpProtocol}://${clientHostname}:${clientPort}/confirmation?token=${token}\n\nThank You!\n`
             );
             // TODO: handle email failure correctly, this always returns undefined:
             if (emailError)
-                return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
+                return res.status(500).json({msg:'Technical Issue!, Please click on resend for verify your Email.'});
         }
     },
 

@@ -17,13 +17,35 @@ export class ConfirmationComponent implements OnInit {
     private authservice: AuthService,
     private storeService: StoreService) { }
 
+  isVerified: boolean;
+  isLoading: boolean;
+
   ngOnInit(): void {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2500);
+
+    this.isVerified = false;
+
+    const token = this.route.snapshot.queryParamMap.get('token');
+    if (token){
+      this.authservice.confirmEmail(token).subscribe((res) => {
+        this.isVerified = true;
+      });
+    }else{
+      this.authservice.isVerified().subscribe((result) => {
+        this.isVerified = true;
+      },
+      (error) => {});
+    }
   }
 
   navigateDashboard(): void{
-    const templateId = this.route.snapshot.queryParamMap.get('templateId');
-    const storeName = this.route.snapshot.queryParamMap.get('storeName');
-    const storeType = this.route.snapshot.queryParamMap.get('storeType');
+    const templateId = localStorage.getItem('templateId');
+    const storeName = localStorage.getItem('storeName');
+    const storeType = localStorage.getItem('storeType');
+
     if (localStorage.getItem('storeID')){
       this.router.navigate(['dashboard']);
     }else if (templateId && storeType && storeName) {

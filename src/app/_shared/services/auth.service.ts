@@ -66,8 +66,13 @@ export class AuthService {
         headers: { Authorization: localStorage.getItem('token') },
       };
     }
-    return this.http.post(this.getUrl() + '/storeOwner/secret', httpOptions );
+    return this.http.get(this.getUrl() + '/storeOwner/secret', httpOptions );
   }
+
+  confirmEmail(token){
+    return this.http.get(this.getUrl() + `/storeOwner/confirmation/${token}`);
+  }
+
 
 
   public isAuthenticated(): boolean {
