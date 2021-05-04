@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
 import {UploadService} from '../../_shared/services/upload.service';
+import {imagesBucket} from 'src/app/configuration'
 
 @Component({
   selector: 'app-edit-product',
@@ -192,7 +193,7 @@ export class EditProductComponent implements OnInit {
 
     // add the images to postdata
     for (const [key, value] of Object.entries(this.savedImages)) {
-      this.imagesToUpload.push('https://webipie-images.s3.eu-west-3.amazonaws.com/' + value);
+      this.imagesToUpload.push(imagesBucket + value);
     }
 
     for (const field in this.productForm.controls) {
@@ -215,7 +216,7 @@ export class EditProductComponent implements OnInit {
 
   editProduct(id): void {
     for (const [key, value] of Object.entries(this.savedImages)) {
-      this.imagesToUpload.push('https://webipie-images.s3.eu-west-3.amazonaws.com/' + value);
+      this.imagesToUpload.push(imagesBucket + value);
     }
 
     for (const field in this.productForm.controls) {

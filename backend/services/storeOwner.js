@@ -1,21 +1,10 @@
 const JWT = require('jsonwebtoken');
 const {validatestoreOwner , StoreOwner} = require('../models/storeOwner');
-const { JWT_SECRET, EMAIL } = require('../configuration');
+const { JWT_SECRET, EMAIL, httpProtocol, clientHostname, clientPort } = require('../configuration');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const ApiError = require("../errors/api-error");
-const nodemailer = require("nodemailer");
-const smtpTransport = require('nodemailer-smtp-transport');
-
-let transporter = nodemailer.createTransport(smtpTransport({
-    service: 'gmail',
-    host: 'smtp.gmail.com',
-    auth: {
-      user: EMAIL.USER,
-      pass: EMAIL.PASSWORD,
-    },
-  })
-);
+const { sendEmail } = require('./email');
 
 signToken = user => {
     return JWT.sign({
@@ -76,20 +65,14 @@ module.exports = {
         const token = signToken(newstoreOwner);
 
         // send mail of verification 
-        const mailOptions = { 
-            from: EMAIL.USER, 
-            to: email, 
-            subject: 'Account Verification', 
-            text: 'Hello '+ name +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/storeOwner\/confirmation\/' + email + '\/' + token + '\n\nThank You!\n' 
-        };
+        var emailError = sendEmail(
+            EMAIL.USER, email, 'Account Verification',
+            `Hello ${name},\n\nPlease verify your account by clicking the link: \n${httpProtocol}://${clientHostname}:${clientPort}/confirmation?token=${token}\n\nThank You!\n`
+        )
+        // TODO: handle email failure correctly, this always returns undefined:
+        if (emailError)
+            return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
 
-        transporter.sendMail(mailOptions, function (err) {
-            if (err) { 
-                return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
-                }
-            return res.status(200).send('A verification email has been sent to ' + email + '. It will be expire after one day. If you not get verification Email click on resend token.');
-        });
-      
         res.cookie('access_token', token, {
             httpOnly: true
         });
@@ -118,7 +101,7 @@ module.exports = {
             storeOwner.local.verified = true;
             await storeOwner.save();
 
-            res.send(200).json({message: "successful confirmation!"});
+            res.status(200).json({message: "successful confirmation!"});
         } catch(err) {
             return next(ApiError.BadRequest('Your verification link may have expired. Please click on resend for verify your Email.'));
         }      
@@ -136,19 +119,14 @@ module.exports = {
     
         }
         else{
-            const mailOptions = { 
-                from: EMAIL.USER, 
-                to: storeOwner.local.email, 
-                subject: 'Account Verification', 
-                text: 'Hello '+ storeOwner.local.name +',\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/storeOwner\/confirmation\/' + storeOwner.local.email + '\/' + token + '\n\nThank You!\n' 
-            };
-    
-            transporter.sendMail(mailOptions, function (err) {
-                if (err) { 
-                    return res.status(500).send({msg:'Technical Issue!, Please click on resend for verify your Email.'});
-                    }
-                return res.status(200).send('A verification email has been sent to ' + storeOwner.local.email + '. It will be expire after one day. If you not get verification Email click on resend token.');
-            });
+            // send mail of verification 
+            var emailError = sendEmail(
+                EMAIL.USER, storeOwner.local.email, 'Account Verification',
+                `Hello ${storeOwner.local.name},\n\nPlease verify your account by clicking the link: \n${httpProtocol}://${clientHostname}:${clientPort}/confirmation?token=${token}\n\nThank You!\n`
+            );
+            // TODO: handle email failure correctly, this always returns undefined:
+            if (emailError)
+                return res.status(500).json({msg:'Technical Issue!, Please click on resend for verify your Email.'});
         }
     },
 

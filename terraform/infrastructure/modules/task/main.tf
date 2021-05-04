@@ -58,7 +58,7 @@ data "template_file" "container_definitions" {
 resource "aws_ecs_task_definition" "this" {
   family                   = var.project_name
   execution_role_arn       = aws_iam_role.this.arn
-  network_mode             = "awsvpc"
+  network_mode             = "bridge"
   requires_compatibilities = ["EC2"]
   cpu                      = var.cpu
   memory                   = var.memory

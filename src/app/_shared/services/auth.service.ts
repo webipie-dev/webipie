@@ -59,6 +59,21 @@ export class AuthService {
     return this.http.post(this.getUrl() + '/storeOwner/changepwd', { oldPassword, newPassword }, httpOptions );
   }
 
+  isVerified() {
+    let httpOptions: any;
+    if ( localStorage.getItem('token') ){
+      httpOptions = {
+        headers: { Authorization: localStorage.getItem('token') },
+      };
+    }
+    return this.http.get(this.getUrl() + '/storeOwner/secret', httpOptions );
+  }
+
+  confirmEmail(token){
+    return this.http.get(this.getUrl() + `/storeOwner/confirmation/${token}`);
+  }
+
+
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');

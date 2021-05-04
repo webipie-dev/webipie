@@ -20,7 +20,7 @@ router.route('/signin')
     .post(passportSignIn, storeOwnerService.signIn);
 
 router.route('/confirmation/:token')
-    .post(storeOwnerService.confirmEmail);
+    .get(storeOwnerService.confirmEmail);
 
 router.route('/confirmation/resend/:token')
     .post(storeOwnerService.resend);
@@ -36,8 +36,8 @@ router.route('/changepwd')
         validation.password
         ], validateRequest, passportJWT, storeOwnerService.changePwd);
 
-router.post('/secret' , passportJWT , async (req,res) => {
-    res.send('resource');
+router.get('/secret' , passportJWT , async (req,res) => {
+    res.status(200).send({sucess: 'authentified and verified!'});
 });
 
 

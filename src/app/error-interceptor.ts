@@ -11,13 +11,18 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  urlsToNotUse: Array<string>;
 
   constructor(private router: Router) {
-
+    this.urlsToNotUse = [];
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+    const n = req.url.lastIndexOf('/');
+    if ((req.url.slice(n + 1 ) === 'store' && req.method === 'POST') ||
+    (req.url.slice(n + 1 ) === 'secret' && req.method === 'GET')){
+      return next.handle(req);
+    }
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         console.log(error.error);

@@ -7,7 +7,7 @@ import {UploadService} from '../../_shared/services/upload.service';
 import {encryptLocalStorage, encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
-
+import {imagesBucket} from 'src/app/configuration'
 
 @Component({
   selector: 'app-profile',
@@ -159,7 +159,7 @@ export class ProfileComponent implements OnInit {
   onSubmit(): void {
     this.submitLogo = true;
     if (this.savedImage !== '') {
-      const logo = 'https://webipie-images.s3.eu-west-3.amazonaws.com/' + this.savedImage;
+      const logo = imagesBucket + this.savedImage;
       this.storeService.edit(this.store.id, {logo}).subscribe(data => {
         console.log(data);
         this.store.logo = logo;

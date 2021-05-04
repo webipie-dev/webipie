@@ -2,6 +2,8 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {encryptStorage} from '../_shared/utils/encrypt-storage';
 import {Store} from '../_shared/models/store.model';
 import {Title} from '@angular/platform-browser';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+
 
 @Component({
   selector: 'app-second-template',
@@ -23,7 +25,7 @@ export class SecondTemplateComponent implements OnInit {
     }
     window.addEventListener('message', event => {
       // IMPORTANT: check the origin of the data!
-      if (event.origin.startsWith('http://webipie.com:4200')) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
         switch (event.data.type) {
           case 'store':
             console.log('i got here');

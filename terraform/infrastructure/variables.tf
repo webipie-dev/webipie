@@ -2,7 +2,6 @@ variable "env" {
   type = map(
     object({
 
-
       ecs = object({
         app_count                            = number
         instance_type = string
@@ -57,4 +56,39 @@ variable "amis" {
       eu-central-1 = "ami-9fc39c74"
       eu-west-1 = "ami-d65dfbaf"
     }
+}
+
+variable "twilio_account_sid" {
+  type        = string
+  description = "twilio account SID"
+}
+
+variable "twilio_auth_token" {
+  type        = string
+  description = "twilio auth token"
+}
+
+variable "mongo_db_url" {
+  type        = string
+  description = "mongo db url"
+}
+
+variable "aws_access_key" {
+  type        = string
+  description = "aws access key"
+}
+
+variable "aws_secret_key" {
+  type        = string
+  description = "aws secret key"
+}
+
+variable "mailgun_api_key" {
+  type        = string
+  description = "mailgun API Key"
+}
+
+variable "mailgun_domain_name" {
+  type        = string
+  description = "mailgun Domain Name"
 }

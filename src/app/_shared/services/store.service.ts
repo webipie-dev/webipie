@@ -6,6 +6,7 @@ import { encryptStorage } from '../utils/encrypt-storage';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
+import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 
 declare var $: any;
 
@@ -92,7 +93,7 @@ export class StoreService extends GenericService<any>{
         subj: store,
         type: 'store',
       };
-      $('#iframe')[0].contentWindow.postMessage(subjectToChange, 'http://store.webipie.com:4200/');
+      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}:${port}/`);
 
       // update own session storage
       encryptStorage.setItem('store', store);

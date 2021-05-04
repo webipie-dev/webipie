@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import {PageNotFoundComponent} from './index/page-not-found/page-not-found.component';
 import { AuthGuard } from './_shared/services/auth-guard.service';
 import {encryptStorage} from './_shared/utils/encrypt-storage';
@@ -57,7 +57,7 @@ const templateRoutes: Routes = [
 const isCurrentDomainWebipie = (window.location.hostname === 'webipie.com' || window.location.hostname === 'www.webipie.com');
 
 @NgModule({
-  imports: [RouterModule.forRoot(isCurrentDomainWebipie ? routes : templateRoutes)],
+  imports: [RouterModule.forRoot(isCurrentDomainWebipie ? routes : templateRoutes, {preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

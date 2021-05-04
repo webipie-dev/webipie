@@ -18,12 +18,6 @@
       "entryPoint": null,
       "portMappings": [
         {
-          "hostPort": 80,
-          "protocol": "tcp",
-          "containerPort": 80
-        },
-        {
-          "hostPort": ${app_port},
           "protocol": "tcp",
           "containerPort": ${app_port}
         }
@@ -125,7 +119,7 @@
   "requiresCompatibilities": [
     "EC2"
   ],
-  "networkMode": "awsvpc",
+  "networkMode": "bridge",
   "cpu": "${cpu}",
   "revision": 2,
   "status": "ACTIVE",

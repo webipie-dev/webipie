@@ -28,6 +28,7 @@ import {SidebarModule} from 'ng-sidebar';
 import { SideNavMinimizedComponent } from './side-nav-minimized/side-nav-minimized.component';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 import {IndexModule} from '../index/index.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {IndexModule} from '../index/index.module';
         ReactiveFormsModule,
         CommonModule,
         NgxChartsModule,
+        NgbModule,
         NgImageSliderModule,
         FormsModule,
         QuillModule.forRoot(),

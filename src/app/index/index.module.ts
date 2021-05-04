@@ -17,6 +17,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { MbscModule } from '@mobiscroll/angular';
+import { GoogleLoginProvider, FacebookLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
 
 
 
@@ -48,6 +49,27 @@ import { MbscModule } from '@mobiscroll/angular';
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         LoadingSpinnerComponent
+    ],
+    providers: [
+
+    {
+        provide: 'SocialAuthServiceConfig',
+        useValue: {
+          autoLogin: false,
+          providers: [
+            {
+              id: GoogleLoginProvider.PROVIDER_ID,
+              provider: new GoogleLoginProvider(
+                '790108924491-t5da8keoe1srskluak4jpi4oue78gcai.apps.googleusercontent.com'
+              ),
+            },
+            {
+              id: FacebookLoginProvider.PROVIDER_ID,
+              provider: new FacebookLoginProvider('348023999826107'),
+            }
+          ],
+        } as SocialAuthServiceConfig,
+      }
     ]
 })
 export class IndexModule { }
