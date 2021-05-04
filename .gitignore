@@ -55,4 +55,4 @@ dump.rdb
 backend/dump.rdb
 backend/*.rdb
 scripts/set_tf_vars.bash
-src/app/configuration/index.js
+src/app/configuration/*
