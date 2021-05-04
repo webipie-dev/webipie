@@ -6,7 +6,7 @@ import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 import { WebSocketService } from 'src/app/_shared/services/web-socket.service';
 import { NgZone } from '@angular/core';
 import {environment} from '../../../environments/environment';
-const { httpProtocol, hostname, port } = require('./configuration');
+const { httpProtocol, hostname, port } = require('../../configuration');
 
 declare var $;
 
