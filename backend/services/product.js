@@ -26,9 +26,9 @@ const getProducts = async (req, res, next) => {
 //   }
 
 //   const products = await Product.find({
-//     store, 
+//     store,
 //     $or:[
-//       {name: { "$regex": searchTerm.toLowerCase(), "$options": "i" }}, 
+//       {name: { "$regex": searchTerm.toLowerCase(), "$options": "i" }},
 //       {description: { "$regex": searchTerm.toLowerCase(), "$options": "i" }}
 //     ]
 //   })
@@ -55,21 +55,18 @@ const getOneProduct = async (req, res, next) => {
 const getManyProductById = async (req, res, next) => {
   let { ids } = req.query
   ids = JSON.parse(ids)
-  for(var property in ids[0]) {
-    // console.log(property + "=" + ids[0][property]);
+
+  const products = await Product.find({_id: {$in: ids}})
+    .catch((err) => {
+      res.status(400).json({errors: [{ message: err.message }]});
+    });
+
+  if(products.length !== ids.length){
+    next(ApiError.NotFound('Products Not Found'));
+    return;
   }
 
-  // const products = await Product.find({_id: {$in: ids}})
-  //   .catch((err) => {
-  //     res.status(400).json({errors: [{ message: err.message }]});
-  //   });
-  //
-  // if(products.length !== ids.length){
-  //   next(ApiError.NotFound('Products Not Found'));
-  //   return;
-  // }
-  //
-  // res.status(200).send(products);
+  res.status(200).send(products);
 }
 
 
@@ -83,9 +80,6 @@ const addProduct = async (req, res, next) => {
     return;
   }
 
-  // convert the values from strings to booleans
-  openReview = openReview === 'true';
-  popular = popular === 'true';
   const product = new Product({
     name,
     description,

@@ -24,12 +24,12 @@ export class EditProductComponent implements OnInit {
   postData = {
     name: '',
     description: '',
-    price: '',
+    price: 0,
     imgs: [],
-    quantity: '',
+    quantity: 0,
     storeId: '',
-    openReview: '',
-    popular: '',
+    openReview: true,
+    popular: false,
     status: '',
     deletedImages: []
   };
@@ -235,7 +235,7 @@ export class EditProductComponent implements OnInit {
     this.postData.deletedImages = this.deletedImages;
 
     // change status to disponible if quantity > 0
-    if (this.initialQuantity === 0 && this.postData.quantity !== '0' && this.productForm.status === 'out of stock') {
+    if (this.initialQuantity === 0 && this.postData.quantity !== 0 && this.productForm.status === 'out of stock') {
       Swal.fire({
         title: 'Product status is changed to Disponible',
         text: 'Check product status',
@@ -271,8 +271,8 @@ export class EditProductComponent implements OnInit {
   onSubmit(): void {
     this.postData.storeId = this.storeId;
 
-    this.postData.openReview = this.isChecked.toString();
-    this.postData.popular = this.isPopular.toString();
+    this.postData.openReview = this.isChecked;
+    this.postData.popular = this.isPopular;
 
     if (this.edit) {
       this.editProduct(this.productId);
