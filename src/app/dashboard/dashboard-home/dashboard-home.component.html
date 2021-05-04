@@ -66,7 +66,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <iframe src="http://store.webipie.com:4200/"
+              <iframe [src]="url"
                   class="iframe-home"
                   frameborder="0" width="100%" height="100%" (load)="resize($event)"></iframe>
             </div>

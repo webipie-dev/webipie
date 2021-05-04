@@ -7,6 +7,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
 import { encryptLocalStorage } from 'src/app/_shared/utils/encrypt-storage';
 import { MaxLengthValidator } from '@angular/forms';
+const { httpProtocol, hostname, port } = require('../../configuration');
 
 declare var $: any;
 
@@ -29,6 +30,7 @@ export class DashboardHomeComponent implements OnInit {
   popularProduct: Product = null;
   popularProdFreq = 0;
   store: Store = new Store();
+  url: string;
   isLoading = false;
 
   ngOnInit(): void {
@@ -43,6 +45,7 @@ export class DashboardHomeComponent implements OnInit {
   getStore(): void {
     this.storeService.getById(encryptLocalStorage.decryptString(localStorage.getItem('storeID'))).subscribe(data => {
       this.store = data;
+      this.url = `${httpProtocol}://${this.store.url}:${port}`;
     });
   }
 

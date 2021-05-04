@@ -25,7 +25,6 @@ const sendEmail = function (from, to, subject, text) {
     });
 }
 
-sendEmail("webipie@gmail.com", "ala2017eddine@gmail.com", "jawherbouhouch7@gmail.com", "test1")
 
 module.exports = {
     sendEmail
