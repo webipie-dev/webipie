@@ -4,7 +4,7 @@ import {NavigationExtras, Router} from '@angular/router';
 import {StoreService} from '../_shared/services/store.service';
 import {Store} from '../_shared/models/store.model';
 import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-storage';
-const { httpProtocol, hostname, port } = require('./configuration');
+const { httpProtocol, hostname, port } = require('../configuration');
 
 declare var $: any;
 @Component({
