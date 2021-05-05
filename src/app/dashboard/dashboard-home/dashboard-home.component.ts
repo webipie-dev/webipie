@@ -46,6 +46,7 @@ export class DashboardHomeComponent implements OnInit {
     this.storeService.getById(encryptLocalStorage.decryptString(localStorage.getItem('storeID'))).subscribe(data => {
       this.store = data;
       this.url = `${httpProtocol}://${this.store.url}:${port}`;
+      console.log(this.url);
     });
   }
 
