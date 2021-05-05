@@ -8,6 +8,7 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {ExternalFilesService} from '../../_shared/services/external-files.service';
 
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+import { Format } from 'src/app/_shared/utils/format';
 
 @Component({
   selector: 'app-products-section-second-template',
@@ -29,7 +30,7 @@ export class ProductsSectionSecondTemplateComponent implements OnInit{
 
   ngOnInit(): void {
     window.addEventListener('message', event => {
-      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}${Format.fmtPort(port)}`)) {
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

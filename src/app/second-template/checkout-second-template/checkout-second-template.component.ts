@@ -8,6 +8,7 @@ import {Product} from '../../_shared/models/product.model';
 import {OrderService} from '../../_shared/services/order.service';
 import {Router} from '@angular/router';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+import { Format } from 'src/app/_shared/utils/format';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class CheckoutSecondTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('message', event => {
-      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}${Format.fmtPort(port)}`)) {
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

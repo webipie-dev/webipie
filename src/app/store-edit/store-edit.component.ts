@@ -4,6 +4,7 @@ import {NavigationExtras, Router} from '@angular/router';
 import {StoreService} from '../_shared/services/store.service';
 import {Store} from '../_shared/models/store.model';
 import {encryptLocalStorage, encryptStorage} from '../_shared/utils/encrypt-storage';
+import { Format } from '../_shared/utils/format';
 const { httpProtocol, hostname, port } = require('../configuration');
 
 declare var $: any;
@@ -47,7 +48,7 @@ export class StoreEditComponent implements OnInit {
 
     this.storeService.getById(this.storeId).subscribe( store => {
       this.store = store;
-      this.urlToPreview = `${httpProtocol}://${store.url}:${port}`
+      this.urlToPreview = `${httpProtocol}://${store.url}${Format.fmtPort(port)}`
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
       encryptStorage.setItem('store', this.store);
     });

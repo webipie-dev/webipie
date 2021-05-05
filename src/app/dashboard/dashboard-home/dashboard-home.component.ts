@@ -8,6 +8,7 @@ import {Store} from '../../_shared/models/store.model';
 import { encryptLocalStorage } from 'src/app/_shared/utils/encrypt-storage';
 import { MaxLengthValidator } from '@angular/forms';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { Format } from 'src/app/_shared/utils/format';
 const { httpProtocol, hostname, port } = require('../../configuration');
 
 declare var $: any;
@@ -48,7 +49,7 @@ export class DashboardHomeComponent implements OnInit {
   getStore(): void {
     this.storeService.getById(encryptLocalStorage.decryptString(localStorage.getItem('storeID'))).subscribe(data => {
       this.store = data;
-      this.url = `${httpProtocol}://${this.store.url}:${port}`;
+      this.url = `${httpProtocol}://${this.store.url}${Format.fmtPort(port)}`;
       console.log("url " + this.url);
       this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
     });

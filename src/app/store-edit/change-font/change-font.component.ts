@@ -5,6 +5,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+import { Format } from 'src/app/_shared/utils/format';
 
 declare var $: any;
 
@@ -41,7 +42,7 @@ export class ChangeFontComponent implements OnInit {
       subj: data || this.defaultFont,
       type: 'font',
     };
-    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}:${port}/`);
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}${Format.fmtPort(port)}/`);
   }
 
   onSubmit(): void {

@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import {UploadService} from '../../_shared/services/upload.service';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 import {imagesBucket} from 'src/app/configuration';
+import { Format } from 'src/app/_shared/utils/format';
 
 declare var $: any;
 
@@ -64,7 +65,7 @@ export class ChangeHeaderComponent implements OnInit {
       subj: data || this.headerForm.value,
       type: 'header',
     };
-    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}:${port}/`);
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}${Format.fmtPort(port)}/`);
   }
 
   // image change

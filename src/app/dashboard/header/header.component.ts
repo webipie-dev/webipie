@@ -6,6 +6,7 @@ import {encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 import { WebSocketService } from 'src/app/_shared/services/web-socket.service';
 import { NgZone } from '@angular/core';
 import {environment} from '../../../environments/environment';
+import { Format } from 'src/app/_shared/utils/format';
 const { httpProtocol, hostname, port } = require('../../configuration');
 
 declare var $;
@@ -97,7 +98,7 @@ export class HeaderComponent implements OnInit {
   preview() {
     const storeId = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.storeService.getById(storeId).subscribe(store => {
-      const url = `${httpProtocol}://${store.url}:${port}`;
+      const url = `${httpProtocol}://${store.url}${Format.fmtPort(port)}`;
       window.open(url, '_blank');
     });
   }
