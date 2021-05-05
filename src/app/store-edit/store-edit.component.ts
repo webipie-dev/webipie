@@ -51,7 +51,7 @@ export class StoreEditComponent implements OnInit {
       console.log(this.store)
       this.urlToPreview = `${httpProtocol}://${store.url}:${port}`
       console.log("urlToPreview" + this.urlToPreview)
-      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
+      this.urlSafe = this.urlToPreview; //this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
       console.log("urlSafe" + this.urlSafe)
       encryptStorage.setItem('store', this.store);
     });
