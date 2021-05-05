@@ -4,6 +4,7 @@ on:
       - devops
       - master
       - dev
+      - fix-iframe
 
 name: Project Deployment
 
