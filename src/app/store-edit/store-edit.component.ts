@@ -53,6 +53,12 @@ export class StoreEditComponent implements OnInit {
     });
   }
 
+
+
+  getURL(){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.urlToPreview);
+  }
+
   public uploadDone() {
     this.windowHeight = window.innerHeight;
     this.loading = false;

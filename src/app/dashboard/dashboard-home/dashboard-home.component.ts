@@ -54,6 +54,10 @@ export class DashboardHomeComponent implements OnInit {
     });
   }
 
+  getURL(){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+  }
+
   getOrderLength(): void {
     const store = encryptLocalStorage.decryptString(localStorage.getItem('storeID'));
     this.orderService.getAll({store}).subscribe((data) => {
