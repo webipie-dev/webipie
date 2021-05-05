@@ -65,7 +65,7 @@ export class ChangeHeaderComponent implements OnInit {
       subj: data || this.headerForm.value,
       type: 'header',
     };
-    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}${Format.fmtPort(port)}/`);
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://${this.store.url}${Format.fmtPort(port)}/`);
   }
 
   // image change

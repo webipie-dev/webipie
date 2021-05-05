@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {encryptStorage} from '../../_shared/utils/encrypt-storage';
+import {encryptStorage, encryptLocalStorage} from '../../_shared/utils/encrypt-storage';
 import {HttpClient} from '@angular/common/http';
 import {StoreService} from '../../_shared/services/store.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
 import { Format } from 'src/app/_shared/utils/format';
+import { Store } from 'src/app/_shared/models/store.model';
 
 declare var $: any;
 
@@ -22,12 +23,22 @@ export class AboutUsComponent implements OnInit {
   initialAbout = encryptStorage.getItem('store').about;
 
   storeId = encryptStorage.getItem('store').id;
+  store: Store;
+
 
   constructor(private http: HttpClient,
               private storeService: StoreService,
               private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getStore();
+  }
+
+  getStore(): void {
+    this.storeService.getById(encryptLocalStorage.decryptString(localStorage.getItem('storeID'))).subscribe(data => {
+      this.store = data;
+    });
+  }
 
   // real time about change
   changeAbout(data?: string): void {
@@ -35,7 +46,7 @@ export class AboutUsComponent implements OnInit {
       subj: data || this.defaultAbout,
       type: 'about',
     };
-    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}${Format.fmtPort(port)}/`);
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://${this.store.url}${Format.fmtPort(port)}/`);
   }
 
   testChange(): boolean {

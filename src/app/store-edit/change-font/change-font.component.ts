@@ -28,7 +28,9 @@ export class ChangeFontComponent implements OnInit {
 
   initialFont = encryptStorage.getItem('store').template.font;
 
-  storeId = encryptStorage.getItem('store').id;
+  store = encryptStorage.getItem('store');
+  storeId = this.store.id;
+
 
   constructor(private http: HttpClient,
               private storeService: StoreService,
@@ -42,7 +44,7 @@ export class ChangeFontComponent implements OnInit {
       subj: data || this.defaultFont,
       type: 'font',
     };
-    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}${Format.fmtPort(port)}/`);
+    $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://${this.store.url}${Format.fmtPort(port)}/`);
   }
 
   onSubmit(): void {

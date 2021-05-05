@@ -40,7 +40,7 @@ export class ChangeColorComponent implements OnInit {
         subj: color,
         type: 'color',
       };
-      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}${Format.fmtPort(port)}/`);
+      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://${this.store.url}${Format.fmtPort(port)}/`);
       this.defaultColor = color;
     }
   }

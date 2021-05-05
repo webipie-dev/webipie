@@ -94,7 +94,7 @@ export class StoreService extends GenericService<any>{
         subj: store,
         type: 'store',
       };
-      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}${Format.fmtPort(port)}/`);
+      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://${store.url}${Format.fmtPort(port)}/`);
 
       // update own session storage
       encryptStorage.setItem('store', store);
