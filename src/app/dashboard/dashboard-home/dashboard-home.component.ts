@@ -7,6 +7,7 @@ import {StoreService} from '../../_shared/services/store.service';
 import {Store} from '../../_shared/models/store.model';
 import { encryptLocalStorage } from 'src/app/_shared/utils/encrypt-storage';
 import { MaxLengthValidator } from '@angular/forms';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 const { httpProtocol, hostname, port } = require('../../configuration');
 
 declare var $: any;
@@ -21,7 +22,8 @@ export class DashboardHomeComponent implements OnInit {
   constructor(private orderService: OrderService,
               private clientService: ClientService,
               private productService: ProductService,
-              private storeService: StoreService)
+              private storeService: StoreService,
+              public sanitizer: DomSanitizer)
   { }
 
   productLength = 0;
@@ -32,6 +34,7 @@ export class DashboardHomeComponent implements OnInit {
   store: Store = new Store();
   url: string;
   isLoading = false;
+  urlSafe: SafeResourceUrl;
 
   ngOnInit(): void {
     localStorage.removeItem('templateId');
@@ -46,7 +49,8 @@ export class DashboardHomeComponent implements OnInit {
     this.storeService.getById(encryptLocalStorage.decryptString(localStorage.getItem('storeID'))).subscribe(data => {
       this.store = data;
       this.url = `${httpProtocol}://${this.store.url}:${port}`;
-      console.log(this.url);
+      console.log("url " + this.url);
+      this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
     });
   }
 
