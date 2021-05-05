@@ -51,6 +51,7 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
+      if: ${{ secrets.SKIP_BACKEND == 'TRUE' }}
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: webipieecr_dev
@@ -80,6 +81,7 @@ jobs:
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
+      if: ${{ secrets.SKIP_BACKEND == 'TRUE' }}
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: backend/task-definition.json
@@ -95,6 +97,7 @@ jobs:
         wait-for-service-stability: true
 
     - name: Build and deploy front-end
+      if: ${{ secrets.SKIP_FRONTEND == 'TRUE' }}
       env:
         CLOUDFRONT_DISTRIBUTION_ID: ${{ steps.set-config.outputs.cloudfront_distribution_id }}
       run: |
