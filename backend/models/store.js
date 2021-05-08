@@ -16,7 +16,7 @@ const template = new Schema({
   id: {type: Schema.Types.ObjectID, ref: "Template"},
   name: {type: String, default: ''},
   header: {
-    img: { type: String, default: '' },
+    img: { type: String, default: 'https://webipie-images.s3.eu-west-3.amazonaws.com/default-images/template1-banner.jpg' },
     title: { type: String, default: '' },
     description: { type: String, default: '' },
     mainButton: { type: String, default: '' }

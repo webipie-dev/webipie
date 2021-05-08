@@ -48,7 +48,6 @@ app.use(cors());
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-
 app
   .use('/backend/images',express.static(path.join(__dirname,'images')))
   .use('/backend/images/logos',express.static(path.join(__dirname,'images/logos')))

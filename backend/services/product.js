@@ -43,11 +43,12 @@ const getProducts = async (req, res, next) => {
 const getOneProduct = async (req, res, next) => {
   //get product id
   const { id } = req.params;
-
+  console.log('aaaaaaaa')
   const product = await Product.findById(id)
     .catch((err) => {
       res.status(400).json({errors: [{ message: err.message }]});
     });
+  console.log(product)
   res.status(200).send(product);
 
 };
@@ -79,6 +80,8 @@ const addProduct = async (req, res, next) => {
     next(ApiError.NotFound('Store Not Found'));
     return;
   }
+
+  console.log(imgs)
 
   const product = new Product({
     name,
