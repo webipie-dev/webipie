@@ -127,6 +127,7 @@ export class EditProductComponent implements OnInit {
       if (data.quantity <= 0) {
         data.quantity = 0;
       }
+      console.log(data);
       this.singleProduct = data;
       this.isChecked = data.openReview;
       this.isPopular = data.popular;

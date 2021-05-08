@@ -1,7 +1,7 @@
 module.exports = {
   websiteDomainName: 'webipie.com',
-  port: 80,
-  httpProtocol: 'https',
+  port: 4200,
+  httpProtocol: 'http',
   backendHttpProtocol: 'https',
   wsProtocol: 'wss',
   backendPort: 8000,

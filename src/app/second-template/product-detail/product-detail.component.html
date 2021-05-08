@@ -62,8 +62,8 @@
 
                   <!-- Social Icons -->
                   <ul class="social_icons">
-                    <li><a href="{{store.contact.facebookPage}}"><i class="icon-social-facebook"></i></a></li>
-                    <li><a href="{{store.contact.instagramPage}}"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="{{store.contact?.facebookPage || '' }}"><i class="icon-social-facebook"></i></a></li>
+                    <li><a href="{{store.contact?.instagramPage || ''}}"><i class="fab fa-instagram"></i></a></li>
                   </ul>
                 </div>
               </div>
