@@ -24,7 +24,11 @@ const template = new Schema({
   colorChart: {type: {}, default: {}},
   colorChartOptions: {type: [{}], default: []},
   font: { type: String, default: ''},
-  fontOptions: { type: [String], default: []}
+  fontOptions: {
+    type: [String],
+    default: ['Monserrat',  'Verdana', 'Courier New',
+      'Alegreya', 'B612', 'Varela', 'Vollkorn', 'Cairo']
+  }
 });
 
 const ExSchema = new Schema({
