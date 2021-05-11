@@ -120,6 +120,7 @@ export class EditProductComponent implements OnInit {
     this.imageObjectToShow = new Array(Math.ceil(imageCopy.length / 3))
       .fill(imageCopy)
       .map(() => imageCopy.splice(0, 3));
+    console.log(this.imageObjectToShow);
   }
 
   getProductById(id): void {
@@ -283,13 +284,16 @@ export class EditProductComponent implements OnInit {
     this.progressBar = 0;
   }
 
-  deletePhoto(i): void {
+  deletePhoto(i, arrayIndex): void {
     // if edit product
+    console.log(this.imageObject);
     this.deletedImages.push(this.imageObject[i].image);
-    this.imageObject.splice(i, 1);
+    this.imageObject.splice(i * 3 + arrayIndex, 1);
     this.divideImageObject();
     // if add product
     delete this.savedImages[this.imageObject[i].image];
+    document.getElementById('img-mobile-0').classList.add('active');
+    document.getElementById('img-desktop-0').classList.add('active');
   }
 
   @HostListener('window:resize') windwosResize(): void {

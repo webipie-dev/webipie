@@ -47,11 +47,11 @@
                 <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
                   <!--Slides-->
                   <div class="carousel-inner" role="listbox">
-                    <div class=" d-lg-none ">
+                    <div class=" d-lg-none" *ngIf="windwosWidth <= 991">
                       <!--First slide-->
                       <div *ngFor="let image of imageObject; let i = index;"
                            [ngClass]="{'active' : i === 0}"
-                           class="carousel-item ">
+                           class="carousel-item " id="img-mobile-{{i}}">
 
                         <div class="row">
                           <div class="col-lg-4">
@@ -62,7 +62,7 @@
                                      alt="Card image cap">
                                 <div *ngIf="loading" class="loader"></div>
                                 <div class="card-body">
-                                  <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
+                                  <a class="btn button-delete" (click)="deletePhoto(0, i)">Delete</a>
                                 </div>
                               </div>
                             </div>
@@ -73,21 +73,21 @@
                       <!--/.First slide-->
 
                     </div>
-                    <div class="d-none d-lg-block">
+                    <div class="d-none d-lg-block" *ngIf="windwosWidth > 991">
                       <!--First slide-->
                       <div *ngFor="let imageArr of imageObjectToShow; let i = index;"
-                           [ngClass]="{'active' : i === 0}"
+                           [ngClass]="{'active' : i === 0}" id="img-desktop-{{i}}"
                            class="carousel-item ">
 
                         <div class="row">
-                          <div *ngFor="let image of imageArr" class="col-lg-4">
+                          <div *ngFor="let image of imageArr; let j = index" class="col-lg-4">
                             <div class="card mb-2">
                               <img class="card-img-top my-auto" [src]="image.image"
                                    [class.blurImage]="loading"
                                    alt="Card image cap">
                               <div *ngIf="loading" class="loader"></div>
                               <div class="card-body">
-                                <a class="btn button-delete" (click)="deletePhoto(i)">Delete</a>
+                                <a class="btn button-delete" (click)="deletePhoto(i, j)">Delete</a>
                               </div>
                             </div>
                           </div>
