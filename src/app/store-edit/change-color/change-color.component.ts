@@ -5,6 +5,7 @@ import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+import { Format } from 'src/app/_shared/utils/format';
 
 declare var $: any;
 
@@ -39,7 +40,7 @@ export class ChangeColorComponent implements OnInit {
         subj: color,
         type: 'color',
       };
-      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}:${port}/`);
+      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://${this.store.url}${Format.fmtPort(port)}/`);
       this.defaultColor = color;
     }
   }

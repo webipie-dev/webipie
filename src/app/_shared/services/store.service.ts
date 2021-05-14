@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+import { Format } from '../utils/format';
 
 declare var $: any;
 
@@ -93,7 +94,7 @@ export class StoreService extends GenericService<any>{
         subj: store,
         type: 'store',
       };
-      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://store.${websiteDomainName}:${port}/`);
+      $('#iframe')[0].contentWindow.postMessage(subjectToChange, `${httpProtocol}://${store.url}${Format.fmtPort(port)}/`);
 
       // update own session storage
       encryptStorage.setItem('store', store);

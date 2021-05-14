@@ -3,6 +3,7 @@ import {Store} from '../../_shared/models/store.model';
 import {StoreService} from '../../_shared/services/store.service';
 import {encryptStorage} from '../../_shared/utils/encrypt-storage';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+import { Format } from 'src/app/_shared/utils/format';
 
 @Component({
   selector: 'app-footer-second-template',
@@ -19,7 +20,7 @@ export class FooterSecondTemplateComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('message', event => {
-      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}${Format.fmtPort(port)}`)) {
         switch (event.data.type) {
           case 'color':
             this.storeService.changeColorTheme(this.el, event.data.subj);

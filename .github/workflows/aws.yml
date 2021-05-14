@@ -4,6 +4,7 @@ on:
       - devops
       - master
       - dev
+      - fix-iframe
 
 name: Project Deployment
 
@@ -50,6 +51,7 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
+      if: startsWith(github.event.head_commit.message, 'SKIP_BACKEND') != true
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: webipieecr_dev
@@ -79,6 +81,7 @@ jobs:
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
+      if: startsWith(github.event.head_commit.message, 'SKIP_BACKEND') != true
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: backend/task-definition.json
@@ -87,6 +90,7 @@ jobs:
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      if: startsWith(github.event.head_commit.message, 'SKIP_BACKEND') != true
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: webipie
@@ -94,6 +98,7 @@ jobs:
         wait-for-service-stability: true
 
     - name: Build and deploy front-end
+      if: startsWith(github.event.head_commit.message, 'SKIP_FRONTEND') != true
       env:
         CLOUDFRONT_DISTRIBUTION_ID: ${{ steps.set-config.outputs.cloudfront_distribution_id }}
       run: |

@@ -3,6 +3,7 @@ import {encryptStorage} from '../_shared/utils/encrypt-storage';
 import {Store} from '../_shared/models/store.model';
 import {Title} from '@angular/platform-browser';
 import {websiteDomainName, port, httpProtocol} from 'src/app/configuration';
+import { Format } from '../_shared/utils/format';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class SecondTemplateComponent implements OnInit {
     }
     window.addEventListener('message', event => {
       // IMPORTANT: check the origin of the data!
-      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}:${port}`)) {
+      if (event.origin.startsWith(`${httpProtocol}://${websiteDomainName}${Format.fmtPort(port)}`)) {
         switch (event.data.type) {
           case 'store':
             console.log('i got here');
